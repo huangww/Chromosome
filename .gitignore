@@ -1,0 +1,7 @@
+*.o
+*.mod
+*.out*
+*.swp
+*~
+*.pyc
+build
