@@ -1,4 +1,4 @@
-LIBS = -llapack -lm
+LIBS = -llapack -lm -lblas
 CC = gcc
 CFLAGS = -Wall -std=c99 -O3
 SRCDIR = code
@@ -6,6 +6,7 @@ BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out
 
 VPATH = code
+# VPATH = used/plainC
 
 .PHONY : default all run clean movie plot debug
 
@@ -22,7 +23,7 @@ $(BUILDDIR)/%.o: %.c $(HEADERS)
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+	$(CC) $(OBJECTS) $(CFLAGS) $(LIBS) -o $@
 
 run:
 	./$(TARGET)

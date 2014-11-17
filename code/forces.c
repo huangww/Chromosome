@@ -1,37 +1,10 @@
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 #include "solver.h"
 #include "random.h"
+#include "utilities.h"
 
-void CalculateVectorU(double r[beadNumber][dimension], 
-		int link[rodNumber][2], 
-		double u[rodNumber][dimension])
-{
-	/*Calculate rod unit vector u*/
-	for (int i = 0; i < rodNumber; i++) {
-		double uLength = 0;
-		for (int j = 0; j < dimension; j++) {
-			u[i][j] = r[link[i][1]][j] - r[link[i][0]][j]; 
-			uLength = uLength + u[i][j]*u[i][j];
-		}
-		uLength = sqrt(uLength);
-		for (int j = 0; j < dimension; j++) {
-			u[i][j] = u[i][j]/uLength;
-		}
-	}
-}
-
-void CalculateVectorB(double rs[beadNumber][dimension], 
-		int link[rodNumber][2], 
-		double b[rodNumber][dimension])
-{
-	/*Calculate rod unit vector B*/
-	for (int i = 0; i < rodNumber; i++) {
-		for (int j = 0; j < dimension; j++) {
-			b[i][j] = rs[link[i][1]][j] - rs[link[i][0]][j]; 
-		}
-	}
-}
 
 void CalculateFc(double r[beadNumber][dimension],
 		double rs[beadNumber][dimension],
@@ -114,12 +87,6 @@ void LennardJones(double r[beadNumber][dimension],
 	
 }
 
-extern double ddot_(int* n, double* dx, int* incx, 
-		double* dy, int* incy);
-
-extern int daxpy_(int* n, double* da,
-		double* dx, int* incx,
-		double* dy, int* incy);
 
 extern int dgetrf_(int* m, int* n, double* A, 
 		int* lda, int* ipiv, int* info);
@@ -127,14 +94,21 @@ extern int dgetrf_(int* m, int* n, double* A,
 extern int dgetri_(int* m, double* a, int* lda,
 		int* ipiv, double* work, int* lwork, int* info);
 
-void PseudoForce(double u[beadNumber][dimension],
+
+void PseudoForce(double r[beadNumber][dimension],
 		int link[rodNumber][2],
 		int g[rodNumber][rodNumber],
 		double f[beadNumber][dimension])
 {
 	memset(f, 0, sizeof(f[0][0])*beadNumber*dimension);
-	double metric[rodNumber*rodNumber];
-	CalculateAij(u, u, g, metric);
+	double u[rodNumber][dimension];
+	CalculateVectorU(r, link, u);
+	double metric[rodNumber*rodNumber] = {0};
+	CalculateAij(u, u, g, metric); 
+	for (int i = 0; i < rodNumber*rodNumber; ++i)
+	{
+		metric[i] = -metric[i];
+	}
 
 	/* calculate the inverse of the metric matrix */
 	int n = rodNumber;
@@ -160,9 +134,16 @@ void PseudoForce(double u[beadNumber][dimension],
 					if ((k-i0)*(k-i1)*(k-j0)*(k-j1)==0)
 					{
 						double uij;
-						int nd = dimension;
-						int inc = 1;
-						uij = ddot_(&nd, *(u+i), &inc, *(u+j), &inc); 
+						uij = ddot(&u[i][0], &u[j][0]); 
+						double pgr[dimension];
+						for (int m = 0; m < dimension; ++m)
+						{
+							pgr[m] = (delta(k,i1) - delta(k,i0)) *
+								u[j][m] - uij * u[i][m] +
+								(delta(k,j1) - delta(k, j0)) *
+								u[i][m] - uij * u[j][m];			
+							f[k][m] = f[k][m] + g[i][j] * metric[i*rodNumber+j] * pgr[m];
+						}
 					}
 
 
@@ -170,7 +151,6 @@ void PseudoForce(double u[beadNumber][dimension],
 			}
 		}
 	}
-
 
 
 }

@@ -1,0 +1,45 @@
+# VARIABLES
+variable fname index lammpsIn_N50.dat
+variable simname index myTest
+
+# Initialization
+units lj
+boundary f f f
+atom_style bond
+special_bonds  fene 
+atom_modify sort 0 1.0
+log log.${simname}.txt
+read_data ${fname}
+
+# interaction information
+neighbor 10.0 bin
+neigh_modify once yes
+# neigh_modify every 10 one 10000
+# bond_style      harmonic
+# bond_coeff 1 350 1.53
+bond_style      fene
+bond_coeff 1 100.0 1.1 720.0 0.9
+
+# pair_style none
+# pair_style lj/cut 10.5
+# pair_coeff 1 1 0.112 4.01 10.5
+pair_style	lj/cut 0.84185
+pair_modify	shift yes
+pair_coeff	1 1 6.0 0.75
+
+group spb id 1
+
+fix	1 all langevin 1.0 1.0 1.0 904297
+fix 	2 spb spring tether 1000.0 0.0 0.0 0.0 0.0
+# fix 	3 all addforce 0.0 0.0 0.0
+fix	4 all nve
+
+# output settings
+dump 1 all xyz 100000 dump*.dat
+thermo          1000000
+
+# run the simulation
+timestep	0.001
+run		200000000
+
+print "All done"
