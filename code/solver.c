@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "utilities.h"
 
 void CalculateAij(double b[rodNumber][dimension], 
 		double u[rodNumber][dimension],
@@ -13,13 +14,8 @@ void CalculateAij(double b[rodNumber][dimension],
 	{
 		for (int j = 0; j < rodNumber; j++) 
 		{
-			double dotBiUj = 0.0;
-			for (int k = 0; k < dimension; k++)
-		       	{
-				dotBiUj = dotBiUj + b[i][k]*u[j][k];
-			}
-			/*note the order of A indices, C or F*/
-			A[j*rodNumber+i] = g[i][j]*dotBiUj;
+			/* note the order of A indices, C or F, A[j*rodnumber+i] = A[i][j] */
+			A[j*rodNumber+i] = g[i][j]*ddot(&b[i][0],&u[j][0]);
 		}
 	}
 }
@@ -35,9 +31,12 @@ void CalculateB(double b[rodNumber][dimension],
 		double temp[dimension] = {0};
 		for (int j = 0; j < rodNumber; j++)
 	       	{
-			for (int k = 0; k < dimension; k++)
-		       	{
-				temp[k] = temp[k] + g[i][j]*x[j]*u[j][k];
+			if (g[i][j] != 0)
+			{
+				for (int k = 0; k < dimension; k++)
+				{
+					temp[k] = temp[k] + g[i][j]*x[j]*u[j][k];
+				}
 			}
 		}
 		double dotBiBi = 0.0;

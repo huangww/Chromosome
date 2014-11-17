@@ -4,6 +4,16 @@
 #include <sys/stat.h>
 #include "main.h"
 
+
+void ConfigSingleChain(double r[beadNumber][dimension])
+{
+	memset(r, 0, sizeof(r[0][0])*beadNumber*dimension);
+	for (int i = 0; i < beadNumber; ++i)
+	{
+		r[i][0] = i;
+	}
+}
+
 void ConfigSingleRing(double r[beadNumber][dimension])
 {
 	memset(r, 0, sizeof(r[0][0])*beadNumber*dimension);
@@ -68,6 +78,7 @@ void InitializeConfiguration(double r[beadNumber][dimension])
 		fclose(inputfile);
 	}
 	else {
+		/* ConfigSingleChain(r); */
 		ConfigSingleRing(r);
 		/* ConfigRingPair(r); */
 	}
