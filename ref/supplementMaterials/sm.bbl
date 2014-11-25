@@ -7,6 +7,12 @@ C.~Cruz, F.~Chinesta, and G.~R\'{e}gnier.
 \newblock {\em Archives of Computational Methods in Engineering},
   19(2):227--259, May 2012.
 
+\bibitem{Ding2004}
+DQ~Ding, Ayumu Yamamoto, Tokuko Haraguchi, and Yasushi Hiraoka.
+\newblock {Dynamics of homologous chromosome pairing during meiotic prophase in
+  fission yeast}.
+\newblock {\em Developmental cell}, 6:329--341, 2004.
+
 \bibitem{Hinch1994}
 EJ~Hinch.
 \newblock {Brownian motion with stiff bonds and rigid constraints}.
@@ -23,6 +29,11 @@ Matteo Pasquali, David~C Morse, and Brownian Dynamics.
 \newblock {An efficient algorithm for metric correction forces in simulations
   of linear polymers with constrained bond lengths}.
 \newblock 116(5), 2002.
+
+\bibitem{Rosa2008}
+Angelo Rosa and Ralf Everaers.
+\newblock {Structure and dynamics of interphase chromosomes.}
+\newblock {\em PLoS computational biology}, 4(8):e1000153, January 2008.
 
 \bibitem{Somasi2002}
 Madan Somasi, Bamin Khomami, Nathanael~J. Woo, Joe~S. Hur, and Eric~S.G.

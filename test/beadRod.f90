@@ -15,8 +15,8 @@
 MODULE Vars
 implicit none
 integer, parameter :: ps=kind(1.0d0)
-integer, parameter :: chain_num=1,bead_num=100,rod_num=100
-integer, parameter :: dimen=3,max_step=1E6
+integer, parameter :: chain_num=1,bead_num=10,rod_num=10
+integer, parameter :: dimen=3,max_step=1E5
 real(kind=ps), parameter :: dt=1.0d-4,PI=3.14159265359d0
 integer :: link(2,rod_num),g(rod_num,rod_num)
 real(kind=ps) :: r(dimen,bead_num),rs(dimen,bead_num)
@@ -157,6 +157,7 @@ open(99,file='network.dat')
 !end do
 !link(1,rod_num) = bead_num
 !link(2,rod_num) = 1
+
 do i = 1, bead_num-1
   link(1,i) = i
   link(2,i) = i+1
@@ -278,18 +279,17 @@ real(kind=ps),intent(inout) :: f_lj(dimen,bead_num)
 real(kind=ps) :: eps,a,b,r_ij(dimen),r6
 
 a = 0.75d0
-eps = 6.0d0
+eps = 1.0d0
 b = a**6
+f_lj=0.0d0
 do j=1,bead_num
-  f_lj(:,j)=0.0d0
-  do i=1,bead_num
-    if(i/=j) then
+  do i=j+1,bead_num
     r_ij=r(:,i)-r(:,j)
     r6=dot_product(r_ij,r_ij)**3
     if(r6<=2*b) then
-      f_lj(:,j)=f_lj(:,j)+r_ij*4*eps*(12*b*b/r6*r6-6*b/r6)/dot_product(r_ij,r_ij)
+      f_lj(:,i)=f_lj(:,i)+48.0d0*eps*((b/r6)*(b/r6)-0.5*(b/r6))*r_ij/dot_product(r_ij,r_ij)
+      f_lj(:,j)=f_lj(:,j)-48.0d0*eps*((b/r6)*(b/r6)-0.5*(b/r6))*r_ij/dot_product(r_ij,r_ij)
     end if
-  end if
   end do
 end do
 
@@ -418,7 +418,7 @@ call cpu_time(start_time)
     !read(8,*)random_num(i)
   !end do
   !r=reshape(random_num,(/dimen,bead_num/))
-!else
+! else
  ! r(1,2)=r(1,1)+cos(PI/6)
   !r(2,2)=r(2,1)+sin(PI/6)
   !r(1,rod_num/2)=r(1,1)+cos(-PI/6)
@@ -459,9 +459,9 @@ rs = r
 fa = 0.0d0
 fb = 0.0d0
 fc = 0.0d0
-!r0 = 0.0d0
+r0 = 0.0d0
 t0 = 0.0d3
-!v0 = 5.0d0
+v0 = 1.0d0
 idum=3
 !idum = task_id
 !if(v0==0.0d0) then
@@ -500,10 +500,10 @@ do i=1,bead_num
 	end do
 end do
 !write(*,*)'Output initial condition done!'
+open(11,file='temp.dat')
 !---------------------------------------------------
 ! Step II: Evolution of the dynamical system
 t=0.0d0
-
 do step=1,max_step
 ! Calculate rod unit vector u 
 	do k=1,rod_num
@@ -517,26 +517,28 @@ do step=1,max_step
 ! Generate random force
 	!call RanMvnorm(idum, dimen*bead_num, temp, random_num, .false.)
 	do i = 1,dimen*bead_num
-		random_num = RanNorm(idum)
+		random_num(i) = RanNorm(idum)
 	end do
 	fb=sqrt(2.0d0/dt)*reshape(random_num,(/dimen,bead_num/))
-	!fa = fa + fb
+	fa = fa + fb
 
 ! Calculate Lennard-Jones collision force
-	!call LennardJones(fb)
-	!fa = fa + fb
+	call LennardJones(fb)
+	fa = fa + fb
 
 ! Calculate pseudo force
-	!call PseudoForce(fb)
-	!fa = fa + fb
+	call PseudoForce(fb)
+  do i = 1, bead_num
+    write(11,*)fb(1,i),fb(2,i),fb(3,i)
+  end do
+	fa = fa + fb
 	
 ! Add external force 
-	!fa(:,1) = fa(:,1)-2.0d3*(r(:,1)-r0)
-	!fa(1,2:bead_num) = fa(1,2:bead_num)+1.0d0*v0
+	fa(:,1) = fa(:,1)-2.0d3*(r(:,1)-r0)
+	fa(1,2:bead_num) = fa(1,2:bead_num)+1.0d0*v0
 
 ! Predictive step
-	!rs = r+fa*dt
-
+	rs = r+fa*dt
 
 ! Calculate constraint force
 	call CalFc

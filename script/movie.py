@@ -12,6 +12,7 @@ def GetScreenShot(FrameNumber):
 #load the newest data
 dataDir = 'data/'
 fileName = max(glob.iglob(dataDir + '*.dat'), key=os.path.getctime)
+print fileName
 data = np.loadtxt(fileName)
 #get parameters from the fileName
 parameters = fileName.split('_')

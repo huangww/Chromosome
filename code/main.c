@@ -23,7 +23,7 @@ int main(void)
 	/* 2. Initialize parameters */
 	double rs[beadNumber][dimension];
 	memcpy(rs, r, sizeof(r));
-	long seed = 3;
+	unsigned long seed = 3;
 
 	/* 3. Initializing the connecting topology */
 	int link[rodNumber][2];
@@ -41,28 +41,32 @@ int main(void)
 	OutputTopol(link, outputDir);
 	Output4lammps(link, r, outputDir);
 
+	/* FILE * temp; */
 	/* temp = fopen("temp.txt","w+"); */
-	/* FILE * randomForce; */
-	/* randomForce = fopen("randomForce.txt","w+"); */
-
 	/* Step II: Evolution of the dynamical system */
-	for (int step = 0; step < maxStep; step++) {
-		double fb[beadNumber][dimension] = {{0}};
+	for (int step = 0; step < maxStep; step++) 
+	{
 		/* Generate random force */
-		GenerateFb(fb, &seed);
+		double fb[beadNumber][dimension] = {{0}};
+		GenerateFb(fb, seed);
 	
-		/* calculate pseudoforce */
+		/* calculate pseudo-force */
 		double fa[beadNumber][dimension] = {{0}};
 		PseudoForce(r, link, g, fa);
+
+		/* calculate Lennard-Jones  */
+		double flj[beadNumber][dimension] = {{0}};
+		LennardJones(r, flj);
 
 		/* Add external force */
 		/* 1) pinned SPB */
 		for (int i = 0; i < dimension; ++i)
 		{
-			fa[0][i] = fa[0][i] - 1.0e3*r[0][i];
+			fa[0][i] = fa[0][i] - 2.0e3*r[0][i];
 		}
-		/* 2) external force feild */
-		double v0 = 1.0;
+
+		/* 2) external force field */
+		double v0 = 0.0;
 		for (int i = 1; i < beadNumber; ++i)
 		{
 			fa[i][0] = fa[i][0] + 1.0 * v0;
@@ -72,7 +76,8 @@ int main(void)
 		for (int i = 0; i < beadNumber; i++) 
 		{
 			for (int j = 0; j < dimension; j++) {
-				rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j])*dt;
+				rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j]+flj[i][j])*dt;
+				/* rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j])*dt; */
 			}
 		}
 
@@ -90,7 +95,7 @@ int main(void)
 		}
 		
 		/* Output samples */
-		if (step % (int)(1e4) == 0 /* && step > maxStep/2 */) 
+		if (step % (int)(1e3) == 0 /* && step > maxStep/2 */) 
 		{
 			for (int i = 0; i < beadNumber; i++) 
 			{
@@ -104,10 +109,8 @@ int main(void)
 		
 	}
 		
-
 	fclose(outputFile);
 	/* fclose(temp); */
-	/* fclose(randomForce); */
 	clock_t endTime = clock();
 	double elapsedTime = (double)(endTime - startTime)/CLOCKS_PER_SEC;
 	printf("Timming: %f seconds\n", elapsedTime);

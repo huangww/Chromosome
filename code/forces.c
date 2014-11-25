@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "solver.h"
 #include "random.h"
@@ -40,11 +41,11 @@ void CalculateFc(double r[beadNumber][dimension],
 }
 
 void GenerateFb(double fb[beadNumber][dimension],
-		long* seed)
+		unsigned long seed)
 {
 	for (int i = 0; i < beadNumber; i++) {
 		for (int j = 0; j < dimension; j++) {
-			fb[i][j] = sqrt(2.0/dt) * gasdev(seed);
+			fb[i][j] = sqrt(2.0/dt) * GaussRan(seed);
 		}
 	}
 	
@@ -55,31 +56,30 @@ void LennardJones(double r[beadNumber][dimension],
 {
 	memset(f, 0, sizeof(f[0][0])*beadNumber*dimension);
 	double r0 = 0.75;
-	double eps = 6.0;
+	double eps = 1.0;
 	for (int i = 0; i < beadNumber; ++i)
 	{
-		for (int j = 0; j < beadNumber; ++j)
+		for (int j = i+1; j < beadNumber; ++j)
 		{
-			if (i != j)
+			double rsd = 0;
+			for (int k = 0; k < dimension; ++k)
 			{
-				double rd = 0;
+				rsd = rsd + (r[i][k] - r[j][k]) * (r[i][k] - r[j][k]);
+			}
+			if (pow(rsd, 3) <= 2*pow(r0,6))
+			{
+				double r6;
+				r6 = pow(r0*r0/rsd, 3);
 				for (int k = 0; k < dimension; ++k)
 				{
-					rd = rd + (r[i][k] - r[j][k]) * (r[i][k] - r[j][k]);
+					f[i][k] = f[i][k] + 48 * eps *
+						(r6 - 0.5) * r6 *
+						(r[i][k]-r[j][k])/rsd;
+					f[j][k] = f[j][k] - 48 * eps *
+						(r6 - 0.5) * r6 *
+						(r[i][k]-r[j][k])/rsd;
 				}
-				if (pow(rd, 3) <= 2*pow(r0,6))
-				{
-
-					for (int k = 0; k < dimension; ++k)
-					{
-						double r6;
-						r6 = pow(r0*r0/rd, 3);
-						f[j][k] = f[j][k] + 4 * eps *
-							(12*r6*r6 - 6*r6) *
-							(r[i][k]-r[j][k])/rd;
-					}
-					
-				}
+				
 			}
 		}
 	
@@ -139,10 +139,10 @@ void PseudoForce(double r[beadNumber][dimension],
 						for (int m = 0; m < dimension; ++m)
 						{
 							pgr[m] = (delta(k,i1) - delta(k,i0)) *
-								u[j][m] - uij * u[i][m] +
+								(u[j][m] - uij * u[i][m]) +
 								(delta(k,j1) - delta(k, j0)) *
-								u[i][m] - uij * u[j][m];			
-							f[k][m] = f[k][m] + g[i][j] * metric[i*rodNumber+j] * pgr[m];
+								(u[i][m] - uij * u[j][m]);			
+							f[k][m] = f[k][m] + g[j][i] * metric[i*rodNumber+j] * pgr[m];
 						}
 					}
 
@@ -151,6 +151,5 @@ void PseudoForce(double r[beadNumber][dimension],
 			}
 		}
 	}
-
 
 }

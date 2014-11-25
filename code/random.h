@@ -2,8 +2,9 @@
 
 #define RANDOM_H
 
-float ran2(long *idum);
-float gasdev(long *idum);
+
+double Ran(unsigned long seed);
+double GaussRan(unsigned long seed);
 
 #endif /* end of include guard: RANDOM_H */
 

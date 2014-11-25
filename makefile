@@ -1,6 +1,6 @@
 LIBS = -llapack -lm -lblas
-CC = gcc
-CFLAGS = -Wall -std=c99 -O3
+CC = gcc-4.9
+CFLAGS = -Wall -std=c99 -g
 SRCDIR = code
 BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out
