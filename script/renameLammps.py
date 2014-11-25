@@ -1,7 +1,7 @@
 import os as os
 
 
-dataDir = './data/lammps/N50T0LJ/'
+dataDir = './data/lammps/N50T1LJ/'
 
 for files in os.listdir(dataDir):
     if files[:4] == 'dump':

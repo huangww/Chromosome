@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage{color}
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{amsxtra}     % Use various AMS packages
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}    % Add some packages for figures. Read epslatex.pdf on ctan.tug.org
+\usepackage{rotating}
+%%%%%%%%%%%% Yen Ting's Latex module %%%%%%%%%%%%%%%
+\newcommand{\pr}[1]{\mathbb{P}\left\{#1\right\}}
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\gibbs}[1]{e^{-\frac{#1}{k_B T}}}
+\newcommand{\ngibbs}[1]{e^{\frac{#1}{k_B T}}}
+\newcommand{\var}[1]{\text{var} \left[ #1 \right]}
+\renewcommand{\l}{\left}
+\renewcommand{\r}{\right}
+\newcommand{\subeq}[2]{\begin{subequations}\label{#2}\begin{align}#1\end{align}\end{subequations}}
+\newcommand{\eq}[2]{\begin{equation}#1\label{#2}\end{equation}}
+
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+\newcommand{\green}[1]{{\color{green}{#1}}}
+\newcommand{\black}[1]{{\color{black}{#1}}}
+\newcommand{\smal} [1]{{\small #1}}
+%%%%%%%%%%%%%%%%  END %%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section{Supplement Materials}
+
+
+\subsection{Simulation}
+\label{sub:simulation}
+To control the number of free parameters, we choose the ideal bead-rod polymer model to describe the dynamics of chromosomes in nucleus, without considering the exclusive volume effect. 
+As we will see later that the system can be reduced to a one free parameter model, i.e. $T_{eff}$. \blue{[Wenwen, at this stage you should try to make everything as consistent as possible. In the text Vasily defined the effective temperature as $\tilde{T}$, and so we should follow. Pay very special care and check if his $\tilde{T}$ is really $T_{eff}$: while I was re-checking I found his $\tilde{T}$ is not defined uniformly (in 1D and 3D cases there should be a factor of 2). We shall, at this point, assume $\tilde{T} := k_B T / (2 \gamma v_0 a)$.]}
+
+The simulation of model bead connected with rigid rod utilize the technique of Brownian Dynamics\cite{Cruz2012}.
+The dynamical equation of beads representing chromosome loci \blue{[W,V: are they really modeling loci, or are they simply defined as uncorrelated particles in Kuhn's sense?]} is
+\begin{equation}
+	\label{eq:differential}
+	\dot{\mathbf{r}_i} = \frac{1}{\xi}(\mathbf{F}_i^b + \mathbf{F}_i^c + \mathbf{F}_i^e + \mathbf{F}_i^{pseudo}) 
+\end{equation}
+where $\mathbf{r}_i$ is the position vector of the $i$th bead, $\xi$ is friction coefficient, $\mathbf{F}_i^b$ is random force, $\mathbf{F}_i^c$ is constraint force caused by rigid rod constraints, $\mathbf{F}_i^e$ is external force and $\mathbf{F}_i^{pseudo}$ \blue{I would use $\mathbf{F}_i^{ps}$ for brevity, but it's up to you...} is pseudo force added to mimic the statistics of bead-spring. 
+Notice that the statistics of bead-rod is not exactly same as bead-spring. Subtle differences are caused by the intrinsic ``rigid'' \blue{should be ``rigidity''?} of \blue{the} rods\cite{Hinch1994,Cruz2012}.
+
+The random force, which characterize\blue{s} the fluctuation origin of beads dynamics, is a typical\blue{$\rightarrow$standard} Brownian force \blue{which} satisfies the following conditions
+\begin{equation}
+	<\mathbf{F}_i^b> = \mathbf{0}; <\mathbf{F}_i^b(t)\mathbf{F}_j^b(t^{\prime})> = 2k_B T_{c} \xi \delta_{ij} \delta(t-t^{\prime})
+\end{equation}
+\blue{W: here, (1) put subequations. We are not restricted by the length so don't be shy to use them. It will be much more clear. (2) Also pay attention to puntuation marks in the equations. I noticed that you don't put them after the equations, which in principle is not advisable in practice. We will certainly add comma or period after the equations! (3) The angular bracket is not $<$ and $>$. Use \textbackslash langle and \textbackslash langle, and you will always need to put \textbackslash left and \textbackslash right for the paired brackets. 
+\subeq{
+	\l\langle \mathbf{F}_i^b \r\rangle  ={}& \mathbf{0},\\
+        \l\langle \mathbf{F}_i^b(t) \cdot \mathbf{F}_j^b(t^{\prime}) \r\rangle ={}& 2k_B T_{c} \xi \delta_{ij} \delta(t-t^{\prime}).
+}{}
+}
+$k_B$ is Boltzmann constant and $T_{c}$ is \blue{the} \emph{characterizing temperature} \blue{which} characterize the level of randomness arise from the thermal motion of solvent molecules and \blue{some sorts of$\rightarrow$other, always be specific. ``Some sorts of'' is very colloquial and in general not advised to use in official writing in my understanding.} interactions between \blue{the} chromosome and proteins \blue{what proteins? There are proteins everywhere... Please specify, for example, proteins in the neuclus}.
+
+The constraint force for a specific bead in a bead-rod ring writes\blue{$\rightarrow$is}
+\begin{equation}
+	\mathbf{F}_i^c = \lambda_i \mathbf{u}_i - \lambda_{i-1} \mathbf{u}_{i-1}
+\end{equation}
+where $\lambda_i$ is strength of tension on the rod between $i$th and $(i+1)$th bead, $\mathbf{u}_i$ is the unit vector along this rod and \blue{$i=N$ ends to $i=0$$\rightarrow$ W: I will put: $u_{N}$ connects $N^{\text{th}}$ bead and the $1^{\text{th}}$ bead. Draw a diagram and you know what I mean...}
+
+In case of constant force field, the external force is constant $\mathbf{F}_i^e = -\xi \mathbf{v}$ acting on every bead except \blue{for} the pinned one representing \blue{the} SPB. 
+
+The pseudo force is calculated using
+\begin{equation}
+	\mathbf{F}_i^{pseudo} = -\frac{\partial U_{met}}{\partial\mathbf{r}_i}; U_{met} = \frac{1}{2}k_B T_c \ln(\det G)
+\end{equation}
+where $G$ is the metric matrix of the bead-rod system\cite{Pasquali2002}.
+
+Since the rods present in our model are rigid rods, additional constrained equations are needed to keep the rod length unchangeable
+\begin{equation}
+	\label{eq:constraint}
+	(\mathbf{r}_{i+1} - \mathbf{r}_{i})^2 - a^2 = 0
+\end{equation}
+where $a$ is rod length. \red{Okay, Wenwen, here's the big question: did you use this formula? You are simulating the bead-rod and not the bead-spring, correct? All your algorithm is \emph{correct and exact} (except for numerical errors) for the B-R system. The paper you cited, if I understand correctly, is that you can add this pseudo-potential back to the simulation and get the statistics of the B-S system from simulating the B-R model. Or am I misunderstanding the entire thing?}
+
+\blue{Parameters above can be eliminated and dimensionless term of the dynamical equations can be obtained by the scaling $\mathbf{r}^{\prime}\to \mathbf{r}/a$; $t^{\prime}\to t/(\xi a^2/k_BT_c)$; $\mathbf{F}^{\prime}\to\mathbf{F}/(k_BT_c/a)$.
+Our only free parameter \emph{effective temperature} which is also dimensionless is defined as$\rightarrow$ Dimensionless variables can be obtained by rescaling the parameters $\mathbf{r}^{\prime}\to \mathbf{r}/a$, $t^{\prime}\to t/(\xi a^2/k_BT_c)$, and $\mathbf{F}^{\prime}\to\mathbf{F}/(k_BT_c/a)$. The only free parameter left in the model is the dimensionless temeperature $T_{eff}$, prescribed by}. 
+\begin{equation}
+	\label{eq:Teff}
+	T_{eff} = \frac{k_BT_c}{Fa} = \frac{k_B T_c}{\xi v a}
+\end{equation}
+Numerical scheme employed to solved the set of constrained differential equations (\ref{eq:differential}) and (\ref{eq:constraint}) is \blue{the} predictor-corrector algorithm\blue{, which is} used widely in bead-rod simulation\blue{s}\cite{Cruz2012,Somasi2002,Liu1989}.
+Basic steps include calculating a prediction of $\mathbf{r}_i(t+\delta t)$ without considering the constraint force followed by a correction step, i.e.\ solving the algebra constraint equations to get constraint forces and re-plugin to the original equations for the corrected $\mathbf{r}_i(t+\delta t)$.
+The differential equations are solved using Euler iterative method with a time step $dt = 10^{-4}$.  Statistical results are all obtained based on the ensemble of $10^{10}$ steps after equilibrium.  
+
+\subsection{Parameter estimation}
+\label{sub:estimation}
+\blue{W: please ask V to go over this section. Calculations seem to be fine and I will double check before the final submission, but I think V might want to modify the ``logic'' of the parameter estimation.}
+Experimentalists defined the pair of loci of homologous are "associated" for distance between them less than 0.35 $\mu m$\cite{Ding2004}. 
+So we assume the threshold of the chromosome been aligned is 0.35 $\mu m$.
+
+Then from what we have in our model, the distance between loci of different effective temperature follows Fig. 3b in the main text.
+Apparently the distance varies with position along the chromosome. 
+But let us consider the midpoint of the loop which has the largest divergence, hence the largest drag force is needed.
+It turns out the corresponding effective temperature for the midpoint of a polymer loop with $N=500$ is $T_{eff}\approx 1$ (The exact value is around $1.16$). 
+Actually $N$ does not matter too much given such a low temperature region. 
+
+Substitute it into the definition of effective temperature Eq.~\ref{eq:Teff}, use the room temperature as characterizing temperature $T_c = 300K$ and Kuhn length $a = 100nm$, we obtain an estimation of the strength of force field we need.
+\begin{equation}
+	F = 3.57\times10^{-14} N
+\end{equation}
+
+We can further estimate the needed moving speed based on the simplest Stroke's law and sphere model. 
+Assume the force field is generated from the friction of the bead sphere. 
+The Stroke's law gives $F= 6\pi \mu R v$, where $\mu$ is the viscosity of the nucleoplasm, which is $1000$ folds of that of water.
+
+$R$ is the radius of the bead sphere, which is hard to estimate given the complexity of real chromosome and the extremely simplified bead sphere model.
+Nevertheless, people who use this sort of bead chain model estimated the diameter of the abstracted bead is around $30nm$\cite{Rosa2008}.
+
+Use the above estimations of $R$, which would be a little bit underestimate, we obtain the moving velocity needed for the homologous to align is $v = 1.41\times10^{-7} m/s$ which is close to the experimental observation $v_{exp} = 4.17\times10^{-8}m/s$.
+Another reasonable estimation $R=50nm$, which is half of the Kuhn length, gives $v = 4.24\times10^{-8}$, which is very close to the experimental observation.
+
+
+% \bibliography{sm}
+\bibliographystyle{plain}
+
+\begin{thebibliography}{1}
+
+\bibitem{Cruz2012}
+C.~Cruz, F.~Chinesta, and G.~R\'{e}gnier.
+\newblock {Review on the Brownian Dynamics Simulation of Bead-Rod-Spring Models
+  Encountered in Computational Rheology}.
+\newblock {\em Archives of Computational Methods in Engineering},
+  19(2):227--259, May 2012.
+
+\bibitem{Ding2004}
+DQ~Ding, Ayumu Yamamoto, Tokuko Haraguchi, and Yasushi Hiraoka.
+\newblock {Dynamics of homologous chromosome pairing during meiotic prophase in
+  fission yeast}.
+\newblock {\em Developmental cell}, 6:329--341, 2004.
+
+\bibitem{Hinch1994}
+EJ~Hinch.
+\newblock {Brownian motion with stiff bonds and rigid constraints}.
+\newblock {\em Journal of Fluid Mechanics}, pages 219--234, 1994.
+
+\bibitem{Liu1989}
+Tony~W. Liu.
+\newblock {Flexible polymer chain dynamics and rheological properties in steady
+  flows}.
+\newblock {\em The Journal of Chemical Physics}, 90(10):5826, 1989.
+
+\bibitem{Pasquali2002}
+Matteo Pasquali, David~C Morse, and Brownian Dynamics.
+\newblock {An efficient algorithm for metric correction forces in simulations
+  of linear polymers with constrained bond lengths}.
+\newblock 116(5), 2002.
+
+\bibitem{Rosa2008}
+Angelo Rosa and Ralf Everaers.
+\newblock {Structure and dynamics of interphase chromosomes.}
+\newblock {\em PLoS computational biology}, 4(8):e1000153, January 2008.
+
+\bibitem{Somasi2002}
+Madan Somasi, Bamin Khomami, Nathanael~J. Woo, Joe~S. Hur, and Eric~S.G.
+  Shaqfeh.
+\newblock {Brownian dynamics simulations of bead-rod and bead-spring chains:
+  numerical algorithms and coarse-graining issues}.
+\newblock {\em Journal of Non-Newtonian Fluid Mechanics}, 108(1-3):227--255,
+  December 2002.
+
+\end{thebibliography}
+\end{document}

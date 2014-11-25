@@ -24,8 +24,8 @@
 // #define centromere  2
 
 #define dimension  3
-#define dt  1e-5
+#define dt  1e-4
 #define pi  3.14159365359
-#define maxStep  1e6
+#define maxStep  1e5
 
 #endif /* end of include guard: MAIN_H */

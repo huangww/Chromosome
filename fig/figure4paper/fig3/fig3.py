@@ -63,9 +63,12 @@ for T in [1,5,10,50]:
 # sp1.set_xlabel('Bead index')
 # sp1.set_ylabel('Average $z$')
 
+N = 500
+index = np.linspace(0,N,N)
 T = np.linspace(0.1,1000,10000)
 var_xy = np.zeros(len(T))
-for l in [5,10,20,25]:
+# for l in [50,100,200,250]:
+for l in [250]:
     i = 0
     for t in T:
         var_xy[i] = xy_var(l,N,t)
