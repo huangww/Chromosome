@@ -1,0 +1,5 @@
+#define INNER_LOOP 1000000
+#define MAX_NPIVOT 1000
+#define NO_SAW 0
+#define ALGORITHM_NUMBER 7
+#define PRINT_FREQ 100000

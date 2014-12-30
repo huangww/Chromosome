@@ -15,7 +15,7 @@ ax2 = plt.subplot(222)
 ax3 = plt.subplot(223)
 ax4 = plt.subplot(224)
 
-for Temp in ['1', '10']:
+for Temp in ['0','1', '10']:
     # load data
     dataDir = 'data/lammps/N50T' + Temp + 'LJ/'
     beadPos = np.zeros((frameNumber, beadNumber, dimension))
