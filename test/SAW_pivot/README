@@ -1,0 +1,97 @@
+SAW_pivot   version 1.0
+-----------------------
+
+This program does a Monte Carlo simulation of the self-avoiding walk using 
+the pivot algorithm.
+
+The version of the pivot algorithm that is implemented by this code
+is explained in 
+  "A faster implementation of the pivot algorithm for self-avoiding walks",
+  Tom Kennedy, J. Statist. Phys. 106, 407-429 (2002). 
+This paper is archived in www.arXiv.org as cond-mat/0109308
+
+How to use this code:
+
+1. Execute the shell script "run_simul". This will compile and run the program 
+with some default parameter values for things like the type of lattice,
+length of the walk, etc. This will serve as a test.
+
+2. You can edit the script "run_simul" to change the parameters values. 
+However, all simul.c computes is the end to end distance of the walk.
+
+3. There are two source files: src/public/simul.c and src/public/lib1.c
+The latter contains the library routines that actually implement the 
+pivot algorithm. The former uses these routines to run the pivot algorithm,
+but it only computes the end to end distance for each walk generated.
+To use this code to do your own simulations you will need to modify 
+simul.c (or write an analogous program) to compute the things you are 
+interested in. Hopefully you won't need to modify the library.
+The member function 
+ point step_rval(long i)
+for the class walk returns the ith point along the walk. 
+So it should be useful in writing your own code to compute 
+properties of the walk.
+
+Documentation 
+-------------
+
+The LaTex file tex/documentation.tex contains documentation. 
+Postscript (documentation.ps) and pdf (documentation.pdf) versions of the 
+file are also in tex/
+
+The script "run_simul" explains the parameters used by the program simul.c
+
+simul.c has some documentation of what it is doing.
+
+lib1.c has documentation for some of the more complicated routines
+
+Random number generation
+------------------------
+
+By default, the code will use drand48(). You can make it use sprng() 
+by simply changing the value of RANDOM_NUMBER_GENERATOR from 1 to 2 
+in the file src/public/local.h 
+sprng() may be downloaded from  http://sprng.cs.fsu.edu/ 
+If if is not installed in the "usual" place you may need to modify 
+the file "Makefile" to specify the paths where the compiler should search.
+
+Installation
+------------
+
+There is a file INSTALL, but it basically just says that run_simul 
+will compile and run the program.
+
+Requirements
+------------
+
+	gcc
+
+Feedback
+--------
+
+Feedback is very welcome. If you use this code in research that 
+leads to a published paper I would greatly appreciate the reference. 
+Comments on how to make the code more usuable or suggestions for improving
+it would be especially helpful. If you make improvements that you 
+think should be included in future releases, let me know. 
+
+Author
+------	
+
+Tom Kennedy
+
+e-mail: 
+	tgk@math.arizona.edu
+
+ordinary mail: 
+	Mathematics Department
+	University of Arizona
+	Tucson, AZ 85721, USA
+
+Support
+-------
+
+The development of this code was part of research supported by the
+National Science Foundation under grants DMS-9970608 and DMS-0201566.
+
+

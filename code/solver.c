@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "main.h"
 #include "utilities.h"
+/* #include <omp.h> */
 
 void CalculateAij(double b[rodNumber][dimension], 
 		double u[rodNumber][dimension],
@@ -26,28 +27,31 @@ void CalculateB(double b[rodNumber][dimension],
 		double x[rodNumber],
 		double B[rodNumber])
 {
-	for (int i = 0; i < rodNumber; i++)
-       	{
-		double temp[dimension] = {0};
-		for (int j = 0; j < rodNumber; j++)
-	       	{
-			if (g[i][j] != 0)
+/* #pragma omp parallel */
+	{
+		for (int i = 0; i < rodNumber; i++)
+		{
+			double temp[dimension] = {0};
+			for (int j = 0; j < rodNumber; j++)
 			{
-				for (int k = 0; k < dimension; k++)
+				if (g[i][j] != 0)
 				{
-					temp[k] = temp[k] + g[i][j]*x[j]*u[j][k];
+					for (int k = 0; k < dimension; k++)
+					{
+						temp[k] += g[i][j]*x[j]*u[j][k];
+					}
 				}
 			}
+			double dotBiBi = 0.0;
+			double dotTiTi = 0.0;
+			for (int k = 0; k < dimension; k++)
+			{
+				dotBiBi += b[i][k]*b[i][k];
+				dotTiTi += temp[k]*temp[k];
+			}
+			B[i] = (1.0 - dotBiBi)/(2.0*dt) -
+				dt * dotTiTi/2.0;
 		}
-		double dotBiBi = 0.0;
-		double dotTiTi = 0.0;
-		for (int k = 0; k < dimension; k++)
-	       	{
-			dotBiBi = dotBiBi + b[i][k]*b[i][k];
-			dotTiTi = dotTiTi + temp[k]*temp[k];
-		}
-		B[i] = (1.0 - dotBiBi)/(2.0*dt) -
-			dt * dotTiTi/2.0;
 	}
 }
 
@@ -75,7 +79,7 @@ void Picard(double b[rodNumber][dimension],
 	dgetrf_(&n, &n, A, &lda, ipiv, &info);
 	
 	double xold[rodNumber];
-	for (int step = 0; step < maxStep; step++)
+	for (int step = 0; step < 200; step++)
        	{
 		memcpy(xold, x, sizeof(xold));
 		double B[rodNumber] = {0};

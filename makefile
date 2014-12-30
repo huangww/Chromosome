@@ -1,6 +1,6 @@
 LIBS = -llapack -lm -lblas
 CC = gcc-4.9
-CFLAGS = -Wall -std=c99 -g
+CFLAGS = -Wall -std=c99 -fopenmp -O3
 SRCDIR = code
 BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out
@@ -35,7 +35,7 @@ movie:
 	vpython script/movie.py
 
 plot:
-	python script/movie.py
+	python script/plotfig.py
 
 debug: $(TARGET)
 	sudo gdb $(TARGET)
