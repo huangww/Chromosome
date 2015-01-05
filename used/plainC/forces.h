@@ -12,7 +12,7 @@ void CalculateFc(double r[beadNumber][dimension],
 		double fc[beadNumber][dimension]);
 
 void GenerateFb(double fb[beadNumber][dimension],
-		long* seed);
+		unsigned long seed);
 
 void PseudoForce(double r[beadNumber][dimension],
 		int link[rodNumber][2],

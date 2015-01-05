@@ -4,8 +4,13 @@
 
 // example for a single ring
 #define chainNumber  1
-#define beadNumber  100
-#define rodNumber  100
+#define beadNumber  500
+#define rodNumber  500
+
+// example for a single chain
+// #define chainNumber  1
+// #define beadNumber  3
+// #define rodNumber  2
 
 // example for a ring pair
 // #define chainNumber  2
@@ -19,8 +24,8 @@
 // #define centromere  2
 
 #define dimension  3
-#define dt  1e-4
+#define dt  1e-5
 #define pi  3.14159365359
-#define maxStep  1e5
+#define runSteps  5e7
 
 #endif /* end of include guard: MAIN_H */

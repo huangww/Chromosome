@@ -2,7 +2,34 @@
 #include <stdio.h>
 #include <math.h>
 #include <sys/stat.h>
+#include "random.h"
 #include "main.h"
+
+
+void ConfigSingleChain(double r[beadNumber][dimension])
+{
+	memset(r, 0, sizeof(r[0][0])*beadNumber*dimension);
+	for (int i = 0; i < beadNumber; ++i)
+	{
+		r[i][0] = i;
+	}
+}
+
+void ConfigRandomSingleRing(double r[beadNumber][dimension])
+{
+	memset(r, 0, sizeof(r[0][0])*beadNumber*dimension);
+	unsigned long seed = 5489;
+	double theta, phi;
+	for (int i = 1; i < beadNumber; ++i)
+	{
+		theta = 2*pi*Ran(seed);
+		phi = pi*Ran(seed);
+		r[0][i] = r[0][i-1] + cos(theta)*sin(phi);
+		r[1][i] = r[0][i-1] + sin(theta)*sin(phi);
+		r[2][i] = r[0][i-1] + cos(phi);
+	}
+	
+}
 
 void ConfigSingleRing(double r[beadNumber][dimension])
 {
@@ -68,6 +95,7 @@ void InitializeConfiguration(double r[beadNumber][dimension])
 		fclose(inputfile);
 	}
 	else {
+		/* ConfigSingleChain(r); */
 		ConfigSingleRing(r);
 		/* ConfigRingPair(r); */
 	}

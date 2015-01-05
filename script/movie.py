@@ -7,7 +7,7 @@ import glob
 
 def GetScreenShot(FrameNumber):        
     # tmp = getoutput('screencapture -R"0,42,960,457" '"$workdir"'/data/temp.%04d.jpg' % FrameNumber)
-    tmp = getoutput('screencapture -R"0,42,960,457" data/temp.%04d.jpg' % FrameNumber)
+    tmp = getoutput('screencapture -R"0,42,960,457" data/temp.%04d.png' % FrameNumber)
     return
 
 #load the newest data
@@ -39,7 +39,7 @@ scale = 0.20
 bead=[]
 bead.append(sphere(pos=(0,0,0),radius=2.0*factor,color=(1.0,0.0,0.0)))
 for i in range(1,beadNumber):
-    bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=(0.8,0.2,0.8)))
+    bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=color.magenta))
     #i0 = i%monomer.sum()
     #if (i0>0 and i0<=monomer[0]):
         #bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=(0.8,0.2,0.8)))
@@ -89,9 +89,9 @@ while t<len(beadPosition):
 	i = i+1
     rate(30)
     # rate(50)
-    # GetScreenShot(t)
+    GetScreenShot(t)
     t = t+1
-    scene.waitfor('click keydown')
+    # scene.waitfor('click keydown')
     # s = scene.kb.getkey()
     # if s == 's':
         # povexport.export(display = scene)

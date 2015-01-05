@@ -1,48 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-def raw_mean(i, N, T):
-    mu = (N+1)/2.0
-    raw_mean = T*np.log(((i-mu)/T)/(np.sinh((i-mu)/T)))
-    return raw_mean
-
-def z_mean(i, N, T):
-    z_mean = raw_mean(i,N,T)-raw_mean(0,N,T)
-    return z_mean
-
-def integral_xy_var(i, N, T):
-    mu = (N+1)/2.0
-    mean_z = np.cosh((mu-i)/T)/np.sinh((mu-i)/T)-T/(mu-i)
-    var_z = -(1.0/np.sinh((mu-i)/T))**2+(T/(mu-i))**2
-    second_moment_z = var_z + mean_z*mean_z
-    integral_xy_var = 1 - second_moment_z
-    return integral_xy_var
-
-def xy_raw_var(m, n, N, T):
-    x = np.linspace(0,N,N)
-    integral = integral_xy_var(x,N,T)
-    xy_raw_var = sum(integral[m:n])
-    return xy_raw_var
-
-def z_raw_var(i, N, T):
-    mu = (N+1)/2.0
-    z_raw_var = T*(np.cosh((i-mu)/T)/np.sinh((i-mu)/T)-1.0/((i-mu)/T))
-    return z_raw_var
-
-def xy_var(i, N, T):
-    xy_var = xy_raw_var(0,i,N,T)*xy_raw_var(i,N,N,T)/xy_raw_var(0,N,N,T)
-    return xy_var
-
-def z_var(i, N, T):
-    z_var = (z_raw_var(i,N,T)-z_raw_var(0,N,T))*(z_raw_var(N,N,T)-z_raw_var(i,N,T))/(z_raw_var(N,N,T)-z_raw_var(0,N,T))
-    return z_var
+from theory import *
 
 # initialize the figure
-fig = plt.figure(0)
-ax1 = plt.subplot(221)
-ax2 = plt.subplot(222)
-ax3 = plt.subplot(223)
-ax4 = plt.subplot(224)
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
@@ -50,6 +10,11 @@ font = {'family' : 'sans-serif',
 plt.rc('lines', lw=2)
 plt.rc('font', **font)
 plt.rc('text',usetex = True)
+fig = plt.figure(0)
+ax1 = plt.subplot(221)
+ax2 = plt.subplot(222)
+ax3 = plt.subplot(223)
+ax4 = plt.subplot(224)
 
 beadNumber = 500
 # frameNumber = 5000
@@ -59,13 +24,13 @@ tempFrames = 0
 step = 1
 
 # for T in ['1', '5','10','5000']:
-for T in ['1']:
+for T in ['10']:
     # load data
     dataDir = 'data/'
     # fileName = dataDir + 'r_N' + str(beadNumber) + \
             # '_T'+str(T) + '_5489.dat'
     fileName = dataDir + 'MD_N' + str(beadNumber) + \
-            '_T'+str(T) + '_sample2.dat'
+            '_T'+str(T) + '.dat'
     data = np.loadtxt(fileName,comments='#')
     beadPos = data.reshape([-1,beadNumber,3])
     
@@ -89,6 +54,13 @@ for T in ['1']:
     ax4.plot(index, posVars[:,2],line.get_color()+'*')
 
 ax3.set_ylim([-5,5])
-
+ax1.set_xlabel('Bead index')
+ax2.set_xlabel('Bead index')
+ax3.set_xlabel('Bead index')
+ax4.set_xlabel('Bead index')
+ax1.set_ylabel(r"$<r_z>$")
+ax2.set_ylabel(r"$var[r_z]$")
+ax3.set_ylabel(r"$<r_{x,y}>$")
+ax4.set_ylabel(r"$var[r_{x,y}]$")
 plt.show()
 

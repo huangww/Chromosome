@@ -4,12 +4,12 @@ import os
 
 beadNumber = 500
 dimension = 3
-Teff = 1
+Teff = 10
 
 sampleStep = 10
 
 dataDir = 'data/'
-fileName = dataDir + 'MD_N' + str(beadNumber) + '_T' + str(Teff) + '_sample.dat'
+fileName = dataDir + 'MD_N' + str(beadNumber) + '_T' + str(Teff) + '.dat'
 sampleFile = dataDir + 'MD_N' + str(beadNumber) + '_T' + str(Teff) + '_sample.dat'
 
 
