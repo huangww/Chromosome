@@ -15,7 +15,7 @@ void CalculateVectorB(double rs[beadNumber][dimension],
 		int link[rodNumber][2], 
 		double b[rodNumber][dimension]);
 
-inline int delta(int i, int j)
+static inline int delta(int i, int j)
 {
 	return i==j ? 1 : 0;
 }

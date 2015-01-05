@@ -1,11 +1,10 @@
-#ifndef MAIN_H
-
-#define MAIN_H
+#ifndef MAIN_H_XPDYBAOS
+#define MAIN_H_XPDYBAOS
 
 // example for a single ring
 #define chainNumber  1
-#define beadNumber  500
-#define rodNumber  500
+#define beadNumber  5000
+#define rodNumber  5000
 
 // example for a single chain
 // #define chainNumber  1
@@ -26,6 +25,7 @@
 #define dimension  3
 #define dt  1e-5
 #define pi  3.14159365359
-#define runSteps  5e7
+#define runSteps  1e3
 
-#endif /* end of include guard: MAIN_H */
+
+#endif /* end of include guard: MAIN_H_XPDYBAOS */

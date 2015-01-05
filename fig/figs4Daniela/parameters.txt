@@ -1,0 +1,7 @@
+
+Here are parameters for these figures:
+
+Lines in 1D figures represent different effective temperature: T = 100, 300, 1000, 3000
+Lines in 1D figures represent different effective temperature: T = 1, 5, 10, 50
+Figure of Distance_Teff, different lines represent different bead position: index = 5, 10, 20, 25 (start from 0)
+Figure of centromere case: T = 1, 10, 50 and the dash line corresponds to T = 5000

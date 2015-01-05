@@ -2,6 +2,16 @@
 #include <stdio.h>
 #include <string.h>
 
+void TopolSingleChain(int link[rodNumber][2])
+{
+	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
+	for (int i = 0; i < beadNumber-1; i++) 
+	{
+		link[i][0] = i;
+		link[i][1] = i+1;
+	}
+}
+
 void TopolSingleRing(int link[rodNumber][2])
 {
 	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
@@ -39,6 +49,7 @@ void Topology(int link[rodNumber][2],
 {
 	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
 	/* Define topological constriants (rods)*/
+	/* TopolSingleChain(link); */
 	TopolSingleRing(link);
 	/* TopolRingPair(link); */
 	

@@ -14,7 +14,6 @@ double CalculateEnergy(double r[beadNumber][dimension])
 		energy -= r[i][0];
 	}
 	return energy;
-	/* check later */
 }
 
 void RotateAxis(int index1,
@@ -174,7 +173,5 @@ void Equilibration(double r[beadNumber][dimension],
 	for (int step = 0; step < equilibrateSteps; ++step)
 	{
 		MonteCarloMove(r, Teff, seed);
-
 	}
 }
-
