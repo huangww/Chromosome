@@ -1,5 +1,5 @@
 #include "main.h"
-#include "forces.h"
+#include "interaction.h"
 
 void MDRun(double r[beadNumber][dimension],
 		int link[rodNumber][2],

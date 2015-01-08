@@ -89,7 +89,7 @@ while t<len(beadPosition):
 	i = i+1
     rate(30)
     # rate(50)
-    GetScreenShot(t)
+    # GetScreenShot(t)
     t = t+1
     # scene.waitfor('click keydown')
     # s = scene.kb.getkey()

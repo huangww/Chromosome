@@ -37,17 +37,32 @@ def z_var(i, N, T):
     return z_var
 
 def r_var(i, N, T):
-    r_var = xy_var(i,N,int(T)) + z_var(i,N,int(T))
+    r_var = xy_var(i,N,T) + z_var(i,N,T)
     return r_var
 
-def sum_r_var(N, T):
-    var_r = np.zeros(N)
-    for i in range(N):
-        var_r[i] = r_var(i,N,int(T))
-    sum_r_var = sum(var_r)
-    return sum_r_var
+def xy_covar(i, j, N, T):
+    s = min(i,j)
+    l = max(i,j)
+    xy_covar = xy_raw_var(0,s,N,T)*xy_raw_var(l,N,N,T)/xy_raw_var(0,N,N,T)
+    return xy_covar
+
+def z_covar(i, j, N, T):
+    s = min(i,j)
+    l = max(i,j)
+    z_covar = (z_raw_var(s,N,T)-z_raw_var(0,N,T))*(z_raw_var(N,N,T)-z_raw_var(l,N,T))/(z_raw_var(N,N,T)-z_raw_var(0,N,T))
+    return z_covar
+ 
+def r_covar(i, j, N, T):
+    r_covar = xy_covar(i,j,N,T) + z_covar(i,j,N,T)
+    return r_covar
 
 def Gyration(N, T):
-    Rgs = sum_r_var(N, T)/(N*N)
-    return Rgs
-    
+    rgs = 0
+    for i in range(N):
+        rgs += r_var(i,N,T) + z_mean(i,N,T)**2
+    rgs = rgs/N
+    for i in range(N):
+        for j in range(N):
+            rgs -= (r_covar(i,j,N,T) + z_mean(i,N,T)*z_mean(j,N,T))/(N*N)
+    return rgs
+
