@@ -34,21 +34,32 @@ void ConfigRandomSingleRing(double r[beadNumber][dimension])
 void ConfigSingleRing(double r[beadNumber][dimension])
 {
 	memset(r, 0, sizeof(r[0][0])*beadNumber*dimension);
+
 	r[1][0] = r[0][0] + cos(pi/6.0);
 	r[1][1] = r[0][1] + sin(pi/6.0);
 	r[beadNumber-1][0] = r[0][0] + cos(-pi/6.0);
 	r[beadNumber-1][1] = r[0][1] + sin(-pi/6.0);
-	for (int i = 2; i < beadNumber/2; i++) 
-	{
-		r[i][0] = r[1][0] + i - 1;	
-		r[i][1] = r[1][1];	
-		r[beadNumber-i][0] = r[beadNumber-1][0] + i - 1;	
-		r[beadNumber-i][1] = r[beadNumber-1][1];	
-	}
 
 	if (beadNumber % 2 == 0)
        	{
 		r[beadNumber/2][0] = beadNumber/2 + sqrt(3.0) - 2.0;
+		for (int i = 2; i < beadNumber/2; i++) 
+		{
+			r[i][0] = r[1][0] + i - 1;	
+			r[i][1] = r[1][1];	
+			r[beadNumber-i][0] = r[beadNumber-1][0] + i - 1;	
+			r[beadNumber-i][1] = r[beadNumber-1][1];	
+		}
+	}
+	else
+	{
+		for (int i = 2; i < beadNumber/2+1; i++) 
+		{
+			r[i][0] = r[1][0] + i - 1;	
+			r[i][1] = r[1][1];	
+			r[beadNumber-i][0] = r[beadNumber-1][0] + i - 1;	
+			r[beadNumber-i][1] = r[beadNumber-1][1];	
+		}
 	}
 }
 
