@@ -1,28 +1,23 @@
-\documentclass[preprint,aps,draft]{revtex4}
+\documentclass{article}
+\usepackage{authblk}
 
 \begin{document}
 
-\title{Brownian dynamics simulation of bead-rod system with a general topology}
+\title{Brownian dynamics simulation of bead-rod rings models chromosome movements in fission yeast}
 
-\author{Wenwen Huang}
-\author{Yen Ting Lin}
-\author{Daniela Fr\"{o}mberg}
-\author{Frank J\"{u}licher}
-\author{Sergey Denisov}
-\author{Vasily Zaburdaev}
-\affiliation{Max Planck Institute for the Physics of Complex Systems, 01187, Dresden, Germany}
-\affiliation{Institute of Physics, University of Augsburg, Augsburg, Germany}
+\author[a]{Wenwen Huang}
+\author[a]{Yen Ting Lin}
+\author[a]{Daniela Fr\"{o}mberg}
+\author[a]{Frank J\"{u}licher}
+\author[a,b]{Sergey Denisov}
+\author[a]{Vasily Zaburdaev}\thanks{vzaburd@pks.mpg.de}
+\affil[a]{Max Planck Institute for the Physics of Complex Systems, 01187, Dresden, Germany}
+\affil[b]{Institute of Physics, University of Augsburg, Augsburg, Germany}
 \date{\today}
 
 \begin{abstract}
 
-Bead-rod model are frequently used in both numerical and theoretical studies of polymer due to its intuitive and fixed contour length properties.
-Brownian dynamics(BD) simulation is one of the most important methods in the study of bead-rod polymers in complex processes, such as DNA movements in the cell. 
-However, most attention of BD simulation is on chain like polymer structure.
-More complex polymer topology may encounter especially in complex circumstances, and this is definite the case if we consider multi-polymers system.
-Here, we propose a general method to perform BD simulation on arbitrary topologies, includes the multi-polymers.
-The connecting topology, which can be described in the form of adjacent matrix, is linked to the metric matrix.
-Extensive simulation results are obtained for several typical cases with applications in biological system.
+Bead-rod model are frequently used in both numerical and theoretical studies of polymers due to a fixed contour length and its intuitive properties. Brownian dynamics (BD) simulations is one of the most important methods in the study of bead-rod systems when applied to complex processes, such as DNA movement in a cell. Here, we present a numerical study of the ring polymer driven by an external force acting on a single bead. A system of several polymer loops linked and pulled at the same single spot models the process of chromosome arrangement during meiosis. Our simulations provide a quantitative way to investigate the contact dynamics of the homologous chromosomes and therefore better understand the physical mechanisms underlying the process of recombination. 
 
 \end{abstract}
 \maketitle

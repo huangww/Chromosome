@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1417706217 "sm_modified.tex" "sm_modified.pdf" "sm_modified" 1417706731
+["pdflatex"] 1417706217 "sm_modified.tex" "sm_modified.pdf" "sm_modified" 1421574553
   "/usr/local/texlive/2014/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -67,6 +67,6 @@
   "sm_modified.aux" 1417706218 1156 151d4e57c6569a35cb079383f5b65796 ""
   "sm_modified.tex" 1417706216 10535 b9b7655a7db2cd999bddec10365a9360 ""
   (generated)
+  "sm_modified.log"
   "sm_modified.pdf"
   "sm_modified.aux"
-  "sm_modified.log"

@@ -3,8 +3,8 @@
 
 // example for a single ring
 #define chainNumber  1
-#define beadNumber  51
-#define rodNumber  51
+#define beadNumber  300
+#define rodNumber  300
 
 // example for a single chain
 // #define chainNumber  1
@@ -23,8 +23,8 @@
 // #define centromere  2
 
 #define dimension  3
-#define dt  1e-5
+#define dt  1e-4
 #define pi  3.14159365359
-#define runSteps  1e6
+#define runSteps  1e4
 
 #endif /* end of include guard: MAIN_H_XPDYBAOS */

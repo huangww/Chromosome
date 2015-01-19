@@ -19,7 +19,7 @@ void PseudoForce(double r[beadNumber][dimension],
 		int g[rodNumber][rodNumber],
 		double f[beadNumber][dimension]);
 
-void LennardJones(double r[beadNumber][dimension],
+void LennardJonesForce(double r[beadNumber][dimension],
 		double f[beadNumber][dimension]);
 
 double LennardJonesPotential(double r[beadNumber][dimension]);

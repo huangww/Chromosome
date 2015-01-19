@@ -16,7 +16,7 @@ ax2 = plt.subplot(222)
 ax3 = plt.subplot(223)
 ax4 = plt.subplot(224)
 
-beadNumber = 500
+beadNumber = 300
 # frameNumber = 5000
 dimension = 3
 index = np.linspace(0,beadNumber,beadNumber)
@@ -24,13 +24,13 @@ tempFrames = 0
 step = 1
 
 # for T in ['1', '5','10','5000']:
-for T in ['10']:
+for T in [1,10,20,50,100]:
     # load data
     dataDir = 'data/'
     # fileName = dataDir + 'r_N' + str(beadNumber) + \
             # '_T'+str(T) + '_5489.dat'
     fileName = dataDir + 'MD_N' + str(beadNumber) + \
-            '_T'+str(T) + '.dat'
+            '_T'+str(T) + '_sample.dat'
     data = np.loadtxt(fileName,comments='#')
     beadPos = data.reshape([-1,beadNumber,3])
     

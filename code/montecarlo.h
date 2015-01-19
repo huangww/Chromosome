@@ -2,7 +2,6 @@
 #define MONTECARLO_H_PSRHUOLL
 
 
-
 #include "main.h"
 
 int MonteCarloMove(double r[beadNumber][dimension],
