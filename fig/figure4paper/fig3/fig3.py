@@ -1,8 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+import matplotlib.colorbar as colorbar
+import matplotlib.cm as cmx
+from theory import *
 
-
-fig = plt.figure(0,figsize=(8,3))
+fig = plt.figure(0,figsize=(10,4))
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
@@ -11,73 +14,79 @@ plt.rc('lines', lw=2)
 plt.rc('font', **font)
 plt.rc('text',usetex = True)
 
-def raw_mean(i, N, T):
-    mu = (N+1)/2.0
-    raw_mean = T*np.log(((i-mu)/T)/(np.sinh((i-mu)/T)))
-    return raw_mean
+fig.subplots_adjust(left=0.1, right =0.95,\
+        bottom=0.15, top =0.95, wspace=0.25)
 
-def z_mean(i, N, T):
-    z_mean = raw_mean(i,N,T)-raw_mean(0,N,T)
-    return z_mean
+sp1 = fig.add_subplot(121)
+sp2 = fig.add_subplot(122)
 
-def integral_xy_var(i, N, T):
-    mu = (N+1)/2.0
-    mean_z = np.cosh((mu-i)/T)/np.sinh((mu-i)/T)-T/(mu-i)
-    var_z = -(1.0/np.sinh((mu-i)/T))**2+(T/(mu-i))**2
-    second_moment_z = var_z + mean_z*mean_z
-    integral_xy_var = 1 - second_moment_z
-    return integral_xy_var
+N = 300
+index = np.arange(0,N)
+dataDir = './'
 
-def xy_raw_var(m, n, N, T):
-    x = np.linspace(0,N,N)
-    integral = integral_xy_var(x,N,T)
-    xy_raw_var = sum(integral[m:n])
-    return xy_raw_var
 
-def z_raw_var(i, N, T):
-    mu = (N+1)/2.0
-    z_raw_var = T*(np.cosh((i-mu)/T)/np.sinh((i-mu)/T)-1.0/((i-mu)/T))
-    return z_raw_var
+# subplot 1
+Teff = [10,20,50,100]
+# cMap = plt.get_cmap('gist_heat_r')
+cMap = plt.get_cmap('autumn_r')
+cNorm = colors.Normalize(vmin = 0, vmax = max(Teff))
+scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)
+for T in Teff:
+    fileName = dataDir + 'MD_N'+str(N)+'_T'+str(T)+'_xyz_varxyz.dat'
+    data = np.loadtxt(fileName)
+    colorVar = scalarMap.to_rgba(T)
+    line, = sp1.plot(index,z_mean(index,N,int(T)),color=colorVar)
+    sp1.plot(index[::10],data[::10,0],'o',color=colorVar)
+    sp1.fill_between(index, \
+            z_mean(index,N,T)-np.sqrt(z_var(index,N,T)), \
+            z_mean(index,N,T)+np.sqrt(z_var(index,N,T)), \
+            facecolor = colorVar,\
+            alpha = 0.2)
+# plot colorbar legend
+cax = fig.add_axes([0.42, 0.65, 0.02, 0.25])
+fig.text(0.425,0.6, r"$\tilde{T}$")
+cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
+cb.set_ticks([0,50,100])
+cb.set_ticklabels([r'$0$',r'$25$',r'$50$'])
+# cb.set_ticklabels([0,25,50])
+for T in Teff:
+    colorVar = scalarMap.to_rgba(T)
+    cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
 
-def xy_var(i, N, T):
-    xy_var = xy_raw_var(0,i,N,T)*xy_raw_var(i,N,N,T)/xy_raw_var(0,N,N,T)
-    return xy_var
+sp1.set_xlim([0,300])
+sp1.set_ylim([0,120])
+sp1.set_xlabel(r'Bead index $i$')
+sp1.set_ylabel(r"$\left<z_i\right>/a$",fontsize=14)
 
-def z_var(i, N, T):
-    z_var = (z_raw_var(i,N,T)-z_raw_var(0,N,T))*(z_raw_var(N,N,T)-z_raw_var(i,N,T))/(z_raw_var(N,N,T)-z_raw_var(0,N,T))
-    return z_var
+# subplot 2
+pos = [10,50,100,150]
+Tlog = np.logspace(-2,3,1000)
+cMap = plt.get_cmap('winter')
+cNorm = colors.Normalize(vmin = 0, vmax = max(pos))
+scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)
+cset = ['Cyan','SkyBlue','DodgerBlue','Blue']
+vard = np.zeros(len(Tlog))
+for s,c in zip(pos, cset):
+    count = 0
+    for T in Tlog:
+        varr = r_var(index, N, 2*T)
+        vard[count] = varr[s]
+        count = count + 1
+    colorVar = scalarMap.to_rgba(s)
+    sp2.plot(Tlog,np.sqrt(2*vard), color=c)
 
-N = 50
-index = np.linspace(0,N,N)
-sp1 = plt.subplot(121)
-sp2 = plt.subplot(122)
-for T in [1,5,10,50]:
-    data = np.loadtxt('MD_N50_T'+str(T)+'_pseudo_xyz_varxyz.dat')
-    line, = sp1.plot(index,z_mean(index,N,T))
-    sp1.plot(index[::2],data[0,::2],line.get_color()+'o')
-    sp1.fill_between(index,
-            z_mean(index,N,T)-np.sqrt(z_var(index,N,T)),
-            z_mean(index,N,T)+np.sqrt(z_var(index,N,T)),
-            facecolor = 'green',
-            alpha = 0.5)
-# sp1.set_xlabel('Bead index')
-# sp1.set_ylabel('Average $z$')
+sp2.fill_between(Tlog, 0, 2, \
+        facecolor = 'Blue', alpha = 0.2)
+# sp2.plot([0.5,0.5],[0,2],'k--')
+fig.text(0.88,0.35, r"$i=10$")
+fig.text(0.88,0.62, r"$i=50$")
+fig.text(0.88,0.76, r"$i=100$")
+fig.text(0.88,0.86, r"$i=150$")
+sp2.set_xlim([0.01,1000])
+# sp2.set_ylim([0,10])
+sp2.set_xscale('log')
+sp2.set_xlabel(r'$\tilde{T}$')
+sp2.set_ylabel(r"$var[\mathbf{d}]^{1/2}/a$",fontsize=14)
 
-N = 500
-index = np.linspace(0,N,N)
-T = np.linspace(0.1,1000,10000)
-var_xy = np.zeros(len(T))
-# for l in [50,100,200,250]:
-for l in [250]:
-    i = 0
-    for t in T:
-        var_xy[i] = xy_var(l,N,t)
-        i = i + 1
-    var_z = z_var(l,N,T)
-    sp2.semilogx(T,np.sqrt(2.0*(var_z+var_xy)))
-# sp2.set_yticks([0, 1, 2, 3, 4])
-# sp2.set_xlim([0,1000])
-# sp2.set_xlabel('Effective Temperature')
-# sp2.set_ylabel('Distance between loci pair')
-fig.show()
-fig.savefig('fig3.pdf')
+fig.savefig('figure3.pdf')
+plt.show()

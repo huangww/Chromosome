@@ -1,45 +1,99 @@
 import numpy as np 
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+import matplotlib.colorbar as colorbar
+import matplotlib.cm as cmx
 
-def x_mean(x, N, T):
-    x_mean = T*np.log((1.0+np.exp(N/float(T)))/(np.exp(x/float(T))+np.exp((N-x)/float(T))))
-    return x_mean
+def z_mean(i, N, T):
+    z_mean = 2*T*np.log((1.0+np.exp(N/float(2*T)))/ \
+            (np.exp(i/float(2*T))+np.exp((N-i)/float(2*T))))
+    return z_mean
 
-def raw_var(x, N, T):
-    raw_var = 2.0*T/(1.0+np.exp(2.0*(x-N/2)/float(T)))
-    return raw_var
+def z_var(i, N, T):
+    z_var = 2*T*np.sinh((N-i)/float(2*T))*np.sinh(i/float(2*T))/ \
+            (np.sinh(N/float(2*T))*np.cosh((N-2*i)/float(4*T))**2)
+    return z_var
 
-def x_var(x, N, T):
-    x_var = (raw_var(0,N,T)-raw_var(x,N,T))*(raw_var(x,N,T)-raw_var(N,N,T))/(raw_var(0,N,T)-raw_var(N,N,T))
-    return x_var
+# def raw_var(i, N, T):
+#     T = 2*T
+#     raw_var = 2.0*T/(1.0+np.exp(2.0*(i-N/2)/float(T)))
+#     return raw_var
+#
+# def z_var(i, N, T):
+#     z_var = (raw_var(0,N,T)-raw_var(i,N,T))*(raw_var(i,N,T)-raw_var(N,N,T))/(raw_var(0,N,T)-raw_var(N,N,T))
+#     return z_var
     
-fig = plt.figure(0,figsize=(8,3))
+fig = plt.figure(0,figsize=(10,4))
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
         'size'   : 12 }
 plt.rc('lines', lw=2)
 plt.rc('font', **font)
+plt.rc('text', usetex=True)
 
-N = 500
-x = np.linspace(1,N,N)
-sp1 = plt.subplot(121)
-sp2 = plt.subplot(122)
-# for T in [100,300,1000,3000]:
-for T in [1,100,200,5000]:
-    # data = np.loadtxt('visualization_T'+str(T)+'_N500.txt')
-    # meanx = data.mean(axis=0)
-    # varx = data.var(axis=0)
-    line, = sp1.plot(x,x_mean(x,N,T))
-    # sp1.plot(x[::50],meanx[::5],line.get_color()+'o')
-    sp2.plot(x,x_var(x,N,T),line.get_color())
-    # sp2.plot(x[::50],varx[::5],line.get_color()+'o')
-#sp1.set_xlabel('Bead index')
-#sp1.set_ylabel('Average position')
-#sp2.set_xlabel('Bead index')
-#sp2.set_ylabel('Varriance')
-# sp1.set_yticks([100, 200, 300, 400, 500])
-# fig.show()
+fig.subplots_adjust(left=0.1, right =0.95,\
+        bottom=0.15, top =0.95, wspace=0.25)
+
+
+sp1 = fig.add_subplot(121)
+sp2 = fig.add_subplot(122)
+
+N = 300
+dataDir = './'
+Teff = [10,25,50,100]
+index = np.linspace(1,N,N)
+
+# cMap = plt.get_cmap('gist_heat_r')
+cMap = plt.get_cmap('autumn_r')
+cNorm = colors.Normalize(vmin = 0, vmax = max(Teff))
+scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)
+
+for T in Teff:
+    fileName = dataDir + 'visualization_T' + str(T) + \
+            '_N' + str(N) + '.dat'
+    data = np.loadtxt(fileName)
+    meanz = data.mean(axis=0)
+    varz = data.var(axis=0)
+    colorVar = scalarMap.to_rgba(T)
+    line, = sp1.plot(index,z_mean(index,N,T), color = colorVar)
+    sp1.plot(index[::10], meanz, 'o', color = colorVar)
+    sp2.plot(index,z_var(index,N,T), color = colorVar)
+    sp2.plot(index[::10], varz, 'o', color = colorVar)
+
+# plot line of Tinf
+# data = np.loadtxt('visualization_T10000_N300.dat')
+# meanx = data.mean(axis=0)
+# varx = data.var(axis=0)
+# line, = sp1.plot(x,x_mean(x,N,T), 'k--' )
+# sp1.plot(x[::10],meanx,'o',markerfacecolor='none', markeredgecolor = line.get_color())
+sp2.plot(index,z_var(index,N,10000),'k--')
+# sp2.plot(x[::10],varx,'o',markerfacecolor='none', markeredgecolor = line.get_color())
+
+# add colorbar legend
+cax = fig.add_axes([0.42, 0.65, 0.02, 0.25])
+fig.text(0.425,0.6, r"$\tilde{T}$")
+cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
+cb.set_ticks([0,50,100])
+for T in Teff:
+    colorVar = scalarMap.to_rgba(T)
+    cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
+
+cax = fig.add_axes([0.89, 0.65, 0.02, 0.25])
+fig.text(0.895,0.6, r"$\tilde{T}$")
+cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
+cb.set_ticks([0,50,100])
+for T in Teff:
+    colorVar = scalarMap.to_rgba(T)
+    cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
+
+# set labels and ticks
+sp1.set_xlabel(r'Bead index $i$')
+sp1.set_ylabel(r"$\left<z_i\right>/a$",fontsize=14)
+sp1.set_yticks([0, 40, 80, 120, 160])
+sp2.set_xlabel(r'Bead index $i$')
+sp2.set_ylabel(r"$var[z_i]/a^2$",fontsize=14)
+sp2.set_yticks([0, 20, 40, 60, 80])
+
+fig.savefig('figure2.pdf')
 plt.show()
-# fig.savefig('fig2_bc.eps')
-

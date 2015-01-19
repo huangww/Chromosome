@@ -2,9 +2,9 @@ import numpy as np
 import os
 
 
-beadNumber = 500
+beadNumber = 300
 dimension = 3
-Teff = 10
+Teff = 1
 
 sampleStep = 10
 
