@@ -4,11 +4,14 @@
 
 #include "main.h"
 
-int MonteCarloMove(double r[beadNumber][dimension],
+int MonteCarloMove(int N,
+		double r[N][dimension],
+		int topolType,
 		double Teff,
 		unsigned long seed);
 
 void Equilibration(double r[beadNumber][dimension], 
+		int topolType,
 		double Teff,
 		unsigned long seed,
 		int equilibrateSteps);

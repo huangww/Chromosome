@@ -16,8 +16,8 @@ void MDRun(double r[beadNumber][dimension],
 	/* PseudoForce(r, link, g, fa); */
 
 	/* calculate Lennard-Jones  */
-	double flj[beadNumber][dimension] = {{0}};
-	LennardJonesForce(r, flj);
+	/* double flj[beadNumber][dimension] = {{0}}; */
+	/* LennardJonesForce(r, flj); */
 
 	/* Add external force */
 	/* 1) pinned SPB */
@@ -38,8 +38,8 @@ void MDRun(double r[beadNumber][dimension],
 	{
 		for (int j = 0; j < dimension; j++) 
 		{
-			rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j]+flj[i][j])*dt;
-			/* rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j])*dt; */
+			/* rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j]+flj[i][j])*dt; */
+			rs[i][j] = r[i][j] + (fa[i][j]+fb[i][j])*dt;
 		}
 	}
 

@@ -2,46 +2,89 @@
 #include <stdio.h>
 #include <string.h>
 
-void TopolSingleChain(int link[rodNumber][2])
+
+int TopolSingleRing(int N, int link[N][2])
 {
-	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
-	for (int i = 0; i < beadNumber-1; i++) 
+	int topolType = 1;
+	memset(link, 0, sizeof(link[0][0]) * N * 2);
+	for (int i = 0; i < N; i++) 
+	{
+		link[i][0] = i;
+		link[i][1] = (i+1) % N;
+	}
+	return topolType;
+}
+
+int TopolSingleChain(int N, int link[N][2])
+{
+	int topolType = 1;
+	memset(link, 0, sizeof(link[0][0]) * N * 2);
+	for (int i = 0; i < N; i++) 
 	{
 		link[i][0] = i;
 		link[i][1] = i+1;
 	}
+	return topolType;
 }
 
-void TopolSingleRing(int link[rodNumber][2])
+int TopolRingPair(int N, int link[N][2])
 {
-	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
-	for (int i = 0; i < beadNumber; i++) 
-	{
-		link[i][0] = i;
-		link[i][1] = (i+1) % beadNumber;
-	}
-}
-
-void TopolRingPair(int link[rodNumber][2])
-{
-	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
-	for (int i = 0; i < rodNumber/2-1; ++i)
+	int topolType = 2;
+	memset(link, 0, sizeof(link[0][0]) * N * 2);
+	for (int i = 0; i < N/2-1; ++i)
 	{
 		link[i][0] = i;
 		link[i][1] = i + 1;
 	}
-	link[rodNumber/2-1][0] = rodNumber/2 - 1;
-	link[rodNumber/2-1][1] = 0;
-	link[rodNumber/2][0] = 0;
-	link[rodNumber/2][1] = rodNumber/2;
-	for (int i = rodNumber/2+1; i < beadNumber; ++i)
+	link[N/2-1][0] = N/2 - 1;
+	link[N/2-1][1] = 0;
+	link[N/2][0] = 0;
+	link[N/2][1] = N/2;
+	for (int i = N/2+1; i < beadNumber; ++i)
 	{
 		link[i][0] = i - 1;
 		link[i][1] = i;
 	}
-	link[rodNumber-1][0] = beadNumber - 1;
-	link[rodNumber-1][1] = 0;
+	link[N-1][0] = beadNumber - 1;
+	link[N-1][1] = 0;
+	return topolType;
+}
 
+int TopolCentromerePair(int N, int link[N][2])
+{
+	int topolType = 3;
+	memset(link, 0, sizeof(link[0][0]) * N * 2);
+	int index = 0;
+	int ringSize = N/2;
+	for (int i = 0; i < ringSize; ++i)
+	{
+		link[index][0] = i;
+		link[index][1] = (i+1)%ringSize;
+		index = index + 1;
+	}
+	link[index][0] = 0;
+	link[index][1] = ringSize;
+	index = index + 1;
+	for (int i = ringSize; i < ringSize+cm-2; ++i)
+	{
+		link[index][0] = i;
+		link[index][1] = i+1;
+		index = index + 1;
+	}
+	link[index][0] = ringSize + cm - 2;
+	link[index][1] = cm;
+	index = index + 1;
+	link[index][0] = cm;
+	link[index][1] = ringSize + cm - 1;
+	index = index + 1;
+	for (int i = ringSize+cm-1; i < beadNumber; ++i)
+	{
+		link[index][0] = i;
+		link[index][1] = (i+1)%beadNumber;
+		index = index + 1;
+	}
+
+	return topolType;
 }
 
 void Topology(int link[rodNumber][2], 
@@ -49,13 +92,14 @@ void Topology(int link[rodNumber][2],
 {
 	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
 	/* Define topological constriants (rods)*/
-	/* TopolSingleChain(link); */
-	TopolSingleRing(link);
-	/* TopolRingPair(link); */
+	/* TopolSingleChain(rodNumber, link); */
+	TopolCentromerePair(rodNumber, link);
+
 	
 	/*Calculate metric matrix*/
 	memset(g, 0, sizeof(g[0][0]) * rodNumber * rodNumber);
-	for (int i = 0; i < rodNumber; i++) {
+	for (int i = 0; i < rodNumber; i++) 
+	{
 		g[i][i] = -2;
 		for (int j = 0; j < rodNumber; j++) {
 			if (i==j) continue;

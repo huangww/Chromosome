@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include "main.h"
 
@@ -10,6 +11,19 @@ double ddot(double* dx, double *dy)
 		result = result + dx[i] * dy[i];
 	}
 	return result;
+}
+
+double Distance(double *point1, double *point2)
+{
+	double result = 0;
+	for (int i = 0; i < dimension; ++i)
+	{
+		result = result + 
+			(point1[i] - point2[i]) *
+			(point1[i] - point2[i]);
+	}
+	return sqrt(result);
+
 }
 
 void PrintMatrix(double matrix[beadNumber][dimension])
@@ -52,4 +66,20 @@ void CalculateVectorB(double rs[beadNumber][dimension],
 		}
 	}
 }
+
+void MatrixMulVector(double matrix[dimension][dimension],
+		double vector[dimension])
+{
+	double result[dimension] = {0};
+	for (int i = 0; i < dimension; ++i)
+	{
+		for (int j = 0; j < dimension; ++j)
+		{
+			result[i] += matrix[i][j]*vector[j];
+		}
+	}
+
+	memcpy(vector, result,  sizeof(result));
+}
+
 

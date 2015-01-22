@@ -22,11 +22,11 @@ dimension = 3
 index = np.linspace(0,beadNumber,beadNumber)
 tempFrames = 0
 step = 1
+dataDir = 'data/'
 
 # for T in ['1', '5','10','5000']:
 for T in [1,10,20,50,100]:
     # load data
-    dataDir = 'data/'
     # fileName = dataDir + 'r_N' + str(beadNumber) + \
             # '_T'+str(T) + '_5489.dat'
     fileName = dataDir + 'MD_N' + str(beadNumber) + \
@@ -38,6 +38,9 @@ for T in [1,10,20,50,100]:
     posMean = beadPos.mean(axis = 0)
     posVars = beadPos.var(axis = 0)
 
+    # # save extracted data
+    # fileName = fileName[:-4] + '_xyz_varxyz.dat'
+    # np.savetxt(fileName, np.vstack((posMean.T,posVar.T)).T)
     # plot figure
     N = beadNumber
     line, = ax1.plot(index, z_mean(index,N,int(T)))
@@ -63,4 +66,3 @@ ax2.set_ylabel(r"$var[r_z]$")
 ax3.set_ylabel(r"$<r_{x,y}>$")
 ax4.set_ylabel(r"$var[r_{x,y}]$")
 plt.show()
-
