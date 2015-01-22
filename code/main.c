@@ -22,10 +22,10 @@ int main(int argc, char *argv[])
 	{
 		seed = atoi(argv[1]);
 	}
-	double Teff = 100.0;
+	double Teff = 1.0;
 	double v0;
-	/* v0 = 1.0/Teff; */
-	v0 = 0;
+	v0 = 1.0/Teff;
+	/* v0 = 0; */
 
 	/* 2. Initializing the connecting topology */
 	int link[rodNumber][2];
@@ -33,9 +33,10 @@ int main(int argc, char *argv[])
 	Topology(link, g);
 
 	/* 3. Initialize the configuration and thermalise*/
-	double r[beadNumber][dimension];
+	double r[beadNumber][dimension]= {{0}};
 	InitializeConfiguration(r);
-	Equilibration(r, Teff, seed, 1e6);
+	Equilibration(r, 3, Teff, seed, 1e6);
+	
 
 	/* 4. Open files for data output */
 	char *outputDir = "data/";
@@ -75,18 +76,21 @@ int main(int argc, char *argv[])
 	/* gyration = fopen(fileName,"w"); */
 		
 	/* Step II: Run the simulation */
+	/* test */
+	/* OutputConfiguration(outputFile, r); */
 
 	/* Type A: Monte Carlo Simulation */
+	/* int topolType = 0; */
 	/* for (int step = 0; step < runSteps; step++)  */
 	/* { */
-	/* 	MonteCarloMove(r, Teff, seed); */
+	/* 	MonteCarloMove(beadNumber, r, topolType, Teff, seed); */
 	/* 	#<{(| Output samples |)}># */
-	/* 	if (step % (int)(1e4) == 0)  */
+	/* 	#<{(| if (step % (int)(1e4) == 0)  |)}># */
 	/* 	{ */
 	/* 		fprintf(outputFile, "# step = %d\n",step); */
 	/* 		OutputConfiguration(outputFile, r); */
-	/* 		fprintf(gyration, "%lf\n",  */
-	/* 				GyrationRadiusSquare(r)); */
+	/* 		#<{(| fprintf(gyration, "%lf\n",  |)}># */
+	/* 		#<{(| 		GyrationRadiusSquare(r)); |)}># */
 	/* 	} */
 	/* 	#<{(| Output states to the screen |)}># */
 	/* 	if (step % (int)(runSteps/100) == 0) */

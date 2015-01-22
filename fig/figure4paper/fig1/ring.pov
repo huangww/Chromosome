@@ -16,11 +16,25 @@ background { color rgb <1.0, 1.0, 1.0> }
 //	finish{phong 1}
 } 
 
-#declare axis = union {
-	cylinder {0,<5,0,0>, 0.02}
-	cone{<0.5,0,0>, 0.04, <0.7,0,0>, 0 }  		
+#declare axisx = union {
+	cylinder {0,<10,0,0>, 0.02}
+	cone{<10,0,0>, 0.04, <10.2,0,0>, 0 }  		
 	pigment {color Black}
-	scale <1,2,1>
+	scale <1,0,0>
+//	finish{phong 1}
+} 
+#declare axisy = union {
+	cylinder {0,<0,5,0>, 0.02}
+	cone{<0,5,0>, 0.04, <0,5.2,0>, 0 }  		
+	pigment {color Black}
+	scale <0,1,0>
+//	finish{phong 1}
+} 
+#declare axisz = union {
+	cylinder {0,<0,0,5>, 0.02}
+	cone{<0,0,5>, 0.04, <0,0,5.2>, 0 }  		
+	pigment {color Black}
+	scale <0,0,1>
 //	finish{phong 1}
 } 
 union{	
@@ -46,6 +60,13 @@ union{
 
 
  union{  
+// 	union{
+// 	object{axisx }
+//	object{axisy rotate<-45,0,0>}
+//	object{axisz rotate<135,-20,0>}
+//	translate<-1.2,0,2.5>
+// 	} 
+// 	
  	sphere{<4.2382688749478120E-003,-4.9855054240550783E-002,0>,0.3 
  	texture{pigment{color 0.5*Magenta}} finish{phong 1}}
 //	object{arr  rotate<0,0,180>}
