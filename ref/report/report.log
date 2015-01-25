@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.10.13)  17 JAN 2015 22:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.10.13)  23 JAN 2015 17:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -213,16 +213,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) <figs/Ring0.png, id=1, 642.4pt x 481.8pt>
 File: figs/Ring0.png Graphic file (type png)
 <use figs/Ring0.png>
-Package pdftex.def Info: figs/Ring0.png used on input line 50.
+Package pdftex.def Info: figs/Ring0.png used on input line 49.
 (pdftex.def)             Requested size: 312.00119pt x 234.00354pt.
 <figs/Ring1.png, id=2, 642.4pt x 481.8pt>
 File: figs/Ring1.png Graphic file (type png)
 <use figs/Ring1.png>
-Package pdftex.def Info: figs/Ring1.png used on input line 64.
+Package pdftex.def Info: figs/Ring1.png used on input line 63.
 (pdftex.def)             Requested size: 312.00119pt x 234.00354pt.
 [1
 
-{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 <./figs/Ring0.png>] (./report.bbl [3 <./figs/Ring1.png>]) [4] (./report.aux) ) 
+{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 <./figs/Ring0.png> <./figs/Ring1.png>] (./report.bbl) [3] (./report.aux) ) 
 Here is how much of TeX's memory you used:
  2653 strings out of 493117
  35292 string characters out of 6135432
@@ -232,10 +232,10 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  38i,7n,26p,266b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (4 pages, 507295 bytes).
+Output written on report.pdf (3 pages, 506924 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 52 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -93,7 +93,8 @@ void Topology(int link[rodNumber][2],
 	memset(link, 0, sizeof(link[0][0]) * rodNumber * 2);
 	/* Define topological constriants (rods)*/
 	/* TopolSingleChain(rodNumber, link); */
-	TopolCentromerePair(rodNumber, link);
+	/* TopolCentromerePair(rodNumber, link); */
+	TopolRingPair(rodNumber, link);
 
 	
 	/*Calculate metric matrix*/

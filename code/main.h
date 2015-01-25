@@ -12,20 +12,20 @@
 // #define rodNumber  9
 
 // example for a ring pair
-// #define chainNumber  2
-// #define beadNumber  9
-// #define rodNumber  10
+#define chainNumber  2
+#define beadNumber  99
+#define rodNumber  100
 
 // example for a ring pair with centromere
-#define chainNumber  2
-#define beadNumber  18
-#define rodNumber  20
+// #define chainNumber  2
+// #define beadNumber  98
+// #define rodNumber  100
 
 
-#define cm  5
+#define cm 20
 #define dimension  3
 #define dt  1e-4
 #define pi  3.14159365359
-#define runSteps  1e7
+#define runSteps  1e4
 
 #endif /* end of include guard: MAIN_H_XPDYBAOS */

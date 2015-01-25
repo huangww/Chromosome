@@ -103,7 +103,7 @@ void ConfigRingPair(int N, double r[N][dimension])
 	}
 	if (ringSize % 2 == 1)
 	{
-		r[halfRing+1][1] = r[0][0] + halfRing - 1 + sqrt(3.0);
+		r[halfRing+1][0] = r[0][0] + halfRing - 1 + sqrt(3.0);
 	}
 	for (int i = 1; i <= ringSize; ++i)
 	{
@@ -158,7 +158,8 @@ void InitializeConfiguration(double r[beadNumber][dimension])
 	else {
 		/* ConfigSingleRing(beadNumber, r); */
 		/* ConfigFixedChain(beadNumber, r); */
-		ConfigCentromerePair(beadNumber, r);
+		/* ConfigCentromerePair(beadNumber, r); */
+		ConfigRingPair(beadNumber, r);
 	}
 }
 

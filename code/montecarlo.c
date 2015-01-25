@@ -160,6 +160,27 @@ int MonteCarloMove(int N,
 	return 0;
 }
 
+void EquilibrateRingPair(
+		double r[beadNumber][dimension],
+		double Teff,
+		unsigned long seed,
+		int equilibrateSteps)
+{
+	int ringSize = (beadNumber+1)/2;
+	double ring1[ringSize][dimension];
+	double ring2[ringSize][dimension];
+	memcpy(ring1, r, sizeof(r[0][0])*dimension*ringSize);
+	memcpy(ring2, r, sizeof(r[0][0])*dimension);
+	memcpy(&ring2[1][0], &r[ringSize][0], sizeof(r[0][0])*dimension*(ringSize-1));
+	for (int step = 0; step < equilibrateSteps; ++step)
+	{
+		MonteCarloMove(ringSize, ring1, 0, Teff, seed);
+		MonteCarloMove(ringSize, ring2, 0, Teff, seed);
+	}
+	memcpy(r, ring1, sizeof(r[0][0])*dimension*ringSize);
+	memcpy(&r[ringSize][0], &ring2[1][0], sizeof(r[0][0])*dimension*(ringSize-1));
+}
+
 void EquilibrateCentromerePair(
 		double r[beadNumber][dimension],
 		double Teff,
@@ -208,6 +229,10 @@ void Equilibration(double r[beadNumber][dimension],
 	if (topolType == 3)
 	{
 		EquilibrateCentromerePair(r, Teff, seed, equilibrateSteps);
+	}
+	else if (topolType == 2)
+	{
+		EquilibrateRingPair(r, Teff, seed, equilibrateSteps);
 	}
 	else
 	{
