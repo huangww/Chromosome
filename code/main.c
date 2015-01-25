@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	{
 		seed = atoi(argv[1]);
 	}
-	double Teff = 1.0;
+	double Teff = 10.0;
 	double v0;
 	v0 = 1.0/Teff;
 	/* v0 = 0; */
@@ -35,9 +35,8 @@ int main(int argc, char *argv[])
 	/* 3. Initialize the configuration and thermalise*/
 	double r[beadNumber][dimension]= {{0}};
 	InitializeConfiguration(r);
-	Equilibration(r, 3, Teff, seed, 1e6);
+	Equilibration(r, 2, Teff, seed, 1e4);
 	
-
 	/* 4. Open files for data output */
 	char *outputDir = "data/";
 	char parameters[80];
@@ -105,7 +104,7 @@ int main(int argc, char *argv[])
 	{
 		MDRun(r, link, g, v0, seed);
 		/* Output samples */
-		if (step % (int)(1e4) == 0) 
+		if (step % (int)(1e2) == 0) 
 		{
 			fprintf(outputFile, "# t = %f\n",step*dt);
 			OutputConfiguration(outputFile, r);
