@@ -12,12 +12,12 @@
 	
 int main(int argc, char *argv[])
 {
-	/* test function */
 	/* Step I: initialization */
 	clock_t startTime = clock();
 
 	/* 1. Initialize parameters */
-	unsigned long seed = 5489;
+	/* unsigned long seed = 5489; */
+	unsigned long seed = 2;
 	if (argc > 1 && atoi(argv[1])>0)
 	{
 		seed = atoi(argv[1]);
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	/* 3. Initialize the configuration and thermalise*/
 	double r[beadNumber][dimension]= {{0}};
 	InitializeConfiguration(r);
-	Equilibration(r, 2, Teff, seed, 1e4);
+	Equilibration(r, 3, Teff, seed, 1e4);
 	
 	/* 4. Open files for data output */
 	char *outputDir = "data/";
@@ -76,30 +76,31 @@ int main(int argc, char *argv[])
 		
 	/* Step II: Run the simulation */
 	/* test */
-	/* OutputConfiguration(outputFile, r); */
+	OutputConfiguration(outputFile, r);
 
 	/* Type A: Monte Carlo Simulation */
-	/* int topolType = 0; */
+	for (int step = 0; step < 0; step++) 
 	/* for (int step = 0; step < runSteps; step++)  */
-	/* { */
-	/* 	MonteCarloMove(beadNumber, r, topolType, Teff, seed); */
-	/* 	#<{(| Output samples |)}># */
-	/* 	#<{(| if (step % (int)(1e4) == 0)  |)}># */
-	/* 	{ */
-	/* 		fprintf(outputFile, "# step = %d\n",step); */
-	/* 		OutputConfiguration(outputFile, r); */
-	/* 		#<{(| fprintf(gyration, "%lf\n",  |)}># */
-	/* 		#<{(| 		GyrationRadiusSquare(r)); |)}># */
-	/* 	} */
-	/* 	#<{(| Output states to the screen |)}># */
-	/* 	if (step % (int)(runSteps/100) == 0) */
-	/* 	{ */
-	/* 		printf("%d %% done!\n", step/(int)(runSteps/100)); */
-	/* 	} */
-        /*  */
-	/* } */
+	{
+		MonteCarloMove(beadNumber, r, 3, Teff, seed);
+		/* Output samples */
+		/* if (step % (int)(1e4) == 0)  */
+		{
+			fprintf(outputFile, "# step = %d\n",step);
+			OutputConfiguration(outputFile, r);
+			/* fprintf(gyration, "%lf\n",  */
+			/* 		GyrationRadiusSquare(r)); */
+		}
+		/* Output states to the screen */
+		if (step % (int)(runSteps/100) == 0)
+		{
+			printf("%d %% done!\n", step/(int)(runSteps/100));
+		}
+
+	}
 
 	/* Type B: Molecular Dynamics Simulation */
+	/* for (int step = 0; step < 0; step++)  */
 	for (int step = 0; step < runSteps; step++) 
 	{
 		MDRun(r, link, g, v0, seed);

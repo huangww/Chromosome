@@ -210,6 +210,7 @@ void EquilibrateCentromerePair(
 	{
 		MonteCarloMove(cm+1, chain1, 1, Teff, seed);
 		MonteCarloMove(ringSize-cm+1, chain2, 1, Teff, seed);
+
 	}
 
 	memcpy(&r[ringSize][0], &chain1[1][0], sizeof(r[0][0])*dimension*(cm-1));

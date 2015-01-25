@@ -22,8 +22,7 @@ void ConfigFixedChain(int N, double r[N][dimension])
 	dcm= Distance(&r[0][0], &r[N-1][0]);
 	double theta0, theta, alpha;
 	theta0 = pi/2 - acos(r[N-1][2]/dcm);
-	alpha= acos(r[N-1][0]/sqrt(r[N-1][0]*r[N-1][0]+
-				r[N-1][1]*r[N-1][1]));
+	alpha= atan2(r[N-1][1], r[N-1][0]);
 
 	if (N%2 == 0)
 	{
@@ -158,8 +157,8 @@ void InitializeConfiguration(double r[beadNumber][dimension])
 	else {
 		/* ConfigSingleRing(beadNumber, r); */
 		/* ConfigFixedChain(beadNumber, r); */
-		/* ConfigCentromerePair(beadNumber, r); */
-		ConfigRingPair(beadNumber, r);
+		ConfigCentromerePair(beadNumber, r);
+		/* ConfigRingPair(beadNumber, r); */
 	}
 }
 
