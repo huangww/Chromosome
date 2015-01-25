@@ -26,12 +26,12 @@ void MDRun(double r[beadNumber][dimension],
 		fa[0][i] = fa[0][i] - 2.0e3*r[0][i];
 	}
 	/* bond centromere */
-	for (int i = 0; i < dimension; ++i)
-	{
-		fa[cm][i] = fa[cm][i] - 1.0e3*(r[cm][i]-r[cm+beadNumber/2][i]);
-		fa[cm+beadNumber/2][i] = fa[cm+beadNumber/2][i] +
-			1.0e3*(r[cm][i]-r[cm+beadNumber/2][i]);
-	}
+	/* for (int i = 0; i < dimension; ++i) */
+	/* { */
+	/* 	fa[cm][i] = fa[cm][i] - 1.0e3*(r[cm][i]-r[cm+beadNumber/2][i]); */
+	/* 	fa[cm+beadNumber/2][i] = fa[cm+beadNumber/2][i] + */
+	/* 		1.0e3*(r[cm][i]-r[cm+beadNumber/2][i]); */
+	/* } */
 
 	/* 2) external force field */
 	for (int i = 1; i < beadNumber; ++i)

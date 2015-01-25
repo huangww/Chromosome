@@ -12,14 +12,14 @@
 // #define rodNumber  9
 
 // example for a ring pair
-#define chainNumber  2
-#define beadNumber  99
-#define rodNumber  100
+// #define chainNumber  2
+// #define beadNumber  99
+// #define rodNumber  100
 
 // example for a ring pair with centromere
-// #define chainNumber  2
-// #define beadNumber  98
-// #define rodNumber  100
+#define chainNumber  2
+#define beadNumber  98
+#define rodNumber  100
 
 
 #define cm 20

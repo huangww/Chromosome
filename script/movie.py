@@ -25,6 +25,7 @@ print fileName
 #         t = t + 1
 
 data = np.loadtxt(fileName,comments='#')
+# data = np.loadtxt('temp.dat',comments='#')
 #get parameters from the fileName
 parameters = fileName.split('_')
 for s in parameters:
