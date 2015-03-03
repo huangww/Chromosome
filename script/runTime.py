@@ -3,7 +3,7 @@ import os
 
 
 dataDir = 'data/'
-fileName = dataDir + 'timming.dat'
+fileName = dataDir + 'timming99.dat'
 outputFile = fileName[:-4] + '_ed.dat'
 
 

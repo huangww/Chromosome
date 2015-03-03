@@ -40,7 +40,7 @@ for T in [1,10,20,50,100]:
 
     # # save extracted data
     # fileName = fileName[:-4] + '_xyz_varxyz.dat'
-    # np.savetxt(fileName, np.vstack((posMean.T,posVar.T)).T)
+    # np.savetxt(fileName, np.vstack((posMean.T,posVars.T)).T)
     # plot figure
     N = beadNumber
     line, = ax1.plot(index, z_mean(index,N,int(T)))

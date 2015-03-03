@@ -16,8 +16,7 @@ int main(int argc, char *argv[])
 	clock_t startTime = clock();
 
 	/* 1. Initialize parameters */
-	/* unsigned long seed = 5489; */
-	unsigned long seed = 2;
+	unsigned long seed = 5489;
 	if (argc > 1 && atoi(argv[1])>0)
 	{
 		seed = atoi(argv[1]);
@@ -35,7 +34,7 @@ int main(int argc, char *argv[])
 	/* 3. Initialize the configuration and thermalise*/
 	double r[beadNumber][dimension]= {{0}};
 	InitializeConfiguration(r);
-	Equilibration(r, 3, Teff, seed, 1e4);
+	Equilibration(r, 3, Teff, seed, 1e6);
 	
 	/* 4. Open files for data output */
 	char *outputDir = "data/";
