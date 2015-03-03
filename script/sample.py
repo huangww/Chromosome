@@ -2,15 +2,15 @@ import numpy as np
 import os
 
 
-beadNumber = 300
+beadNumber = 598
 dimension = 3
-Teff = 1
+Teff = 10
 
 sampleStep = 10
 
-dataDir = 'data/'
+dataDir = './'
 fileName = dataDir + 'MD_N' + str(beadNumber) + '_T' + str(Teff) + '.dat'
-sampleFile = dataDir + 'MD_N' + str(beadNumber) + '_T' + str(Teff) + '_sample.dat'
+sampleFile = fileName[:-4] + '_sample.dat'
 
 
 # solution 1:
