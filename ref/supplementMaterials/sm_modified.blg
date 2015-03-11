@@ -2,52 +2,47 @@ This is BibTeX, Version 0.99d (TeX Live 2014)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: sm_modified.aux
 The style file: plain.bst
-I found no \bibdata command---while reading file sm_modified.aux
-Warning--I didn't find a database entry for "Cruz2012"
-Warning--I didn't find a database entry for "Somasi2002"
-Warning--I didn't find a database entry for "Liu1989"
-Warning--I didn't find a database entry for "Vogel2009"
-Warning--I didn't find a database entry for "Ding2004"
-Warning--I didn't find a database entry for "Rosa2008"
-You've used 0 entries,
+Database file #1: sm.bib
+Warning--empty journal in Pasquali2002
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            508 strings with 4095 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            541 strings with 5131 characters,
+and the built_in function-call counts, 1989 in all, are:
+= -- 194
+> -- 91
+< -- 1
++ -- 36
+- -- 30
+* -- 146
+:= -- 338
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 32
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 7
+duplicate$ -- 75
+empty$ -- 151
+format.name$ -- 30
+if$ -- 407
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 6
+missing$ -- 7
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 31
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 27
 quote$ -- 0
-skip$ -- 1
+skip$ -- 55
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 124
+swap$ -- 14
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+type$ -- 22
+warning$ -- 1
+while$ -- 20
+width$ -- 7
+write$ -- 66
+(There was 1 warning)
