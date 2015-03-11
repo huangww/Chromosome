@@ -12,8 +12,51 @@
 \section{Supplement Materials}
 
 
-\subsection{Simulation}
-\label{sub:simulation}
+\subsection{Monte Carlo Simulation}
+\label{sub:MCS}
+The 1D simulation is performed using Monte Carlo algorithm under the particle
+scenario. The analogy of 1D polymer loop to the Fermions particle system is
+shown in Figure. \ref{fig:s1}. 
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figureS1}
+	\caption{Sketch for analogy of 1D polymer loop to Fermions system.
+		Ground state and its corresponding on the left and the first 
+		excitation state on the right.}
+	\label{fig:s1}
+\end{figure}
+
+$N/2$ Fermions are filled in $N$ energy levels. One occupying state of Fermion
+system can exactly map to one polymer conformation. Standard Metropolis
+scheme\cite{binder2010monte} was exploited to do the sampling. More specifically,
+the simulation contains the following steps:
+
+Step 1: initializing the system with the ground state, i.e. all Fermions sit on 
+the lower half $N$ energy level. 
+
+Step 2: randomly select a particle and perform a jumping trial to the empty
+slot with the probability $p = min\{1,exp\{-(U_{new}-U_{old})/k_B \tilde T\}\}$.
+Here $\tilde T$ is the dimensionless temperature defined in the main text. 
+$k_B$ is Boltzmann constant. $U_{new}, U_{old}$ is the energy potential of new
+and old occupying state which can be calculated
+\begin{equation}
+	U =  -2 \gamma a v_0\sum_{i=1}^N{jn_j}  
+\end{equation}
+where $n_j=1$ if the $j$th energy level is occupied and $n_j=0$ if not. 
+
+Step 3: repeat step 2 for enough steps to thermalize the system until it is
+equilibrated.
+
+Step 4: sampling the system and transfer it to the polymer configuration scheme
+to do the statistical analysis for the average and variance of bead position.
+
+Basically, $10^4$ independent samples after enough thermalization steps are utilized
+to collect the statistical results.
+
+
+
+\subsection{Brownian Dynamics Simulation}
+\label{sub:BDS}
 To control the number of free parameters, we choose the ideal bead-rod polymer model to describe the dynamics of chromosomes in nucleus, without considering the exclusive volume effect. 
 As we will see later that the system can be reduced to a one free parameter model, i.e. $\tilde{T}$. 
 
@@ -21,9 +64,11 @@ The simulation of model bead connected with rigid rod utilize the technique of B
 The dynamical equation of beads representing chromosome segments is
 \begin{equation}
 	\label{eq:differential}
-	\dot{\mathbf{r}_i} = \frac{1}{\xi}(\mathbf{F}_i^b + \mathbf{F}_i^c + \mathbf{F}_i^e) 
+	\dot{\mathbf{r}_i} = \frac{1}{\xi}(\mathbf{F}_i^b + \mathbf{F}_i^c + \mathbf{F}_i^e + \mathbf{F}_i^{pseudo}) 
 \end{equation}
 where $\mathbf{r}_i$ is the position vector of the $i^{\text{th}}$ bead, $\xi$ is friction coefficient, $\mathbf{F}_i^b$ is random force, $\mathbf{F}_i^c$ is constraint force caused by rigid rod constraints and $\mathbf{F}_i^e$ is external force.
+$\mathbf{F}_i^{pseudo}$ is pseudo force added to ensure the right
+statistics~\cite{Hinch1994,Cruz2012}.
 
 The random force, which characterizes the fluctuation origin of beads dynamics, is a standard Brownian force which satisfies the following conditions
 \begin{subequations}
@@ -43,6 +88,13 @@ where $\lambda_i$ is strength of tension on the rod between $i^{\text{th}}$ and 
 
 In case of constant force field, the external force is constant $\mathbf{F}_i^e = -\xi \mathbf{v}$ acting on every bead except for the pinned one representing the SPB. 
 
+The pseudo force is calculated using
+\begin{equation}
+	\mathbf{F}_i^{pseudo} = -\frac{\partial U_{met}}{\partial\mathbf{r}_i};
+	U_{met} = \frac{1}{2}k_B T_c \ln(\det \mathbf{G})
+\end{equation}
+where $\mathbf{G}$ is the metric matrix of the bead-rod system\cite{Pasquali2002}.
+
 Since the rods present in our model are rigid rods, additional constrained equations are needed to keep the rod length unchangeable
 \begin{equation}
 	\label{eq:constraint}
@@ -57,125 +109,53 @@ Dimensionless variables can be obtained by rescaling the parameters $\mathbf{r}^
 \end{equation}
 Numerical scheme employed to solved the set of constrained differential equations (\ref{eq:differential}) and (\ref{eq:constraint}) is the predictor-corrector algorithm, which is used widely in bead-rod simulations\cite{Cruz2012,Somasi2002,Liu1989}.
 Basic steps include calculating a prediction of $\mathbf{r}_i(t+\delta t)$ without considering the constraint force followed by a correction step, i.e.\ solving the algebra constraint equations to get constraint forces and re-plugin to the original equations for the corrected $\mathbf{r}_i(t+\delta t)$.
-The differential equations are solved using Euler iterative method with a time step $dt = 10^{-4}$.  Statistical results are all obtained based on the ensemble of $10^{10}$ steps after equilibrium.  
-
-\subsection{Parameter estimation for fission yeast}
-\label{sub:estimation}
-
-Fission yeast is a ideal model used very often in genetic studies. During meiosis, a fission yeast contains three pairs of chromosomes. The parameters measured from the experiments are summarized in Table~\ref{tab:parameters}.
-\begin{table}[!ht]
-	\caption{Parameters of fission yeast during meiosis}
-	\label{tab:parameters}
-	\begin{tabular}{l|l}
-		\hline
-		\textbf{Parameter} & \textbf{Value} \\
-		\hline
-		Typical size of nucleus          &  $3\mu m$ \\
-		Chromosome number                &  Three pairs \\
-		Compaction ratio of chromatin    &  $10^2bp/nm$ \\
-		Kuhn length of chromatin         &  $100nm$  \\
-		Duration of nuclear oscillation  &  $2 hours$  \\
-		Period of nuclear oscillation    &  $10 min$  \\
-		Moving speed of nucleus          &  $2.5\mu m/min$ \\
-		Viscosity of nucleoplasm         &  $1000\times \mu_{water}$ \\
-		\hline
-	\end{tabular}
-
-\end{table}
-
-We use a bead-rod model to quantitatively characterize the dynamics of chromosomes of fission yeast. 
-The question is how many beads are there that properly describe fission yeast genome. This is estimated by compacted contour length of chromosome divided by Kuhn length. 
-The contour length of every chromatin can be exactly measured in base pair. Compacted contour length can be estimated when plugin the compaction ratio of chromatin.
-The information of system size parameters are summarized in Table~\ref{tab:size}.
-\begin{table}[!ht]
-	\caption{Estimation of system size}
-	\label{tab:size}
-	\begin{tabular}{l|c|c}
-		\hline
-		\textbf{Chromosome} & \textbf{Length in base pair} & \textbf{Corresponding bead number} \\
-		\hline
-		Chromosome I   & $5.58Mb$  & $558$ \\
-		Chromosome II  & $4.54Mb$  & $454$ \\
-		Chromosome III & $2.45Mb$  & $245$ \\
-		\hline
-	\end{tabular}
-\end{table}
-
-\subsection{Fit model to fission yeast}
-\label{sub:fit}
-By setting parameters of our model accordingly to fission yeast, we can check the whether our theory fit the fission yeast system or not.
-The homologous paring is accomplished during nuclear oscillation. However, the velocity of the nucleus is nearly constant when it moves from one end to the other end of the cell\cite{Vogel2009}.
-Experimentalists defined the pair of loci of homologous are ``associated'' for distance between them less than $0.35\mu m$\cite{Ding2004}. Then we can check how strong the force field in our model required to align the chromosomes.
-
-As in the experiments, we assume the threshold of the chromosome been aligned is $0.35\mu m$. Note that the length unit in our model corresponds to Kuhn length which is $100nm$.
-Then from what we have in our model, the distance between loci of different effective temperature follows Fig. 3b in the main text.
-Apparently the distance varies with position along the chromosome. 
-But let us consider the midpoint of the loop which has the largest divergence, hence the largest drag force is needed.
-It turns out the corresponding effective temperature for the midpoint of a polymer loop with $N=500$ is $\tilde{T}\approx 1$ (the exact value is around $1.16$). 
-Actually $N$ does not matter too much given such a low temperature region. 
-
-Substitute it into the definition of effective temperature Eq.~\ref{eq:Teff}, use the room temperature as characterizing temperature $T_c = 300K$, we obtain an estimation of the strength of force field we need.
-\begin{equation}
-	F = 3.57\times10^{-14} N
-\end{equation}
-
-Since the nuclear oscillation in fission yeast is driven by pulling force accumulated by dynein motors through the microtubules, the roughly number of motors needed can be estimated given the total bead number and stall force of each dynein motor.
-It turns out the motor number needed to generate force field strength stated above is $13$, which is a reasonable and available number in fission yeast because the typical number involved in nuclear oscillation is about $50$ \cite{Vogel2009}.
-
-Furthermore, we can estimate the needed moving speed for the alignment based on the simplest Stroke's law and sphere model. 
-Assume the force field is generated from the friction of the bead sphere. 
-The Stroke's law gives $F= 6\pi \mu R v$, where $\mu$ is the viscosity of the nucleoplasm, which is about $1000$ folds of that of water.
-
-$R$ is the radius of the bead sphere, which is hard to estimate given the complexity of real chromosome and the extremely simplified bead sphere model.
-Nevertheless, people who use this sort of bead chain model estimated the diameter of the abstracted bead is around $30nm$\cite{Rosa2008}.
-
-Use the above estimations of $R$, which would be a little bit underestimate, we obtain the moving velocity needed for the homologous to align is $v = 1.41\times10^{-7} m/s$ which is close to the experimental observation $v_{exp} = 4.17\times10^{-8}m/s$.
-Another reasonable estimation $R=50nm$, which is half of the Kuhn length, gives $v = 4.24\times10^{-8}$, which is very close to the experimental observation.
+The differential equations are solved using Euler iterative method with a time
+step $\delta t = 10^{-4}$.  Statistical results are all obtained based on the
+ensemble of no less than $10^{9}$ steps after equilibrium.  
 
 
 % \bibliography{sm}
-\bibliographystyle{plain}
 
+\bibliographystyle{plain}
 \begin{thebibliography}{1}
 
-	\bibitem{Cruz2012}
-	C.~Cruz, F.~Chinesta, and G.~R\'{e}gnier.
-	\newblock {Review on the Brownian Dynamics Simulation of Bead-Rod-Spring Models
-		Encountered in Computational Rheology}.
-	\newblock {\em Archives of Computational Methods in Engineering},
-	19(2):227--259, May 2012.
+\bibitem{binder2010monte}
+Kurt Binder and Dieter Heermann.
+\newblock {\em Monte Carlo simulation in statistical physics: an introduction}.
+\newblock Springer Science \& Business Media, 2010.
 
-	\bibitem{Ding2004}
-	DQ~Ding, Ayumu Yamamoto, Tokuko Haraguchi, and Yasushi Hiraoka.
-	\newblock {Dynamics of homologous chromosome pairing during meiotic prophase in
-		fission yeast}.
-	\newblock {\em Developmental cell}, 6:329--341, 2004.
+\bibitem{Cruz2012}
+C.~Cruz, F.~Chinesta, and G.~R\'{e}gnier.
+\newblock {Review on the Brownian Dynamics Simulation of Bead-Rod-Spring Models
+  Encountered in Computational Rheology}.
+\newblock {\em Archives of Computational Methods in Engineering},
+  19(2):227--259, May 2012.
 
-	\bibitem{Liu1989}
-	Tony~W. Liu.
-	\newblock {Flexible polymer chain dynamics and rheological properties in steady
-		flows}.
-	\newblock {\em The Journal of Chemical Physics}, 90(10):5826, 1989.
+\bibitem{Hinch1994}
+EJ~Hinch.
+\newblock {Brownian motion with stiff bonds and rigid constraints}.
+\newblock {\em Journal of Fluid Mechanics}, pages 219--234, 1994.
 
-	\bibitem{Rosa2008}
-	Angelo Rosa and Ralf Everaers.
-	\newblock {Structure and dynamics of interphase chromosomes.}
-	\newblock {\em PLoS computational biology}, 4(8):e1000153, January 2008.
+\bibitem{Liu1989}
+Tony~W. Liu.
+\newblock {Flexible polymer chain dynamics and rheological properties in steady
+  flows}.
+\newblock {\em The Journal of Chemical Physics}, 90(10):5826, 1989.
 
-	\bibitem{Somasi2002}
-	Madan Somasi, Bamin Khomami, Nathanael~J. Woo, Joe~S. Hur, and Eric~S.G.
-	Shaqfeh.
-	\newblock {Brownian dynamics simulations of bead-rod and bead-spring chains:
-		numerical algorithms and coarse-graining issues}.
-	\newblock {\em Journal of Non-Newtonian Fluid Mechanics}, 108(1-3):227--255,
-	December 2002.
+\bibitem{Pasquali2002}
+Matteo Pasquali, David~C Morse, and Brownian Dynamics.
+\newblock {An efficient algorithm for metric correction forces in simulations
+  of linear polymers with constrained bond lengths}.
+\newblock 116(5), 2002.
 
-	\bibitem{Vogel2009}
-	Sven~K Vogel, Nenad Pavin, Nicola Maghelli, Frank J\"{u}licher, and Iva~M
-	Toli\'{c}-N\o~rrelykke.
-	\newblock {Self-organization of dynein motors generates meiotic nuclear
-		oscillations.}
-	\newblock {\em PLoS biology}, 7(4):e1000087, April 2009.
+\bibitem{Somasi2002}
+Madan Somasi, Bamin Khomami, Nathanael~J. Woo, Joe~S. Hur, and Eric~S.G.
+  Shaqfeh.
+\newblock {Brownian dynamics simulations of bead-rod and bead-spring chains:
+  numerical algorithms and coarse-graining issues}.
+\newblock {\em Journal of Non-Newtonian Fluid Mechanics}, 108(1-3):227--255,
+  December 2002.
 
 \end{thebibliography}
+
 \end{document}

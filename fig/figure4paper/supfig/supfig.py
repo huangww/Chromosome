@@ -34,10 +34,10 @@ for T in Teff:
     data = np.loadtxt(fileName)
     colorVar = scalarMap.to_rgba(T)
     line, = sp.plot(index,z_var(index,N,int(T)),color=colorVar)
-    sp.plot(index[::10],data[::10,3],'o',color=colorVar)
+    linez, = sp.plot(index[::10],data[::10,3],'o',color=colorVar)
     line, = sp.plot(index,xy_var(index,N,int(T))/2.,'--',color=colorVar)
-    sp.plot(index[::10],data[::10,4],'*',color=colorVar)
-    sp.plot(index[::10],data[::10,5],'^',color=colorVar)
+    linex, = sp.plot(index[::10],data[::10,4],'*',color=colorVar)
+    liney, = sp.plot(index[::10],data[::10,5],'^',color=colorVar)
     # plot colorbar legend
 cax = fig.add_axes([0.83, 0.66, 0.04, 0.25])
 fig.text(0.835,0.6, r"$\tilde{T}$")
@@ -52,7 +52,8 @@ for T in Teff:
 sp.set_xlim([0,300])
 sp.set_ylim([0,20])
 sp.set_xlabel(r'Bead index $i$')
-sp.set_ylabel(r"$var[z_i]/a^2$")
+sp.set_ylabel(r"$var[x_i,y_i,z_i]/a^2$")
+sp.legend((linex, liney, linez), (r'$x$',r'$y$',r'$z$'), loc = 'upper left', handlelength=1)
 
 fig.savefig('supfig.pdf')
 plt.show()

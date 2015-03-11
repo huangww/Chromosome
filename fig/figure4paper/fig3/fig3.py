@@ -81,6 +81,9 @@ for s,c in zip(pos, cset):
         fileName = dataDir + 'MD_N'+str(N)+'_T'+str(T)+'_xyz_varxyz.dat'
         data = np.loadtxt(fileName)
         sp2.scatter(T/2., np.sqrt(2*sum(data[s,3:])), color=c)
+    fileName = dataDir + 'MD_N'+str(N)+'_T02_xyz_varxyz.dat'
+    data = np.loadtxt(fileName)
+    sp2.scatter(0.2/2., np.sqrt(2*sum(data[s,3:])), color=c)
     fileName = dataDir + 'MD_N'+str(N)+'_T05_xyz_varxyz.dat'
     data = np.loadtxt(fileName)
     sp2.scatter(0.5/2., np.sqrt(2*sum(data[s,3:])), color=c)

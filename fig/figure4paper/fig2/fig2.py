@@ -62,13 +62,8 @@ for T in Teff:
     sp2.plot(index[::10], varz, 'o', color = colorVar)
 
 # plot line of Tinf
-# data = np.loadtxt('visualization_T10000_N300.dat')
-# meanx = data.mean(axis=0)
-# varx = data.var(axis=0)
-# line, = sp1.plot(x,x_mean(x,N,T), 'k--' )
-# sp1.plot(x[::10],meanx,'o',markerfacecolor='none', markeredgecolor = line.get_color())
+sp1.plot([0,N],[0,0],'k--')
 sp2.plot(index,z_var(index,N,10000),'k--')
-# sp2.plot(x[::10],varx,'o',markerfacecolor='none', markeredgecolor = line.get_color())
 
 # add colorbar legend
 cax = fig.add_axes([0.417, 0.65, 0.02, 0.25])
@@ -91,6 +86,7 @@ for T in Teff:
 sp1.set_xlabel(r'Bead index $i$')
 sp1.set_ylabel(r"$\left<z_i\right>/a$")
 sp1.set_yticks([0, 40, 80, 120, 160])
+sp1.set_ylim([-5, 160])
 sp2.set_xlabel(r'Bead index $i$')
 sp2.set_ylabel(r"$var[z_i]/a^2$")
 sp2.set_yticks([0, 20, 40, 60, 80])
