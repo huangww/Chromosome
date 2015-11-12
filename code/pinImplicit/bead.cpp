@@ -6,7 +6,6 @@
 #include "force.hpp"
 #include "rod.hpp"
 #include "montecarlo.hpp"
-#include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -22,7 +21,6 @@ Bead::Bead(Simulation *simu) : Parameter(simu)
     force = new Force(simu);
     rod = new Rod(simu);
     montecarlo = new Montecarlo(simu);
-    compute = new Compute(simu);
 }
 Bead::~Bead() 
 {
@@ -35,7 +33,6 @@ Bead::~Bead()
     delete force;
     delete rod;
     delete montecarlo;
-    delete compute;
 }
 
 void Bead::init() 
@@ -83,13 +80,6 @@ void Bead::print()
     }
 }
 
-void Bead::pinSPB() 
-{
-    for (int i = 0; i < DIM; ++i) {
-        ftotal[0][i] += -2000.0*r[0][i];
-    }
-}
-
 void Bead::addForce(double **f)
 {
     for (int i = 0; i < nBead; ++i) {
@@ -106,9 +96,6 @@ void Bead::predict()
     addForce(force->brownian(f));
     addForce(force->external(f));
     // addForce(force->repulsive(f));
-    pinSPB();
-    
-   
 
     // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
@@ -138,13 +125,7 @@ void Bead::montecarloUpdate()
         t += dt;
 }
 
-void Bead::output(std::ofstream* output) 
-{
-    outputPos(output[0]);
-    outputRg(output[1]);
-}
-
-void Bead::outputPos(std::ofstream& output) 
+void Bead::output(std::ofstream& output) 
 {
     output << "# t = " << t << std::endl;
     for (int i = 0; i < nBead; ++i) {
@@ -153,11 +134,4 @@ void Bead::outputPos(std::ofstream& output)
         }
         output << std::endl;
     } 
-}
-
-void Bead::outputRg(std::ofstream& output)
-{
-    double rg = compute->gyrationRadius(r);
-    output << std::setw(9) << t << '\t'
-        << std::setw(9) << rg << std::endl;
 }

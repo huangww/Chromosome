@@ -42,18 +42,11 @@ void SimuBeadRod::print()
 void SimuBeadRod::run() 
 {
     std::stringstream fname;
-    std::ofstream *output = new std::ofstream[2];
     fname << "data/r_N" << bead->nBead 
         << "_T" << bead->tempEff 
         << "_" << bead->taskID << ".dat";
     std::cout << fname.str() << std::endl;
-    output[0].open(fname.str());
-    fname.str("");
-    fname << "data/rg_N" << bead->nBead 
-        << "_T" << bead->tempEff 
-        << "_" << bead->taskID << ".dat";
-    std::cout << fname.str() << std::endl;
-    output[1].open(fname.str());
+    std::ofstream output(fname.str());
 
     bead->init();
 
@@ -82,6 +75,5 @@ void SimuBeadRod::run()
         t += bead->dt;
     }
 
-    output[0].close();
-    output[1].close();
+    output.close();
 }
