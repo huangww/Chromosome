@@ -17,9 +17,8 @@ Parameter::~Parameter()
 
 void Parameter::setup() 
 {
-    // setupASEP();
-    setupBeadRod();
-    // setupSingleFile();
+    setupASEP();
+    // setupBeadRod();
 }
 
 void Parameter::setupASEP() 
@@ -27,10 +26,10 @@ void Parameter::setupASEP()
     nSite = 100;
     nPar = 50;
     nSample = 2000;
-    tempEff = 1;
+    tempEff = 0.1;
 
-    tEnd = 1.0e+3;
-    outputStep = 1e1;
+    tEnd = 3.0e+2;
+    outputStep = 1;
     double jumpRate = 0.5;
     double factor = exp(-1.0/tempEff);
     // factor = 1.0;
@@ -46,8 +45,7 @@ void Parameter::setupSingleFile()
 {
     nSite = 100;
     nPar = 50;
-    nSample = 1000;
-    tempEff = 1.0;
+    tempEff = 10.0;
 
     dt = 1e-4;
     tEnd = 1.e+2;
@@ -62,10 +60,10 @@ void Parameter::setupBeadRod()
     topoType = 0;
     nBead = 100;
     nRod = 100;
-    tempEff = 1;
+    tempEff = 0.1;
 
     dt = 1e-4;
-    tEnd = 1e+1;
+    tEnd = 1e+2;
     outputStep = 1e3;
 
     std::random_device rd;
