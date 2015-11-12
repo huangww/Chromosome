@@ -94,7 +94,7 @@ void Particle::addForce(double *f)
     }
 }
 
-void Particle::updateVV() 
+void Particle::update() 
 {
     std::fill(&site[0], &site[0] + nSite, 0);
     for (int i = 0; i < nPar; ++i) {
@@ -126,30 +126,32 @@ void Particle::updateBD()
         addForce(force->boundary(f));
     }
 
-    std::fill(&site[0], &site[0] + nSite, 0);
+    // output for debug
+    // double xmax, xmin;
+    // xmin = *std::min_element(&x[0], &x[0]+nPar);
+    // xmax = *std::max_element(&x[0], &x[0]+nPar); 
+    // if (xmin < 0 or xmax > nSite) {
+    //    print(); 
+    //    std::cin.get();
+    // }
+
     for (int i = 0; i < nPar; ++i) {
         x[i] += ftotal[i] * dt;
-        site[int(x[i])] = true;
     }
 
     t += dt;
 }
 
-void Particle::update()
-{
-    updateBD();
-}
-
 void Particle::output(std::ofstream& output) 
 {
     output << t << '\t';
-    double beadPos = 0;
-    for (int i = 0; i < nSite; ++i) {
-        output << beadPos << '\t';
-        beadPos += 2*site[i] - 1;
-    }
-    // for (int i = 0; i < nPar; ++i) {
-    //     output << std::setw(9) << x[i] << '\t';
+    // double beadPos = 0;
+    // for (int i = 0; i < nSite; ++i) {
+    //     output << beadPos << '\t';
+    //     beadPos += 2*site[i] - 1;
     // }
+    for (int i = 0; i < nPar; ++i) {
+        output << std::setw(9) << x[i] << '\t';
+    }
     output << std::endl;
 }

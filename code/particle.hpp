@@ -17,8 +17,9 @@ public:
     double *f;      // force
 
     void init();
-    void update();
     void print();
+    void update();
+    void updateBD();
     void output(std::ofstream &output);
 
 private:
@@ -29,8 +30,6 @@ private:
 
     void initRandom();
     void addForce(double *);
-    void updateVV();
-    void updateBD();
     /* data */
 };
 
