@@ -22,13 +22,11 @@ void SimuSingleFile::print()
        << particle->nSite << std::endl;
     std::cout << "=> Number of Particles: "
        << particle->nPar << std::endl;
-    std::cout << "=> Time Step: "
+    std::cout << "=> Time step: "
        << particle->dt << std::endl;
-    std::cout << "=> Total Evolving Time: "
+    std::cout << "=> Total evolving time: "
        << particle->tEnd << std::endl;
-    std::cout << "=> Output Time Interval: "
-       << particle->dt*particle->outputStep << std::endl;
-    std::cout << "=> Effective Temperature: "
+    std::cout << "=> Effective temperature: "
        << particle->tempEff << std::endl;
     std::cout << "================================="
         << std::endl;
@@ -42,25 +40,23 @@ void SimuSingleFile::run()
     std::cout << fname.str() << std::endl;
     std::ofstream output(fname.str());
 
-    for (int i = 0; i < particle->nSample; ++i) {
-        particle->init();
-        int maxStep = int(particle->tEnd / particle->dt);
-        for (int step = 0; step < maxStep; ++step) {
-            // output to data file
-            // if (step % int(1.0/particle->dt) == 0) {
-            if (step % particle->outputStep == 0) {
-                particle->output(output);
-            }
+    particle->init();
 
-            // output progressing to screen
-            // if (step % (maxStep/100) == 0) {
-            //     std::cout << step / (maxStep/100) <<" % done!" 
-            //         << std::endl; 
-            // }
-
-            particle->update();
+    int maxStep = int(particle->tEnd / particle->dt);
+    for (int step = 0; step < maxStep; ++step) {
+        // output to data file
+        // if (step % int(1.0/particle->dt) == 0) {
+        if (step % particle->outputStep == 0) {
+            particle->output(output);
         }
-        std::cout << i <<  std::endl;
+
+        // output progressing to screen
+        if (step % (maxStep/100) == 0) {
+           std::cout << step / (maxStep/100) <<" % done!" 
+               << std::endl; 
+        }
+
+        particle->updateBD();
     }
 
     output.close();

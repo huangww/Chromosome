@@ -13,8 +13,8 @@ Rod::Rod(Simulation *simu) : Force(simu)
 {
     link = create2DArray<int>(nRod, 2);
     g = create2DArray<int>(nRod, nRod);
-    u = create2DArray<double>(nRod, DIM);
-    b = create2DArray<double>(nRod, DIM);
+    u = create2DArray<double>(nRod+DIM, DIM);
+    b = create2DArray<double>(nRod+DIM, DIM);
 
     init();
 }
@@ -90,6 +90,13 @@ double** Rod::linkVectorU()
         }
     }
 
+    for (int i = 0; i < DIM; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            u[nRod+i][j] = 0;
+        }
+        u[nRod+i][i] = 1;
+    }
+        
     return u;
 }
 
@@ -101,7 +108,12 @@ double** Rod::linkVectorB()
             b[i][j] = rs[link[i][1]][j] - rs[link[i][0]][j]; 
         }
     }
-    
+    for (int i = 0; i < DIM; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            b[nRod+i][j] = 0;
+        }
+        b[nRod+i][i] = 1;
+    }
     return b;
 }
 
@@ -131,16 +143,29 @@ int** Rod::metricTensor()
 
 void Rod::matrixA(double *A) 
 {
-    std::fill(&A[0], &A[0] + nRod * nRod, 0);
+    std::fill(&A[0], &A[0] + (nRod+DIM) * (nRod+DIM), 0);
 
     for (int i = 0; i < nRod; i++) {
         for (int j = 0; j < nRod; j++) {
             if (g[i][j] != 0) {
                 // Indices transfer: A[j*Rodnumber+i] = A[i][j]
-                A[j*nRod+i] = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+                A[j*(nRod+DIM)+i] = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
             }
         }
     }
+
+    for (int i = 0; i < DIM; ++i) {
+        A[(nRod+i)*(nRod+DIM)] = 
+            -Dot(&b[0][0],&u[nRod+i][0], DIM);
+        A[(nRod+i)*(nRod+DIM)+(nRod-1)] = 
+            Dot(&b[nRod-1][0],&u[nRod+i][0], DIM);
+        A[nRod+i] = -Dot(&b[nRod+i][0],&u[0][0], DIM);
+        A[(nRod-1)*(nRod+DIM)+(nRod+i)] = 
+            Dot(&b[nRod+i][0],&u[nRod-1][0], DIM);
+        A[(nRod+i)*(nRod+DIM)+(nRod+i)] = 
+            -Dot(&b[nRod+i][0],&u[nRod+i][0], DIM);
+    }
+
 }
 
 void Rod::vectorB(double *x, double *B)
@@ -155,7 +180,17 @@ void Rod::vectorB(double *x, double *B)
                 }
             }
         }
-        
+        if (i==0) {
+            for (int k = 0; k < DIM; ++k) {
+                tmp[k] -= x[nRod+k]*u[nRod+k][k];
+            }
+        }
+        if (i==(nRod-1)) {
+            for (int k = 0; k < DIM; ++k) {
+                tmp[k] += x[nRod+k]*u[nRod+k][k];
+            }
+        }
+
         double dotBiBi = 0.0;
         double dotTiTi = 0.0;
         for (int k = 0; k < DIM; k++) {
@@ -165,33 +200,47 @@ void Rod::vectorB(double *x, double *B)
         B[i] = (1.0 - dotBiBi)/(2.0*dt) -
             dt * dotTiTi/2.0;
     }
+    for (int i = 0; i < DIM; ++i) {
+        B[nRod+i] = bead->rs[0][i]/dt;
+        // prescribe moving term
+        // B[nRod] = (bead->rs[0][0]-x(t))/dt;
+    }
 }
 
 void Rod::solverPicard(double *x) 
 {
-    double A[nRod*nRod];
+    double A[(nRod+DIM)*(nRod+DIM)];
     matrixA(A);
 
-    int n = nRod;
-    int lda = nRod;
-    int iPIv[nRod];
+    int n = nRod+DIM;
+    int lda = nRod+DIM;
+    int iPIv[nRod+DIM];
     int info;
     dgetrf_(&n, &n, A, &lda, iPIv, &info);
 
-    double xold[nRod];
+    double xold[nRod+DIM];
     for (int step = 0; step < 500; step++)
     {
-        std::copy(&x[0], &x[0] + nRod, &xold[0]);
-        double B[nRod];
+        std::copy(&x[0], &x[0] + nRod + DIM, &xold[0]);
+        double B[nRod+DIM];
         vectorB(x, B);
+
+        //tmp output
+        // if (fabs(bead->t - 0.0050) < 1e-4) {
+        //     for (int i = 0; i < nRod+DIM; ++i) {
+        //         std::cout << x[i] << ' ' << B[i] << std::endl;
+        //     }
+        //     std::cin.get();
+        // }
+        //tmp output
 
         char s = 'N';
         int nrhs = 1;
         dgetrs_(&s, &n, &nrhs, A, &n, iPIv, B, &n, &info);
 
-        std::copy(&B[0], &B[0] + nRod, &x[0]);
+        std::copy(&B[0], &B[0] + nRod + DIM, &x[0]);
         double maxDiff = fabs(xold[0] - x[0]);
-        for (int i = 1; i < nRod; i++) {
+        for (int i = 1; i < nRod+DIM; i++) {
             if (fabs(xold[i] - x[i]) > maxDiff) {
                 maxDiff = fabs(xold[i] - x[i]);
             }
@@ -210,8 +259,8 @@ double** Rod::constraint(double** f)
 
     u = linkVectorU();
     b = linkVectorB();
-    double tension[nRod];
-    std::fill(&tension[0], &tension[0] + nRod, 0);
+    double tension[nRod+DIM];
+    std::fill(&tension[0], &tension[0] + nRod + DIM, 0);
     solverPicard(tension);
 
     for (int i = 0; i < nBead; i++) {
@@ -229,6 +278,9 @@ double** Rod::constraint(double** f)
         }
     }
 
+    for (int k = 0; k < DIM; ++k) {
+        f[0][k] = f[0][k] + tension[nRod+k]*u[nRod+k][k];
+    }
     return f;
 }
 

@@ -106,10 +106,7 @@ void Bead::predict()
     addForce(force->brownian(f));
     addForce(force->external(f));
     // addForce(force->repulsive(f));
-    pinSPB();
     
-   
-
     // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
