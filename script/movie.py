@@ -6,96 +6,90 @@ import os
 import glob
 
 def GetScreenShot(FrameNumber):        
-    # tmp = getoutput('screencapture -R"0,42,960,457" '"$workdir"'/data/temp.%04d.jpg' % FrameNumber)
     tmp = getoutput('screencapture -R"0,42,960,457" data/temp.%04d.png' % FrameNumber)
     return
 
-#load the newest data
+# load data 
 dataDir = 'data/'
-fileName = max(glob.iglob(dataDir + '*.dat'), key=os.path.getctime)
-# fileName = dataDir + 'r_N50_temp.dat'
-print fileName
+# fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)
+fname = dataDir + 'r_N100_T1_1.dat'
+print fname
 
-# beadPos = np.zeros((frameNumber, beadNumber, dimension))
-# t = 0
-#     while t<frameNumber:
-#         datafile = dataDir + 'dump' + str((t+tempFrames)*step) + '.dat'
-#         posFrame = np.loadtxt(datafile, skiprows = 2, usecols = (1, 2, 3))
-#         beadPos[t] = posFrame
-#         t = t + 1
+# detect parameters from file name
+parameters = fname.split('_')
+Nstr = [s[1:] for s in parameters if s[0]=='N']
+Tstr = [s[1:] for s in parameters if s[0]=='T']
+N = int(Nstr[0])
+Teff = int(Tstr[0])
 
-data = np.loadtxt(fileName,comments='#')
-# data = np.loadtxt('temp.dat',comments='#')
-#get parameters from the fileName
-parameters = fileName.split('_')
-for s in parameters:
-    if s[0] == 'N':
-        beadNumber = int(s[1:])
-print beadNumber
+# set up the scene or movie
+scene = display(width=1200, height=600, background=(1.0,1.0,1.0))
+scene.fullscreen = True
+scene.autoscale = False
+# calculate the center position of the scene
+# center = [(np.max(pos[:,:,0]) + np.min(pos[:,:,0]))/2.,\
+# 	  (np.max(pos[:,:,1]) + np.min(pos[:,:,1]))/2.,\
+# 	  (np.max(pos[:,:,2]) + np.min(pos[:,:,2]))/2.]
+# scene.center = center
+# print center
 
-scene = display(title='Title',width=960, height=480, background=(1.0,1.0,1.0))
-factor = 0.3
-scale = 0.20
+factor = 0.15
+scale = 0.4
+
+faxis = frame()
+faxis.pos = [-11, 0, 0]
+
+# load data
+data = np.loadtxt(fname,comments='#')
+pos = scale*data.reshape([-1,N,3])
+
+
 # generate beads
 bead=[]
-bead.append(sphere(pos=(0,0,0),radius=2.0*factor,color=(1.0,0.0,0.0)))
-for i in range(1,beadNumber):
-    bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=color.magenta))
-    #i0 = i%monomer.sum()
-    #if (i0>0 and i0<=monomer[0]):
-        #bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=(0.8,0.2,0.8)))
-    #elif (i0>0 and i0<=monomer[0]+monomer[1]):
-        #bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=(0.2,0.8,0.2)))
-    #else: 
-    #    bead.append(sphere(pos=(i*scale,0,0),radius=1.0*factor,color=(0.2,0.8,0.8)))
-
+# monomer = [279,227,123]
+bead.append(sphere(pos = (0,0,0),
+    radius = 2.0*factor,
+    color = color.red,
+    frame = faxis))
+bead.extend([sphere(pos = (i,0,0),
+    radius = 1.0*factor,
+    color = color.green,
+    frame = faxis)
+    for i in range(1,N)])
+   
 # Connect beads with rods
 # for a simple ring 
-#link = np.zeros((beadNumber,2),dtype=int)
-#for i in range(beadNumber):
-    #link[i,0]=i
-#    link[i,1]=(i+1)%beadNumber
+link = [[i, (i+1)%N] for i in range(N)]
+# or load topology data
+# link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')
+rod = [cylinder(pos=bead[l[0]].pos, 
+    axis = bead[l[1]].pos - bead[l[0]].pos,
+    radius = 0.5 * factor, 
+    color = bead[max(l[0], l[1])].color,
+    frame = faxis)
+    for l in link]
 
-link = np.loadtxt(dataDir + 'topol.dat', dtype = 'int')
-rod = []
-for l in link:
-    if (l[1]>l[0]):
-        rod.append(cylinder(pos=bead[l[0]].pos,axis=bead[l[1]].pos-bead[l[0]].pos,radius=0.5*factor,color=bead[l[1]].color))
-    else:
-        rod.append(cylinder(pos=bead[l[0]].pos,axis=bead[l[1]].pos-bead[l[0]].pos,radius=0.5*factor,color=bead[l[0]].color))
-beadPosition = data.reshape([-1,beadNumber,3])
 
-#calculate the center position of the system
-center = [np.max(beadPosition[:,:,0])/2.+np.min(beadPosition[:,:,0])/2.,\
-	  np.max(beadPosition[:,:,1])/2.+np.min(beadPosition[:,:,1])/2.,\
-	  np.max(beadPosition[:,:,2])/2.+np.min(beadPosition[:,:,2])/2.]
-scene.center=center
-
-#scene.autoscale=False
-#label = label(pos=[center[0],np.min(beadPosition[:,:,1]),center[2]],text='',height=20,color=(1.0,0,0))
-
+# label = label(text='',height=20,color=(1.0,0,0))
 #start the mainloop
-scene.waitfor('click keydown')
 t=0
-while t<len(beadPosition):
-# while 1:
-    #label.text='Frame=%1.0f'%t
-    j = t%len(beadPosition)
-    for i in range(beadNumber):
-	bead[i].pos= vector(beadPosition[j,i])
-    i=0
-    for l in link:
+# while t<len(beadPosition):
+while 1:
+    j = t%len(pos)
+    # label.text='Frame=%1.0f'%j
+    for i in range(N):
+	bead[i].pos = vector(pos[j,i])
+    for i,l in zip(range(N), link):
 	rod[i].pos=bead[l[0]].pos
 	rod[i].axis=bead[l[1]].pos-bead[l[0]].pos
-	i = i+1
     rate(30)
-    # rate(50)
+    if t == 0:
+        scene.waitfor('click keydown')
     # GetScreenShot(t)
-    t = t+1
-    # scene.waitfor('click keydown')
-    # s = scene.kb.getkey()
+    # if t>100:
+    #     s = scene.kb.getkey()
     # if s == 's':
         # povexport.export(display = scene)
+    t = t+1
 
 print 'Done'
-	

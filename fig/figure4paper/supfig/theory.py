@@ -46,18 +46,21 @@ def r_var(index, N, T):
     r_var = xy_var(index,N,T) + z_var(index,N,T)
     return r_var
 
-# def xy_covar(i, j, N, T):
-#     s = min(i,j)
-#     l = max(i,j)
-#     xy_covar = xy_raw_var(0,s,N,T)*xy_raw_var(l,N,N,T)/xy_raw_var(0,N,N,T)
-#     return xy_covar
-#
+def xy_covar(i, j, N, T):
+    s = min(i,j)
+    l = max(i,j)
+    index = np.range(N)
+    var_e_xy_i = var_e_xy(index, N, T)
+    xy_covar =  sum(var_e_xy_i[:s])* \
+            sum(var_e_xy_i[l:])/sum(var_e_xy_i)
+    return xy_covar
+
 # def z_covar(i, j, N, T):
 #     s = min(i,j)
 #     l = max(i,j)
 #     z_covar = (z_raw_var(s,N,T)-z_raw_var(0,N,T))*(z_raw_var(N,N,T)-z_raw_var(l,N,T))/(z_raw_var(N,N,T)-z_raw_var(0,N,T))
 #     return z_covar
-#  
+
 # def r_covar(i, j, N, T):
 #     r_covar = xy_covar(i,j,N,T) + z_covar(i,j,N,T)
 #     return r_covar

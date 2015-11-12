@@ -1,23 +1,22 @@
 LIBS = -llapack -lm -lblas
-CC = gcc-4.9
-CFLAGS = -Wall -std=c99 -fopenmp -O3
+CC = clang++
+CFLAGS = -Wall -std=c++11 -O3
 SRCDIR = code
 BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out
 
 VPATH = code
-# VPATH = used/plainC
 
 .PHONY : default all run clean movie plot debug
 
 default: $(TARGET)
 all: default
 
-SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.c))
-HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.h))
-OBJECTS = $(patsubst %.c, $(BUILDDIR)/%.o, $(notdir $(SRC)))
+SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.cpp))
+HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.hpp))
+OBJECTS = $(patsubst %.cpp, $(BUILDDIR)/%.o, $(notdir $(SRC)))
 
-$(BUILDDIR)/%.o: %.c $(HEADERS)
+$(BUILDDIR)/%.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
@@ -32,7 +31,8 @@ clean :
 	-rm -rf $(BUILDDIR)/*
 
 movie:
-	vpython script/movie.py
+	python script/movie.py
+	# python script/sfd-movie.py
 
 plot:
 	python script/plotfig.py

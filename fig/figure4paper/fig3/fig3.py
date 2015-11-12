@@ -10,12 +10,12 @@ plt.rc('text',usetex = True)
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
-        'size'   : 16 }
+        'size'   : 20 }
 plt.rc('lines', lw=2)
 plt.rc('font', **font)
 
 fig.subplots_adjust(left=0.1, right =0.95,\
-        bottom=0.15, top =0.95, wspace=0.25)
+        bottom=0.18, top =0.95, wspace=0.25)
 
 sp1 = fig.add_subplot(121)
 sp2 = fig.add_subplot(122)
@@ -44,7 +44,7 @@ for T in Teff:
             alpha = 0.2)
 # plot colorbar legend
 cax = fig.add_axes([0.42, 0.65, 0.02, 0.25])
-fig.text(0.423,0.59, r"$\tilde{T}$")
+fig.text(0.423,0.58, r"$\tilde{T}$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,50,100])
 cb.set_ticklabels([r'$0$',r'$25$',r'$50$'])
@@ -54,8 +54,10 @@ for T in Teff:
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
 
 sp1.set_xlim([0,300])
+sp1.set_xticks([0,100,200,300])
+sp1.set_yticks([0,40,80,120])
 sp1.set_ylim([0,120])
-sp1.set_xlabel(r'Bead index $i$')
+sp1.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
 sp1.set_ylabel(r"$\left<z_i\right>/a$")
 
 # subplot 2
@@ -89,15 +91,16 @@ for s,c in zip(pos, cset):
     sp2.scatter(0.5/2., np.sqrt(2*sum(data[s,3:])), color=c)
 
 # sp2.plot([0.5,0.5],[0,2],'k--')
-fig.text(0.88,0.35, r"$i=10$")
-fig.text(0.88,0.62, r"$i=50$")
-fig.text(0.88,0.76, r"$i=100$")
-fig.text(0.88,0.86, r"$i=150$")
+fig.text(0.865,0.34, r"$i=10$")
+fig.text(0.865,0.575, r"$i=50$")
+fig.text(0.865,0.70, r"$i=100$")
+fig.text(0.865,0.82, r"$i=150$")
 sp2.set_xlim([0.01,1000])
-sp2.set_ylim([0,14])
+sp2.set_ylim([0,15])
+sp2.set_yticks([0,5,10,15])
 sp2.set_xscale('log')
 sp2.set_xlabel(r'$\tilde{T}$')
-sp2.set_ylabel(r"$var[\mathbf{d}]^{1/2}/a$")
+sp2.set_ylabel(r"$\mathrm{var}\left[\mathbf{d}\right]^{1/2}/a$")
 
-fig.savefig('figure3.pdf')
+fig.savefig('figure3_1.pdf')
 plt.show()

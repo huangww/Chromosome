@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1416784633 "sm.tex" "sm.pdf" "sm" 1416784635
+["pdflatex"] 1434030290 "sm.tex" "sm.pdf" "sm" 1434030291
   "/usr/local/texlive/2014/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -22,9 +22,9 @@
   "/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1401025944 1445653 26a0aacf3d70032b1ec192e8c7792117 ""
   "/usr/local/texlive/2014/texmf-var/web2c/pdftex/pdflatex.fmt" 1413209122 3832013 a6915b479f5c96de72b74a5ef32d455e ""
   "/usr/local/texlive/2014/texmf.cnf" 1401025936 577 a59edbde8d3a8c549d0eeaab1739e2ff ""
-  "sm.aux" 1416784634 784 d0abb978756ad85cee22c154bae73c63 ""
-  "sm.tex" 1416784626 7844 22ffba7134a4ef6cc04bdeead3094679 ""
+  "sm.aux" 1434030291 1410 5ceb619f97a15bcfbff501c820ea5173 ""
+  "sm.tex" 1434030288 12904 3a758f0f5f944cd7684f3c9bbfa80c5a ""
   (generated)
-  "sm.aux"
   "sm.pdf"
   "sm.log"
+  "sm.aux"
