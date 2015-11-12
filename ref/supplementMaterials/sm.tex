@@ -82,79 +82,79 @@ Nevertheless, people who use this sort of bead chain model estimated the diamete
 Use the above estimations of $R$, which would be a little bit underestimate, we obtain the moving velocity needed for the homologous to align is $v = 1.41\times10^{-7} m/s$ which is close to the experimental observation $v_{exp} = 4.17\times10^{-8}m/s$.
 Another reasonable estimation $R=50nm$, which is half of the Kuhn length, gives $v = 4.24\times10^{-8}$, which is very close to the experimental observation.
 
-% \subsection{Parameter estimation for fission yeast}
-% \label{sub:estimation}
-%
-% Fission yeast is a ideal model used very often in genetic studies. During meiosis, a fission yeast contains three pairs of chromosomes. The parameters measured from the experiments are summarized in Table~\ref{tab:parameters}.
-% \begin{table}[!ht]
-% 	\caption{Parameters of fission yeast during meiosis}
-% 	\label{tab:parameters}
-% 	\begin{tabular}{l|l}
-% 		\hline
-% 		\textbf{Parameter} & \textbf{Value} \\
-% 		\hline
-% 		Typical size of nucleus          &  $3\mu m$ \\
-% 		Chromosome number                &  Three pairs \\
-% 		Compaction ratio of chromatin    &  $10^2bp/nm$ \\
-% 		Kuhn length of chromatin         &  $100nm$  \\
-% 		Duration of nuclear oscillation  &  $2 hours$  \\
-% 		Period of nuclear oscillation    &  $10 min$  \\
-% 		Moving speed of nucleus          &  $2.5\mu m/min$ \\
-% 		Viscosity of nucleoplasm         &  $1000\times \mu_{water}$ \\
-% 		\hline
-% 	\end{tabular}
-%
-% \end{table}
-%
-% We use a bead-rod model to quantitatively characterize the dynamics of chromosomes of fission yeast. 
-% The question is how many beads are there that properly describe fission yeast genome. This is estimated by compacted contour length of chromosome divided by Kuhn length. 
-% The contour length of every chromatin can be exactly measured in base pair. Compacted contour length can be estimated when plugin the compaction ratio of chromatin.
-% The information of system size parameters are summarized in Table~\ref{tab:size}.
-% \begin{table}[!ht]
-% 	\caption{Estimation of system size}
-% 	\label{tab:size}
-% 	\begin{tabular}{l|c|c}
-% 		\hline
-% 		\textbf{Chromosome} & \textbf{Length in base pair} & \textbf{Corresponding bead number} \\
-% 		\hline
-% 		Chromosome I   & $5.58Mb$  & $558$ \\
-% 		Chromosome II  & $4.54Mb$  & $454$ \\
-% 		Chromosome III & $2.45Mb$  & $245$ \\
-% 		\hline
-% 	\end{tabular}
-% \end{table}
-%
-% \subsection{Fit model to fission yeast}
-% \label{sub:fit}
-% By setting parameters of our model accordingly to fission yeast, we can check the whether our theory fit the fission yeast system or not.
-% The homologous paring is accomplished during nuclear oscillation. However, the velocity of the nucleus is nearly constant when it moves from one end to the other end of the cell\cite{Vogel2009}.
-% Experimentalists defined the pair of loci of homologous are ``associated'' for distance between them less than $0.35\mu m$\cite{Ding2004}. Then we can check how strong the force field in our model required to align the chromosomes.
-%
-% As in the experiments, we assume the threshold of the chromosome been aligned is $0.35\mu m$. Note that the length unit in our model corresponds to Kuhn length which is $100nm$.
-% Then from what we have in our model, the distance between loci of different effective temperature follows Fig. 3b in the main text.
-% Apparently the distance varies with position along the chromosome. 
-% But let us consider the midpoint of the loop which has the largest divergence, hence the largest drag force is needed.
-% It turns out the corresponding effective temperature for the midpoint of a polymer loop with $N=500$ is $\tilde{T}\approx 1$ (the exact value is around $1.16$). 
-% Actually $N$ does not matter too much given such a low temperature region. 
-%
-% Substitute it into the definition of effective temperature Eq.~\ref{eq:Teff}, use the room temperature as characterizing temperature $T_c = 300K$, we obtain an estimation of the strength of force field we need.
-% \begin{equation}
-% 	F = 3.57\times10^{-14} N
-% \end{equation}
-%
-% Since the nuclear oscillation in fission yeast is driven by pulling force accumulated by dynein motors through the microtubules, the roughly number of motors needed can be estimated given the total bead number and stall force of each dynein motor.
-% It turns out the motor number needed to generate force field strength stated above is $13$, which is a reasonable and available number in fission yeast because the typical number involved in nuclear oscillation is about $50$ \cite{Vogel2009}.
-%
-% Furthermore, we can estimate the needed moving speed for the alignment based on the simplest Stroke's law and sphere model. 
-% Assume the force field is generated from the friction of the bead sphere. 
-% The Stroke's law gives $F= 6\pi \mu R v$, where $\mu$ is the viscosity of the nucleoplasm, which is about $1000$ folds of that of water.
-%
-% $R$ is the radius of the bead sphere, which is hard to estimate given the complexity of real chromosome and the extremely simplified bead sphere model.
-% Nevertheless, people who use this sort of bead chain model estimated the diameter of the abstracted bead is around $30nm$\cite{Rosa2008}.
-%
-% Use the above estimations of $R$, which would be a little bit underestimate, we obtain the moving velocity needed for the homologous to align is $v = 1.41\times10^{-7} m/s$ which is close to the experimental observation $v_{exp} = 4.17\times10^{-8}m/s$.
-% Another reasonable estimation $R=50nm$, which is half of the Kuhn length, gives $v = 4.24\times10^{-8}$, which is very close to the experimental observation.
-%
+\subsection{Parameter estimation for fission yeast}
+\label{sub:estimation}
+
+Fission yeast is a ideal model used very often in genetic studies. During meiosis, a fission yeast contains three pairs of chromosomes. The parameters measured from the experiments are summarized in Table~\ref{tab:parameters}.
+\begin{table}[!ht]
+	\caption{Parameters of fission yeast during meiosis}
+	\label{tab:parameters}
+	\begin{tabular}{l|l}
+		\hline
+		\textbf{Parameter} & \textbf{Value} \\
+		\hline
+		Typical size of nucleus          &  $3\mu m$ \\
+		Chromosome number                &  Three pairs \\
+		Compaction ratio of chromatin    &  $10^2bp/nm$ \\
+                Kuhn length of chromatin         &  $100\sim300nm$  \\
+		Duration of nuclear oscillation  &  $2 hours$  \\
+		Period of nuclear oscillation    &  $10 min$  \\
+		Moving speed of nucleus          &  $2.5\mu m/min$ \\
+		Viscosity of nucleoplasm         &  $1000\times \mu_{water}$ \\
+		\hline
+	\end{tabular}
+
+\end{table}
+
+We use a bead-rod model to quantitatively characterize the dynamics of chromosomes of fission yeast. 
+The question is how many beads are there that properly describe fission yeast genome. This is estimated by compacted contour length of chromosome divided by Kuhn length. 
+The contour length of every chromatin can be exactly measured in base pair. Compacted contour length can be estimated when plugin the compaction ratio of chromatin.
+The information of system size parameters are summarized in Table~\ref{tab:size}.
+\begin{table}[!ht]
+	\caption{Estimation of system size}
+	\label{tab:size}
+	\begin{tabular}{l|c|c}
+		\hline
+		\textbf{Chromosome} & \textbf{Length in base pair} & \textbf{Corresponding bead number} \\
+		\hline
+                Chromosome I   & $5.58Mb$  & $279$ \\
+                Chromosome II  & $4.54Mb$  & $227$ \\
+                Chromosome III & $2.45Mb$  & $123$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Fit model to fission yeast}
+\label{sub:fit}
+By setting parameters of our model accordingly to fission yeast, we can check the whether our theory fit the fission yeast system or not.
+The homologous paring is accomplished during nuclear oscillation. However, the velocity of the nucleus is nearly constant when it moves from one end to the other end of the cell\cite{Vogel2009}.
+Experimentalists defined the pair of loci of homologous are ``associated'' for distance between them less than $0.35\mu m$\cite{Ding2004}. Then we can check how strong the force field in our model required to align the chromosomes.
+
+As in the experiments, we assume the threshold of the chromosome been aligned is $0.35\mu m$. Note that the length unit in our model corresponds to Kuhn length which is $100nm$.
+Then from what we have in our model, the distance between loci of different effective temperature follows Fig. 3b in the main text.
+Apparently the distance varies with position along the chromosome. 
+But let us consider the midpoint of the loop which has the largest divergence, hence the largest drag force is needed.
+It turns out the corresponding effective temperature for the midpoint of a polymer loop with $N=500$ is $\tilde{T}\approx 1$ (the exact value is around $1.16$). 
+Actually $N$ does not matter too much given such a low temperature region. 
+
+Substitute it into the definition of effective temperature Eq.~\ref{eq:Teff}, use the room temperature as characterizing temperature $T_c = 300K$, we obtain an estimation of the strength of force field we need.
+\begin{equation}
+	F = 3.57\times10^{-14} N
+\end{equation}
+
+Since the nuclear oscillation in fission yeast is driven by pulling force accumulated by dynein motors through the microtubules, the roughly number of motors needed can be estimated given the total bead number and stall force of each dynein motor.
+It turns out the motor number needed to generate force field strength stated above is $13$, which is a reasonable and available number in fission yeast because the typical number involved in nuclear oscillation is about $50$ \cite{Vogel2009}.
+
+Furthermore, we can estimate the needed moving speed for the alignment based on the simplest Stroke's law and sphere model. 
+Assume the force field is generated from the friction of the bead sphere. 
+The Stroke's law gives $F= 6\pi \mu R v$, where $\mu$ is the viscosity of the nucleoplasm, which is about $1000$ folds of that of water.
+
+$R$ is the radius of the bead sphere, which is hard to estimate given the complexity of real chromosome and the extremely simplified bead sphere model.
+Nevertheless, people who use this sort of bead chain model estimated the diameter of the abstracted bead is around $30nm$\cite{Rosa2008}.
+
+Use the above estimations of $R$, which would be a little bit underestimate, we obtain the moving velocity needed for the homologous to align is $v = 1.41\times10^{-7} m/s$ which is close to the experimental observation $v_{exp} = 4.17\times10^{-8}m/s$.
+Another reasonable estimation $R=50nm$, which is half of the Kuhn length, gives $v = 4.24\times10^{-8}$, which is very close to the experimental observation.
+
 % \bibliography{sm}
 \bibliographystyle{plain}
 

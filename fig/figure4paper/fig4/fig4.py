@@ -9,12 +9,12 @@ fig = plt.figure(0,figsize=(5,4))
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
-        'size'   : 16 }
+        'size'   : 20 }
 plt.rc('lines', lw=2)
 plt.rc('font', **font)
 plt.rc('text',usetex = True)
 fig.subplots_adjust(left=0.15, right =0.95,\
-        bottom=0.15, top =0.95, wspace=0.25)
+        bottom=0.18, top =0.95, wspace=0.25)
 ax = fig.add_subplot(111)
 
 N = 300
@@ -48,8 +48,8 @@ varz = var_z(N, T)
 ax.plot(index,varz,'k--')
 
 # add colorbar legend
-cax = fig.add_axes([0.85, 0.66, 0.04, 0.25])
-fig.text(0.855,0.6, r"$\tilde{T}$")
+cax = fig.add_axes([0.84, 0.65, 0.04, 0.25])
+fig.text(0.845,0.58, r"$\tilde{T}$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,20,50])
 cb.set_ticklabels([r'$0$',r'$10$',r'$25$'])
@@ -57,10 +57,10 @@ for T in Teff:
     colorVar = scalarMap.to_rgba(T)
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
 
-# ax.set_xlim([0,300])
+ax.set_xticks([0,100, 200, 300])
 # ax.set_ylim([0,120])
-ax.set_xlabel(r'Bead index $i$')
-ax.set_ylabel(r"$var[z_i]/a^2$")
+ax.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
+ax.set_ylabel(r"$\mathrm{var}\left[d_{i,z}\right]/a^2$")
 
 fig.savefig('figure4.pdf')
 plt.show()

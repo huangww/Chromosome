@@ -28,12 +28,12 @@ plt.rc('text', usetex=True)
 font = {'family' : 'sans-serif',
         'serif'  : 'Helvetica',
         'weight' : 'normal',
-        'size'   : 16 }
+        'size'   : 20 }
 plt.rc('lines', lw=2)
 plt.rc('font', **font)
 
 fig.subplots_adjust(left=0.1, right =0.95,\
-        bottom=0.15, top =0.95, wspace=0.25)
+        bottom=0.18, top =0.95, wspace=0.25)
 
 
 sp1 = fig.add_subplot(121)
@@ -66,16 +66,16 @@ sp1.plot([0,N],[0,0],'k--')
 sp2.plot(index,z_var(index,N,10000),'k--')
 
 # add colorbar legend
-cax = fig.add_axes([0.417, 0.65, 0.02, 0.25])
-fig.text(0.42,0.59, r"$\tilde{T}$")
+cax = fig.add_axes([0.41, 0.66, 0.02, 0.25])
+fig.text(0.41,0.59, r"$\tilde{T}$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,50,100])
 for T in Teff:
     colorVar = scalarMap.to_rgba(T)
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
 
-cax = fig.add_axes([0.89, 0.65, 0.02, 0.25])
-fig.text(0.893,0.59, r"$\tilde{T}$")
+cax = fig.add_axes([0.885, 0.66, 0.02, 0.25])
+fig.text(0.885,0.59, r"$\tilde{T}$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,50,100])
 for T in Teff:
@@ -83,13 +83,16 @@ for T in Teff:
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=1.5, headwidth=6.0))
 
 # set labels and ticks
-sp1.set_xlabel(r'Bead index $i$')
+sp1.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
+sp1.set_xticks([0, 100, 200, 300])
 sp1.set_ylabel(r"$\left<z_i\right>/a$")
 sp1.set_yticks([0, 40, 80, 120, 160])
 sp1.set_ylim([-5, 160])
-sp2.set_xlabel(r'Bead index $i$')
-sp2.set_ylabel(r"$var[z_i]/a^2$")
+sp2.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
+sp2.set_xticks([0, 100, 200, 300])
+sp2.set_ylabel(r"$\mathrm{var}\left[z_i\right]/a^2$")
 sp2.set_yticks([0, 20, 40, 60, 80])
 
+# fig.set_tight_layout(True)
 fig.savefig('figure2.pdf')
 plt.show()

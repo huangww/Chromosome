@@ -3,6 +3,13 @@
 *.out*
 *.swp
 *~
+*.log
+*.aux
+*.synctex.gz
+*.fls
+*.fdb_latexmk
 *.pyc
+.DS_Store
 build
 data/**/*
+data/*

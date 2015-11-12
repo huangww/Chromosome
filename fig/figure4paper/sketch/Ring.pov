@@ -2,7 +2,7 @@
 #include "textures.inc"
 
 // CAMERA, LIGHTS, AND CHECKERED BACKGROUND PLANE:
-camera {location <-10,-10,-10> sky <0,0,-1> look_at 0}
+camera {location <-0,-10,-10> sky <0,0,-1> look_at 0}
 light_source {<-10,-3,-18>, color White}
 background { color rgb <1.0, 1.0, 1.0> }
 //light_source {<-20, 00,-20>, color .6}
@@ -16,12 +16,15 @@ background { color rgb <1.0, 1.0, 1.0> }
 //	finish{phong 1}
 } 
 
-
-
-
-
+#declare axis = union {
+	cylinder {0,<5,0,0>, 0.02}
+	cone{<0.5,0,0>, 0.04, <0.7,0,0>, 0 }  		
+	pigment {color Black}
+	scale <1,2,1>
+//	finish{phong 1}
+} 
 union{	
-box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
+//box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
 //box {<0,0,0>, <-10.5,-0.0,-5>pigment { color 1.5*White}}
 //box {<0,0,0>, <-0.0,-8,-5> pigment { color 1.5*White}}
 // grid coordinates
@@ -34,10 +37,18 @@ box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
 //cylinder {<0,0,-5>,<-8,0,-5>, 0.03}
 //cylinder {<0,-6,0>,<0,-6,-5>, 0.03}
 //cylinder {<0,0,-5>,<0,-6,-5>, 0.03}
+//union{
+//object{axis  rotate<180,0,0>}
+//object{axis  rotate<0,180,00>}
+//object{axis  rotate<0,0,90>}
+//translate<-10,-4,-4>
+//}
+
 
  union{  
- 	sphere{<4.2382688749478120E-003,-4.9855054240550783E-002,0>,0.3 texture{pigment{color 2*Magenta}} finish{phong 1}}
-	object{arr  rotate<0,0,180>}
+ 	sphere{<4.2382688749478120E-003,-4.9855054240550783E-002,0>,0.3 
+ 	texture{pigment{color 0.5*Magenta}} finish{phong 1}}
+//	object{arr  rotate<0,0,180>}
 	union{	
 		sphere{<0.839759, -0.669981, 0.283580>,	0.2}
 		sphere{<1.776648, -0.856919, 0.579033>,	0.2 }
@@ -53,7 +64,7 @@ box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
 		sphere{<2.964692, -0.196729, -0.567821>,	0.2}
 		sphere{<1.970323, -0.296468, -0.531994>,	0.2}
 		sphere{ <0.980422, -0.169988, -0.467978>,	0.2}
-		texture{pigment{color 0.3*Blue}}
+		texture{pigment{color Cyan}}
 		finish{phong 1}
 //		normal { bumps 0.4 scale 0.2 }
 	}
@@ -93,15 +104,15 @@ box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
 		cylinder {<1.970323, -0.296468, -0.531994>,<0.980422, -0.169988, -0.467978>, 0.1}
 		cylinder { <0.980422, -0.169988, -0.467978>,<0.117377, -0.031596, 0.017820>, 0.1}
 
-		texture{pigment{color 0.9*Green}}
+		texture{pigment{color rgb<0.1,0.1,1>}}
 		finish{
 			ambient .2
 			diffuse .6
 			specular .75
 			roughness .001
-			reflection 0.1
+			reflection 0.03
 			}
-//		finish{phong 0.3}
+		finish{phong 0.3}
 	}
 
 //	union{	
@@ -130,7 +141,7 @@ box {<0,0,0>, <-10.5,-8,-0.0> pigment { color 1.2*White}}
 ////		finish{phong 0.3}
 //	}
 
-	translate<-10,-4,-4>
+	translate<-5,-4,-3>
  }
 translate<2,0,-2>
 }

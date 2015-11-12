@@ -1,9 +1,72 @@
+#!/usr/bin/env python
+# encoding: utf-8
 import numpy as np
+
+def mean_n_1D(i, N, T):
+    Teff = float(T)/2
+    mu = (N+1)/2.0
+    mean_n_1D = 1.0/(1+np.exp((i-mu)/Teff))
+    return mean_n_1D
+
+def var_n_1D(i, N, T):
+    Teff = float(T)/2
+    mu = (N+1)/2.0
+    pn = 1.0/(1+np.exp((i-mu)/Teff)) 
+    var_n_1D = pn * (1 - pn)
+    return var_n_1D
+
+def mean_zi_1D(i, N, T):
+    Teff = float(T)
+    mean_zi_1D = 0
+    for i0 in range(i):
+        mean_zi_1D += (2*mean_n_1D(i0+1, N, Teff)-1)
+    return mean_zi_1D
+
+def z_var_1D(m, n, N, T):
+    z_var_1D = 0
+    for i in range(m,n):
+        z_var_1D += 4*var_n_1D(i+1, N, T)
+    return z_var_1D
+
+def var_zi_1D(i, N, T):
+    Teff = float(T)
+    var_zi_1D = 0
+    for i0 in range(i):
+        v0s = z_var_1D(0,i0,N,T)
+        vst = z_var_1D(i0,N,N,T)
+        v0t = v0s + vst
+        var_zi_1D = v0s*vst/v0t
+    return var_zi_1D
+
+def mean_z_1D_sum(N, T):
+    Teff = float(T)
+    mean_z_1D_sum = np.zeros(N)
+    for i in range(N):
+        mean_z_1D_sum[i] = 0
+        for i0 in range(i):
+            mean_z_1D_sum[i] += (2*mean_n_1D(i0+1, N, Teff)-1)
+    return mean_z_1D_sum
+
+def mean_z_1D(N, T):
+    Teff = float(T)
+    index = np.arange(N)
+    mean_z_1D = Teff*np.log(((1+np.exp(N/Teff))/
+            (np.exp(index/Teff)+np.exp((N-index)/Teff))))
+    return mean_z_1D
+
+def var_z_1D(N, T):
+    Teff = float(T)
+    index = np.arange(N)
+    var_z_1D = Teff*np.sinh((N-index)/Teff) \
+            *np.sinh(index/Teff)/(np.sinh(N/Teff)* \
+            np.cosh((N-2*index)/(2*Teff))**2)
+    return var_z_1D
 
 def mean_e_z(i, N, T):
     mu = (N+1)/2.0
     x = (mu - i)/float(T)
     mean_e_z = 1.0/np.tanh(x) - 1.0/x
+    # mean_e_z = 0
     return mean_e_z
 
 def var_e_z(i, N, T):
@@ -12,11 +75,28 @@ def var_e_z(i, N, T):
     var_e_z = 1/x**2 - 1/np.sinh(x)**2 
     return var_e_z
 
-def mean_z(i, N, T):
+def mean_zi(i, N, T):
     mean_z = 0
     for i0 in range(i):
-        mean_z += mean_e_z(i0, N, T)
+        mean_z += mean_e_z(i0+1, N, T)
     return mean_z
+
+def mean_z(N, T):
+    mean_z = np.zeros(N)
+    for i in range(N):
+        mean_z[i] = 0
+        for i0 in range(i):
+            mean_z[i] += mean_e_z(i0+1, N, T)
+    return mean_z
+
+def meanz(N, T):
+    zmean = np.zeros(N)
+    Teff = float(T)
+    for i in range(N):
+        mu = i - (N+1)/2.0
+        zmean[i] = Teff * np.log((2*mu*np.sinh(N/(2*Teff)))/
+            (N*np.sinh(mu/Teff)))
+    return zmean
 
 def integral_xy_var(i, N, T):
     mu = (N+1)/2.0
@@ -38,7 +118,7 @@ def z_var(m, n, N, T):
     # z_var = T*((1.0/np.tanh((n-mu)/T)-1.0/((n-mu)/T))-(1.0/np.tanh((m-mu)/T)-1.0/((m-mu)/T)))
     z_var = 0
     for i in range(m,n):
-        z_var += var_e_z(i, N, T)
+        z_var += var_e_z(i+1, N, T)
     return z_var
 
 def var_z(N, T):
@@ -47,7 +127,7 @@ def var_z(N, T):
         v0s = z_var(0,i,N,T)
         vst = z_var(i,N,N,T)
         v0t = v0s + vst
-        var_z[i] = 2.0*v0s*vst/v0t
+        var_z[i] = v0s*vst/v0t
     return var_z
 
 def var_xy(N, T):
@@ -56,7 +136,8 @@ def var_xy(N, T):
         v0s = xy_var(0,i,N,T)
         vst = xy_var(i,N,N,T)
         v0t = v0s + vst
-        var_xy[i] = 2.0*v0s*vst/v0t
+        # var_xy[i] = 2.0*v0s*vst/v0t
+        var_xy[i] = v0s*vst/v0t
     return var_xy
 
 def var_xy_cm(cm, N, T):
@@ -88,3 +169,4 @@ def var_z_cm(cm, N, T):
             v0t = v0s + vst
             var_z_cm[i] = 2*v0s*vst/v0t
     return var_z_cm
+
