@@ -1,6 +1,7 @@
 #include "state.hpp"
 #include "simulation.hpp"
 #include "random.hpp"
+#include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -11,14 +12,18 @@ State::State(Simulation *simu) : Parameter(simu)
 {
     site = new bool[nSite];
     pos = new int[nPar];
+    beadPos = new double[nSite];
     rate = new double[nPar*2];
+    compute = new Compute(simu);
 }
 
 State::~State() 
 {
     delete[] site;
     delete[] pos;
+    delete[] beadPos;
     delete[] rate;
+    delete compute;
 }
 
 void State::init() 
@@ -231,30 +236,57 @@ double State::update()
     return dt;
 }
 
-void State::output(std::ofstream& output) 
+void State::par2bead()
+{
+    std::fill(&beadPos[0], &beadPos[0] + nSite, 0);
+    double tmp = 0;
+    for (int i = 0; i < nSite; ++i) {
+        beadPos[i] = tmp;
+        tmp += 2* site[i] - 1;
+    }
+}
+
+void State::output(std::ofstream* output) 
+{
+    par2bead();
+    outputPos(output[0]);
+    outputRg(output[1]);
+}
+
+void State::outputSite(std::ofstream& output) 
 {
     // output site state
-    // output << t << '\t';
-    // for (int i = 0; i < nSite; ++i) {
-    //     output << std::setw(6) << site[i] << ' ';
-    // } 
-    // output << std::endl;
-
-    // output particle position
-    // output << t << '\t';
-    // for (int i = 0; i < nPar; ++i) {
-    //     output << std::setw(6) << pos[i]; 
-    // }
-    // output << std::endl;
-
-    // output corresponding polymer bead position
     output << t << '\t';
-    double beadPos = 0;
-    for (int i = 0; i < nSite; ++i)
-    {
-        output << std::setw(6) << beadPos << ' ';
-        beadPos += 2*site[i] - 1;
+    for (int i = 0; i < nSite; ++i) {
+        output << std::setw(6) << site[i] << ' ';
     } 
     output << std::endl;
-    
+}
+
+void State::outputPar(std::ofstream& output) 
+{
+    // output particle position
+    output << t << '\t';
+    for (int i = 0; i < nPar; ++i) {
+        output << std::setw(6) << pos[i]; 
+    }
+    output << std::endl;
+}
+
+void State::outputPos(std::ofstream& output) 
+{
+     // output corresponding polymer bead position
+    output << t << '\t';
+    for (int i = 0; i < nSite; ++i) {
+        output << std::setw(6) << beadPos[i] << ' ';
+    } 
+    output << std::endl;
+}
+
+void State::outputRg(std::ofstream& output) 
+{
+    // output gyration radius
+    output << t << '\t';
+    double rg = compute->gyrationRadius(nSite, beadPos);
+    output << std::setw(9) << rg << std::endl;
 }

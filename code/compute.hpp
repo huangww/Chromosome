@@ -9,7 +9,9 @@ class Compute: protected Parameter
 public:
     Compute (Simulation *simu);
     virtual ~Compute ();
-    double gyrationRadius(double **r);
+
+    double gyrationRadius(int N, double **r);
+    double gyrationRadius(int N, double* r);
 
 protected:
     /* data */

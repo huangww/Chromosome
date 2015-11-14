@@ -154,7 +154,7 @@ void Bead::outputPos(std::ofstream& output)
 
 void Bead::outputRg(std::ofstream& output)
 {
-    double rg = compute->gyrationRadius(r);
+    double rg = compute->gyrationRadius(nBead, r);
     output << std::setw(9) << t << '\t'
         << std::setw(9) << rg << std::endl;
 }

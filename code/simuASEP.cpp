@@ -38,11 +38,17 @@ void SimuASEP::print()
 void SimuASEP::run() 
 {
     std::stringstream fname;
+    std::ofstream *output = new std::ofstream[2];
     fname << "data/par_N" << state->nSite << "_T"
         << state->tempEff << ".dat";
     std::cout << fname.str() << std::endl;
-    std::ofstream output(fname.str());
-
+    output[0].open(fname.str());
+    fname.str("");
+    fname << "data/rg1D_N" << state->nSite << "_T"
+        << state->tempEff << ".dat";
+    std::cout << fname.str() << std::endl;
+    output[1].open(fname.str());
+    
     double jumpTime = 0;
     for (int i = 0; i < state->nSample; ++i) {
 
@@ -66,5 +72,6 @@ void SimuASEP::run()
     }
     std::cout << jumpTime/state->nSample << std::endl;
 
-    output.close();
+    output[0].close();
+    output[1].close();
 }
