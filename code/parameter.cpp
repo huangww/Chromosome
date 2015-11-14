@@ -17,8 +17,8 @@ Parameter::~Parameter()
 
 void Parameter::setup() 
 {
-    // setupASEP();
-    setupBeadRod();
+    setupASEP();
+    // setupBeadRod();
     // setupSingleFile();
 }
 
@@ -26,11 +26,11 @@ void Parameter::setupASEP()
 {
     nSite = 100;
     nPar = 50;
-    nSample = 2000;
+    nSample = 1000;
     tempEff = 1;
 
     tEnd = 1.0e+3;
-    outputStep = 1e1;
+    outputStep = 1e2;
     double jumpRate = 0.5;
     double factor = exp(-1.0/tempEff);
     // factor = 1.0;
