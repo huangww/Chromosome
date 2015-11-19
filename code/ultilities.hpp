@@ -4,13 +4,15 @@
 
 double Dot(double* dx, double *dy, int dim);
 double Distance(double *point1, double *point2, int dim);
+double Mean(int N, double* x);
+double Variance(int N, double* x);
 void MatrixMulVector(double** matrix,
 		double* vector, int dim);
+
 
 static inline int Delta(int i, int j) {
     return i == j ? 1 : 0;
 }
-
 
 
 // allocate memory for 2d array

@@ -1,3 +1,4 @@
+#include "ultilities.hpp"
 #include <cmath>
 #include <algorithm>
 
@@ -18,6 +19,25 @@ double Distance(double *point1, double *point2, int dim)
             * (point1[i] - point2[i]);
     }
     return sqrt(result);
+}
+
+double Mean(int N, double* x)
+{
+    double sum = 0;
+    for (int i = 0; i < N; ++i) {
+        sum += x[i];
+    }
+    return sum/N;
+}
+
+double Variance(int N, double* x)
+{
+    double xm = Mean(N, x);
+    double sum = 0;
+    for (int i = 0; i < N; ++i) {
+        sum += (x[i] - xm)*(x[i] - xm);
+    }
+    return sum/N;
 }
 
 void MatrixMulVector(double** matrix,
