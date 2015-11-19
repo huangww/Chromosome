@@ -13,6 +13,8 @@ public:
     void run();
 private:
     class State *state;
+    int binRg(int i0, int nbins, 
+            int* binCount, double* rgMean);
 };
 
 #endif /* end of include guard: SIMUASEP_HPP_AUILPX1S */

@@ -26,11 +26,11 @@ void Parameter::setupASEP()
 {
     nSite = 100;
     nPar = 50;
-    nSample = 1000;
-    tempEff = 1;
+    nSample = 1;
+    tempEff = 100;
 
-    tEnd = 1.0e+3;
-    outputStep = 1e2;
+    tEnd = 1.e+7;
+    outputStep = 1;
     double jumpRate = 0.5;
     double factor = exp(-1.0/tempEff);
     // factor = 1.0;

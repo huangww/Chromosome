@@ -16,6 +16,7 @@ public:
     void output(std::ofstream* output);
 
     double t;
+    double rg;
 
 private:
     bool *site;
@@ -29,6 +30,8 @@ private:
     void initRandom();
     void print();
     void par2bead();
+    void monteCarloMove();
+    void equilibrate();
     void outputSite(std::ofstream& output);
     void outputPar(std::ofstream& output);
     void outputPos(std::ofstream& output);

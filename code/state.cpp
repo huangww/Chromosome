@@ -28,30 +28,15 @@ State::~State()
 
 void State::init() 
 {
-    initRandom();
-    // initStretch();
-}
-
-void State::initRandom() 
-{
     std::fill(&pos[0], &pos[0]+nPar, 0);
     std::fill(&site[0], &site[0]+nSite, 0);
     std::fill(&rate[0], &rate[0]+2*nPar, 0);
 
-    t = 0;
+    initRandom();
+    // initStretch();
+    equilibrate();
 
     int count = 0;
-    while(count < nPar) {
-        double r = Ran(seed);
-        int i = round(r*(nSite-1));
-        if (!site[i])
-        {
-            site[i] = true;
-            count++;
-        }
-    }
-
-    count = 0;
     totalRate = 0;
     if (site[0])
     {
@@ -89,32 +74,69 @@ void State::initRandom()
         count++;
     }
 
+    t = 0;
+    par2bead();
+    rg = compute->gyrationRadius(nSite, beadPos);
+}
+
+void State::initRandom() 
+{
+    int count = 0;
+    while(count < nPar) {
+        double r = Ran(seed);
+        int i = round(r*(nSite-1));
+        if (!site[i])
+        {
+            site[i] = true;
+            count++;
+        }
+    }
 }
 
 void State::initStretch() 
 {
-    t = 0;
-
-    for (int i = 0; i < nSite; ++i)
-    {
-        if (i < nPar)
-        {
+    for (int i = 0; i < nSite; ++i) {
+        if (i < nPar) {
             site[i] = true;
-            pos[i] = i;
-        }
-        else
-        {
+        } else {
             site[i] = false;
         }
     }
+}
 
-    for (int i = 0; i < 2*nPar; ++i)
-    {
-        rate[i] = 0;
-        if (i == 2*nPar-1) rate[i] = rateToRight;
+void State::monteCarloMove()
+{
+    int i1 = round(Ran(seed)*(nSite-1));
+    int i2 = round(Ran(seed)*(nSite-1));
+    do {
+        i1 = round(Ran(seed)*(nSite-1));
+        i2 = round(Ran(seed)*(nSite-1));
+    } while (site[i1] == site[i2]);
+
+    double dE = 0;
+    if (site[i1]) {
+        dE = i2 - i1;
+    } else {
+        dE = i1 - i2;
     }
+    if (dE < 0) {
+        bool tmp = site[i1];
+        site[i1] = site[i2];
+        site[i2] = tmp;
+    } else {
+        if (Ran(seed) < exp(-dE/tempEff)) {
+            bool tmp = site[i1];
+            site[i1] = site[i2];
+            site[i2] = tmp;
+        } 
+    }
+}
 
-    totalRate = rateToRight;
+void State::equilibrate()
+{
+    for (int i = 0; i < int(nSite*tempEff*100); ++i) {
+        monteCarloMove();
+    }
 }
 
 void State::print() 
@@ -153,6 +175,17 @@ void State::print()
         << std::endl;
 
 }
+
+void State::par2bead()
+{
+    std::fill(&beadPos[0], &beadPos[0] + nSite, 0);
+    double tmp = 0;
+    for (int i = 0; i < nSite; ++i) {
+        beadPos[i] = tmp;
+        tmp += 2* site[i] - 1;
+    }
+}
+
 
 double State::update() 
 {
@@ -230,25 +263,19 @@ double State::update()
     totalRate += (rate[2*index-1]+rate[2*index]
             +rate[2*index+1]+rate[2*index+2]);
 
+    // update corresponding bead cofiguration
+    par2bead();
+    rg = compute->gyrationRadius(nSite, beadPos);
+
     // update done
 
     t += dt;
     return dt;
 }
 
-void State::par2bead()
-{
-    std::fill(&beadPos[0], &beadPos[0] + nSite, 0);
-    double tmp = 0;
-    for (int i = 0; i < nSite; ++i) {
-        beadPos[i] = tmp;
-        tmp += 2* site[i] - 1;
-    }
-}
 
 void State::output(std::ofstream* output) 
 {
-    par2bead();
     outputPos(output[0]);
     outputRg(output[1]);
 }
@@ -285,8 +312,8 @@ void State::outputPos(std::ofstream& output)
 
 void State::outputRg(std::ofstream& output) 
 {
+    std::cout.precision(17);
     // output gyration radius
     output << t << '\t';
-    double rg = compute->gyrationRadius(nSite, beadPos);
-    output << std::setw(9) << rg << std::endl;
+    output << std::setw(16) << rg << std::endl;
 }
