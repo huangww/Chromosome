@@ -61,8 +61,7 @@ void SimuASEP::run()
 
         int step = 0;
         // int i0 = 0;
-        while (step < 1e7) {
-        // while (state->t < state->tEnd) {
+        while (state->t < state->tEnd) {
             // output to data file
             if (step % state->outputStep == 0) {
                 state->output(output);
