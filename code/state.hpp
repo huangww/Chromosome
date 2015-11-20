@@ -12,11 +12,12 @@ public:
     virtual ~State ();
 
     void init();
-    double update();
+    void update();
     void output(std::ofstream* output);
 
-    double t;
-    double rg;
+    double t;       // real time
+    double tGrid;   // grid time for output
+    double rg;      // radius of gyration
 
 private:
     bool *site;

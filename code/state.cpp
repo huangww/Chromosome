@@ -75,6 +75,7 @@ void State::init()
     }
 
     t = 0;
+    tGrid = 0;
     par2bead();
     rg = compute->gyrationRadius(nSite, beadPos);
 }
@@ -187,90 +188,87 @@ void State::par2bead()
 }
 
 
-double State::update() 
+void State::update() 
 {
-    double ran1 = Ran(seed);
-    double ran2 = Ran(seed);
+    tGrid += dt;
+    while (t < tGrid) {
+        double ran1 = Ran(seed);
+        double dtJump = -1.0 / totalRate * log(ran1);
+        if (t + dtJump < tGrid) {
+            // pick which particle to jump
+            double cumulateRate = 0.0;
+            int index;      // index of particle to move
+            int direction;  // 0 move left, 1 move right
+            int i = 0;
+            double ran2 = Ran(seed);
+            while(cumulateRate <= ran2*totalRate ) {
+                cumulateRate += rate[i]; 
+                index = i / 2;
+                direction = i % 2;
+                i++;
+            }
 
-    double dt = -1.0 / totalRate * log(ran1);
+            // update state, carefully
+            bool checkSite;
+            totalRate -= (rate[2*index-1]+rate[2*index]
+                    +rate[2*index+1]+rate[2*index+2]);
+            if (direction) {
+                // move particle right
+                site[pos[index]] = false;
+                site[pos[index]+1] = true;
+                pos[index]++;
 
-    // pick which particle to jump
-    double cumulateRate = 0.0;
-    int index;      // index of particle to move
-    int direction;  // 0 move left, 1 move right
-    int i = 0;
-    while(cumulateRate <= ran2*totalRate ) {
-        cumulateRate += rate[i]; 
-        index = i / 2;
-        direction = i % 2;
-        i++;
+                // update the rate of the ith particle
+                // no need to check the left side
+                rate[2*index] = rateToLeft;
+                // check the right side
+                checkSite = site[pos[index]+1];
+                if (checkSite || pos[index]==nSite-1) 
+                    rate[2*index+1] = 0;
+            } else {
+                // move particle to left
+                site[pos[index]] = false;
+                site[pos[index]-1] = true;
+                pos[index]--;
+
+                // update the rate of the ith particle
+                // check the left side
+                checkSite = site[pos[index]-1];
+                if (checkSite || pos[index]==0) 
+                    rate[2*index] = 0;
+                // no need to check the right side
+                rate[2*index+1] = rateToRight;
+            }
+
+            // update rate of (i-1)th and (i+1)th particle
+            if (index != 0) {
+                // check the right side of (i-1)th particle
+                checkSite = site[pos[index-1]+1];
+                if (checkSite) 
+                    rate[2*index-1] = 0;
+                else
+                    rate[2*index-1] = rateToRight;
+            }
+            if (index != nPar-1) {
+                // check the left side of (i+1)th particle
+                checkSite = site[pos[index+1]-1];
+                if (checkSite) 
+                    rate[2*index+2] = 0;
+                else
+                    rate[2*index+2] = rateToLeft;
+            }
+            totalRate += (rate[2*index-1]+rate[2*index]
+                    +rate[2*index+1]+rate[2*index+2]);
+            t += dtJump;
+        } else {
+            t = tGrid;
+        }
     }
-
-    // update state, carefully
-    bool checkSite;
-    totalRate -= (rate[2*index-1]+rate[2*index]
-            +rate[2*index+1]+rate[2*index+2]);
-    if (direction)
-    {
-        // move particle right
-        site[pos[index]] = false;
-        site[pos[index]+1] = true;
-        pos[index]++;
-
-        // update the rate of the ith particle
-        // no need to check the left side
-        rate[2*index] = rateToLeft;
-        // check the right side
-        checkSite = site[pos[index]+1];
-        if (checkSite || pos[index]==nSite-1) 
-            rate[2*index+1] = 0;
-    }
-    else
-    {
-        // move particle to left
-        site[pos[index]] = false;
-        site[pos[index]-1] = true;
-        pos[index]--;
-
-        // update the rate of the ith particle
-        // check the left side
-        checkSite = site[pos[index]-1];
-        if (checkSite || pos[index]==0) 
-            rate[2*index] = 0;
-        // no need to check the right side
-        rate[2*index+1] = rateToRight;
-    }
-
-    // update rate of (i-1)th and (i+1)th particle
-    if (index != 0)
-    {
-        // check the right side of (i-1)th particle
-        checkSite = site[pos[index-1]+1];
-        if (checkSite) 
-            rate[2*index-1] = 0;
-        else
-            rate[2*index-1] = rateToRight;
-    }
-    if (index != nPar-1)
-    {
-        // check the left side of (i+1)th particle
-        checkSite = site[pos[index+1]-1];
-        if (checkSite) 
-            rate[2*index+2] = 0;
-        else
-            rate[2*index+2] = rateToLeft;
-    }
-    totalRate += (rate[2*index-1]+rate[2*index]
-            +rate[2*index+1]+rate[2*index+2]);
 
     // update corresponding bead cofiguration
     par2bead();
     rg = compute->gyrationRadius(nSite, beadPos);
-
     // update done
-
-    t += dt;
-    return dt;
 }
 
 
@@ -283,7 +281,7 @@ void State::output(std::ofstream* output)
 void State::outputSite(std::ofstream& output) 
 {
     // output site state
-    output << t << '\t';
+    output << tGrid << '\t';
     for (int i = 0; i < nSite; ++i) {
         output << std::setw(6) << site[i] << ' ';
     } 
@@ -293,7 +291,7 @@ void State::outputSite(std::ofstream& output)
 void State::outputPar(std::ofstream& output) 
 {
     // output particle position
-    output << t << '\t';
+    output << tGrid << '\t';
     for (int i = 0; i < nPar; ++i) {
         output << std::setw(6) << pos[i]; 
     }
@@ -303,7 +301,7 @@ void State::outputPar(std::ofstream& output)
 void State::outputPos(std::ofstream& output) 
 {
      // output corresponding polymer bead position
-    output << t << '\t';
+    output << tGrid << '\t';
     for (int i = 0; i < nSite; ++i) {
         output << std::setw(6) << beadPos[i] << ' ';
     } 
@@ -312,8 +310,7 @@ void State::outputPos(std::ofstream& output)
 
 void State::outputRg(std::ofstream& output) 
 {
-    std::cout.precision(17);
     // output gyration radius
-    output << t << '\t';
-    output << std::setw(16) << rg << std::endl;
+    output << std::setprecision(12) << tGrid << '\t';
+    output << std::setprecision(12) << rg << std::endl;
 }

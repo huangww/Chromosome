@@ -47,3 +47,4 @@ double Compute::gyrationRadius(int N, double* r)
 
     return sqrt(rg / N);
 }
+

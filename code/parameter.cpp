@@ -29,9 +29,10 @@ void Parameter::setupASEP()
     nSample = 1;
     tempEff = 100;
 
-    tEnd = 1.e+7;
+    dt = 0.1;
+    tEnd = 1.e+6;
     outputStep = 1;
-    double jumpRate = 0.5;
+    double jumpRate = 1.0;
     double factor = exp(-1.0/tempEff);
     // factor = 1.0;
     rateToLeft = jumpRate*1.0/(1+factor);
