@@ -27,10 +27,10 @@ void Parameter::setupASEP()
     nSite = 100;
     nPar = 50;
     nSample = 1;
-    tempEff = 100;
+    tempEff = 200;
 
-    dt = 0.1;
-    tEnd = 1.e+6;
+    dt = 5;
+    tEnd = 1.e+7;
     outputStep = 1;
     double jumpRate = 1.0;
     double factor = exp(-1.0/tempEff);
@@ -39,8 +39,8 @@ void Parameter::setupASEP()
     rateToRight = jumpRate*factor/(1.0+factor);
 
     std::random_device rd;
-    // seed = rd();
-    seed = 5489;
+    seed = rd();
+    // seed = 5489;
 }
 
 void Parameter::setupSingleFile()

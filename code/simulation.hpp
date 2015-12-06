@@ -9,6 +9,7 @@ public:
 
     class Particle *particle;       // unit of 1D
     class Bead *bead;               // unit of 3D
+    class State *state;             // for ASEP 
 
     virtual void print() = 0;
     virtual void run() = 0;
