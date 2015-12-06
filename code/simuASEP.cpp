@@ -5,15 +5,13 @@
 #include <sstream>
 #include <fstream>
 #include <cmath>
+#include <iomanip>
 
 SimuASEP::SimuASEP() : Simulation()
 {
    state = new State(this);
 }
-SimuASEP::~SimuASEP() 
-{
-    delete state;
-}
+SimuASEP::~SimuASEP() { }
 
 void SimuASEP::print() 
 {
@@ -49,26 +47,23 @@ void SimuASEP::run()
     std::cout << fname.str() << std::endl;
     output[1].open(fname.str());
     
-    // const int nbins = int(state->tEnd);
-    // int *binCount = new int[nbins];
-    // double *rgMean = new double[nbins];
-    // std::fill(&binCount[0], &binCount[0]+nbins, 0);
-    // std::fill(&rgMean[0], &rgMean[0]+nbins, 0);
-
+    int nRg = int(state->tEnd / state->dt);
+    double *rgMean = new double[nRg];
+    std::fill(&rgMean[0], &rgMean[0] + nRg, 0);
+   
     for (int i = 0; i < state->nSample; ++i) {
 
         state->init();
 
         int step = 0;
-        // int i0 = 0;
         while (state->t < state->tEnd) {
             // output to data file
-            if (step % state->outputStep == 0) {
-                state->output(output);
-            }
+            // if (step % state->outputStep == 0) {
+            //     state->output(output);
+            // }
 
+            rgMean[step] += state->rg;
             state->update();
-            // i0 = binRg(i0, nbins, binCount, rgMean);
             step++;
         }
 
@@ -76,28 +71,14 @@ void SimuASEP::run()
         std::cout << i <<  std::endl;
     }
 
-    // for (int i = 0; i < nbins; ++i) {
-    //     output[1] << float(i)*state->tEnd/nbins << '\t';
-    //     output[1] << rgMean[i] / binCount[i] << std::endl;
-    // }
-
-    // delete [] binCount;
-    // delete [] rgMean;
+    for (int i = 0; i < nRg; ++i) {
+        output[1] << std::setprecision(9) << std::setw(10);
+        output[1] << i*state->dt << '\t';
+        output[1] << rgMean[i] / state->nSample 
+            << std::endl;
+    }
+    delete [] rgMean;
     output[0].close();
     output[1].close();
 }
 
-int SimuASEP::binRg(int i0, int nbins, int* binCount, double* rgMean) 
-{
-    for (int i = i0; i < nbins; ++i) {
-        bool inBin;
-        inBin = (state->t > i*state->tEnd/nbins) && 
-            (state->t < (i+1)*state->tEnd/nbins); 
-        if (inBin) {
-            binCount[i]++;
-            rgMean[i] += state->rg;
-            return i;
-        }
-    }
-    return nbins;
-}
