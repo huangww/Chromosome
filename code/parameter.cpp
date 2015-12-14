@@ -17,8 +17,8 @@ Parameter::~Parameter()
 
 void Parameter::setup() 
 {
-    setupASEP();
-    // setupBeadRod();
+    // setupASEP();
+    setupBeadRod();
     // setupSingleFile();
 }
 
@@ -70,6 +70,6 @@ void Parameter::setupBeadRod()
     outputStep = 1e3;
 
     std::random_device rd;
-    seed = rd();
-    // seed = 5489;
+    // seed = rd();
+    seed = 5489;
 }

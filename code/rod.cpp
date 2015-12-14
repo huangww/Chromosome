@@ -8,22 +8,29 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
+#include "Eigen/Sparse"
+#include "Eigen/SparseLU"
 
 Rod::Rod(Simulation *simu) : Force(simu)
 {
     link = create2DArray<int>(nRod, 2);
-    g = create2DArray<int>(nRod, nRod);
     u = create2DArray<double>(nRod+DIM, DIM);
     b = create2DArray<double>(nRod+DIM, DIM);
+    g = create2DArray<int>(nRod, nRod);
+    gSparse = SpMatD(nRod, nRod);
+    linkTable.nLinks = new int[nBead];
+    linkTable.table = create2DArray<int>(3*nRod, 6);
 
     init();
 }
 Rod::~Rod() 
 {
     delete2DArray(link);
-    delete2DArray(g);
     delete2DArray(u);
     delete2DArray(b);
+    delete2DArray(g);
+    delete linkTable.nLinks;
+    delete2DArray(linkTable.table);
 }
 
 void Rod::init() 
@@ -38,7 +45,10 @@ void Rod::init()
     // init the metric matrix
     g = metricTensor();
     // printMetric();
+    metricTensorSparse();
     
+    // init linkTable
+    setLinkTable();
 }
 
 void Rod::printLinks() 
@@ -73,7 +83,6 @@ void Rod::printMetric()
         std::cout << std::endl;
     }
 }
-
 
 double** Rod::linkVectorU() 
 {
@@ -139,6 +148,62 @@ int** Rod::metricTensor()
     }
 
     return g;
+}
+
+void Rod::metricTensorSparse() 
+{
+    std::vector<T> tripletList;
+    tripletList.reserve(3*nRod);
+    for (int i = 0; i < nRod; i++) {
+        tripletList.push_back(T(i,i,-2));
+        for (int j = 0; j < nRod; j++) {
+            if (i==j) continue;
+            int condition1 = (link[i][0]-link[j][1]) *
+                (link[i][1]-link[j][0]);
+            int condition2 = (link[i][0]-link[j][0]) *
+                (link[i][1]-link[j][1]);
+            if (condition1 == 0) {
+                tripletList.push_back(T(i,j,1));
+            }
+            else if (condition2 == 0) {
+                tripletList.push_back(T(i,j,-1));
+            }
+        }
+    }
+    gSparse.setFromTriplets(tripletList.begin(), tripletList.end());
+    gSparse.makeCompressed();
+}
+
+void Rod::setLinkTable()
+{
+    int count = 0;
+    for (int l = 0; l < nBead; ++l) {
+        int countLink = 0;
+        for (int k = 0; k < gSparse.outerSize(); ++k) {
+            for (SpMatD::InnerIterator it(gSparse, k); it; ++it) {
+                int i = it.row();
+                int j = it.col();
+                if (j>i) {
+                    int i0,i1,j0,j1;
+                    i0 = link[i][0];
+                    i1 = link[i][1];
+                    j0 = link[j][0];
+                    j1 = link[j][1];
+                    if ((l-i0)*(l-i1)*(l-j0)*(l-j1)==0) {
+                        linkTable.table[count][0] = i;
+                        linkTable.table[count][1] = i0;
+                        linkTable.table[count][2] = i1;
+                        linkTable.table[count][3] = j;
+                        linkTable.table[count][4] = j0;
+                        linkTable.table[count][5] = j1;
+                        count++;
+                        countLink++;
+                    }
+                }
+            }
+        }
+        linkTable.nLinks[l] = countLink;
+    }
 }
 
 void Rod::matrixA(double *A) 
@@ -307,32 +372,80 @@ double** Rod::pseudo(double **f)
     dgetrf_(&n, &n, metric, &n, iPIv, &info);
     dgetri_(&n, metric, &n, iPIv, work, &n, &info);
 
+    int count = 0;
     for (int k = 0; k < nBead; ++k) {
-        for (int i = 0; i < nRod; ++i) {
-            for (int j = i+1; j < nRod; ++j) {
-                if (abs(g[i][j]) == 1) {
-                    int i0,i1,j0,j1;
-                    i0 = link[i][0];
-                    i1 = link[i][1];
-                    j0 = link[j][0];
-                    j1 = link[j][1];
-                    if ((k-i0)*(k-i1)*(k-j0)*(k-j1)==0) {
-                        double uij;
-                        uij = Dot(&u[i][0], &u[j][0], DIM); 
-                        double pgr[DIM];
-                        for (int m = 0; m < DIM; ++m) {
-                            pgr[m] = (Delta(k,i1) - Delta(k,i0)) *
-                                (u[j][m] - uij * u[i][m]) +
-                                (Delta(k,j1) - Delta(k, j0)) *
-                                (u[i][m] - uij * u[j][m]);			
-                            f[k][m] = f[k][m] + g[j][i] * metric[i*nRod+j] * pgr[m];
-                        }
-                    }
-
-                }
+        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+            int i,i0,i1,j,j0,j1;
+            i = linkTable.table[count][0];
+            i0 = linkTable.table[count][1];
+            i1 = linkTable.table[count][2];
+            j = linkTable.table[count][3];
+            j0 = linkTable.table[count][4];
+            j1 = linkTable.table[count][5];
+            count++;
+            double uij;
+            uij = Dot(&u[i][0], &u[j][0], DIM); 
+            double pgr[DIM];
+            for (int m = 0; m < DIM; ++m) {
+                pgr[m] = (Delta(k,i1) - Delta(k,i0)) *
+                    (u[j][m] - uij * u[i][m]) +
+                    (Delta(k,j1) - Delta(k, j0)) *
+                    (u[i][m] - uij * u[j][m]);			
+                f[k][m] = f[k][m] + g[j][i] * metric[i*nRod+j] * pgr[m];
             }
         }
     }
+
+    return f;
+}
+
+double** Rod::pseudoSparse(double **f)
+{
+    std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
+
+    u = linkVectorU();
+    SpMatD metric(gSparse);
+    SpMatD uij(gSparse);
+    for (int k = 0; k < uij.outerSize(); ++k) {
+        for (SpMatD::InnerIterator it(uij, k); it; ++it) {
+            int i = it.row();
+            int j = it.col();
+            it.valueRef() = Dot(&u[i][0], &u[j][0], DIM);
+        }
+    }
+    metric = -uij.cwiseProduct(gSparse);
+
+    // calculate the inverse of the metric matrix
+    SpMatD I(nRod,nRod);
+    I.setIdentity();
+    // Eigen::SparseLU<SpMatD> solver;
+    Eigen::SimplicialLDLT<SpMatD> solver;
+    solver.compute(metric);
+    metric = solver.solve(I);
+    metric = metric.cwiseProduct(gSparse);
+
+    int count = 0;
+    for (int k = 0; k < nBead; ++k) {
+        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+            int i,i0,i1,j,j0,j1;
+            i = linkTable.table[count][0];
+            i0 = linkTable.table[count][1];
+            i1 = linkTable.table[count][2];
+            j = linkTable.table[count][3];
+            j0 = linkTable.table[count][4];
+            j1 = linkTable.table[count][5];
+            count++;
+            double pgr[DIM];
+            for (int m = 0; m < DIM; ++m) {
+                pgr[m] = (Delta(k,i1) - Delta(k,i0)) *
+                    (u[j][m] - uij.coeff(i,j) * u[i][m]) +
+                    (Delta(k,j1) - Delta(k, j0)) *
+                    (u[i][m] - uij.coeff(i, j) * u[j][m]);			
+                f[k][m] = f[k][m] + metric.coeff(i,j)*pgr[m];
+            }
+        }
+    }
+
 
     return f;
 }
