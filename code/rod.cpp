@@ -179,11 +179,9 @@ void Rod::setLinkTable()
     int count = 0;
     for (int l = 0; l < nBead; ++l) {
         int countLink = 0;
-        for (int k = 0; k < gSparse.outerSize(); ++k) {
-            for (SpMatD::InnerIterator it(gSparse, k); it; ++it) {
-                int i = it.row();
-                int j = it.col();
-                if (j>i) {
+        for (int i = 0; i < nRod; ++i) {
+            for (int j = i+1; j < nRod; ++j) {
+                if (g[i][j]!=0) {
                     int i0,i1,j0,j1;
                     i0 = link[i][0];
                     i1 = link[i][1];
