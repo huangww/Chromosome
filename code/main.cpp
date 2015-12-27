@@ -4,6 +4,7 @@
 #include "simuSingleFile.hpp"
 #include "simuASEP.hpp"
 #include "bead.hpp"
+#include "test.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     }
 
     simu->print();
+    test();
     simu->run();
 
     delete simu;

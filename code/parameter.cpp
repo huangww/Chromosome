@@ -61,8 +61,8 @@ void Parameter::setupSingleFile()
 void Parameter::setupBeadRod() 
 {
     topoType = 0;
-    nBead = 100;
-    nRod = 100;
+    nBead = 8;
+    nRod = 8;
     tempEff = 1;
 
     dt = 1e-4;
