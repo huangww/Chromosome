@@ -36,8 +36,7 @@ double* Force::repulsive(double* f)
 
     double r0 = 1.0;
     double eps = 1.0;
-    for (int i = 1; i < nPar; ++i)
-    {
+    for (int i = 1; i < nPar; ++i) {
         int j = i - 1;
         double d0 = fabs(x[i] - x[j]);
         if (pow(d0, 6) <= 2*pow(r0, 6)) {
@@ -60,21 +59,16 @@ double** Force::repulsive(double** f)
 
     double r0 = 0.75;
     double eps = 1.0;
-    for (int i = 0; i < nBead; ++i)
-    {
-        for (int j = i+1; j < nBead; ++j)
-        {
+    for (int i = 0; i < nBead; ++i) {
+        for (int j = i+1; j < nBead; ++j) {
             double rsd = 0;
-            for (int k = 0; k < DIM; ++k)
-            {
+            for (int k = 0; k < DIM; ++k) {
                 rsd = rsd + (r[i][k] - r[j][k]) * (r[i][k] - r[j][k]);
             }
-            if (pow(rsd, 3) <= 2*pow(r0,6))
-            {
+            if (pow(rsd, 3) <= 2*pow(r0,6)) {
                 double r6;
                 r6 = pow(r0*r0/rsd, 3);
-                for (int k = 0; k < DIM; ++k)
-                {
+                for (int k = 0; k < DIM; ++k) {
                     f[i][k] = f[i][k] + 48 * eps *
                         (r6 - 0.5) * r6 *
                         (r[i][k]-r[j][k])/rsd;

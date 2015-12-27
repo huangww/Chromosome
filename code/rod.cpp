@@ -419,6 +419,7 @@ double** Rod::pseudoSparse(double **f)
     // Eigen::SparseLU<SpMatD> solver;
     Eigen::SimplicialLDLT<SpMatD> solver;
     solver.compute(metric);
+    std::cout << solver.determinant() << std::endl;
     metric = solver.solve(I);
     metric = metric.cwiseProduct(gSparse);
 
@@ -444,6 +445,117 @@ double** Rod::pseudoSparse(double **f)
         }
     }
 
+    return f;
+}
+
+double Rod::detBandMetric(int n, double *coeff)
+{
+    double det[n+1];
+    det[0] = 1; det[1] = 2;
+    for (int i = 1; i < n; ++i) {
+        det[i+1] = 2 * det[i] - coeff[i-1] * coeff[i-1] * det[i-1];
+    }
+    return det[n];
+}
+
+double **Rod::pseudoRing(double **f)
+{
+    std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
+
+    u = linkVectorU();
+    double coeff[nRod];
+    coeff[0] = -Dot(&u[0][0], &u[nRod-1][0], 3);
+    double prodCoeff = coeff[0];
+    for (int i = 1; i < nRod; i++) {
+        coeff[i] = -Dot(&u[i][0], &u[i-1][0], 3);
+        prodCoeff *= coeff[i];  
+    }
+    double det1 = detBandMetric(nRod-2, &coeff[2]);
+    double det2 = detBandMetric(nRod-2, &coeff[1]);
+    double det3 = detBandMetric(nRod-1, &coeff[1]);
+    int sign = 1 - 2*(nRod%2);
+    double detG = -coeff[0]*coeff[0]*det1 
+        - coeff[nRod-1]*coeff[nRod-1]*det2
+        + 2*det3 - 2*sign*prodCoeff; // check
+    
+    double metricInv[nRod][nRod];
+    std::fill(&metricInv[0][0], &metricInv[0][0] + nRod*nRod, 0);
+    double detTop, detBottom, cofG;
+
+    detTop = 1; detBottom = detBandMetric(nRod-2, &coeff[3]);
+    cofG = -coeff[1]*detTop*detBottom - sign*prodCoeff/coeff[1];
+    metricInv[1][0] = cofG / detG;
+    metricInv[0][1] = metricInv[1][0];
+
+    detTop = 1; detBottom = detBandMetric(nRod-4, &coeff[4]);
+    det1 = coeff[2]*detTop*detBottom;
+    detTop = 1; detBottom = detBandMetric(nRod-3, &coeff[4]);
+    det3 = coeff[2]*detTop*detBottom;
+    cofG = coeff[0]*coeff[0]*det1 - 2*det3
+        - sign*prodCoeff/coeff[2];
+    metricInv[2][1] = cofG / detG;
+    metricInv[1][2] = metricInv[2][1];
+
+    for (int i = 3; i < nRod-2; ++i) {
+        detTop = detBandMetric(i-2, &coeff[2]);
+        detBottom = detBandMetric(nRod-i-2, &coeff[i+2]);
+        det1 = coeff[i]*detTop*detBottom;
+        detTop = detBandMetric(i-1, &coeff[1]);
+        detBottom = detBandMetric(nRod-i-3, &coeff[i+2]);
+        det2 = coeff[i]*detTop*detBottom;
+        detTop = detBandMetric(i-1, &coeff[1]);
+        detBottom = detBandMetric(nRod-i-2, &coeff[i+2]); //check
+        det3 = coeff[i]*detTop*detBottom;
+        cofG = coeff[0]*coeff[0]*det1 
+        + coeff[nRod-1]*coeff[nRod-1]*det2 -
+        2*det3 - sign*prodCoeff/coeff[i]; // check
+        metricInv[i][i-1] = cofG / detG;
+        metricInv[i-1][i] = metricInv[i][i-1];
+    }
+
+    detTop = detBandMetric(nRod-4, &coeff[2]); detBottom = 1;
+    det1 = coeff[nRod-2]*detTop*detBottom;
+    detTop = detBandMetric(nRod-3, &coeff[1]); detBottom = 1;
+    det3 = coeff[nRod-2]*detTop*detBottom;
+    cofG = coeff[0]*coeff[0]*det1 - 2*det3
+        - sign*prodCoeff/coeff[nRod-2];
+    metricInv[nRod-2][nRod-3] = cofG / detG;
+    metricInv[nRod-3][nRod-2] = metricInv[nRod-2][nRod-3];
+
+    detTop = detBandMetric(nRod-2, &coeff[1]); detBottom = 1;
+    cofG = -coeff[nRod-1]*detTop*detBottom
+        - sign*prodCoeff/coeff[nRod-1];
+    metricInv[nRod-1][nRod-2] = cofG / detG;
+    metricInv[nRod-2][nRod-1] = metricInv[nRod-1][nRod-2];
+    
+    cofG = -coeff[0]*detBandMetric(nRod-2, &coeff[2]) 
+        - sign*prodCoeff / coeff[0];
+    metricInv[0][nRod-1] = cofG / detG;
+    metricInv[nRod-1][0] = metricInv[0][nRod-1];
+
+    int count = 0;
+    for (int k = 0; k < nBead; ++k) {
+        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+            int i,i0,i1,j,j0,j1;
+            i = linkTable.table[count][0];
+            i0 = linkTable.table[count][1];
+            i1 = linkTable.table[count][2];
+            j = linkTable.table[count][3];
+            j0 = linkTable.table[count][4];
+            j1 = linkTable.table[count][5];
+            count++;
+            double uij;
+            uij = Dot(&u[i][0], &u[j][0], DIM); 
+            double pgr[DIM];
+            for (int m = 0; m < DIM; ++m) {
+                pgr[m] = (Delta(k,i1) - Delta(k,i0)) *
+                    (u[j][m] - uij * u[i][m]) +
+                    (Delta(k,j1) - Delta(k, j0)) *
+                    (u[i][m] - uij * u[j][m]);			
+                f[k][m] = f[k][m] + g[j][i]*metricInv[j][i]*pgr[m];
+            }
+        }
+    }
 
     return f;
 }

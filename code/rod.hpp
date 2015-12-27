@@ -12,6 +12,7 @@ public:
 
     double** constraint(double** f);
     double** pseudo(double** f);
+    double** pseudoRing(double** f);
     double** pseudoSparse(double **f);
 
 private:
@@ -41,6 +42,7 @@ private:
     void matrixA(double *A);
     void vectorB(double *x, double *B);
     void solverPicard(double *x);
+    double detBandMetric(int n, double *coeff);
 };
 
 
