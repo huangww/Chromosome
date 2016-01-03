@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     }
 
     simu->print();
-    test();
+    // test();
     simu->run();
 
     delete simu;
