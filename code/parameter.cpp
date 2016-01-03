@@ -61,12 +61,12 @@ void Parameter::setupSingleFile()
 void Parameter::setupBeadRod() 
 {
     topoType = 0;
-    nBead = 8;
-    nRod = 8;
-    tempEff = 1;
+    nBead = 100;
+    nRod = 100;
+    tempEff = 1000;
 
-    dt = 1e-4;
-    tEnd = 1e+1;
+    dt = 5e-4;
+    tEnd = 1e+2;
     outputStep = 1e3;
 
     std::random_device rd;
