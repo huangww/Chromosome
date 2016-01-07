@@ -197,8 +197,8 @@ void State::update()
         if (t + dtJump < tGrid) {
             // pick which particle to jump
             double cumulateRate = 0.0;
-            int index;      // index of particle to move
-            int direction;  // 0 move left, 1 move right
+            int index=0;      // index of particle to move
+            int direction=0;  // 0 move left, 1 move right
             int i = 0;
             double ran2 = Ran(seed);
             while(cumulateRate <= ran2*totalRate ) {
@@ -312,5 +312,8 @@ void State::outputRg(std::ofstream& output)
 {
     // output gyration radius
     output << std::setprecision(12) << tGrid << '\t';
-    output << std::setprecision(12) << rg << std::endl;
+    output << std::setprecision(12) << rg << '\t';
+    output << std::setprecision(12) << beadPos[1] << '\t';
+    output << std::setprecision(12) << beadPos[nSite/2] << '\t';
+    output << std::endl;
 }

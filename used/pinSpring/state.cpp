@@ -158,8 +158,8 @@ double State::update()
 
     // pick which particle to jump
     double cumulateRate = 0.0;
-    int index;      // index of particle to move
-    int direction;  // 0 move left, 1 move right
+    int index=0;      // index of particle to move
+    int direction=0;  // 0 move left, 1 move right
     int i = 0;
     while(cumulateRate <= ran2*totalRate ) {
         cumulateRate += rate[i]; 
