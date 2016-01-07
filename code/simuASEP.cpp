@@ -59,7 +59,7 @@ void SimuASEP::run()
         while (state->t < state->tEnd) {
             // output to data file
             // if (step % state->outputStep == 0) {
-            //     state->output(output);
+                state->output(output);
             // }
 
             rgMean[step] += state->rg;
@@ -71,12 +71,12 @@ void SimuASEP::run()
         std::cout << i <<  std::endl;
     }
 
-    for (int i = 0; i < nRg; ++i) {
-        output[1] << std::setprecision(9) << std::setw(10);
-        output[1] << i*state->dt << '\t';
-        output[1] << rgMean[i] / state->nSample 
-            << std::endl;
-    }
+    // for (int i = 0; i < nRg; ++i) {
+    //     output[1] << std::setprecision(9) << std::setw(10);
+    //     output[1] << i*state->dt << '\t';
+    //     output[1] << rgMean[i] / state->nSample 
+    //         << std::endl;
+    // }
     delete [] rgMean;
     output[0].close();
     output[1].close();

@@ -10,9 +10,9 @@ def GetScreenShot(FrameNumber):
     return
 
 # load data 
-dataDir = 'data/'
+dataDir = 'used/data/'
 # fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)
-fname = dataDir + 'r_N100_T1_1.dat'
+fname = dataDir + 'r_N10_T1000_0.dat'
 print fname
 
 # detect parameters from file name

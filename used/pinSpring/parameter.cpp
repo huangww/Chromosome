@@ -17,8 +17,8 @@ Parameter::~Parameter()
 
 void Parameter::setup() 
 {
-    setupASEP();
-    // setupBeadRod();
+    // setupASEP();
+    setupBeadRod();
 }
 
 void Parameter::setupASEP() 
@@ -60,9 +60,9 @@ void Parameter::setupBeadRod()
     topoType = 0;
     nBead = 100;
     nRod = 100;
-    tempEff = 0.1;
+    tempEff = 1000;
 
-    dt = 1e-4;
+    dt = 5e-4;
     tEnd = 1e+2;
     outputStep = 1e3;
 
