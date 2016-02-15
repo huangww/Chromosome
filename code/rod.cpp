@@ -44,7 +44,8 @@ void Rod::init()
 
     // init the metric matrix
     g = metricTensor();
-    // printMetric();
+    printMetric();
+    std::cin.get();
     metricTensorSparse();
     
     // init linkTable
