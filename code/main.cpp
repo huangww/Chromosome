@@ -1,25 +1,19 @@
 #include <iostream>
 #include <cstdlib>
-#include "simuBeadRod.hpp"
-#include "simuBeadSpring.hpp"
-#include "simuSingleFile.hpp"
-#include "simuASEP.hpp"
-#include "bead.hpp"
 #include "test.hpp"
+#include "simulation.hpp"
 
 int main(int argc, char *argv[])
 {
     int startTime = time(NULL);
 
-    Simulation *simu = new SimuBeadRod();
+    Simulation *simu = new Simulation();
 
-    if (argc > 1 && atoi(argv[1])>0) {
-        simu->bead->taskID = atoi(argv[1]);
-    }
+    simu->input->getArg(argc, argv);
+    simu->input->file();
 
-    // simu->input->init(argc, argv);
-    simu->print();
     // test();
+    simu->print();
     simu->run();
 
     delete simu;

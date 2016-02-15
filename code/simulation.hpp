@@ -7,9 +7,8 @@ public:
     Simulation ();
     virtual ~Simulation ();
 
-    class Particle *particle;       // unit of 1D
-    class Bead *bead;               // unit of 3D
-    class State *state;             // for ASEP 
+    class Input *input;             // input scripting
+    class Output *output;           // output streams
 
     virtual void print() = 0;
     virtual void run() = 0;
