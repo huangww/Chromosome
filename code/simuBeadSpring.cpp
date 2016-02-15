@@ -1,17 +1,17 @@
-#include "simuBeadRod.hpp"
+#include "simuBeadSpring.hpp"
 #include "bead.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <cmath>
 
-SimuBeadRod::SimuBeadRod() : Simulation()
+SimuBeadSpring::SimuBeadSpring() : Simulation()
 {
     bead = new Bead(this);
 }
-SimuBeadRod::~SimuBeadRod() { }
+SimuBeadSpring::~SimuBeadSpring() { }
 
-void SimuBeadRod::print() 
+void SimuBeadSpring::print() 
 {
     std::cout << "================================="
         << std::endl;
@@ -19,7 +19,7 @@ void SimuBeadRod::print()
         << std::endl;
     std::cout << "=> Number of Bead: "
        << bead->nBead << std::endl;
-    std::cout << "=> Number of Rod: "
+    std::cout << "=> Number of Spring: "
        << bead->nRod << std::endl;
     std::cout << "=> Topological Type: "
        << bead->topoType << std::endl;
@@ -39,25 +39,25 @@ void SimuBeadRod::print()
         << std::endl;
 }
 
-void SimuBeadRod::run() 
+void SimuBeadSpring::run() 
 {
     std::stringstream fname;
     std::ofstream *output = new std::ofstream[3];
     fname << "data/r_N" << bead->nBead 
         << "_T" << bead->tempEff 
-        << "_" << bead->taskID << ".dat";
+        << "_pin_" << bead->taskID << ".dat";
     std::cout << fname.str() << std::endl;
     output[0].open(fname.str());
     fname.str("");
     fname << "data/rg_N" << bead->nBead 
         << "_T" << bead->tempEff 
-        << "_" << bead->taskID << ".dat";
+        << "_pin_" << bead->taskID << ".dat";
     std::cout << fname.str() << std::endl;
     output[1].open(fname.str());
     fname.str("");
     fname << "data/rd_N" << bead->nBead 
         << "_T" << bead->tempEff 
-        << "_" << bead->taskID << ".dat";
+        << "_pin_" << bead->taskID << ".dat";
     std::cout << fname.str() << std::endl;
     output[2].open(fname.str());
 
@@ -78,12 +78,8 @@ void SimuBeadRod::run()
                << std::endl; 
         }
 
-        // Monte-Carlo Move
-        // bead->montecarloUpdate();
-
         // MD Move
-        bead->predict();
-        bead->correct();
+        bead->update();
         
         t += bead->dt;
     }

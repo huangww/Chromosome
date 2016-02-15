@@ -11,9 +11,7 @@ public:
 
     void print();
     void run();
-private:
-    void runMD();
-    void runMonteCarlo();
+
 };
 
 #endif /* end of include guard: SIMUBEADROD_HPP_TGEVUJIM */

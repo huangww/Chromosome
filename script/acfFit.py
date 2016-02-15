@@ -10,7 +10,8 @@ def ACF(data):
     x = data[:, 1]
     t = data[:, 0]
     acf= ss.acf(x, nlags=len(x), fft=True)
-    end = next(i for i,v in enumerate(acf) if v<0)
+    end = next((i for i,v in enumerate(acf) if v<0),
+            len(acf)-1)
     return t[:end], acf[:end]
 
 def GetACF(T):

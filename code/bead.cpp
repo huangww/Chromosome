@@ -5,6 +5,7 @@
 #include "config.hpp"
 #include "force.hpp"
 #include "rod.hpp"
+#include "spring.hpp"
 #include "montecarlo.hpp"
 #include "compute.hpp"
 #include <fstream>
@@ -21,6 +22,7 @@ Bead::Bead(Simulation *simu) : Parameter(simu)
 
     force = new Force(simu);
     rod = new Rod(simu);
+    spring = new Spring(simu);
     montecarlo = new Montecarlo(simu);
     compute = new Compute(simu);
 }
@@ -34,6 +36,7 @@ Bead::~Bead()
 
     delete force;
     delete rod;
+    delete spring;
     delete montecarlo;
     delete compute;
 }
@@ -86,7 +89,7 @@ void Bead::print()
 void Bead::pinSPB() 
 {
     for (int i = 0; i < DIM; ++i) {
-        ftotal[0][i] += -2000.0*r[0][i];
+        ftotal[0][i] += -1000.0*r[0][i];
     }
 }
 
@@ -131,6 +134,25 @@ void Bead::correct()
     t += dt;
 }
 
+void Bead::update()
+{
+    std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
+    addForce(force->brownian(f));
+    addForce(force->external(f));
+    addForce(spring->harmonic(f));
+    // addForce(force->repulsive(f));
+    pinSPB();
+    
+    // predict the next step position as rs
+    for (int i = 0; i < nBead; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            r[i][j] = r[i][j] + ftotal[i][j] * dt;
+        }
+    }
+
+    t += dt;
+}
+
 void Bead::montecarloUpdate()
 {
         montecarlo->move();
@@ -141,6 +163,7 @@ void Bead::output(std::ofstream* output)
 {
     outputPos(output[0]);
     outputRg(output[1]);
+    outputRd(output[2]);
 }
 
 void Bead::outputPos(std::ofstream& output) 
@@ -159,4 +182,12 @@ void Bead::outputRg(std::ofstream& output)
     double rg = compute->gyrationRadius(nBead, r);
     output << std::setw(9) << t << '\t'
         << std::setw(9) << rg << std::endl;
+}
+
+void Bead::outputRd(std::ofstream& output)
+{
+    for (int i = 0; i < DIM; ++i) {
+        output << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
+    }
+    output << std::endl;
 }

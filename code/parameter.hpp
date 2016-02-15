@@ -43,6 +43,7 @@ private:
     void setupASEP();
     void setupSingleFile();
     void setupBeadRod();
+    void setupBeadSpring();
 };
 
 #endif /* end of include guard: PARAMETER_HPP_H4YIFEO2 */
