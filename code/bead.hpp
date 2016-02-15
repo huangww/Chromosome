@@ -15,8 +15,9 @@ public:
     void init();
     void predict();
     void correct();
-    void output(std::ofstream* output);
+    void update();
     void montecarloUpdate();
+    void output(std::ofstream* output);
 
     double t;
 // protected:
@@ -30,6 +31,7 @@ private:
 
     class Force *force;
     class Rod *rod;
+    class Spring *spring;
     class Montecarlo *montecarlo; 
     class Compute *compute;
 
@@ -38,6 +40,7 @@ private:
     void create();
     void destroy();
     void outputPos(std::ofstream& output);
+    void outputRd(std::ofstream& output);
     void outputRg(std::ofstream& output);
 };
 
