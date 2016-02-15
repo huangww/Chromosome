@@ -17,8 +17,9 @@ Parameter::~Parameter()
 
 void Parameter::setup() 
 {
-    setupASEP();
-    // setupBeadRod();
+    // setupASEP();
+    setupBeadRod();
+    // setupBeadSpring();
     // setupSingleFile();
 }
 
@@ -60,9 +61,9 @@ void Parameter::setupSingleFile()
 
 void Parameter::setupBeadRod() 
 {
-    topoType = 0;
-    nBead = 100;
-    nRod = 100;
+    topoType = 1;
+    nBead = 10;
+    nRod = 9;
     tempEff = 1000;
 
     dt = 5e-4;
@@ -72,4 +73,20 @@ void Parameter::setupBeadRod()
     std::random_device rd;
     // seed = rd();
     seed = 5489;
+}
+
+void Parameter::setupBeadSpring() 
+{
+    topoType = 1;
+    nBead = 50;
+    nRod = 49;
+    tempEff = 1;
+
+    dt = 1e-3;
+    tEnd = 1e+0;
+    outputStep = 1e3;
+
+    std::random_device rd;
+    seed = rd();
+    // seed = 5489;
 }
