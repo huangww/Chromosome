@@ -12,10 +12,11 @@ public:
     Input (Simulation *simu);
     virtual ~Input ();
 
+    void getArg(int argc, char *argv[]);
     void file();
 
 private:
-    std::istream infile;
+    std::fstream infile;
     void parse();
     void excute();
 };
