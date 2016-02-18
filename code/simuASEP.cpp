@@ -81,4 +81,3 @@ void SimuASEP::run()
     output[0].close();
     output[1].close();
 }
-
