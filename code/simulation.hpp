@@ -1,16 +1,18 @@
 #ifndef SIMULATION_HPP_ZW9DJGS5
 #define SIMULATION_HPP_ZW9DJGS5
 
+#include <sstream>
 class Simulation
 {
 public:
     Simulation ();
     virtual ~Simulation ();
 
-    class Particle *particle;       // unit of 1D
-    class Bead *bead;               // unit of 3D
-    class State *state;             // for ASEP 
-
+    class Input *input;     // input scripting
+    class Box *box;         // box to do the simulation
+    class Output *output;   // output streams
+    
+    void init(std::string simuName);
     virtual void print() = 0;
     virtual void run() = 0;
 };
