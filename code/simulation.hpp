@@ -7,8 +7,9 @@ public:
     Simulation ();
     virtual ~Simulation ();
 
-    class Input *input;             // input scripting
-    class Output *output;           // output streams
+    class Input *input;         // input scripting
+    class Box *box;             // box to do simulation
+    class Output *output;       // output streams
 
     virtual void print() = 0;
     virtual void run() = 0;

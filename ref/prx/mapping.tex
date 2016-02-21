@@ -1,0 +1,427 @@
+\documentclass[aps,showpacs,twocolumn,floatfix,prx,superscriptaddress]{revtex4-1}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{upgreek}
+\usepackage[usenames,dvipsnames]{color}
+
+%\bibliographystyle{apsrev}
+
+
+\def\s{\sigma}
+\begin{document}
+
+\title{Yet another mapping to ASEP --- 1D polymer dynamics}
+
+\author{Wenwen Huang}
+\author{Yen Ting Lin}
+\author{Daniela Fr\"{o}mberg}
+\author{Jaeoh Shin}
+\author{Frank J\"{u}licher}
+\author{Vasily Zaburdaev}
+\affiliation{Max Planck Institute for the Physics of Complex Systems, N\"{o}thnitzer Str. 38, D-01187 Dresden, Germany}
+
+\begin{abstract}
+{}
+\end{abstract}
+\maketitle
+
+
+\section{Introduction}
+Many biological processes can be modelled by idealized physical concepts and
+quantitatively studied through the law of physics and methods of mathematics.
+A good example is the movement of DNA. Polymer models, which constructed by bead
+and rod or spring, are often utilized to describe DNA\cite{}.
+In our study of chromosome alignment in meiotic fission yeast, a freely jointed
+bead rod ring model is adopted\cite{}. Chromosome movements during the stage of
+horsetail oscillation of nucleus are translated to pinned polymer loop in an
+external field\cite{}. To understand deeper physics of such pinned polymer loop,
+here we formulate the problem in 1D, i.e. rods can only orientate to right or
+left. Amazingly, we found this simple model can maps to a 1D particle hopping
+problem, well known as asymmetric simple exclusion process (ASEP)\cite{}. On the
+other hand, ASEP is a paradigmatic model in non-equilibrium statistics with many
+applications\cite{}. It turns out many real problems can be mapped to ASEP. For
+instance, ASEP is frequently used to model the traffic transport\cite{}.
+Another example is ref. cite{}, MacDonald et al. shown their pioneering work to
+use ASEP quantitatively modelling kenetic of biopolymerization. Also in ref.
+\cite{}, the reptation movement of polymer in crowded environment is again
+mapped to ASEP model.  In this paper, we will add one more class of problems
+which can be exactly mapped to ASEP --- 1D polymer dynamics. Note the polymer
+here is not the reptating polymer in crowded environment but in general polymers
+in dilute solution. 
+
+In this paper, we will show how to map from a pinned polymer model describing
+chromosomes to a single file particle diffusion. The equivalence between polymer
+and particle means that we solve one case in one picture automatically solves the
+correspondence in the other. We thus show a example that the pinned polymer loop
+in constant external field can be solved analytically in 1D. We demonstrate that
+the famous Fermi-Dirac statistics serves as an asymptotic approximation of
+statistics of rod orientation. Exact solution is also feasible by solving the
+fermion number partition problem. Thus the particle picture correspondence,
+which is SFD in external force field with reflecting boundary condition, is
+also solved and to our knowledge is solved for the first time. Results are
+verified by numerical simulations. To further demonstrate the power of this
+mapping method, we also discuss the of some other applications. In particular,
+the dynamics of polymer is discussed by mapping back from SFD dynamics. 
+
+The next section we will describe how to build the mapping from polymer and
+particle. In section III, some of the applications are discussed.
+Finally, we give our conclusion remarks and outlook in section IV. 
+
+
+\section{Statistics of one-dimensional pinned polymer loop}
+\subsection{Brownian bridge}
+\subsection{Fermi-Dirac statistics of rod orientations}
+\subsection{Fermion integer number partition theory}
+\subsection{From rods to a polymer, beauty of Gaussian statistics}
+
+\section{Asymmetric Exclusion Process}
+Having shown the equilibrium statistics been solved by mapping from polymer to
+particle, we now come to the discussion about the dynamics. It is intuitively to
+extend the analogy to nonequilibrium, i.e., the dynamics of pinned polymer
+corresponds to particle diffusion in a one dimensional lattice. To illustrate
+the equivalence, we firstly define a typical particle hopping model and build
+the connection between these two models. 
+
+As shown in the section above, we consider a 1D lattice with $N$ lattice sites and
+exact $N/2$ particles. Only simple exclusive interaction between particle is
+applied, which means that one lattice site can only occupied by at most one
+particle and the order of particles is conserved during the particle hopping
+process. Denote the probability of particle hopping to right and left with $p$
+and $q$ respectively, we have the following detailed balance during the hopping
+\begin{equation}
+    p P_{n} = q P_{n+1} \label{eq:db}
+\end{equation}
+where $P_{n}$ is the probability of configuration before particle hopping to
+the right and $P_{n+1}$ is the probability of configuration after hopping. 
+In addition, the ratio of of probability should be proportional to a Boltzmann
+factor with the energy difference between these two configurations. Eq
+\ref{eq:db} can be rewrite as 
+\begin{equation}
+    q / p = P_{n} / P_{n+1} = \exp{(-\Delta E / k_B T)}  \label{eq:p_divide_q}
+\end{equation}
+
+On the other hand, for a specific particle hopping system, the total hopping
+rate is determined by the temperature. External force changes nothing but the
+ratio $q/p$. Thus we have
+\begin{equation}
+    p + q = cT \label{eq:p_plus_q}
+\end{equation}
+where $c$ is a constant. With eq. \ref{eq:p_plus_q} and eq. \ref{eq:p_plus_q}
+we can in principle solve $p$ and $q$ uniquely. The key quantity here is
+$\Delta E$, which actually connects polymer and particle model. One can learn
+from the polymer and particle equivalence that one particle hopping the right
+corresponds to the change of two consecutive rods orientation from right-left to
+left-right. Thus the energy difference of the two configuration writes
+\begin{equation}
+    \Delta E = 2F\Delta l
+\end{equation}
+where $F$ is the strength of external force and $\Delta l $ is the rod length.
+Plug into the above equations one obtain
+\begin{eqnarray}
+    \label{eq:p_and_q}
+    p & =  & \frac{cT\exp{(-2F\Delta l / k_B T)}}{1+\exp{(-2F\Delta l / k_B
+            T)}} \\
+    q & =  & \frac{cT}{1+\exp{(-2F\Delta l / k_B T)}}
+\end{eqnarray}
+Now we have a well defined particle hopping model equivalent to polymer
+dynamics in the bulk, but the boundary condition is still not specified. It
+turns out the boundary condition combined with particle number are crucial to
+determinate the type of corresponding polymer.
+
+
+\section{Towards understanding dynamics}
+
+\section{Conclusions}
+
+\begin{acknowledgments}
+We would like to acknowledge stimulating discussions with M. Majumdar.\end{acknowledgments}
+
+
+\begin{thebibliography}{10}
+
+
+\bibitem{alberts2002}
+B.~Alberts,
+  A.~Johnson,
+  J.~Lewis,
+  M.~Raff,
+  K.~Roberts, and
+  P.~Walter,
+  \emph{Molecular Biology of the Cell, Fourth Edition}
+  (Garland Science, New York, 2002),
+  4th ed.
+
+\bibitem{gerton2005}
+J.~L. Gerton and
+  R.~S. Hawley,
+  Nat. Rev. Genet. \textbf{6},
+  477 (2005).
+
+\bibitem{villeneuve2001}
+A.~M. Villeneuve
+  and K.~J.
+  Hillers, Cell
+  \textbf{106}, 647 (2001).
+
+\bibitem{McKee2004}
+B.~D. McKee,
+  BBA-Gene. Struct. Expr. \textbf{1677}, 165 
+  (2004).
+
+\bibitem{Egel2004}
+R.~Egel,
+  \emph{The Molecular Biology of Schizosaccharomyces pombe:
+  Genetics, Genomics and Beyond}(Springer, Berlin-Heidelberg,
+  2004).
+
+\bibitem{davis2001}
+L.~Davis and
+  G.~R. Smith,
+  Proc. Natl. Acad. Sci. U. S. A.
+  \textbf{98}, 8395 (2001).
+
+\bibitem{munz1994}
+P.~Munz,
+  Genetics \textbf{137},
+  701 (1994).
+
+\bibitem{wells2006}
+J.~L. Wells,
+  D.~W. Pryce, and
+  R.~J. McFarlane,
+  Yeast \textbf{23}, 977
+  (2006).
+  
+ \bibitem{SM} See Supplemental Material at ... for detailed description of experimental procedures, numerical simulations, and the discussion of 3D fluctuations of the polymer loop.
+
+\bibitem{ding1998oscillatory}
+D.-Q. Ding,
+  Y.~Chikashige,
+  T.~Haraguchi,
+  and Y.~Hiraoka,
+  J. Cell Sci. \textbf{111},
+  701 (1998).
+
+\bibitem{vogel2009self}
+S.~K. Vogel,
+  N.~Pavin,
+  N.~Maghelli,
+  F.~J\"ulicher,
+  and I.~M.
+  Toli\'c-N\o rrelykke, PLoS Biol.
+  \textbf{7}, e1000087
+  (2009).
+
+\bibitem{yamamoto2001dynamic}
+A.~Yamamoto,
+  C.~Tsutsumi,
+  H.~Kojima,
+  K.~Oiwa, and
+  Y.~Hiraoka,
+  Mol. Biol. Cell \textbf{12},
+  3933 (2001).
+
+\bibitem{yamamoto1999cytoplasmic}
+A.~Yamamoto,
+  R.~R. West,
+  J.~R. McIntosh,
+  and Y.~Hiraoka,
+  J. Cell Biol.
+  \textbf{145}, 1233 (1999).
+
+\bibitem{ananthanarayanan2013dynein}
+V.~Ananthanarayanan,
+  M.~Schattat,
+  S.~K. Vogel,
+  A.~Krull,
+  N.~Pavin, and
+  I.~M. Toli\'c-N\o rrelykke,
+  Cell \textbf{153}, 1526
+  (2013).
+
+\bibitem{koszul2009dynamic}
+R.~Koszul and
+  N.~Kleckner,
+  Trends Cell Biol. \textbf{19},
+  716 (2009).
+
+\bibitem{ding2004dynamics}
+D.-Q. Ding,
+  A.~Yamamoto,
+  T.~Haraguchi,
+  and Y.~Hiraoka,
+  Dev. Cell \textbf{6},
+  329 (2004).
+
+\bibitem{wynne2012dynein}
+D.~J. Wynne,
+  O.~Rog,
+  P.~M. Carlton,
+  and A.~F.
+  Dernburg, J. Cell Biol.
+  \textbf{196}, 47 (2012).
+
+\bibitem{Doi1986}
+M.~Doi and
+  S.~Edwards,
+  \emph{The theory of polymer dynamics, International series
+  of monographs on physics} (Clarendon Press, Oxford,
+  1986).
+  
+\bibitem{foot0}
+{\color{blue} Since the recombination machinery, locally altering the properties of the chromatin, becomes active only after the homologous chromosomes come to close proximity, we assume the effective temperature to be spatially uniform.}
+
+\bibitem{Revuz1999}
+D.~Revuz and
+  M.~Yor,
+  \emph{Continuous Martingales and Brownian Motion,
+  Grundlehren der mathematischen Wissenschaften} (Springer, Berlin-Heidelberg, 1999).
+
+\bibitem{Rogers2000}
+L.~Rogers and
+  D.~Williams,
+  \emph{Diffusions, Markov Processes, and Martingales: Volume
+  1, Foundations, Cambridge Mathematical Library}
+  (Cambridge University Press, Cambridge, 2000).
+
+\bibitem{Majumdar2004}
+S.~N. Majumdar and
+  A.~Comtet,
+  Phys. Rev. Lett. \textbf{92},
+  225501 (2004).
+  
+
+\bibitem{foot1}
+The difference is that Brownian bridge is defined for a time continuous Brownian motion, but the equivalence to the discrete random walk problem can be demonstrated in the proper limit.
+
+\bibitem{foot2}
+In fact it is a Gaussian with a cut off on the tails of the distribution due to the fixed length of the polymer. This effect is analogous to the effect of the finite velocity of diffusing particles. It does not change the Gaussian nature of the bulk of the distribution and only affects its far tails.
+
+\bibitem{foot3}
+Interestingly, it can be shown that the statistics of rod orientations in a one-dimensional case is given by the Fermi-Dirac distribution. This problem will be discussed in detail elsewhere.
+
+\bibitem{Greene2008}
+W.~Greene,
+  \emph{Econometric Analysis}
+  (Prentice Hall, Upper Saddle River, NJ, 2008).
+
+\bibitem{Athreya2006}
+K.~Athreya and
+  S.~Lahiri,
+  \emph{Measure Theory and Probability Theory, Springer Texts
+  in Statistics }(Springer, New York, 2006).
+
+\bibitem{zickler1999meiotic}
+D.~Zickler and
+  N.~Kleckner,
+  Annu. Rev. Genet. \textbf{33},
+  603 (1999).
+
+\bibitem{cromie2006single}
+G.~A. Cromie,
+  R.~W. Hyppa,
+  A.~F. Taylor,
+  K.~Zakharyevich,
+  N.~Hunter, and
+  G.~R. Smith,
+  Cell \textbf{127}, 1167
+  (2006).
+
+\bibitem{marshall2001chromosome}
+W.~F. Marshall,
+  J.~F. Marko,
+  D.~A. Agard, and
+  J.~W. Sedat,
+  Curr. Biol. \textbf{11},
+  569 (2001).
+
+\bibitem{alexander1991}
+S.~P. Alexander
+  and C.~L.
+  Rieder, J. Cell Biol.
+  \textbf{113}, 805 (1991).
+
+\bibitem{kalinina2013pivoting}
+I.~Kalinina,
+  A.~Nandi,
+  P.~Delivani,
+  M.~R. Chac\'on,
+  A.~H. Klemm,
+  D.~Ramunno-Johnson,
+  A.~Krull,
+  B.~Lindner,
+  N.~Pavin, and
+  I.~M. Toli\'c-N{\o}rrelykke,
+  Nat. Cell Biol. \textbf{15},
+  82 (2013).
+
+\bibitem{bystricky2004long}
+K.~Bystricky,
+  P.~Heun,
+  L.~Gehlen,
+  J.~Langowski,
+  and S.~M.
+  Gasser, Proc. Natl. Acad. Sci. U. S. A.
+  \textbf{101}, 16495
+  (2004).
+
+\bibitem{cui2000pulling}
+Y.~Cui and
+  C.~Bustamante,
+  Proc. Natl. Acad. Sci. U. S. A.
+  \textbf{97}, 127 (2000).
+
+\bibitem{langowski2006polymer}
+J.~Langowski,
+  Eur. Phys. J. E \textbf{19}, 241
+  (2006).
+
+\bibitem{rosa2008}
+A.~Rosa and
+  R.~Everaers,
+  PLoS Comput. Biol. \textbf{4},
+  e1000153 (2008).
+
+\bibitem{ding2006meiotic}
+D.-Q. Ding,
+  N.~Sakurai,
+  Y.~Katou,
+  T.~Itoh,
+  K.~Shirahige,
+  T.~Haraguchi,
+  and Y.~Hiraoka,
+  J. Cell Biol.
+  \textbf{174}, 499 (2006).
+
+\bibitem{gennerich2007force}
+A.~Gennerich,
+  A.~P. Carter,
+  S.~L. Reck-Peterson,
+  and R.~D. Vale,
+  Cell \textbf{131}, 952
+  (2007).
+
+\bibitem{toba2006overlapping}
+S.~Toba,
+  T.~M. Watanabe,
+  L.~Yamaguchi-Okimoto,
+  Y.~Y. Toyoshima,
+  and H.~Higuchi,
+  Proc. Natl. Acad. Sci. U. S. A.
+  \textbf{103}, 5741 (2006).
+  
+ \bibitem{zhang2012}
+ Y.~Zhang and D.~W.~Heermann, PLoS ONE \textbf{6}, e29225 (2012).
+ 
+ \bibitem{zhang2013}
+Y.~Zhang, S. Isbaner, and D.~W.~Heermann, Front. Phys. \textbf{1}, DOI=10.3389/fphy.2013.00016 (2013).
+\end{thebibliography}
+
+%\end{thebibliography}
+
+
+\end{document}
+
+

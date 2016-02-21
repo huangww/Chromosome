@@ -12,7 +12,7 @@
 \def\s{\sigma}
 \begin{document}
 
-\title{Polymer Maps to Particle Diffusion and Back in 1D}
+\title{Maps to Particle Diffusion and Back in 1D}
 
 \author{Wenwen Huang}
 \author{Yen Ting Lin}
@@ -28,49 +28,61 @@
 \end{abstract}
 \maketitle
 
-
-\section{Introduction}
-Many biological processes can be modelled by idealized physical concepts and
-qualitatively studied through the law of physics and methods of mathematics.
-A good example is the movement of DNA. Polymer models are often utilized to
-describe DNA\cite{}, characterized the long chain property of its chemical
-structure. 
-In our study of chromosome alignment in meiotic fission yeast, a freely jointed
-bead rod ring model is adopted\cite{}. Chromosome movements during the stage of
-horsetail oscillation of nucleus are translated to pinned polymer loop in an
-external field\cite{}. To understand to statistics of distance between loci, we
-first formulate the problem in 1D, i.e. rods can only pointing to right or
-left. Amazingly, we found this simple model can maps to a 1D particle diffusion
-problem, well known as single file diffusion (SFD)\cite{}. On the other hand,
-SFD is a paradigmatic model in non-equilibrium statistics with many
-applications\cite{}. 
-
-In this paper, we will show how to map from a pinned polymer model describing
-chromosomes to a single file particle diffusion. The equivalence between polymer
-and particle means that we solve one case in one picture automatically solves the
-correspondence in the other. We thus show a example that the pinned polymer loop
-in constant external field can be solved analytically in 1D. We demonstrate that
-the famous Fermi-Dirac statistics serves as an asymptotic approximation of
-statistics of rod orientation. Exact solution is also feasible by solving the
-fermion number partition problem. Thus the particle picture correspondence,
-which is SFD in external force field with reflecting boundary condition, is
-also solved and to our knowledge is solved for the first time. Results are
-verified by numerical simulations. To further demonstrate the power of this
-mapping method, we also discuss the of some other applications. In particular,
-the dynamics of polymer is discussed by mapping back from SFD dynamics. 
-
-The next section we will describe how to build the mapping from polymer and
-particle. In section III, some of the applications are discussed.
-Finally, we give our conclusion remarks and outlook in section IV. 
-
-
-\section{Statistics of one-dimensional pinned polymer loop}
-\subsection{Brownian bridge}
-\subsection{Fermi-Dirac statistics of rod orientations}
-\subsection{Fermion integer number partition theory}
-\subsection{From rods to a polymer, beauty of Gaussian statistics}
-
 \section{Asymmetric Exclusion Process}
+Having shown the equilibrium statistics been solved by mapping from polymer to
+particle, we now come to the discussion about the dynamics. It is intuitively to
+extend the analogy to nonequilibrium, i.e., the dynamics of pinned polymer
+corresponds to particle diffusion in a one dimensional lattice. To illustrate
+the equivalence, we firstly define a typical particle hopping model and build
+the connection between these two models. 
+
+As shown in the section above, we consider a 1D lattice with $N$ lattice sites and
+exact $N/2$ particles. Only simple exclusive interaction between particle is
+applied, which means that one lattice site can only occupied by at most one
+particle and the order of particles is conserved during the particle hopping
+process. Denote the probability of particle hopping to right and left with $p$
+and $q$ respectively, we have the following detailed balance during the hopping
+\begin{equation}
+    p P_{n} = q P_{n+1} \label{eq:db}
+\end{equation}
+where $P_{n}$ is the probability of configuration before particle hopping to
+the right and $P_{n+1}$ is the probability of configuration after hopping. 
+In addition, the ratio of of probability should be proportional to a Boltzmann
+factor with the energy difference between these two configurations. Eq
+\ref{eq:db} can be rewrite as 
+\begin{equation}
+    q / p = P_{n} / P_{n+1} = \exp{(-\Delta E / k_B T)}  \label{eq:p_divide_q}
+\end{equation}
+
+On the other hand, for a specific particle hopping system, the total hopping
+rate is determined by the temperature. External force changes nothing but the
+ratio $q/p$. Thus we have
+\begin{equation}
+    p + q = cT \label{eq:p_plus_q}
+\end{equation}
+where $c$ is a constant. With eq. \ref{eq:p_plus_q} and eq. \ref{eq:p_plus_q}
+we can in principle solve $p$ and $q$ uniquely. The key quantity here is
+$\Delta E$, which actually connects polymer and particle model. One can learn
+from the polymer and particle equivalence that one particle hopping the right
+corresponds to the change of two consecutive rods orientation from right-left to
+left-right. Thus the energy difference of the two configuration writes
+\begin{equation}
+    \Delta E = 2F\Delta l
+\end{equation}
+where $F$ is the strength of external force and $\Delta l $ is the rod length.
+Plug into the above equations one obtain
+\begin{eqnarray}
+    \label{eq:p_and_q}
+    p & =  & \frac{cT\exp{(-2F\Delta l / k_B T)}}{1+\exp{(-2F\Delta l / k_B
+            T)}} \\
+    q & =  & \frac{cT}{1+\exp{(-2F\Delta l / k_B T)}}
+\end{eqnarray}
+Now we have a well defined particle hopping model equivalent to polymer
+dynamics in the bulk, but the boundary condition is still not specified. It
+turns out the boundary condition combined with particle number are crucial to
+determinate the type of corresponding polymer.
+
+
 
 \section{Towards understanding dynamics}
 
