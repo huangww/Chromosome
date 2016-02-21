@@ -23,9 +23,9 @@ void Input::getArg(int argc, char* argv[])
         infile.open(argv[1]);
     } 
 
-    if (argc >2 && atoi(argv[2])>0) {
-        parameter->taskID = atoi(argv[2]);
-    }
+    // if (argc >2 && atoi(argv[2])>0) {
+    //     parameter->taskID = atoi(argv[2]);
+    // }
     
 }
 
@@ -38,5 +38,10 @@ void Input::file()
         
         
     }
+}
+
+void Input::parse()
+{
+
 }
 
