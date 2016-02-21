@@ -17,6 +17,7 @@ public:
 
 private:
     std::fstream infile;
+    std::string line;
     void parse();
     void excute();
 };
