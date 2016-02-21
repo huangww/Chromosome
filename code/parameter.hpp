@@ -2,6 +2,8 @@
 #define PARAMETER_HPP_H4YIFEO2
 
 #include "simulation.hpp"
+#include <iostream>
+#include <sstream>
 
 
 class Parameter
@@ -11,39 +13,18 @@ public:
     virtual ~Parameter ();
 
     int taskID;
-
-    int nSite;
-    int nPar;
-    int nSample;
-
-    double rateToLeft;
-    double rateToRight;
-
-    int topoType;
-    int nBead;
-    int nRod;
-
-    double dt;
-    double tEnd;
-    int outputStep;
-    double tempEff;
-    unsigned long seed;
+    
+    void set(std::string key, std::string value);
 
 protected:
     // some constant
     const double PI;
     const int DIM;
 
-    Simulation *simulation;
-    Particle *&particle;
-    Bead *&bead;
+    Simulation *&simulation;
 
 private:
-    void setup();
-    void setupASEP();
-    void setupSingleFile();
-    void setupBeadRod();
-    void setupBeadSpring();
+
 };
 
 #endif /* end of include guard: PARAMETER_HPP_H4YIFEO2 */

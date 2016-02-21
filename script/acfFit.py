@@ -10,8 +10,14 @@ dataDir = 'SF-N100/'
 
 def ACF(x):
     acf= ss.acf(x, nlags=len(x), fft=True)
+<<<<<<< HEAD
+    end = next((i for i,v in enumerate(acf) if v<0),
+            len(acf)-1)
+    return t[:end], acf[:end]
+=======
     end = next((i for i,v in enumerate(acf) if v<0), len(x)-1)
     return acf[:end]
+>>>>>>> b125f6d5cec208ecc3c799ef37fe7bc13ab8917b
 
 def GetACF(T, c):
     fname = dataDir + 'rg1D_N500_T'+str(T)+ \
