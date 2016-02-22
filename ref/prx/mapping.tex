@@ -6,12 +6,9 @@
 \usepackage{upgreek}
 \usepackage[usenames,dvipsnames]{color}
 
-%\bibliographystyle{apsrev}
-
-
 \begin{document}
 
-\title{Yet another mapping to ASEP --- 1D polymer dynamics}
+\title{Yet another problem maps to ASEP --- 1D polymer dynamics}
 
 \author{Wenwen Huang}
 \author{Yen Ting Lin}
@@ -19,22 +16,23 @@
 \author{Jaeoh Shin}
 \author{Frank J\"{u}licher}
 \author{Vasily Zaburdaev}
-\affiliation{Max Planck Institute for the Physics of Complex Systems, N\"{o}thnitzer Str. 38, D-01187 Dresden, Germany}
+\affiliation{Max Planck Institute for the Physics of Complex Systems,
+    N\"{o}thnitzer Str. 38, D-01187 Dresden, Germany}
 
 \begin{abstract}
-{}
+    { abstract text }
 \end{abstract}
 \maketitle
 
 
 \section{Introduction}
-Many biological processes can be described by idealized physical models and
+Many biological processes can be characterized by idealized physical models and
 quantitatively studied through the law of physics and methods of mathematics.  A
 good example is the movement of DNA. Polymer models, constructed by bead and rod
 or spring, are often utilized to describe DNA\cite{}.  In our study of
 chromosome alignment in meiotic fission yeast, a freely jointed bead rod ring
 model is adopted\cite{}. Chromosomes during the stage of nuclear oscillation are
-translated to pinned polymer loop in an external field\cite{}. To further
+transformed to pinned polymer loop in an external field\cite{}. To further
 understand the physics of such pinned polymer loop model, here we formulate the
 problem in 1D, i.e. rods orientate either right or left. Amazingly, we found
 this simple model can maps to a 1D particle hopping problem, well known as
@@ -62,7 +60,7 @@ numerical simulations. To further demonstrate the power of this mapping, we
 study the relaxation of polymer represented by the mapped particle hopping
 process and compared with the Rouse theory and Brownian Dynamics (BD)
 simulations.  Interestingly, we found the relaxation time of gyration radius
-varies non-monotonically with the external force, which is consistent with 3D
+varies non-monotonically with the external force, which is coincide with 3D
 theory and simulations.
 
 The next section we will describe how to build the mapping from polymer and
@@ -73,7 +71,7 @@ simulations are discussed in detail. Finally, conclusion remarks and outlooks
 are list in section IV. 
 
 
-\section{Mapping from polymer to particle}
+\section{Build the Mapping}
 In our study of chromosome movements, we use a bead-and-rod model to model the
 chromosomes. Here, we reformulate the model in 1D instead of 3D. The 1D model
 is extremely simple but still capture the key properties such as the ability to
@@ -81,176 +79,303 @@ measure the  alignment of beads along the external force field.  The exciting
 thing is we have a peculiar mapping from 1D polymer to particle on lattice sites
 as shown below.  
 
+\subsection{Mapping from polymer to particle}
+\label{sec:mapping}
 The chromosome consists of $N$ beads freely jointed by $N$ rods forming
 a loop; the rod length is chosen to be the Kuhn length $a$ of the chromosome.
 The position of the $i^{\rm th}$ bead is denote by $x_i$, and without lost of
 generality, the spindle pole body which is pinned after transforming to the
 co-moving frame, is defined to be the $0^{\rm th}$ bead. An constant external
 force $F$ is applied on every bead after frame transform with direction defined
-to be positive along $x$ without loss of generality. The looping topology of
-the polymer suggests $x_0=x_N$.  We do not consider the volume exclusion in the
-model of polymer. Define the direction of the $i^{\rm th}$ rod to be
-$e_i:=x_{i+1} - x_{i}$.  In a one-dimensional setting, $x_i = i a$ where $i \in
-\mathbb{Z}$, and $e_i=\pm a$ for $i=0, 1, \ldots, N-1$. The internal energy of
-the polymer reads
-\begin{align*}
-    E  & = -\sum_{i=1}^{N-1} {Fx_i} = -Fa\sum_{i=1}^{N-1} i  \nonumber \\
-       & = - Fa \sum_{i=1}^{N-1} \sum_{j=0}^{i-1} \left(2 Z_j - 1\right),
-\end{align*}
-here $Z_j := \left(e_j/a+1\right)/2$ is a changed variable. By exchanging the
-order of the double summation and utilizing the looping condition 
+to be positive along $x$ without lost of generality. The looping topology of the
+polymer suggests $x_0=x_N$. Define the orientation of the $i^{\rm th}$ rod to be
+$e_j:=(x_{j+1} - x_{j})/a$.  In a one-dimensional setting, $x_i =
+a\sum_{j=0}^{i} e_j$ where $e_j=\pm 1$ and $i,j \in \left\{0, 1, \ldots,
+    N-1\right\}$. We do not consider the volume exclusion effect and bending
+energy in the model of polymer. The internal energy of the polymer reads
+\begin{equation}
+    \label{eq:energy_polymer}
+    E  = -\sum_{i=0}^{N-1} {Fx_i} = -Fa\sum_{i=0}^{N-1} \sum_{j=0}^{N-1}e_j, 
+\end{equation}
+In addition, the looping condition gives
 \begin{equation}
     \label{eq:looping}
-    \sum_{j=0}^{N-1} e_j = 0,
+    \sum_{j=0}^{N-1} e_j = 0.
 \end{equation}
-we arrive at 
+
+We now build the mapping from polymer to particle. Notice that the state rod
+orientation is binary, i.e. $e_j \in \left\{-1, +1\right\}$. We map it to the state of a
+lattice site which is also binary, i.e. either occupied by particle ($Z_j = 1$)
+or empty ($Z_j = 0$). The relation of $Z_j$ and $e_j$ is defined by a simple
+variable transformation $Z_j := \left(e_j+1\right)/2$. The position of polymer
+beads is obtained by the back transformation
 \begin{equation}
-    \label{eq:energy}
-    E = E_0 + \Delta E \sum_{j=0}^{N-1} j Z_j
+    \label{eq:z2x}
+    x_i = a \sum_{j=0}^{j=i}{e_j} = a\left(2\sum_{j=0}^{j=i}{Z_j} -i\right)
 \end{equation}
-where $E_0= - N(N-1) \Delta E /2$ and $\Delta E = 2Fa$. 
-
-By observing the energy \eqref{eq:energy}, we immediately recognise that the
-system has a Hamiltonian similar to a system with $N/2$ Fermions in an $N$
-equally distributed energy levels $0, \Delta E, \ldots, (N-1) \Delta E$, and
-$Z_j$ can be interpreted as a binary variable which characterizes whether the
-energy level $j$ is occupied ($=1$ if it is occupied, and $=0$ otherwise). 
-This is actually the inspiration for us to build the mapping from polymer to
-particles. 
+Several examples of polymer configurations maps to particles on lattice sites are given
+in Fig. \ref{fig:schematic}. It is not difficult to see the boundary condition of
+lattice for the particle hopping model is reflecting boundaries. We will
+discuss more about this in section \ref{sec:asep}.
 
 
-% Clearly when the lowest energy corresponds to $Z_j =1$ $\forall j < N/2$ and $Z_j=0$ otherwise. When the system is in contact with an external thermal bath with temperature $T$, it is possible to be in any configuration. The equilibrium Gibbs measure indicates that the probability of the system in a configuration $\l\{Z_j\r\}_{j=0}^{N-1}$ is
-% \eq{
-% \pr{\l\{Z_j\r\}_{j=0}^{N-1}} \propto \exp \l[-\frac{E_0 + \Delta E \sum_{j=0}^{N-1} j Z_j}{k_B T}\r]
-% }{eq:gibbs}
-% where $k_B$ is the Boltzmann factor. 
-%
-% The periodic condition \eqref{eq:periodic} implies a hard constraint of the total number of the Fermions $\sum_{j=0}^{n-1} Z_j = N/2$. This corresponds to a picture of \emph{canonical ensemble} \cite{huang1987statistical}: the system does not exchange particles with its environment. While formally the equilibrium distribution is solved by \eqref{eq:gibbs}, we remark the difficulty of obtaining the analytic solution due to the degeneracy of the system, i.e., some (total) energy levels contain multiple microscopic states. In the next section \ref{sec:partition}, we will illustrate the possibility of obtaining an exact solution using number theory. 
-%
-% An alternative approach is to first release the fixed-number constraint, and use the \emph{grand canonical ensemble} which allows exchange of particles with external reservoir \cite{huang1987statistical}, derive the probability distribution of the microscopic states to construct an random walk model, and then finally use the to re-enforce the fixed-number constraint \cite{lin2015pulled}. Below we outline the analysis and the results of this approach. In this one-dimensional case,   after releasing the fixed-number constraint, the probability distribution of $Z_j$ can be derived \cite{huang1987statistical} to be a Fermi--Dirac distribution
-% \subeq{
-% \pr{Z_j = 1} ={}& \l\{1+\exp\l[\frac{ \Delta E \l(j - \mu \r) }{k_B T}\r]\r\}^{-1}, \\
-% \pr{Z_j = 0} ={}& 1- \pr{Z_j = 1},
-% }{eq:discrete_prob}
-% with a chemical potential $\mu = (N-1)/2$ obtained from a symmetry argument. Noting the relation of $Z_j$ and the configuration of the orientation of $j^{\rm th}$ rod $\ve_j = \l(2Z_j -1\r) \Delta l$, the probabilities \eqref{eq:discrete_prob} are used to compute the distribution of $\ve_j$. In this context, the famous Pauli exclusion principle---$Z_j$ can be either 0 or 1---corresponds to an almost trivial statement of each rod: either it points to the right ($Z_j=1$) or to the left ($Z_j=0$). 
-%
-% We emphasize that only in the picture of grand canonical ensemble, the probability distribution of each rod are mutually independent; with a hard constraint of the particle number, $Z_j$'s are not independently distributed. In fact, the independence is the key for an analytic solutions of the equilibrium properties, such as \eqref{eq:gibbs}, are possible. 
-%
-% Knowing the probability distribution of the orientation of each rod, a random walk is then built, satisfying the first and the second moments of the individual rods. Specifically, we construct a Gaussian random walk, which satisfies the conditional probability
-% \eq{
-% \rho\l(\vx_{i+1} \vert \vx_i\r) =\exp\l\{ -\frac{\l[\vx_{i+1}- \vx_i - \l(\Delta l \r) \E{Z_j}\r]^2}{4 \var{Z_j}\Delta l^2}\r\}, 
-% }{}
-% on a continuum domain $\vx \in \mathbb{R}$. Finally, the ``bridge'' condition in section [XXX] is imposed to re-enforce the fixed-number condition \eqref{eq:periodic}. 
-%
-% \begin{figure}
-% \includegraphics[width=0.45 \textwidth]{schematic}
-% \caption{Schematic diagram. (a) Polymer blahblihblah (b) Fermion blahblihblah (c) Young diagram didadi...}
-% \label{fig:schematic}
-% \end{figure}
-%
-% \section{Relation to integer partition and number theory} \label{sec:partition} 
-% Although the approach detailed in section \label{sec:FD} accurately estimates the mean and variance of equilibrium position of $j^{\rm}$ bead, it is an approximated theory. The random walk is continuous in space and the positions of the beads resides on an lattice. In addition, the distribution of the position of any bead in the random-walk picture is always a Gaussian \cite{klebaner2005introduction}, but in the discrete lattice model it is not: for example, in low temperature, the polymer would be mostly staying in its fully stretched configuration (see Fig.~\ref{fig:schematic}) and the distribution of the positions of the beads are always bounded by the natural length of the rods. 
-%
-% Analytic solutions are possible in this particular model. We outline the key ideas in the followings, and leave the more detailed and technical analysis in a separate article [XXX]. 
-%
-% Our idea is to change the basis of the Fermionic system from its microscopic configurations $\l\{Z_0,Z_1,\ldots,Z_{N-1}\r\}$ to the energy of the system. Clearly, the energy can only take values $E_0, E_0+\Delta E, \ldots, E_0 + N^2 \Delta E / 4$; in this picture, the probability space is a one-dimensional lattice with finite support. Without lost of generality, we let the constant energy $E_0=0$ and $\Delta E=1$ by choosing a proper unit. The difficulty of this basis is to determine the degeneracy of the microscopic states which have the same energy $E \in \l\{0,1,\ldots N^2/4\r\}$, sometimes referred to as the ``density of the state'' in statistical mechanics \cite{huang1987statistical} and condensed matter physics \cite{sander2009advanced}. We let the number of microscopic states with energy $E$ to be $g(E)$; once $g(E)$ is known, the partition function of the system can be formally derived in the canonical ensemble picture
-% \eq{
-% \mathcal{Z}\l(T\r) = \sum_{E=0}^{N^2/4} g(E) \, \exp \l(-\frac{E}{k_B T}\r),
-% }{eq:par_func}
-% and the equilibrium property of the system can be derived from $\mathcal{Z}$. 
-%
-% With a little surprise, we discovered that $g(E)$ in this problem is closely related to the problem of integer partition in number theory \cite{andrews1998theory}. The connection can be made by formulating the problem in the following way. We consider to label the micro-state of the system by how many energy unit a Fermion is excited from its ground state. Mathematically, we denote $E_i$ to be the excited energy of the particle with $i^{\rm th}$ highest energy. The total energy of the system is
-% \begin{subequations} \label{eq:partition}
-% \begin{align}
-% E= \sum_{i=1}^{N} E_i,
-% \end{align}
-% and construction we have a constraint 
-% \begin{align}
-% N/2 \ge E_1 \ge E_2 \ge \ldots \ge E_{N/2} \ge 0. \label{eq:partition_constraint}
-% \end{align}
-% \end{subequations}
-% Equations \eqref{eq:partition} constitutes a restricted partition of the integer $E$: $g(E)$ is the possible ways to partition an integer $E$ into $N/2$ non-increasing parts \cite{andrews1998theory}.
-%
-% A very neat way to label the microscopic configuration is to use the Young diagram \cite{andrews1998theory}, showing in the right panel of Fig.~\ref{fig:schematic}. The black box in row $i$ denotes the excited energy $E_i$. With the constraint \eqref{eq:partition_constraint}, each row can have at most $N/2$ black boxes, and the number of black boxes in $(i+1)^{\rm th}$ row cannot exceed the that in $i^{\rm th}$ row.  Then, $g(E)$ is the number of possibility of arrangement of $E$ black boxes onto the $N/2 \times N/2$ ``checkerboard''.
-%
-% Once the this relation is identified, fruitful results from the number theory \cite{andrews1998theory} can be used to solve our problem. For example, denote  the ways to put $E$ black boxes onto an $K \times L$ checkerboard with non-increasing number of black boxes per row by $\pi \l(K,L,E\r)$. A recursive relation exists \cite{andrews1998theory}
-% \eq{
-% \pi\l(K,L,E\r) = \pi\l(K,L-1,E\r) + \pi \l(K-1,L, E-L\r),
-% }{}
-% which allows very efficient computations of the $g(E)=\pi\l(N/2,N/2,E\r)$. In addition, the generating function 
-% \eq{
-% \Phi \l(q\r) := \sum_{E=0}^{N^2/2} g(E) q^E
-% }{}
-% is identified to be the Gaussian binomial coefficient
-% \eq{
-% \Phi \l(q\r) \equiv \l(\begin{array}{c} N \\ N/2 \end{array}\r)_q := \frac{\prod_{j=1}^{N} \l(1-q^j\r)}{\l[\prod_{j=1}^{N/2} \l(1-q^j\r)\r]^2},
-% }{}
-% which allows us to formulate the partition function of the original polymer problem \eqref{eq:par_func}. 
-%
-% We finally remark that along this line of analysis, the probability distribution analogous to \eqref{eq:discrete_prob} can also be formulated. Not surprisingly, for a finite (and small $N$), the exact results are different from \eqref{eq:discrete_prob}. Several other physical quantities at equilibrium can be efficiently computed without resorting to Monte Carlo simulation. We will present a more detailed analysis separately [XXX].  
-%
-
-\subsection{Brownian bridge}
 \subsection{Fermi-Dirac statistics of rod orientations}
-\subsection{Fermion integer number partition theory}
-\subsection{From rods to a polymer, beauty of Gaussian statistics}
+By exchanging the order of the double summation in eq.
+\eqref{eq:energy_polymer} and utilizing the looping condition we arrive at 
+\begin{equation}
+    \label{eq:energy_particle}
+    E = E_0 + \Delta E \sum_{j=0}^{N-1} j Z_j, 
+\end{equation}
+where $E_0= - N(N-1) \Delta E /2$ and $\Delta E = 2Fa$. The looping condition
+\eqref{eq:looping} implies a hard constraint of the total number of the Fermions
+$\sum_{j=0}^{n-1} Z_j = N/2$.
 
-\section{Asymmetric Exclusion Process}
+By observing the energy \eqref{eq:energy_particle}, we immediately recognise
+that the system has a Hamiltonian similar to a system with $N/2$ Fermions in an
+$N$ equally distributed energy levels $0, \Delta E, \ldots, (N-1) \Delta E$, and
+$Z_j$ can be interpreted as a binary variable which characterizes whether the
+energy level $j$ is occupied ($=1$ if it is occupied, and $=0$ otherwise).  
+Clearly when the lowest energy corresponds to $Z_j = 1$ $\forall j < N/2$ and
+$Z_j=0$ otherwise. When the system is in contact with an external thermal bath
+with temperature $T$, it is possible to be in any configuration. The equilibrium
+Gibbs measure indicates that the probability of the system in a configuration
+$\left\{Z_j\right\}_{j=0}^{N-1}$ is
+\begin{equation}
+    \label{eq:gibbs}
+    \mathbb{P}\left\{\left\{Z_j\right\}_{j=0}^{N-1}\right\} \propto \exp
+    \left[-\frac{E_0 + \Delta E \sum_{j=0}^{N-1} j Z_j}{k_B T}\right]
+\end{equation}
+where $k_B$ is the Boltzmann factor. 
+
+The fixed total number or particle to $N/2$ corresponds to a picture of
+\emph{canonical ensemble} \cite{}: the system does not exchange particles with
+its environment. While formally the equilibrium distribution is solved by
+\eqref{eq:gibbs}. But here the difficulty of obtaining the analytic solution due
+to the degeneracy of the system, i.e., some (total) energy levels contain
+multiple microscopic states. 
+
+An alternative approach is to first release the fixed-number constraint, and use
+the \emph{grand canonical ensemble} which allows exchange of particles with
+external reservoir \cite{}, derive the probability
+distribution of the microscopic states to construct an random walk model, and
+then finally use the to re-enforce the fixed-number constraint
+\cite{}. Below we outline the analysis and the results of this
+approach. In this one-dimensional case, after releasing the fixed-number
+constraint, the probability distribution of $Z_j$ can be derived
+\cite{} to be a Fermi--Dirac distribution
+\begin{subequations}
+    \begin{align}
+        \label{eq:discrete_prob}
+        \mathbb{P} \left\{ Z_j = 1\right\} & =  \left\{1+\exp\left[\frac{ \Delta
+                    E \left(j - \mu \right) }{k_B T}\right]\right\}^{-1}, \\
+        \mathbb{P} \left\{ Z_j = 0\right\} & = 1 - \mathbb{P} \left\{ Z_j =
+            1\right\},
+    \end{align}
+\end{subequations}
+with a chemical potential $\mu = (N-1)/2$ obtained from a symmetry argument.
+Noting the relation of $Z_j$ and the configuration of the orientation of $j^{\rm
+    th}$ rod $e_j = \left(2Z_j -1\right)$, the probabilities
+\eqref{eq:discrete_prob} are used to compute the distribution of $e_j$. In this
+context, the famous Pauli exclusion principle---$Z_j$ can be either $0$ or
+$1$---corresponds to an almost trivial statement of each rod: either it points to
+the right ($Z_j=1$) or to the left ($Z_j=0$).  We emphasize that only in the
+picture of grand canonical ensemble, the probability distribution of each rod
+are mutually independent; with a hard constraint of the particle number, $Z_j$'s
+are not independently distributed. In fact, the independence is the key for an
+analytic solutions of the equilibrium properties, such as \eqref{eq:gibbs}, are
+possible. 
+
+Knowing the probability distribution of the orientation of each rod, a random
+walk is then built, satisfying the first and the second moments of the
+individual rods. Specifically, we construct a Gaussian random walk, which
+satisfies the conditional probability
+\begin{equation}
+    \rho\left(x_{i+1} \vert x_i\right) =\exp\left\{ -\frac{\left[x_{i+1}- x_i -
+                a\mathbb{E}\left[Z_j\right]\right]^2}{4
+            \text{var}\left[Z_j\right]a^2}\right\}, 
+\end{equation}
+on a continuum domain $x \in \mathbb{R}$. Finally, the ``bridge'' condition in
+section [XXX] is imposed to re-enforce the fixed-number condition
+\eqref{eq:looping}. 
+
+\begin{figure}
+\includegraphics[width=0.45 \textwidth]{schematic}
+\caption{Schematic diagram. (a) Polymer blahblihblah (b) Fermion blahblihblah (c) Young diagram didadi...}
+\label{fig:schematic}
+\end{figure}
+
+\subsection{Number partition theory} 
+Although the approach detailed in the above section accurately estimates
+the mean and variance of equilibrium position of $j^{\rm th}$ bead, it is an
+approximated theory. The random walk is continuous in space and the positions of
+the beads resides on an lattice. In addition, the distribution of the position
+of any bead in the random-walk picture is always a Gaussian
+\cite{}, but in the discrete lattice model it is not:
+for example, in low temperature, the polymer would be mostly staying in its
+fully stretched configuration (see Fig.~\ref{fig:schematic}) and the
+distribution of the positions of the beads are always bounded by the natural
+length of the rods. 
+
+Analytic solutions are possible in this particular model. We outline the key
+ideas in the followings, and leave the more detailed and technical analysis in a
+separate article [XXX]. 
+
+Our idea is to change the basis of the Fermionic system from its microscopic
+configurations $\left\{Z_0,Z_1,\ldots,Z_{N-1}\right\}$ to the energy of the system.
+Clearly, the energy can only take values $E_0, E_0+\Delta E, \ldots, E_0 + N^2
+\Delta E / 4$; in this picture, the probability space is a one-dimensional
+lattice with finite support. Without lost of generality, we let the constant
+energy $E_0=0$ and $\Delta E=1$ by choosing a proper unit. The difficulty of
+this basis is to determine the degeneracy of the microscopic states which have
+the same energy $E \in \left\{0,1,\ldots N^2/4\right\}$, sometimes referred to as the
+``density of the state'' in statistical mechanics \cite{}
+and condensed matter physics \cite{}. We let the number of
+microscopic states with energy $E$ to be $g(E)$; once $g(E)$ is known, the
+partition function of the system can be formally derived in the canonical
+ensemble picture
+\begin{equation}
+    \label{partition_func}
+    \mathcal{Z}\left(T\right) = \sum_{E=0}^{N^2/4} g(E) \, \exp
+    \left(-\frac{E}{k_B T}\right),
+\end{equation}
+and the equilibrium property of the system can be derived from $\mathcal{Z}$. 
+
+With a little surprise, we discovered that $g(E)$ in this problem is closely
+related to the problem of integer partition in number theory
+\cite{}. The connection can be made by formulating the problem
+in the following way. We consider to label the micro-state of the system by how
+many energy unit a Fermion is excited from its ground state. Mathematically, we
+denote $E_i$ to be the excited energy of the particle with $i^{\rm th}$ highest
+energy. The total energy of the system is
+\begin{subequations} 
+    \label{eq:partition}
+    \begin{align}
+        E= \sum_{i=1}^{N} E_i,
+    \end{align}
+\text{and construction we have a constraint}
+    \begin{align}
+        \label{eq:partition_constraint}
+        N/2 \ge E_1 \ge E_2 \ge \ldots \ge E_{N/2} \ge 0. 
+    \end{align}
+\end{subequations}
+Equations \eqref{eq:partition} constitutes a restricted partition of the integer
+$E$: $g(E)$ is the possible ways to partition an integer $E$ into $N/2$
+non-increasing parts \cite{}.
+
+A very neat way to label the microscopic configuration is to use the Young
+diagram \cite{}, showing in the right panel of Fig.~\ref{fig:schematic}. The
+black box in row $i$ denotes the excited energy $E_i$. With the constraint
+\eqref{eq:partition_constraint}, each row can have at most $N/2$ black boxes,
+and the number of black boxes in $(i+1)^{\rm th}$ row cannot exceed the that in
+$i^{\rm th}$ row.  Then, $g(E)$ is the number of possibility of arrangement of
+$E$ black boxes onto the $N/2 \times N/2$ ``checkerboard''.
+
+Once the this relation is identified, fruitful results from the number theory
+\cite{} can be used to solve our problem. For example, denote  the ways to put
+$E$ black boxes onto an $K \times L$ checkerboard with non-increasing number of
+black boxes per row by $\pi \left(K,L,E\right)$. A recursive relation exists
+\cite{}
+\begin{equation}
+    \pi\left(K,L,E\right) = \pi\left(K,L-1,E\right) + \pi \left(K-1,L, E-L\right),
+\end{equation}
+which allows very efficient computations of the
+$g(E)=\pi\left(N/2,N/2,E\right)$. In addition, the generating function 
+\begin{equation}
+    \Phi \left(q\right) := \sum_{E=0}^{N^2/2} g(E) q^E
+\end{equation}
+is identified to be the Gaussian binomial coefficient
+\begin{equation}
+    \Phi \left(q\right) \equiv \left(\begin{array}{c} N \\ N/2
+        \end{array}\right)_q := \frac{\prod_{j=1}^{N}
+        \left(1-q^j\right)}{\left[\prod_{j=1}^{N/2} \left(1-q^j\right)\right]^2},
+\end{equation}
+which allows us to formulate the partition function of the original polymer
+problem \eqref{eq:partition_func}. 
+
+We finally remark that along this line of analysis, the probability distribution
+analogous to \eqref{eq:discrete_prob} can also be formulated. Not surprisingly,
+for a finite (and small $N$), the exact results are different from
+\eqref{eq:discrete_prob}. Several other physical quantities at equilibrium can
+be efficiently computed without resorting to Monte Carlo simulation. We will
+present a more detailed analysis separately [XXX].  
+
+\section{Extend the mapping to non-equilibrium}
 Having shown the equilibrium statistics been solved by mapping from polymer to
 particle, we now come to the discussion about the dynamics. It is intuitively to
 extend the analogy to nonequilibrium, i.e., the dynamics of pinned polymer
-corresponds to particle diffusion in a one dimensional lattice. To illustrate
+corresponds to particle diffusion on a one dimensional lattice. To illustrate
 the equivalence, we firstly define a typical particle hopping model and build
 the connection between these two models. 
 
+\subsection{Asymmetric Exclusion Process}
+\label{sec:asep}
 As shown in the section above, we consider a 1D lattice with $N$ lattice sites and
 exact $N/2$ particles. Only simple exclusive interaction between particle is
 applied, which means that one lattice site can only occupied by at most one
 particle and the order of particles is conserved during the particle hopping
-process. Denote the probability of particle hopping to right and left with $p$
-and $q$ respectively, we have the following detailed balance during the hopping
+process. Denote the probability of particle hopping to right and left with $r$
+and $l$ respectively, we have the following detailed balance during the hopping
 \begin{equation}
-    p P_{n} = q P_{n+1} \label{eq:db}
+    r P_{n} = l P_{n+1} \label{eq:db}
 \end{equation}
 where $P_{n}$ is the probability of configuration before particle hopping to
 the right and $P_{n+1}$ is the probability of configuration after hopping. 
 In addition, the ratio of of probability should be proportional to a Boltzmann
 factor with the energy difference between these two configurations. Eq
-\ref{eq:db} can be rewrite as 
+\eqref{eq:db} can be rewrite as 
 \begin{equation}
-    q / p = P_{n} / P_{n+1} = \exp{(-\Delta E / k_B T)}  \label{eq:p_divide_q}
+    l / r = P_{n} / P_{n+1} = \exp{(-\Delta E / k_B T)}  \label{eq:r_divide_l}
 \end{equation}
 
 On the other hand, for a specific particle hopping system, the total hopping
 rate is determined by the temperature. External force changes nothing but the
-ratio $q/p$. Thus we have
+ratio $l/r$. Thus we have
 \begin{equation}
-    p + q = cT \label{eq:p_plus_q}
+    l + r = cT \label{eq:l_plus_r}
 \end{equation}
-where $c$ is a constant. With eq. \ref{eq:p_plus_q} and eq. \ref{eq:p_plus_q}
-we can in principle solve $p$ and $q$ uniquely. The key quantity here is
+where $c$ is a constant. With eq. \eqref{eq:l_plus_r} and eq. \eqref{eq:r_divide_l}
+we can in principle solve $l$ and $r$ uniquely. The key quantity here is
 $\Delta E$, which actually connects polymer and particle model. One can learn
 from the polymer and particle equivalence that one particle hopping the right
 corresponds to the change of two consecutive rods orientation from right-left to
 left-right. Thus the energy difference of the two configuration writes
 \begin{equation}
-    \Delta E = 2F\Delta l
+    \Delta E = 2Fa
 \end{equation}
-where $F$ is the strength of external force and $\Delta l $ is the rod length.
 Plug into the above equations one obtain
-\begin{eqnarray}
-    \label{eq:p_and_q}
-    p & =  & \frac{cT\exp{(-2F\Delta l / k_B T)}}{1+\exp{(-2F\Delta l / k_B
-            T)}} \\
-    q & =  & \frac{cT}{1+\exp{(-2F\Delta l / k_B T)}}
-\end{eqnarray}
+\begin{subequations}
+    \label{eq:l_and_r}
+    \begin{equation}
+        l  =   \frac{cT\exp{(-2Fa / k_B T)}}{1+\exp{(-2Fa / k_B
+                T)}} \\
+    \end{equation}
+    \begin{equation}
+        r  =  \frac{cT}{1+\exp{(-2Fa / k_B T)}}
+    \end{equation}
+\end{subequations}
 Now we have a well defined particle hopping model equivalent to polymer
 dynamics in the bulk, but the boundary condition is still not specified. It
-turns out the boundary condition combined with particle number are crucial to
+turns out the boundary condition together with particle number are crucial to
 determinate the type of corresponding polymer.
 
+It is not difficult to find that the pinned polymer loop corresponds to exactly
+$N/2$ particles hopping on $N$ lattice sites with reflecting boundaries, as
+discussed in detail for modeling chromosome in this paper. The mapping can be
+generalized to other cases, e.g. un-pinned polymer loop corresponds to $N/2$
+particles on $N$ lattice sites with periodic boundaries, free polymer chain
+corresponds to an open lattice filled by arbitrary number of particles. We start
+and focus on the case of pinned polymer loop in this paper because of its
+direct biological relevance. Other cases will be discussed in our future work.
 
-\section{Towards understanding dynamics}
+\subsection{Relaxation Time}
+With the ASEP analogy of polymer dynamics, we are ready to go deeper to analyze
+the non-equilibrium properties of the polymer system. One of the typical
+quantities people interested about dynamics is relaxation time, denote by
+$\tau$ here. The protocol here is as following, firstly record the trajectories
+of particle on ASEP and then transform them to bead position of polymer by eq.
+\eqref{eq:z2x}, finally relaxation time is fitted from auto-correlation function
+(ACF) of interested observables such as gyration radius $R_g$.
+
 
 \section{Conclusions}
 
