@@ -353,6 +353,9 @@ Plug into the above equations one obtain
         r  =  \frac{cT}{1+\exp{(-2Fa / k_B T)}}
     \end{equation}
 \end{subequations}
+One has to careful to notice that the process of a group of particles hoping to
+right is not correspond to the stretching process of the polymer. It is actually
+correspond to a spatial motif of polymer configuration moving along the polymer.
 Now we have a well defined particle hopping model equivalent to polymer
 dynamics in the bulk, but the boundary condition is still not specified. It
 turns out the boundary condition together with particle number are crucial to
@@ -371,13 +374,69 @@ direct biological relevance. Other cases will be discussed in our future work.
 With the ASEP analogy of polymer dynamics, we are ready to go deeper to analyze
 the non-equilibrium properties of the polymer system. One of the typical
 quantities people interested about dynamics is relaxation time, denote by
-$\tau$ here. The protocol here is as following, firstly record the trajectories
-of particle on ASEP and then transform them to bead position of polymer by eq.
-\eqref{eq:z2x}, finally relaxation time is fitted from auto-correlation function
-(ACF) of interested observables such as gyration radius $R_g$.
+$\tau$ here. The protocol here is as following, firstly the trajectories of
+particle on ASEP is recorded and then transformed to bead position of polymer
+by eq.  \eqref{eq:z2x}, finally relaxation time is fitted from auto-correlation
+function (ACF) of interested observables such as gyration radius $R_g$.
 
+To get trajectories of hopping particle, we employ the Kinetic Monte Carlo
+simulation\cite{}, which is very fast and efficient compare to Molecular Dynamics
+simulation of polymer. By transform to the picture of polymer, we obtain the
+dynamical behavior illustrate in Fig. \ref{fig:transient}. 
+
+ACF of gyration radius is calculated based on the information of beads position.
+It is not surprising that the ACF($Rg$) decays exponentially with time
+lag. However, we also observe a effect of multiple relaxation modes which is
+predicted in Rouse model, especially in the case of strong external force.
+Practically, relaxation time is fitted in the decaying regime where the slope
+is most flat, which corresponds to the longest relaxation mode.   
+
+We interested in how the relaxation time varies with the external force field.
+So we fixed the temperature $T$ and total hopping rate $cT$ in our model and
+simulate the relaxation behavior for different external force. One would
+intuitively expect a monotonic decreasing as $F$ grows. Surprisingly, we found a
+non-monotonic behavior contrast to the expectation, i.e. there is peak which
+marks a slowest relaxation time in a weak external force regime. See in Fig.
+\ref{fig:relaxation}. To verify the non-monotonic behavior is not artificially
+introduced by the reduction of the model, we perform a 3D Brownian dynamics
+simulation of pinned bead-rod loop with the same settings. We successfully
+reproduced the same behavior of relaxation time varies with external force ---
+non-monotonic, as illustrate in Fig. \ref{fig:relaxation}
+
+The non-monotonic behavior can be better understood in the corresponding
+particle hopping picture. In the strong force case, all particles sit on the
+left half of the lattice sites. Only the right-most particle is free to hop
+right. In fact, because of the strong hopping bias to the left, even this
+particle is not easy to move. Thus a faster relaxation behavior is observed
+caused by the strong constraint. On the other hand, when there is totally no
+external force applied on the polymer beads, which means there is no bias for
+the particle hopping. In this case, the particle will finally evenly
+distributed on the lattices sites. The freedom of particle to move is confined
+by its neighbors, which is only $2$ lattice sites in average. Since the total
+hopping rate is fixed, the relaxation time is proportional to the accessible
+distance. In comparison, in the moderate force regime, particle distributed
+denser on the left part of lattice and sparser on the right part. The freedom
+for those particles on the right side to move is larger than the case of no
+external force, and the constraint is not so strong that these particles can
+still easily move around. These conditions lead to a longer relaxation time than
+the case with no force. 
 
 \section{Conclusions}
+In conclusion, we demonstrate that 1D polymer can be exactly mapped to a
+particle hopping on lattice sites, i.e. ASEP.  We discussed the case of pinned
+polymer loop in detail, shown the analytical equilibrium statistics drawing
+from the mapping. Furthermore, the dynamics of polymer is also illustrated
+in the mapped particle hopping picture. Interestingly, we found the relaxation
+time varies with external force non-monotonically. An quantitative explanation
+is given by picture of particles hopping on the lattices sites.  
+
+The mapping from polymer to particle is not restricted in the case of pinned
+polymer loop. Other generalizations can be investigated with the same mapping,
+which leads to ASEP model with different boundaries and particle numbers. We
+emphasize the generality of this mapping which can be applied to a huge class of
+polymer problems. Moreover, the polymer dynamics beyond 1D is also possible to
+model by multi-species ASEP model. There are still a lot of fascinating open
+questions to discover in the future.
 
 \begin{acknowledgments}
 We would like to acknowledge stimulating discussions with M. Majumdar.\end{acknowledgments}
