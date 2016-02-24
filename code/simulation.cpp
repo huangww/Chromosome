@@ -1,15 +1,22 @@
 #include "simulation.hpp"
 #include "input.hpp"
-#include "output.hpp"
 
 Simulation::Simulation() 
 {
     input = new Input();
-    output = new Output();
+    simuASEP = NULL;
+    simuBeadRod = NULL;
+    simuBeadSpring = NULL;
+    simuSingleFile = NULL;
+    
 }
 Simulation::~Simulation() 
 {
     delete input;
-    delete output;
+    delete simuASEP;
+    delete simuBeadRod;
+    delete simuBeadSpring;
+    delete simuSingleFile;
 }
+
 
