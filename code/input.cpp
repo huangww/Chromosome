@@ -1,67 +1,84 @@
 #include "input.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
-#include <string>
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
+#include <sstream>
 
-Input::Input(Simulation *simu) : Parameter(simu) 
+Input::Input()
 {
-        
-
+    parameter = new Parameter;
 }
 Input::~Input() 
 {
-
+    delete [] parameter->paraName;
+    delete [] parameter->paraValue;
+    delete parameter;
 }
 
 
-void Input::getArg(int argc, char* argv[]) 
+void Input::getInput(int argc, char* argv[]) 
 {
+    std::ostringstream fname;
     if (argc > 1) {
-        infile.open(argv[1]);
-    } 
+        fname << argv[1];
+    } else {
+        fname << "input.in";
+    }
+    inputfname = fname.str();
+}
 
-    // if (argc >2 && atoi(argv[2])>0) {
-    //     parameter->taskID = atoi(argv[2]);
-    // }
-    
+int Input::getParaNumber()
+{
+    std::ifstream infile(inputfname);
+    nPara = 1;
+    std::string line;
+    while (std::getline(infile, line)) {
+        if (line.compare(0,1,"#")) {
+            nPara++;
+        }
+    }
+    return nPara;
+}
+
+void Input::init()
+{
+    nPara = getParaNumber();
+    parameter->paraName = new std::string[nPara];
+    parameter->paraValue = new double[nPara];
 }
 
 void Input::file() 
 {
+    init();
+    std::ifstream infile(inputfname);
+    std::string line;
+    int index = 0;
     while (std::getline(infile, line)) {
         if (line.compare(0,1,"#")) {
-            parse();
-            excute();
+            parse(index, line);
+            index++;
         }
     }
+    print();
 }
 
-void Input::parse() 
+void Input::parse(int index, std::string line) 
 {
-    std::string key;
     std::istringstream lineStream(line);
+    std::string key;
     if (std::getline(lineStream, key, '=')) {
-        std::string value;
-        if (std::getline(lineStream, value)) {
-            store_line(key, value);
-        }
+        parameter->paraName[index] = key;
+        lineStream >> parameter->paraValue[index];
     }
 }
 
-<<<<<<< HEAD
-void Input::parse()
+void Input::print()
 {
 
-=======
-void Input::excute() 
-{
-    if (nline == 1 && key.compare("setup")) {
-        simu->init(value);
-    } else {
-        simu->parameter->setPara(key, value);
->>>>>>> 06d6606705b9676fb9bda9404137c07e1b7d806c
+    std::cout << "Input File: " << inputfname << std::endl;
+    std::cout << "Total Number of parameters: "<< nPara << std::endl;
+    std::cout << "    Check Parameters    " << std::endl;
+    for (int i = 0; i < nPara; ++i) {
+        std::cout << parameter->paraName[i] << "=" 
+           << parameter->paraValue[i] << std::endl;
+    }
 }
-

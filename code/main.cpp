@@ -1,26 +1,20 @@
 #include <iostream>
 #include <cstdlib>
-#include "test.hpp"
-#include "simulation.hpp"
+#include "input.hpp"
 
 int main(int argc, char *argv[])
 {
-    int startTime = time(NULL);
+    // int startTime = time(NULL);
+   
+    Input *input = new Input;
+    input->getInput(argc, argv);
+    input->file();
 
-    Simulation *simu = new Simulation();
+    delete input;
 
-    simu->input->getArg(argc, argv);
-    simu->input->file();
-
-    // test();
-    simu->print();
-    simu->run();
-
-    delete simu;
-
-    int endTime = time(NULL);
-    int elapsedTime = endTime - startTime;
-    std::cout << "Runing Time: " << elapsedTime 
-    << "seconds" << std::endl;
+    // int endTime = time(NULL);
+    // int elapsedTime = endTime - startTime;
+    // std::cout << "Runing Time: " << elapsedTime 
+    // << "seconds" << std::endl;
     return 0;
 }
