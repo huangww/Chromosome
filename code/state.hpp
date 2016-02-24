@@ -2,13 +2,12 @@
 #define STATE_HPP_3TUGIGTC
 
 #include <fstream>
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 
-class State: public Parameter
+class State 
 {
 public:
-    State (Simulation *simu);
+    State ();
     virtual ~State ();
 
     void init();
@@ -20,6 +19,19 @@ public:
     double rg;      // radius of gyration
 
 private:
+    // parameters
+    int nSite;
+    int nPar;
+    int nSample;
+    int outputStep;
+
+    double dt;
+    double tempEff;
+    double tEnd;
+    double rateToLeft;
+    double rateToRight;
+    unsigned long seed;
+
     bool *site;
     int *pos;
     double *beadPos;
@@ -27,6 +39,7 @@ private:
     double totalRate;
     class Compute *compute;
 
+    void setParameter(Input *input);
     void initStretch();
     void initRandom();
     void print();

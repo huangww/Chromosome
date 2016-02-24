@@ -8,18 +8,10 @@ public:
     virtual ~Simulation ();
 
     class Input *input;     // input scripting
+    class Project *project; // projects of all types
 
     void init();
-    void run();
     void print();
-
-
-private:
-    class SimuASEP *simuASEP;
-    class SimuSingleFile *simuSingleFile;
-    class SimuBeadRod *simuBeadRod;
-    class SimuBeadSpring *simuBeadSpring;
-
 };
 
 #endif /* end of include guard: SIMULATION_HPP_ZW9DJGS5 */

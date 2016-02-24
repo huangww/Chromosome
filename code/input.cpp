@@ -2,17 +2,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
 
-Input::Input()
-{
-    parameter = new Parameter;
-}
-Input::~Input() 
-{
-    delete [] parameter->paraName;
-    delete [] parameter->paraValue;
-    delete parameter;
-}
+Input::Input() { }
+Input::~Input() { }
 
 
 void Input::getInput(int argc, char* argv[]) 
@@ -23,62 +16,45 @@ void Input::getInput(int argc, char* argv[])
     } else {
         fname << "input.in";
     }
-    inputfname = fname.str();
-}
-
-int Input::getParaNumber()
-{
-    std::ifstream infile(inputfname);
-    nPara = 1;
-    std::string line;
-    while (std::getline(infile, line)) {
-        if (line.compare(0,1,"#")) {
-            nPara++;
-        }
-    }
-    return nPara;
-}
-
-void Input::init()
-{
-    nPara = getParaNumber();
-    parameter->paraName = new std::string[nPara];
-    parameter->paraValue = new double[nPara];
+    infname = fname.str();
 }
 
 void Input::file() 
 {
-    init();
-    std::ifstream infile(inputfname);
+    std::ifstream infile(infname);
     std::string line;
-    int index = 0;
     while (std::getline(infile, line)) {
         if (line.compare(0,1,"#")) {
-            parse(index, line);
-            index++;
+            parse(line);
         }
     }
     print();
+    infile.close();
 }
 
-void Input::parse(int index, std::string line) 
+void Input::parse(std::string line) 
 {
     std::istringstream lineStream(line);
     std::string key;
     if (std::getline(lineStream, key, '=')) {
-        parameter->paraName[index] = key;
-        lineStream >> parameter->paraValue[index];
+        if (key.compare("projectName")) {
+            double value;
+            lineStream >> value;
+            parameter[key] = value;
+        } else {
+            lineStream >> projectName;
+        } 
     }
 }
 
 void Input::print()
 {
-
-    std::cout << "Input File: " << inputfname << std::endl;
-    std::cout << "Total Number of parameters: "<< nPara << std::endl;
+    std::cout << "Input File: " << infname << std::endl;
+    std::cout << "Total Number of parameters: "<< parameter.size() << std::endl;
     std::cout << "    Check Parameters    " << std::endl;
-    for (int i = 0; i < nPara; ++i) {
-        std::cout << parameter->paraName[i] << "=" 
-           << parameter->paraValue[i] << std::endl;
+    for (std::map<std::string, double>::iterator
+        it=parameter.begin(); it!=parameter.end(); ++it) {
+        std::cout << it->first << "=" 
+           << it->second << std::endl;
     }
 }

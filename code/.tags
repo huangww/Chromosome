@@ -1,0 +1,113 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::Asep() : Project()$/;"	f	language:C++	class:Asep
+Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    Asep ();$/;"	p	language:C++	class:Asep
+Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^class Asep: public Project$/;"	c	language:C++
+ASEP_HPP_MB6PNS13	/Users/wenwen/Work/chromosome/code/asep.hpp	/^#define ASEP_HPP_MB6PNS13$/;"	d	language:C++
+beadPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *beadPos;$/;"	m	language:C++	class:State
+Compute	/Users/wenwen/Work/chromosome/code/compute.cpp	/^Compute::Compute()  { }$/;"	f	language:C++	class:Compute
+Compute	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    Compute ();$/;"	p	language:C++	class:Compute
+Compute	/Users/wenwen/Work/chromosome/code/compute.hpp	/^class Compute$/;"	c	language:C++
+compute	/Users/wenwen/Work/chromosome/code/state.hpp	/^    class Compute *compute;$/;"	m	language:C++	class:State	typeref:class:State::Compute
+COMPUTE_HPP_6KHWKDTL	/Users/wenwen/Work/chromosome/code/compute.hpp	/^#define COMPUTE_HPP_6KHWKDTL$/;"	d	language:C++
+CONSTANT_HPP_QF8VSGA4	/Users/wenwen/Work/chromosome/code/constant.hpp	/^#define CONSTANT_HPP_QF8VSGA4$/;"	d	language:C++
+DIM	/Users/wenwen/Work/chromosome/code/constant.hpp	/^#define DIM /;"	d	language:C++
+dt	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double dt;$/;"	m	language:C++	class:State
+equilibrate	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::equilibrate()$/;"	f	language:C++	class:State
+equilibrate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void equilibrate();$/;"	p	language:C++	class:State
+file	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::file() $/;"	f	language:C++	class:Input
+file	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void file();$/;"	p	language:C++	class:Input
+getInput	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::getInput(int argc, char* argv[]) $/;"	f	language:C++	class:Input
+getInput	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void getInput(int argc, char *argv[]);$/;"	p	language:C++	class:Input
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::gyrationRadius(int N, double* r) $/;"	f	language:C++	class:Compute
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::gyrationRadius(int N, double** r) $/;"	f	language:C++	class:Compute
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    double gyrationRadius(int N, double **r);$/;"	p	language:C++	class:Compute
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    double gyrationRadius(int N, double* r);$/;"	p	language:C++	class:Compute
+infname	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::string infname;$/;"	m	language:C++	class:Input
+init	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^void Simulation::init() $/;"	f	language:C++	class:Simulation
+init	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    void init();$/;"	p	language:C++	class:Simulation
+init	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::init() $/;"	f	language:C++	class:State
+init	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void init();$/;"	p	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::initRandom() $/;"	f	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void initRandom();$/;"	p	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::initStretch() $/;"	f	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void initStretch();$/;"	p	language:C++	class:State
+Input	/Users/wenwen/Work/chromosome/code/input.cpp	/^Input::Input() { }$/;"	f	language:C++	class:Input
+Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^    Input ();$/;"	p	language:C++	class:Input
+Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^class Input$/;"	c	language:C++
+input	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    class Input *input;     \/\/ input scripting$/;"	m	language:C++	class:Simulation	typeref:class:Simulation::Input
+INPUT_HPP_DRBPSRM7	/Users/wenwen/Work/chromosome/code/input.hpp	/^#define INPUT_HPP_DRBPSRM7$/;"	d	language:C++
+main	/Users/wenwen/Work/chromosome/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
+monteCarloMove	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::monteCarloMove()$/;"	f	language:C++	class:State
+monteCarloMove	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void monteCarloMove();$/;"	p	language:C++	class:State
+nPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nPar;$/;"	m	language:C++	class:State
+nSample	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSample;$/;"	m	language:C++	class:State
+nSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSite;$/;"	m	language:C++	class:State
+output	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::output(std::ofstream* output) $/;"	f	language:C++	class:State
+output	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void output(std::ofstream* output);$/;"	p	language:C++	class:State
+outputPar	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputPar(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputPar(std::ofstream& output);$/;"	p	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputPos(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputPos(std::ofstream& output);$/;"	p	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputRg(std::ofstream& output) $/;"	f	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputRg(std::ofstream& output);$/;"	p	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputSite(std::ofstream& output) $/;"	f	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputSite(std::ofstream& output);$/;"	p	language:C++	class:State
+outputStep	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int outputStep;$/;"	m	language:C++	class:State
+par2bead	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
+par2bead	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void par2bead();$/;"	p	language:C++	class:State
+parameter	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::map<std::string, double> parameter;$/;"	m	language:C++	class:Input
+parse	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::parse(std::string line) $/;"	f	language:C++	class:Input
+parse	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void parse(std::string line);$/;"	p	language:C++	class:Input
+PI	/Users/wenwen/Work/chromosome/code/constant.hpp	/^#define PI /;"	d	language:C++
+pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
+print	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::print() $/;"	f	language:C++	class:Asep
+print	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void print();$/;"	p	language:C++	class:Asep
+print	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::print()$/;"	f	language:C++	class:Input
+print	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void print();$/;"	p	language:C++	class:Input
+print	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual void print() = 0;$/;"	p	language:C++	class:Project
+print	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    void print();$/;"	p	language:C++	class:Simulation
+print	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::print() $/;"	f	language:C++	class:State
+print	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void print();$/;"	p	language:C++	class:State
+Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^    Project ();$/;"	p	language:C++	class:Project
+Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^class Project$/;"	c	language:C++
+project	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    class Project *project; \/\/ projects of all types$/;"	m	language:C++	class:Simulation	typeref:class:Simulation::Project
+projectName	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::string projectName;$/;"	m	language:C++	class:Input
+PROJECT_HPP_SVUCG7LM	/Users/wenwen/Work/chromosome/code/project.hpp	/^#define PROJECT_HPP_SVUCG7LM$/;"	d	language:C++
+rate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *rate;$/;"	m	language:C++	class:State
+rateToLeft	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rateToLeft;$/;"	m	language:C++	class:State
+rateToRight	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rateToRight;$/;"	m	language:C++	class:State
+rg	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rg;      \/\/ radius of gyration$/;"	m	language:C++	class:State
+run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
+run	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void run();$/;"	p	language:C++	class:Asep
+run	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual void run() = 0;$/;"	p	language:C++	class:Project
+seed	/Users/wenwen/Work/chromosome/code/state.hpp	/^    unsigned long seed;$/;"	m	language:C++	class:State
+setParameter	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::setParameter(Input *input)$/;"	f	language:C++	class:State
+setParameter	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:State
+Simulation	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^Simulation::Simulation() $/;"	f	language:C++	class:Simulation
+Simulation	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    Simulation ();$/;"	p	language:C++	class:Simulation
+Simulation	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^class Simulation$/;"	c	language:C++
+SIMULATION_HPP_ZW9DJGS5	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^#define SIMULATION_HPP_ZW9DJGS5$/;"	d	language:C++
+site	/Users/wenwen/Work/chromosome/code/state.hpp	/^    bool *site;$/;"	m	language:C++	class:State
+state	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    class State *state;$/;"	m	language:C++	class:Asep	typeref:class:Asep::State
+State	/Users/wenwen/Work/chromosome/code/state.cpp	/^State::State()$/;"	f	language:C++	class:State
+State	/Users/wenwen/Work/chromosome/code/state.hpp	/^    State ();$/;"	p	language:C++	class:State
+State	/Users/wenwen/Work/chromosome/code/state.hpp	/^class State $/;"	c	language:C++
+STATE_HPP_3TUGIGTC	/Users/wenwen/Work/chromosome/code/state.hpp	/^#define STATE_HPP_3TUGIGTC$/;"	d	language:C++
+t	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double t;       \/\/ real time$/;"	m	language:C++	class:State
+tempEff	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tempEff;$/;"	m	language:C++	class:State
+tEnd	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tEnd;$/;"	m	language:C++	class:State
+tGrid	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tGrid;   \/\/ grid time for output$/;"	m	language:C++	class:State
+totalRate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double totalRate;$/;"	m	language:C++	class:State
+update	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::update() $/;"	f	language:C++	class:State
+update	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void update();$/;"	p	language:C++	class:State
+~Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep
+~Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    virtual ~Asep ();$/;"	p	language:C++	class:Asep
+~Compute	/Users/wenwen/Work/chromosome/code/compute.cpp	/^Compute::~Compute() { }$/;"	f	language:C++	class:Compute
+~Compute	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    virtual ~Compute ();$/;"	p	language:C++	class:Compute
+~Input	/Users/wenwen/Work/chromosome/code/input.cpp	/^Input::~Input() { }$/;"	f	language:C++	class:Input
+~Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^    virtual ~Input ();$/;"	p	language:C++	class:Input
+~Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual ~Project ();$/;"	p	language:C++	class:Project
+~Simulation	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^Simulation::~Simulation() $/;"	f	language:C++	class:Simulation
+~Simulation	/Users/wenwen/Work/chromosome/code/simulation.hpp	/^    virtual ~Simulation ();$/;"	p	language:C++	class:Simulation
+~State	/Users/wenwen/Work/chromosome/code/state.cpp	/^State::~State() $/;"	f	language:C++	class:State
+~State	/Users/wenwen/Work/chromosome/code/state.hpp	/^    virtual ~State ();$/;"	p	language:C++	class:State
