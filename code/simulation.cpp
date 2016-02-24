@@ -1,22 +1,23 @@
 #include "simulation.hpp"
 #include "input.hpp"
+#include "project.hpp"
 
 Simulation::Simulation() 
 {
     input = new Input();
-    simuASEP = NULL;
-    simuBeadRod = NULL;
-    simuBeadSpring = NULL;
-    simuSingleFile = NULL;
+    project = NULL;
     
 }
 Simulation::~Simulation() 
 {
     delete input;
-    delete simuASEP;
-    delete simuBeadRod;
-    delete simuBeadSpring;
-    delete simuSingleFile;
+    delete project;
+}
+
+void Simulation::init() 
+{
+    // input->parameter->paraName[0] ==
+    
 }
 
 

@@ -1,20 +1,21 @@
 #include "state.hpp"
-#include "simulation.hpp"
+#include "input.hpp"
 #include "random.hpp"
 #include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <map>
+#include <random>
 
-
-State::State(Simulation *simu) : Parameter(simu)
+State::State()
 {
-    site = new bool[nSite];
-    pos = new int[nPar];
-    beadPos = new double[nSite];
-    rate = new double[nPar*2];
-    compute = new Compute(simu);
+    site = NULL;
+    pos = NULL;
+    beadPos = NULL;
+    rate =  NULL;
+    compute = NULL;
 }
 
 State::~State() 
@@ -26,8 +27,34 @@ State::~State()
     delete compute;
 }
 
+void State::setParameter(Input *input)
+{
+// Todo: use try catch here
+    nSite = int(input->parameter["nSite"]);
+    nPar = int(input->parameter["nPar"]);
+    nSample = int(input->parameter["nSample"]);
+    outputStep = int(input->parameter["outputStep"]);
+
+    tempEff = input->parameter["tempEff"];
+    dt = input->parameter["dt"];
+    tEnd = input->parameter["tEnd"];
+    double jumpRate = 1.0;
+    double factor = exp(-1.0/tempEff);
+    rateToLeft = jumpRate/(1+factor);
+    rateToRight = jumpRate*factor/(1+factor);
+    
+    std::random_device rd;
+    seed = rd();
+}
+
 void State::init() 
 {
+    site = new bool[nSite];
+    pos = new int[nPar];
+    beadPos = new double[nSite];
+    rate = new double[nPar*2];
+    compute = new Compute();
+
     std::fill(&pos[0], &pos[0]+nPar, 0);
     std::fill(&site[0], &site[0]+nSite, 0);
     std::fill(&rate[0], &rate[0]+2*nPar, 0);

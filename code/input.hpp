@@ -2,6 +2,7 @@
 #define INPUT_HPP_DRBPSRM7
 
 #include <iostream>
+#include <map>
 
 class Input
 {
@@ -12,20 +13,14 @@ public:
     void getInput(int argc, char *argv[]);
     void file();
     
-    struct Parameter {
-        std::string *paraName;
-        double *paraValue;
-    } *parameter;
+    std::string projectName;
+    std::map<std::string, double> parameter;
 
 private:
-    std::string inputfname;
-    int nPara;      // number of parameters
+    std::string infname;
 
-    void init();
     void print();
-    void parse(int index, std::string line);
-    void excute();
-    int getParaNumber();
+    void parse(std::string line);
 };
 
 #endif /* end of include guard: INPUT_HPP_DRBPSRM7 */

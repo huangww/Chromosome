@@ -1,5 +1,4 @@
-#include "simuASEP.hpp"
-#include "simulation.hpp"
+#include "asep.hpp"
 #include "state.hpp"
 #include <iostream>
 #include <sstream>
@@ -7,13 +6,16 @@
 #include <cmath>
 #include <iomanip>
 
-SimuASEP::SimuASEP() : Simulation()
+Asep::Asep() : Project()
 {
-   state = new State(this);
+    state = new State();
 }
-SimuASEP::~SimuASEP() { }
+Asep::~Asep() 
+{ 
+    delete state;
+}
 
-void SimuASEP::print() 
+void Asep::print() 
 {
     std::cout << "================================="
         << std::endl;
@@ -33,7 +35,7 @@ void SimuASEP::print()
         << std::endl;
 }
 
-void SimuASEP::run() 
+void Asep::run() 
 {
     std::stringstream fname;
     std::ofstream *output = new std::ofstream[2];

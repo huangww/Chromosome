@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     simu->input->getInput(argc, argv);
     simu->input->file();
 
+    simu->init();
     simu->run();
 
     delete simu;
