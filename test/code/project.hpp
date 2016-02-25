@@ -6,8 +6,8 @@
 class Project
 {
 public:
-    Project ();
-    virtual ~Project ();
+    Project () { };
+    virtual ~Project (){ };
     
     virtual void setup(Input *input) = 0;
     virtual void run() = 0;
