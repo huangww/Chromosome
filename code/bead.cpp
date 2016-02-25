@@ -11,20 +11,23 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include "constant.hpp"
 
-Bead::Bead(Simulation *simu) : Parameter(simu)
+
+Bead::Bead()
 {
-    r = create2DArray<double>(nBead, DIM);
-    rs = create2DArray<double>(nBead, DIM);
-    // v = create2DArray<double>(nBead, DIM);
-    f = create2DArray<double>(nBead, DIM);
-    ftotal = create2DArray<double>(nBead, DIM);
+    r = NULL;
+    rs = NULL;
+    // v = NULL;
+    f = NULL;
+    ftotal = NULL;
 
-    force = new Force(simu);
-    rod = new Rod(simu);
-    spring = new Spring(simu);
-    montecarlo = new Montecarlo(simu);
-    compute = new Compute(simu);
+    force = NULL;
+    rod = NULL;
+    spring = NULL;
+    config = NULL;
+    montecarlo = NULL;
+    compute = NULL;
 }
 Bead::~Bead() 
 {
@@ -37,17 +40,42 @@ Bead::~Bead()
     delete force;
     delete rod;
     delete spring;
+    delete config;
     delete montecarlo;
     delete compute;
+}
+
+void Bead::setParameter(Input *input)
+{
+// Todo: use try catch here
+    nBead = int(input->parameter["nBead"]);
+    dt = input->parameter["dt"];
+    
+    // set up the state class
+    r = create2DArray<double>(nBead, DIM);
+    rs = create2DArray<double>(nBead, DIM);
+    // v = create2DArray<double>(nBead, DIM);
+    f = create2DArray<double>(nBead, DIM);
+    ftotal = create2DArray<double>(nBead, DIM);
+
+    force = new Force();
+    force->setParameter(input);
+    rod = new Rod();
+    rod->setParameter(input);
+    spring = new Spring();
+    spring->setParameter(input);
+    config = new Config();
+    config->setParameter(input);
+    montecarlo = new Montecarlo();
+    montecarlo->setParameter(input);
+    compute = new Compute();
 }
 
 void Bead::init() 
 {
     t = 0.0;
 
-    Config *config = new Config(simulation); 
-    r = config->init();
-    delete config;
+    r = config->init(r);
     montecarlo->randomize();
     // montecarlo->equilibrate();
     

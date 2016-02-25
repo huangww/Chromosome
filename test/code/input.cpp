@@ -50,8 +50,9 @@ void Input::parse(std::string line)
 
 void Input::print()
 {
-    std::cout << "\t\t";
-    std::cout << projectName << " Simulation" << std::endl;
+    std::cout << "================================="
+        << std::endl;
+    std::cout << '\t' << projectName << " Simulation" << std::endl;
     std::cout << "Input File: " << infname << std::endl;
     std::cout << "Total Number of Parameters: "<< parameter.size() << std::endl;
     std::cout << "    Check   Parameters    " << std::endl;
@@ -64,4 +65,7 @@ void Input::print()
         std::cout << it->first << " = " 
            << it->second << std::endl;
     }
+    std::cout << "================================="
+        << std::endl;
+    std::cout << "Start The Simulation: " << std::endl;
 }

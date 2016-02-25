@@ -2,22 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.tsa.stattools as ss
 from scipy.interpolate import splrep, splev
+import itertools as it
 import os 
 import glob
 
 
-dataDir = 'SF-N100/'
+dataDir = 'data/'
 
 def ACF(x):
     acf= ss.acf(x, nlags=len(x), fft=True)
-<<<<<<< HEAD
-    end = next((i for i,v in enumerate(acf) if v<0),
-            len(acf)-1)
-    return t[:end], acf[:end]
-=======
     end = next((i for i,v in enumerate(acf) if v<0), len(x)-1)
     return acf[:end]
->>>>>>> b125f6d5cec208ecc3c799ef37fe7bc13ab8917b
+
+def GetACF0(data):
+    acf = ACF(data[:,1])
+    t = data[:len(acf),0]
+    return t, acf
 
 def GetACF(T, c):
     fname = dataDir + 'rg1D_N500_T'+str(T)+ \
@@ -66,11 +66,10 @@ def FitTau(t, acf):
     t0, t1 = FindFitRange(acf)
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
-    coefs, cov = np.polyfit(tFit, np.log(acfFit), 1, cov=True)
+    coefs = np.polyfit(tFit, np.log(acfFit), 1)
     tau = -1./coefs[0]
-    fitErr = np.sqrt(cov[0,0])
     print 'tau =', tau
-    return tau, fitErr
+    return tau
 
 def PlotFig(t, acf):
     plt.close('all')
@@ -102,17 +101,6 @@ def PlotFig(t, acf):
     # ax.text(2*t[-1]/3, 0.5, r'$\tau=$'+str(int(tau)))
     plt.show()
     fig.savefig('fig/acfFit.pdf')
-
-def AddToFile(c, T, tau, fitErr):
-    f = open('data/tauTemp1D_N500.dat', 'ab')
-    np.savetxt(f, (c, T, tau, fitErr), newline=' ')
-    f.write('\n')
-    f.close()
-
-def LoadData(T):
-    fname = dataDir + 'rg_N100_T'+str(T)+'_'+str(T)+'.dat'
-    data = np.loadtxt(fname)
-    return data
 
 def Demo():
     plt.close('all')
@@ -168,20 +156,29 @@ def Demo():
 
     plt.show()
 
+def AddToFile(fname, T, tau):
+    f = open(fname, 'ab')
+    np.savetxt(f, (T, tau), newline=' ')
+    f.write('\n')
+    f.close()
 
 def main():
-    # Tarr = [1]
-    # c = 1
-    # for T in Tarr:
-    #     # t, acf = GetACF(T, c)
-    #     print T
-    #     fname = 'data/acf1D_N100_T'+str(T)+'_c'+str(c)+'.dat'
-    #     # np.savetxt(fname, (t, acf))
-    #     t, acf = np.loadtxt(fname)
-    #     # tau, fitErr = FitTau(t, acf)
-    #     PlotFig(t, acf)
-    #     # AddToFile(c, T, tau, fitErr)
-    Demo()
+    Tarr = np.linspace(0.2, 10, 99) 
+    Narr = [100, 500, 1000]
+    for (N, T) in it.product(Narr, Tarr):
+        fname = 'data/rg1D_N%g_T%g.dat'%(N,T)
+        data = np.loadtxt(fname)
+        # t, acf = GetACF(T, c)
+        t, acf = GetACF0(data)
+        # fname = 'data/acf1D_N100_T'+str(T)+'_c'+str(c)+'.dat'
+        # np.savetxt(fname, (t, acf))
+        # t, acf = np.loadtxt(fname)
+        print N, T 
+        tau = FitTau(t, acf)
+        # PlotFig(t, acf)
+        fname = 'data/tauStongForceN'+str(N)+'.dat'
+        AddToFile(fname, T, tau)
+    # Demo()
      
 if __name__ == "__main__":
     main()

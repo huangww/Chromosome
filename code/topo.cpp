@@ -1,9 +1,17 @@
 #include "topo.hpp"
+#include "input.hpp"
 #include <algorithm>
 
 
-Topo::Topo(Simulation *simu) : Parameter(simu) { }
+Topo::Topo()  { }
 Topo::~Topo() { }
+
+void Topo::setParameter(Input *input) 
+{
+    topoType = int(input->parameter["topoType"]);
+    nRod = int(input->parameter["nRod"]);
+    nBead = int(input->parameter["nBead"]);
+}
 
 int** Topo::init(int** link)
 {

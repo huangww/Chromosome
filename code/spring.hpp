@@ -1,22 +1,25 @@
 #ifndef SPRING_HPP_QBXE97YK
 #define SPRING_HPP_QBXE97YK
 
-#include "simulation.hpp"
-#include "force.hpp"
+#include "input.hpp"
 
-class Spring: protected Force
+class Spring
 {
 public:
-    Spring (Simulation *simu);
+    Spring ();
     virtual ~Spring ();
 
+    void setParameter(Input *input);
     double** harmonic(double** f);
     double** fene(double** f);
 
 private:
+    // parameters
+    int nBead;
+    int nRod;
+
     int **link;         // index of pair of beads linked
 
-    void init();
     void outputLinks();
 };
 

@@ -1,18 +1,24 @@
 #ifndef TOPO_HPP_FJPVDXQX
 #define TOPO_HPP_FJPVDXQX
 
-#include "simulation.hpp"
-#include "parameter.hpp"
 
-class Topo: protected Parameter
+#include "input.hpp"
+
+class Topo
 {
 public:
-    Topo (Simulation *simu);
+    Topo ();
     virtual ~Topo ();
 
+    void setParameter(Input *input);
     int** init(int **link);
 
 private:
+    // parameters
+    int topoType;
+    int nRod;
+    int nBead;
+
     void ring(int N, int **link);
     void chain(int N, int **link);
     void ringPair(int N, int **link);

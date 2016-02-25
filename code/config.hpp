@@ -1,19 +1,23 @@
 #ifndef CONFIG_HPP_4IBHETEB
 #define CONFIG_HPP_4IBHETEB
 
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 
-class Config: protected Parameter
+class Config
 {
 public:
-    Config (Simulation *simu);
+    Config ();
     virtual ~Config ();
 
-    double** init();
+    double** init(double **r);
+    void setParameter(Input *input);
     void fixedChain(int N, double **pos);
 
 private:
+    // parameters
+    int topoType;
+    int nBead;
+
     void ring(int N, double **pos);
     void chain(int N, double **pos);
     // void fixedChain(int N, double **pos);

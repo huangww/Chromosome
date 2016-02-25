@@ -1,20 +1,27 @@
 #ifndef MONTECARLO_HPP_9WRC7ZF3
 #define MONTECARLO_HPP_9WRC7ZF3
 
-#include "parameter.hpp"
-#include "simulation.hpp"
 
-class Montecarlo: protected Parameter
+#include "input.hpp"
+
+class Montecarlo
 {
 public:
-    Montecarlo (Simulation *simu);
+    Montecarlo ();
     virtual ~Montecarlo ();
 
+    void setParameter(Input *input);
     int move();
     void randomize();
     void equilibrate();
 
 private:
+    // parameters
+    int nBead;
+    int topoType;
+    unsigned long seed;
+    double tempEff;
+
     void pivot(int N, int *ipivot);
     void rotateAxis(int* ipivot, double** r, double* axis);
     void rotateMatrix( double theta, double* axis, 

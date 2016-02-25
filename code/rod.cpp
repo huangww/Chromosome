@@ -1,8 +1,10 @@
 #include "rod.hpp"
-#include "simulation.hpp"
+#include "input.hpp"
+#include "project.hpp"
+#include "bead.hpp"
+#include "constant.hpp"
 #include "ultilities.hpp"
 #include "topo.hpp"
-#include "bead.hpp"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -11,17 +13,15 @@
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
 
-Rod::Rod(Simulation *simu) : Force(simu)
+Rod::Rod(Project *project) :
+   proj(project) 
 {
-    link = create2DArray<int>(nRod, 2);
-    u = create2DArray<double>(nRod+DIM, DIM);
-    b = create2DArray<double>(nRod+DIM, DIM);
-    g = create2DArray<int>(nRod, nRod);
-    gSparse = SpMatD(nRod, nRod);
-    linkTable.nLinks = new int[nBead];
-    linkTable.table = create2DArray<int>(3*nRod, 6);
-
-    init();
+    link = NULL;
+    u = NULL;
+    b = NULL;
+    g = NULL;
+    linkTable.nLinks = NULL;
+    linkTable.table = NULL;
 }
 Rod::~Rod() 
 {
@@ -33,19 +33,37 @@ Rod::~Rod()
     delete2DArray(linkTable.table);
 }
 
+void Rod::setParameter(Input *input) 
+{
+
+    nBead = int(input->parameter["nBead"]);
+    nRod = int(input->parameter["nRod"]);
+    dt = input->parameter["dt"];
+
+    link = create2DArray<int>(nRod, 2);
+    u = create2DArray<double>(nRod+DIM, DIM);
+    b = create2DArray<double>(nRod+DIM, DIM);
+    g = create2DArray<int>(nRod, nRod);
+    gSparse = SpMatD(nRod, nRod);
+    linkTable.nLinks = new int[nBead];
+    linkTable.table = create2DArray<int>(3*nRod, 6);
+
+    // setup the link topology
+    Topo *topo = new Topo();
+    topo->setParameter(input);
+    link = topo->init(link);
+    outputLinks();
+    delete topo;
+
+    init();
+}
+
 void Rod::init() 
 {
-    // init the link topology
-    Topo *topo = new Topo(simulation);
-    link = topo->init(link);
-    delete topo;
-    outputLinks();
-    // printLinks();
-
     // init the metric matrix
     g = metricTensor();
     printMetric();
-    std::cin.get();
+    // std::cin.get();
     metricTensorSparse();
     
     // init linkTable

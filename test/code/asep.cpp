@@ -43,10 +43,9 @@ void Asep::setup(Input *input)
 
 void Asep::run() 
 {
-    
-    int nRg = int(tEnd / state->dt);
-    double *rgMean = new double[nRg];
-    std::fill(&rgMean[0], &rgMean[0] + nRg, 0);
+    // int nRg = int(tEnd / state->dt);
+    // double *rgMean = new double[nRg];
+    // std::fill(&rgMean[0], &rgMean[0] + nRg, 0);
    
     for (int i = 0; i < nSample; ++i) {
 
@@ -55,11 +54,11 @@ void Asep::run()
         int step = 0;
         while (state->t < tEnd) {
             // output to data file
-            // if (step % state->outputStep == 0) {
+            if (step % outputStep == 0) {
                 state->output(outFile);
-            // }
-            //
-            rgMean[step] += state->rg;
+            }
+
+            // rgMean[step] += state->rg;
             state->update();
             step++;
         }
@@ -74,5 +73,5 @@ void Asep::run()
     //     output[1] << rgMean[i] / state->nSample 
     //         << std::endl;
     // }
-    delete [] rgMean;
+    // delete [] rgMean;
 }

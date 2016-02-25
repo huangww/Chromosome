@@ -11,6 +11,7 @@ tmp/
 *.fdb_latexmk
 *.pyc
 .DS_Store
+test/data
 build/
 data/**/*
 data/*

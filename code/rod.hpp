@@ -1,21 +1,29 @@
 #ifndef ROD_HPP_FFKADSOB
 #define ROD_HPP_FFKADSOB
 
-#include "force.hpp"
 #include "Eigen/Sparse"
+#include "input.hpp"
+#include "project.hpp"
 
-class Rod: protected Force
+class Rod
 {
 public:
-    Rod (Simulation *simu);
+    Rod (Project *project);
     virtual ~Rod ();
 
+    void setParameter(Input *input);
     double** constraint(double** f);
     double** pseudo(double** f);
     double** pseudoRing(double** f);
     double** pseudoSparse(double **f);
 
 private:
+    // parameters
+    int nRod;
+    int nBead;
+    double dt;
+
+
     typedef Eigen::SparseMatrix<double> SpMatD;
     typedef Eigen::Triplet<int> T;
 
@@ -29,6 +37,7 @@ private:
         int *nLinks;
         int **table;
     } linkTable;
+    class Project *&proj;
 
     void init();
     void printLinks();

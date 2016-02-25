@@ -1,0 +1,33 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+ACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def ACF(x):$/;"	f	language:Python
+AddToFile	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def AddToFile(N, T, tau):$/;"	f	language:Python
+ChangeInput	/Users/wenwen/Work/chromosome/test/run.py	/^def ChangeInput(N, T):$/;"	f	language:Python
+dataDir	/Users/wenwen/Work/chromosome/script/acfFit.py	/^dataDir = 'data\/'$/;"	v	language:Python
+Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
+endTime	/Users/wenwen/Work/chromosome/test/run.py	/^    endTime = time.time()$/;"	v	language:Python
+fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
+FindFitRange	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FindFitRange(acf):$/;"	f	language:Python
+FitTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FitTau(t, acf):$/;"	f	language:Python
+fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
+GetACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF(T, c):$/;"	f	language:Python
+GetACF0	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF0(data):$/;"	f	language:Python
+glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
+it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
+it	/Users/wenwen/Work/chromosome/test/run.py	/^import itertools as it$/;"	i	language:Python
+main	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def main():$/;"	f	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
+np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
+os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
+os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
+PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf):$/;"	f	language:Python
+plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+splev	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
+splrep	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
+ss	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+startTime	/Users/wenwen/Work/chromosome/test/run.py	/^    startTime = time.time()$/;"	v	language:Python
+statsmodels	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(0.1, 10, 100)$/;"	v	language:Python
+time	/Users/wenwen/Work/chromosome/test/run.py	/^import time$/;"	i	language:Python
+tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
