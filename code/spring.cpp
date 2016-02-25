@@ -1,29 +1,35 @@
 #include "spring.hpp"
 #include "bead.hpp"
 #include "ultilities.hpp"
+#include "constant.hpp"
 #include "topo.hpp"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 
-Spring::Spring(Simulation *simu) : Force(simu) 
+Spring::Spring()
 { 
-    link = create2DArray<int>(nRod, 2);
-    init();
+    link = NULL;
 }
 Spring::~Spring() 
 { 
     delete2DArray(link);
 }
 
-void Spring::init() 
+void setParameter(Input *input)
 {
-    // init the link topology
-    Topo *topo = new Topo(simulation);
+    nBead = int(input->parameter["nRod"]);
+    nRod = int(input->parameter["nRod"]);
+
+    link = create2DArray<int>(nRod, 2);
+    Topo *topo = new Topo();
+    topo->setParameter(input);
     link = topo->init(link);
     delete topo;
+
     outputLinks();
 }
+
 
 void Spring::outputLinks() 
 {

@@ -1,18 +1,22 @@
 #include "config.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
+#include "constant.hpp"
 #include "random.hpp"
-#include "bead.hpp"
 #include "ultilities.hpp"
 #include <cmath>
 #include <iostream>
 
-Config::Config(Simulation *simu) : Parameter(simu) { } 
+Config::Config()  { } 
 Config::~Config() { }
 
-double** Config::init() 
+void Config::setParameter(Input* input) 
 {
-    double **r = bead->r;
+    topoType = int(input->parameter["topoType"]);
+    nBead = int(input->parameter["nBead"]);
+}
+
+double** Config::init(double** r) 
+{
     switch (topoType) {
         case 0:
             ring(nBead, r);
@@ -25,7 +29,6 @@ double** Config::init()
     }
 
     return r;
-
 }
 
 

@@ -41,16 +41,19 @@ void State::setParameter(Input *input)
     rateToRight = jumpRate*factor/(1+factor);
     
     std::random_device rd;
-    seed = rd();
-}
+    // seed = rd();
+    seed = long(input->parameter["seed"]);
 
-void State::init() 
-{
+    // set up the state class
     site = new bool[nSite];
     pos = new int[nPar];
     beadPos = new double[nSite];
     rate = new double[nPar*2];
     compute = new Compute();
+}
+
+void State::init() 
+{
 
     std::fill(&pos[0], &pos[0]+nPar, 0);
     std::fill(&site[0], &site[0]+nSite, 0);
@@ -298,7 +301,7 @@ void State::update()
 
 void State::output(std::ofstream* output) 
 {
-    outputPos(output[0]);
+    // outputPos(output[0]);
     outputRg(output[1]);
 }
 

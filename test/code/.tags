@@ -1,18 +1,130 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+<A-/>	/Users/wenwen/.vimrc	/^vnoremap <A-\/> <Esc>\/\\%V$/;"	m	language:Vim
+<leader>e	/Users/wenwen/.vimrc	/^nmap <silent> <leader>e :edit!<CR>$/;"	m	language:Vim
+<leader>ee	/Users/wenwen/.vimrc	/^map <silent> <leader>ee :tabnew ~\/.vimrc<cr>$/;"	m	language:Vim
+<leader>g	/Users/wenwen/.vimrc	/^nmap <leader>g :TagbarToggle<CR>$/;"	m	language:Vim
+<leader>gg	/Users/wenwen/.vimrc	/^nmap <leader>gg :UpdateTags -R expand('%:p:h') <CR>$/;"	m	language:Vim
+<leader>hh	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>hh :YcmCompleter GetDoc<CR>$/;"	m	language:Vim
+<leader>jj	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>jj :YcmCompleter GoTo<CR>$/;"	m	language:Vim
+<Leader>ls	/Users/wenwen/.vimrc	/^map <silent> <Leader>ls :silent$/;"	m	language:Vim
+<leader>rr	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>rr :w<CR> :!python  %<CR>$/;"	m	language:Vim
+<Leader>t	/Users/wenwen/.vimrc	/^nnoremap <silent> <Leader>t :ClearCtrlPCache<cr>\\|:CtrlP<cr>$/;"	m	language:Vim
+ACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def ACF(x):$/;"	f	language:Python
+AddToFile	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def AddToFile(c, T, tau, fitErr):$/;"	f	language:Python
 Asep	/Users/wenwen/Work/chromosome/test/code/asep.cpp	/^Asep::Asep() : Project()$/;"	f	language:C++	class:Asep
+ChangeInput	/Users/wenwen/Work/chromosome/test/run.py	/^def ChangeInput(N, T):$/;"	f	language:Python
+dataDir	/Users/wenwen/Work/chromosome/script/acfFit.py	/^dataDir = 'SF-N100\/'$/;"	v	language:Python
+Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
+equilibrate	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::equilibrate()$/;"	f	language:C++	class:State
 file	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^void Input::file() $/;"	f	language:C++	class:Input
+fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
+FindFitRange	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FindFitRange(acf):$/;"	f	language:Python
+FitTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FitTau(t, acf):$/;"	f	language:Python
+fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
+fortran_do_enddo	/Users/wenwen/.vimrc	/^let fortran_do_enddo=1$/;"	v	language:Vim
+fortran_fold	/Users/wenwen/.vimrc	/^let fortran_fold=1$/;"	v	language:Vim
+fortran_fold_multilinecomments	/Users/wenwen/.vimrc	/^let fortran_fold_multilinecomments=1$/;"	v	language:Vim
+fortran_free_source	/Users/wenwen/.vimrc	/^let fortran_free_source=1$/;"	v	language:Vim
+fortran_have_tabs	/Users/wenwen/.vimrc	/^let fortran_have_tabs=1$/;"	v	language:Vim
+fortran_more_precise	/Users/wenwen/.vimrc	/^let fortran_more_precise=1$/;"	v	language:Vim
+g:airline#extensions#syntastic#enabled	/Users/wenwen/.vimrc	/^  let g:airline#extensions#syntastic#enabled = 1$/;"	v	language:Vim
+g:airline#extensions#tabline#show_buffers	/Users/wenwen/.vimrc	/^let g:airline#extensions#tabline#show_buffers = 1$/;"	v	language:Vim
+g:airline_left_sep	/Users/wenwen/.vimrc	/^let g:airline_left_sep = '»'$/;"	v	language:Vim
+g:airline_left_sep	/Users/wenwen/.vimrc	/^let g:airline_left_sep = '▶'$/;"	v	language:Vim
+g:airline_right_sep	/Users/wenwen/.vimrc	/^let g:airline_right_sep = '«'$/;"	v	language:Vim
+g:airline_right_sep	/Users/wenwen/.vimrc	/^let g:airline_right_sep = '◀'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^    let g:airline_symbols = {}$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.branch = '⎇'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.crypt = '🔒'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '¶'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '␊'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '␤'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = 'Þ'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = 'ρ'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = '∥'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.whitespace = 'Ξ'$/;"	v	language:Vim
+g:ctrlp_custom_ignore	/Users/wenwen/.vimrc	/^let g:ctrlp_custom_ignore = {$/;"	v	language:Vim
+g:ctrlp_prompt_mappings	/Users/wenwen/.vimrc	/^let g:ctrlp_prompt_mappings = {$/;"	v	language:Vim
+g:easytags_async	/Users/wenwen/.vimrc	/^let g:easytags_async = 1$/;"	v	language:Vim
+g:easytags_dynamic_files	/Users/wenwen/.vimrc	/^let g:easytags_dynamic_files = 1$/;"	v	language:Vim
+g:easytags_file	/Users/wenwen/.vimrc	/^let g:easytags_file = expand('%:p:h').'\/.tags'$/;"	v	language:Vim
+g:LatexBox_latexmk_options	/Users/wenwen/.vimrc	/^let g:LatexBox_latexmk_options =$/;"	v	language:Vim
+g:LatexBox_show_warnings	/Users/wenwen/.vimrc	/^let g:LatexBox_show_warnings = 0$/;"	v	language:Vim
+g:LatexBox_viewer	/Users/wenwen/.vimrc	/^let g:LatexBox_viewer = "open -a Skim"$/;"	v	language:Vim
+g:mapleader	/Users/wenwen/.vimrc	/^let g:mapleader = ","$/;"	v	language:Vim
+g:solarized_termcolors	/Users/wenwen/.vimrc	/^let g:solarized_termcolors= 256$/;"	v	language:Vim
+g:solarized_termtrans	/Users/wenwen/.vimrc	/^let g:solarized_termtrans = 1$/;"	v	language:Vim
+g:syntastic_always_populate_loc_list	/Users/wenwen/.vimrc	/^let g:syntastic_always_populate_loc_list = 1$/;"	v	language:Vim
+g:syntastic_auto_jump	/Users/wenwen/.vimrc	/^let g:syntastic_auto_jump=1$/;"	v	language:Vim
+g:syntastic_auto_loc_list	/Users/wenwen/.vimrc	/^let g:syntastic_auto_loc_list = 1$/;"	v	language:Vim
+g:syntastic_check_on_open	/Users/wenwen/.vimrc	/^let g:syntastic_check_on_open = 1$/;"	v	language:Vim
+g:syntastic_check_on_wq	/Users/wenwen/.vimrc	/^let g:syntastic_check_on_wq = 0$/;"	v	language:Vim
+g:syntastic_fortran_errorformat	/Users/wenwen/.vimrc	/^let g:syntastic_fortran_errorformat = '%E%f:%l.%c:,%E%f:%l:,%C,%C%p%*[0123456789^],%ZError:\\ %m,%C%.%#'$/;"	v	language:Vim
+g:syntastic_loc_list_height	/Users/wenwen/.vimrc	/^let g:syntastic_loc_list_height=6$/;"	v	language:Vim
+g:syntastic_python_checkers	/Users/wenwen/.vimrc	/^let g:syntastic_python_checkers = ['python']$/;"	v	language:Vim
+g:syntastic_quiet_messages	/Users/wenwen/.vimrc	/^let g:syntastic_quiet_messages = {"regex": '\\m\\[omp.h\\]'}$/;"	v	language:Vim
+g:syntastic_tex_checkers	/Users/wenwen/.vimrc	/^let g:syntastic_tex_checkers = []  " don't check .tex files$/;"	v	language:Vim
+g:UltiSnipsEditSplit	/Users/wenwen/.vimrc	/^let g:UltiSnipsEditSplit="vertical"$/;"	v	language:Vim
+g:UltiSnipsExpandTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsExpandTrigger="<c-j>"$/;"	v	language:Vim
+g:UltiSnipsJumpBackwardTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsJumpBackwardTrigger="<c-k>"$/;"	v	language:Vim
+g:UltiSnipsJumpForwardTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsJumpForwardTrigger="<c-j>"$/;"	v	language:Vim
+g:ycm_autoclose_preview_window_after_completion	/Users/wenwen/.vimrc	/^let g:ycm_autoclose_preview_window_after_completion = 1$/;"	v	language:Vim
+g:ycm_collect_identifiers_from_tags_files	/Users/wenwen/.vimrc	/^let g:ycm_collect_identifiers_from_tags_files = 1$/;"	v	language:Vim
+g:ycm_global_ycm_extra_conf	/Users/wenwen/.vimrc	/^let g:ycm_global_ycm_extra_conf = '~\/.vim\/bundle\/YouCompleteMe\/.ycm_extra_conf.py'$/;"	v	language:Vim
+g:ycm_key_invoke_completion	/Users/wenwen/.vimrc	/^let g:ycm_key_invoke_completion = '<C-Tab>'$/;"	v	language:Vim
+GetACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF(T, c):$/;"	f	language:Python
 getInput	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^void Input::getInput(int argc, char* argv[]) $/;"	f	language:C++	class:Input
+glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
+init	/Users/wenwen/Work/chromosome/test/code/simulation.cpp	/^void Simulation::init() $/;"	f	language:C++	class:Simulation
+init	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::init() $/;"	f	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::initRandom() $/;"	f	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::initStretch() $/;"	f	language:C++	class:State
 Input	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^Input::Input() { }$/;"	f	language:C++	class:Input
+LoadData	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def LoadData(T):$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/test/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
+mapleader	/Users/wenwen/.vimrc	/^let mapleader = ","$/;"	v	language:Vim
+maplocalleader	/Users/wenwen/.vimrc	/^let maplocalleader = ","$/;"	v	language:Vim
+matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+monteCarloMove	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::monteCarloMove()$/;"	f	language:C++	class:State
+MySys	/Users/wenwen/.vimrc	/^    function MySys()$/;"	f	language:Vim
+N	/Users/wenwen/Work/chromosome/test/run.py	/^N = 100$/;"	v	language:Python
+np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
+os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
+os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
+output	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::output(std::ofstream* output) $/;"	f	language:C++	class:State
+outputPar	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputPar(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputPos(std::ofstream& output) $/;"	f	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputRg(std::ofstream& output) $/;"	f	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputSite(std::ofstream& output) $/;"	f	language:C++	class:State
+par2bead	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
 parse	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^void Input::parse(std::string line) $/;"	f	language:C++	class:Input
+PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf):$/;"	f	language:Python
+plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 print	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^void Input::print()$/;"	f	language:C++	class:Input
+print	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::print() $/;"	f	language:C++	class:State
 Project	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^    Project () { };$/;"	f	language:C++	class:Project
 Project	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^class Project$/;"	c	language:C++
 PROJECT_HPP_SVUCG7LM	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^#define PROJECT_HPP_SVUCG7LM$/;"	d	language:C++
 run	/Users/wenwen/Work/chromosome/test/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
 run	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^    virtual void run() = 0;$/;"	p	language:C++	class:Project
+run	/Users/wenwen/Work/chromosome/test/code/simulation.cpp	/^void Simulation::run() $/;"	f	language:C++	class:Simulation
+setParameter	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::setParameter(Input *input)$/;"	f	language:C++	class:State
 setup	/Users/wenwen/Work/chromosome/test/code/asep.cpp	/^void Asep::setup(Input *input) $/;"	f	language:C++	class:Asep
 setup	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^    virtual void setup(Input *input) = 0;$/;"	p	language:C++	class:Project
+Simulation	/Users/wenwen/Work/chromosome/test/code/simulation.cpp	/^Simulation::Simulation() $/;"	f	language:C++	class:Simulation
+splev	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
+splrep	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
+ss	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+State	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^State::State()$/;"	f	language:C++	class:State
+statsmodels	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+T	/Users/wenwen/Work/chromosome/test/run.py	/^T = 1$/;"	v	language:Python
+tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+update	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::update() $/;"	f	language:C++	class:State
 ~Asep	/Users/wenwen/Work/chromosome/test/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep
 ~Input	/Users/wenwen/Work/chromosome/test/code/input.cpp	/^Input::~Input() { }$/;"	f	language:C++	class:Input
 ~Project	/Users/wenwen/Work/chromosome/test/code/project.hpp	/^    virtual ~Project (){ };$/;"	f	language:C++	class:Project
+~Simulation	/Users/wenwen/Work/chromosome/test/code/simulation.cpp	/^Simulation::~Simulation() $/;"	f	language:C++	class:Simulation
+~State	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^State::~State() $/;"	f	language:C++	class:State
+÷	/Users/wenwen/.vimrc	/^vnoremap ÷ <Esc>\/\\%V$/;"	m	language:Vim

@@ -1,16 +1,16 @@
 #ifndef BEAD_HPP_JGQK9V2L
 #define BEAD_HPP_JGQK9V2L
 
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 #include <fstream>
 
-class Bead: public Parameter
+class Bead
 {
 public:
-    Bead (Simulation *simu);
+    Bead ();
     virtual ~Bead ();
 
+    void setParameter(Input *input);
     void print();
     void init();
     void predict();
@@ -32,8 +32,13 @@ private:
     class Force *force;
     class Rod *rod;
     class Spring *spring;
+    class Config *config;
     class Montecarlo *montecarlo; 
     class Compute *compute;
+
+    // parameters
+    int nBead;
+    double dt;
 
     void addForce(double **);
     void pinSPB();

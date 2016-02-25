@@ -1,7 +1,6 @@
 #include "montecarlo.hpp"
-#include "parameter.hpp"
-#include "simulation.hpp"
-#include "bead.hpp"
+#include "input.hpp"
+#include "constant.hpp"
 #include "potential.hpp"
 #include "ultilities.hpp"
 #include "random.hpp"
@@ -9,9 +8,17 @@
 #include <cmath>
 #include <algorithm>
 
-Montecarlo::Montecarlo(Simulation *simu) : Parameter(simu) { }
+Montecarlo::Montecarlo() { }
 Montecarlo::~Montecarlo() { }
 
+void Montecarlo::setParameter(Input *input) 
+{
+    nBead = int(input->parameter["nBead"]);
+    seed = long(input->parameter["seed"]);
+    topoType = int(input->parameter["topoType"]);
+
+    tempEff = input->parameter["tempEff"];
+}
 
 void Montecarlo::pivot(int N, int *ipivot) 
 {
@@ -173,6 +180,7 @@ void Montecarlo::moveRingPair(int N, double** r)
 void Montecarlo::moveThreeRingPair(int N, double** r)
 {
     int monomer[3] = {10, 20, 30};      // To change later
+    monomer[0] = N/6;
     int pairSize1 = 2*monomer[0]-1;
     int pairSize2 = 2*monomer[1]-1;
     int pairSize3 = 2*monomer[2]-1;
@@ -219,7 +227,7 @@ void Montecarlo::moveRingPairWithCentromere(int N, double** r)
             &r[0][0]);
     delete2DArray(ring);
 
-    Config *config = new Config(simulation);
+    Config *config = new Config();
 
     double** chain1 = create2DArray<double>(cm+1, DIM);
     std::fill(&chain1[0][0], &chain1[0][0]+DIM, 0);
@@ -272,7 +280,7 @@ void Montecarlo::moveTry(int N, double** r)
 double Montecarlo::energy(int N, double** r) 
 {
     double eTotal = 0;
-    for (int i = 0; i < nBead; ++i) {
+    for (int i = 0; i < N; ++i) {
         eTotal -= r[i][0];
     }
     // eTotal += potential->LennardJones();
