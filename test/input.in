@@ -1,0 +1,11 @@
+    projectName = Asep
+    nSite = 100;
+    nPar = 50;
+    nSample = 2000;
+    tempEff = 0.1;
+
+    tEnd = 3.0e+2;
+    outputStep = 1;
+
+    # seed = rd();
+    seed = 5489;
