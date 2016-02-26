@@ -23,9 +23,11 @@ BeadSpring::~BeadSpring()
 
 void BeadSpring::setup(Input *input) 
 {
-    bead->setParameter(input);
     outputStep = int(input->parameter["outputStep"]);
     tEnd = input->parameter["tEnd"];
+
+    bead = new Bead();
+    bead->setParameter(input);
 
     // open files for output
     std::stringstream fname;

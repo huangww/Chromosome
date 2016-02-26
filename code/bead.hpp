@@ -37,9 +37,6 @@ private:
     class Montecarlo *montecarlo; 
     class Compute *compute;
 
-    // parameters
-    int nBead;
-
     void addForce(double **);
     void pinSPB();
     void create();
@@ -47,6 +44,9 @@ private:
     void outputPos(std::ofstream& output);
     void outputRd(std::ofstream& output);
     void outputRg(std::ofstream& output);
+    
+    // parameters
+    int nBead;
 };
 
 #endif /* end of include guard: BEAD_HPP_JGQK9V2L */

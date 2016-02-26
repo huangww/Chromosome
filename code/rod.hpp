@@ -37,7 +37,7 @@ private:
         int *nLinks;
         int **table;
     } linkTable;
-    class Bead *&bead;
+    class Bead *bead;
 
     void init();
     void printLinks();

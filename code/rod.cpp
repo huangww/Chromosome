@@ -13,9 +13,9 @@
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
 
-Rod::Rod(Bead *beads) :
-   bead(beads) 
+Rod::Rod(Bead *beads)
 {
+    bead = beads;
     link = NULL;
     u = NULL;
     b = NULL;
@@ -62,8 +62,9 @@ void Rod::init()
 {
     // init the metric matrix
     g = metricTensor();
-    printMetric();
-    // std::cin.get();
+    // printMetric();
+    
+    // metric in sparse format using Egen lib
     metricTensorSparse();
     
     // init linkTable

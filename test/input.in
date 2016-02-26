@@ -1,12 +1,12 @@
 projectName = Asep
 
-nSite = 100
-nPar = 50
+nSite = 500
+nPar = 250
 nSample = 1
 
-tempEff = 79.0
-dt = 39.5
-tEnd = 79000000.0
+tempEff = 55.0
+dt = 27.5
+tEnd = 55000000.0
 outputStep = 1
 
 # seed = rd()
