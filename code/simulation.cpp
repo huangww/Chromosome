@@ -3,6 +3,8 @@
 #include "project.hpp"
 #include "asep.hpp"
 #include "beadRod.hpp"
+#include "beadSpring.hpp"
+#include "singleFile.hpp"
 
 Simulation::Simulation() 
 {
@@ -23,7 +25,20 @@ void Simulation::init()
     if (input->projectName=="BeadRod") 
         project = new BeadRod;
     
+    if (input->projectName=="BeadSpring") 
+        project = new BeadSpring;
+    
+    if (input->projectName=="SingleFile") 
+        project = new SingleFile;
+
     input->print();
+
+// Todo: clean up exit 
+    // if (project==NULL) {
+    //     std::cout << "No Simulation Setup" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
+
 }
 
 void Simulation::run() 

@@ -1,4 +1,5 @@
 #include "spring.hpp"
+#include "input.hpp"
 #include "bead.hpp"
 #include "ultilities.hpp"
 #include "constant.hpp"
@@ -16,9 +17,10 @@ Spring::~Spring()
     delete2DArray(link);
 }
 
-void setParameter(Input *input)
+void Spring::setParameter(Input *input)
 {
-    nBead = int(input->parameter["nRod"]);
+
+    nBead =int(input->parameter["nRod"]);
     nRod = int(input->parameter["nRod"]);
 
     link = create2DArray<int>(nRod, 2);
@@ -44,10 +46,9 @@ void Spring::outputLinks()
 }
 
 
-double** Spring::harmonic(double** f) 
+double** Spring::harmonic(double** r, double** f) 
 {
     std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
-    double **r = bead->r;
 
     double k = 3.0;
     for (int i = 0; i < nRod; ++i) {
@@ -64,10 +65,9 @@ double** Spring::harmonic(double** f)
     return f;
 }
     
-double** Spring::fene(double** f) 
+double** Spring::fene(double** r, double** f) 
 {
     std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
-    double **r = bead->r;
 
     double k = 100.0;
     double R0 = 1.1;

@@ -14,7 +14,7 @@ public:
     void run();
 
 private:
-    class State *bead;
+    class Bead *bead;
     std::ofstream *outFile;
     
     // parameters

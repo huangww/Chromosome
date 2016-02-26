@@ -1,16 +1,16 @@
 #ifndef POTENTIAL_HPP_RJ98ISVS
 #define POTENTIAL_HPP_RJ98ISVS
 
-#include "parameter.hpp"
-#include "simulation.hpp"
+#include "input.hpp"
 
-class Potential: protected Parameter
+class Potential
 {
 public:
-    Potential (Simulation *simu);
+    Potential ();
     virtual ~Potential ();
-    
-    double LennardJones();
+
+    double LennardJones(int N, double **r);
+
 
 };
 

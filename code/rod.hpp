@@ -3,12 +3,12 @@
 
 #include "Eigen/Sparse"
 #include "input.hpp"
-#include "project.hpp"
+#include "bead.hpp"
 
 class Rod
 {
 public:
-    Rod (Project *project);
+    Rod (Bead *bead);
     virtual ~Rod ();
 
     void setParameter(Input *input);
@@ -37,7 +37,7 @@ private:
         int *nLinks;
         int **table;
     } linkTable;
-    class Project *&proj;
+    class Bead *&bead;
 
     void init();
     void printLinks();

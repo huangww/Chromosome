@@ -277,20 +277,19 @@ void Montecarlo::moveTry(int N, double** r)
     }
 }
 
-double Montecarlo::energy(int N, double** r) 
+double Montecarlo::energy(int N, double **r) 
 {
     double eTotal = 0;
     for (int i = 0; i < N; ++i) {
         eTotal -= r[i][0];
     }
-    // eTotal += potential->LennardJones();
+    // eTotal += potential->LennardJones(nBead, r);
     return eTotal;
 }
 
 
-int Montecarlo::move()
+int Montecarlo::move(double **r)
 {
-    double **r = bead->r;
     double** rTry = create2DArray<double>(nBead, DIM);
     double dE;
     std::copy(&r[0][0], &r[0][0]+nBead*DIM, &rTry[0][0]);
@@ -312,19 +311,18 @@ int Montecarlo::move()
     return 0;
 }
 
-void Montecarlo::randomize()
+void Montecarlo::randomize(double **r)
 {
-    double** r = bead->r;
     int moveStep = 1e6*Ran(seed) + 1e3;
     for (int i = 0; i < moveStep; ++i) {
         moveTry(nBead, r);
     }
 }
 
-void Montecarlo::equilibrate()
+void Montecarlo::equilibrate(double **r)
 {
     int count = 0;
     do {
-        count += move();
+        count += move(r);
     } while (count < nBead*nBead);
 }

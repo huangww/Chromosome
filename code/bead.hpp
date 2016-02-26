@@ -20,6 +20,7 @@ public:
     void output(std::ofstream* output);
 
     double t;
+    double dt;
 // protected:
     double **r;     // postion of beads
     double **rs;    // predicted postion of beads
@@ -38,7 +39,6 @@ private:
 
     // parameters
     int nBead;
-    double dt;
 
     void addForce(double **);
     void pinSPB();
