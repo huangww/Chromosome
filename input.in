@@ -1,13 +1,14 @@
-projectName = Asep
+projectName = BeadSpring
 
-nSite = 1000
-nPar = 500
-nSample = 1
+topoType = 0
+nBead = 10
+nRod = 10
+tempEff = 1
 
-tempEff = 0.5
-dt = 0.1
-tEnd = 1.0e+5
-outputStep = 1
+dt = 1e-4
+tEnd = 1e1
+outputStep = 1e3
 
 # seed = rd()
 seed = 5489
+taskID = 0

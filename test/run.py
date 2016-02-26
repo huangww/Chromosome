@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import numpy as np
 import fileinput
 import os 
 import itertools as it
 import time
 
-Teff = np.linspace(10, 100, 91)
-Nbead = [100, 500, 1000]
+Teff = np.linspace(10, 100, 19)
+Nbead = [500, 1000]
 fname = 'input.in'
 
 def ChangeInput(N, T):

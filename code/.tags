@@ -15,7 +15,7 @@ Bead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Bead ();$/;"	p	language:C
 Bead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^class Bead$/;"	c	language:C++
 bead	/Users/wenwen/Work/chromosome/code/beadRod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:BeadRod	typeref:class:BeadRod::Bead
 bead	/Users/wenwen/Work/chromosome/code/beadSpring.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:BeadSpring	typeref:class:BeadSpring::Bead
-bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *&bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
+bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
 beadPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *beadPos;$/;"	m	language:C++	class:State
 BeadRod	/Users/wenwen/Work/chromosome/code/beadRod.cpp	/^BeadRod::BeadRod() : Project()$/;"	f	language:C++	class:BeadRod
 BeadRod	/Users/wenwen/Work/chromosome/code/beadRod.hpp	/^    BeadRod ();$/;"	p	language:C++	class:BeadRod
@@ -189,7 +189,7 @@ nBead	/Users/wenwen/Work/chromosome/code/montecarlo.hpp	/^    int nBead;$/;"	m	l
 nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
 nBead	/Users/wenwen/Work/chromosome/code/spring.hpp	/^    int nBead;$/;"	m	language:C++	class:Spring
 nBead	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int nBead;$/;"	m	language:C++	class:Topo
-Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
+Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [500, 1000]$/;"	v	language:Python
 nLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int *nLinks;$/;"	m	language:C++	struct:Rod::LinkTable
 np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
@@ -314,7 +314,7 @@ ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void 
 ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/topo.cpp	/^void Topo::ringPairWithCentromere(int N, int **link)$/;"	f	language:C++	class:Topo
 ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    void ringPairWithCentromere(int N, int **link);$/;"	p	language:C++	class:Topo
 rod	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Rod *rod;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Rod
-Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beads) :$/;"	f	language:C++	class:Rod
+Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beads)$/;"	f	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *bead);$/;"	p	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
 ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
@@ -400,7 +400,7 @@ t	/Users/wenwen/Work/chromosome/code/particle.hpp	/^    double t;       \/\/ tim
 T	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    typedef Eigen::Triplet<int> T;$/;"	t	language:C++	class:Rod
 t	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double t;       \/\/ real time$/;"	m	language:C++	class:State
 table	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int **table;$/;"	m	language:C++	struct:Rod::LinkTable
-Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(10, 100, 91)$/;"	v	language:Python
+Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(10, 100, 19)$/;"	v	language:Python
 tempEff	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double tempEff;$/;"	m	language:C++	class:Force
 tempEff	/Users/wenwen/Work/chromosome/code/montecarlo.hpp	/^    double tempEff;$/;"	m	language:C++	class:Montecarlo
 tempEff	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tempEff;$/;"	m	language:C++	class:State

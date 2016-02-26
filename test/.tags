@@ -4,6 +4,7 @@ endTime	/Users/wenwen/Work/chromosome/test/run.py	/^    endTime = time.time()$/;
 fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
 fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
 it	/Users/wenwen/Work/chromosome/test/run.py	/^import itertools as it$/;"	i	language:Python
+main	/Users/wenwen/Work/chromosome/test/test.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
 Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
 np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
