@@ -1,17 +1,15 @@
 #include "bead.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
 #include "ultilities.hpp"
 #include "config.hpp"
 #include "force.hpp"
 #include "rod.hpp"
 #include "spring.hpp"
 #include "montecarlo.hpp"
+#include "constant.hpp"
 #include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include "constant.hpp"
 
 
 Bead::Bead()
@@ -60,10 +58,14 @@ void Bead::setParameter(Input *input)
 
     force = new Force();
     force->setParameter(input);
-    rod = new Rod();
-    rod->setParameter(input);
-    spring = new Spring();
-    spring->setParameter(input);
+    if (input->projectName=="BeadRod") {
+        rod = new Rod(this);
+        rod->setParameter(input);
+    }
+    if (input->projectName=="BeadSpring") {
+        spring = new Spring();
+        spring->setParameter(input);
+    }
     config = new Config();
     config->setParameter(input);
     montecarlo = new Montecarlo();
@@ -76,8 +78,8 @@ void Bead::init()
     t = 0.0;
 
     r = config->init(r);
-    montecarlo->randomize();
-    // montecarlo->equilibrate();
+    montecarlo->randomize(r);
+    // montecarlo->equilibrate(r);
     
     std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
@@ -167,7 +169,7 @@ void Bead::update()
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
     addForce(force->brownian(f));
     addForce(force->external(f));
-    addForce(spring->harmonic(f));
+    addForce(spring->harmonic(r, f));
     // addForce(force->repulsive(f));
     pinSPB();
     
@@ -183,8 +185,8 @@ void Bead::update()
 
 void Bead::montecarloUpdate()
 {
-        montecarlo->move();
-        t += dt;
+    montecarlo->move(r);
+    t += dt;
 }
 
 void Bead::output(std::ofstream* output) 

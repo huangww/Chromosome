@@ -13,8 +13,8 @@
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
 
-Rod::Rod(Project *project) :
-   proj(project) 
+Rod::Rod(Bead *beads) :
+   bead(beads) 
 {
     link = NULL;
     u = NULL;

@@ -11,9 +11,9 @@ public:
     virtual ~Montecarlo ();
 
     void setParameter(Input *input);
-    int move();
-    void randomize();
-    void equilibrate();
+    int move(double **r);
+    void randomize(double **r);
+    void equilibrate(double **r);
 
 private:
     // parameters
@@ -34,7 +34,6 @@ private:
     void moveTry(int N, double** r);
     double energy(int N, double** r);
 
-    // class Potential *potential;
 };
 
 #endif /* end of include guard: MONTECARLO_HPP_9WRC7ZF3 */

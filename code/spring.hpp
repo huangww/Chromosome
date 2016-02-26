@@ -9,16 +9,16 @@ public:
     Spring ();
     virtual ~Spring ();
 
-    void setParameter(Input *input);
-    double** harmonic(double** f);
-    double** fene(double** f);
+    void setParameter(Input* input);
+    double** harmonic(double** r, double** f);
+    double** fene(double** r, double** f);
 
 private:
     // parameters
     int nBead;
     int nRod;
 
-    int **link;         // index of pair of beads linked
+    int** link;         // index of pair of beads linked
 
     void outputLinks();
 };

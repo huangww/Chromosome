@@ -1,4 +1,4 @@
-#include "beadRod.hpp"
+#include "beadSpring.hpp"
 #include "project.hpp"
 #include "input.hpp"
 #include "bead.hpp"
@@ -7,12 +7,11 @@
 #include <sstream>
 #include <cmath>
 
-BeadRod::BeadRod() : Project()
+BeadSpring::BeadSpring() : Project()
 {
     bead = NULL;
-    outFile = new std::ofstream[3];
 }
-BeadRod::~BeadRod() 
+BeadSpring::~BeadSpring() 
 {
     delete bead;
     outFile[0].close();
@@ -21,7 +20,8 @@ BeadRod::~BeadRod()
     delete[] outFile;
 }
 
-void BeadRod::setup(Input *input) 
+
+void BeadSpring::setup(Input *input) 
 {
     bead->setParameter(input);
     outputStep = int(input->parameter["outputStep"]);
@@ -47,10 +47,10 @@ void BeadRod::setup(Input *input)
     std::cout << fname.str() << std::endl;
     outFile[2].open(fname.str());
 }
+    
 
-void BeadRod::run() 
+void BeadSpring::run() 
 {
-
     bead->init();
 
     double t = 0;
@@ -68,12 +68,8 @@ void BeadRod::run()
                << std::endl; 
         }
 
-        // Monte-Carlo Move
-        // bead->montecarloUpdate();
-
         // MD Move
-        bead->predict();
-        bead->correct();
+        bead->update();
         
         t += bead->dt;
     }
