@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <algorithm>
 
 Input::Input() { }
 Input::~Input() { }
@@ -24,7 +25,7 @@ void Input::file()
     std::ifstream infile(infname);
     std::string line;
     while (std::getline(infile, line)) {
-        line.erase(remove_if(line.begin(), line.end(),
+        line.erase(std::remove_if(line.begin(), line.end(),
                     isspace), line.end());
         if (line.compare(0,1,"#")) {
             parse(line);
@@ -67,5 +68,4 @@ void Input::print()
     }
     std::cout << "================================="
         << std::endl;
-    std::cout << "Start The Simulation: " << std::endl;
 }

@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <fstream>
 #include <cmath>
+#include <random>
 
 Particle::Particle() 
 {
@@ -31,10 +32,22 @@ Particle::~Particle()
 
 void Particle::setParameter(Input* input) 
 {
+    if (input->parameter.count("nSite") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
     nSite = int(input->parameter["nSite"]);
+    if (input->parameter.count("nPar") == 0) {
+        throw "Parameter \"nPar\" is not specified!";
+    }
     nPar = int(input->parameter["nPar"]);
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
     dt = input->parameter["dt"];
-    seed = long(input->parameter["seed"]);
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+    }
 
     x = new double[nPar];
     v = new double[nPar];
@@ -43,6 +56,7 @@ void Particle::setParameter(Input* input)
     site = new bool[nSite];
 
     force = new Force();
+    force->setParameter(input);
    
 }
 void Particle::init() 

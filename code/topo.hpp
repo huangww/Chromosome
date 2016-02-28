@@ -16,7 +16,7 @@ public:
 private:
     // parameters
     int topoType;
-    int nRod;
+    int nLink;
     int nBead;
 
     void ring(int N, int **link);

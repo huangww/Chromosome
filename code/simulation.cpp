@@ -33,12 +33,9 @@ void Simulation::init()
 
     input->print();
 
-// Todo: clean up exit 
-    // if (project==NULL) {
-    //     std::cout << "No Simulation Setup" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
-
+    if (project==NULL) {
+        throw "Wrong projet Name!";
+     }
 }
 
 void Simulation::run() 

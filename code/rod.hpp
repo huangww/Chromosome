@@ -8,7 +8,7 @@
 class Rod
 {
 public:
-    Rod (Bead *bead);
+    Rod (Bead *beadPointer);
     virtual ~Rod ();
 
     void setParameter(Input *input);
@@ -18,12 +18,6 @@ public:
     double** pseudoSparse(double **f);
 
 private:
-    // parameters
-    int nRod;
-    int nBead;
-    double dt;
-
-
     typedef Eigen::SparseMatrix<double> SpMatD;
     typedef Eigen::Triplet<int> T;
 
@@ -52,6 +46,12 @@ private:
     void vectorB(double *x, double *B);
     void solverPicard(double *x);
     double detBandMetric(int n, double *coeff);
+
+    // parameters
+    int nLink;
+    int nBead;
+    double dt;
+
 };
 
 

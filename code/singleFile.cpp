@@ -19,8 +19,14 @@ SingleFile::~SingleFile()
 
 void SingleFile::setup(Input* input) 
 {
-    outputStep = int(input->parameter["outputStep"]);
+    if (input->parameter.count("tEnd") == 0) {
+        throw "Parameter \"tEnd\" is not specified!";
+    }
     tEnd = input->parameter["tEnd"];
+    if (input->parameter.count("tEnd") == 0) {
+        outputStep = 1;
+    }
+    outputStep = int(input->parameter["outputStep"]);
 
     particle = new Particle();
     particle->setParameter(input);

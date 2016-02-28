@@ -1,13 +1,23 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+BUILDDIR	/Users/wenwen/Work/chromosome/test/makefile	/^BUILDDIR = build$/;"	m	language:Make
+CC	/Users/wenwen/Work/chromosome/test/makefile	/^CC = clang++$/;"	m	language:Make
+CFLAGS	/Users/wenwen/Work/chromosome/test/makefile	/^CFLAGS = -Wall -std=c++11 -O3$/;"	m	language:Make
 ChangeInput	/Users/wenwen/Work/chromosome/test/run.py	/^def ChangeInput(N, T):$/;"	f	language:Python
 endTime	/Users/wenwen/Work/chromosome/test/run.py	/^    endTime = time.time()$/;"	v	language:Python
 fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
 fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
+HEADERS	/Users/wenwen/Work/chromosome/test/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
 it	/Users/wenwen/Work/chromosome/test/run.py	/^import itertools as it$/;"	i	language:Python
+LIBS	/Users/wenwen/Work/chromosome/test/makefile	/^LIBS = -llapack -lm -lblas$/;"	m	language:Make
 main	/Users/wenwen/Work/chromosome/test/test.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
 Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
 np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
+OBJECTS	/Users/wenwen/Work/chromosome/test/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
 os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
+SRC	/Users/wenwen/Work/chromosome/test/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
+SRCDIR	/Users/wenwen/Work/chromosome/test/makefile	/^SRCDIR = code$/;"	m	language:Make
 startTime	/Users/wenwen/Work/chromosome/test/run.py	/^    startTime = time.time()$/;"	v	language:Python
+TARGET	/Users/wenwen/Work/chromosome/test/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
 Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(0.1, 10, 100)$/;"	v	language:Python
 time	/Users/wenwen/Work/chromosome/test/run.py	/^import time$/;"	i	language:Python
+VPATH	/Users/wenwen/Work/chromosome/test/makefile	/^VPATH = code$/;"	m	language:Make

@@ -45,8 +45,13 @@ Bead::~Bead()
 
 void Bead::setParameter(Input *input)
 {
-// Todo: use try catch here
+    if (input->parameter.count("nBead") == 0) {
+        throw "Parameter \"nBead\" is not specified!";
+    }
     nBead = int(input->parameter["nBead"]);
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
     dt = input->parameter["dt"];
     
     // set up the state class
