@@ -83,8 +83,8 @@ void Bead::init()
     t = 0.0;
 
     r = config->init(r);
-    montecarlo->randomize(r);
-    // montecarlo->equilibrate(r);
+    // montecarlo->randomize(r);
+    montecarlo->equilibrate(r);
     
     std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
@@ -194,35 +194,35 @@ void Bead::montecarloUpdate()
     t += dt;
 }
 
-void Bead::output(std::ofstream* output) 
+void Bead::output(std::ofstream* outFile) 
 {
-    outputPos(output[0]);
-    outputRg(output[1]);
-    outputRd(output[2]);
+    // outputPos(outFile[0]);
+    outputRg(outFile[1]);
+    outputRd(outFile[2]);
 }
 
-void Bead::outputPos(std::ofstream& output) 
+void Bead::outputPos(std::ofstream& outFile) 
 {
-    output << "# t = " << t << std::endl;
+    outFile << "# t = " << t << std::endl;
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
-            output << std::setw(9) << r[i][j] << '\t';
+            outFile << std::setw(9) << r[i][j] << '\t';
         }
-        output << std::endl;
+        outFile << std::endl;
     } 
 }
 
-void Bead::outputRg(std::ofstream& output)
+void Bead::outputRg(std::ofstream& outFile)
 {
     double rg = compute->gyrationRadius(nBead, r);
-    output << std::setw(9) << t << '\t'
+    outFile << std::setw(9) << t << '\t'
         << std::setw(9) << rg << std::endl;
 }
 
-void Bead::outputRd(std::ofstream& output)
+void Bead::outputRd(std::ofstream& outFile)
 {
     for (int i = 0; i < DIM; ++i) {
-        output << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
+        outFile << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
     }
-    output << std::endl;
+    outFile << std::endl;
 }

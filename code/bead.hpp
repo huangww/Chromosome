@@ -17,7 +17,7 @@ public:
     void correct();
     void update();
     void montecarloUpdate();
-    void output(std::ofstream* output);
+    void output(std::ofstream* outFile);
 
     double t;
     double dt;

@@ -42,7 +42,6 @@ void BeadSpring::setup(Input *input)
         << "_T" << input->parameter["tempEff"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
-    std::cout << "OK" << std::endl;
     outFile[0].open(fname.str());
     fname.str("");
     fname << "data/rg_N" << input->parameter["nBead"]
