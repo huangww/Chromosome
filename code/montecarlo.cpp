@@ -7,17 +7,24 @@
 #include "config.hpp"
 #include <cmath>
 #include <algorithm>
+#include <random>
 
 Montecarlo::Montecarlo() { }
 Montecarlo::~Montecarlo() { }
 
 void Montecarlo::setParameter(Input *input) 
 {
-    nBead = int(input->parameter["nBead"]);
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+    }
     seed = long(input->parameter["seed"]);
-    topoType = int(input->parameter["topoType"]);
-
+    if (input->parameter.count("tempEff") == 0) {
+        throw "Parameter \"tempEff\" is not specified!";
+    }
     tempEff = input->parameter["tempEff"];
+    nBead = int(input->parameter["nBead"]);
+    topoType = int(input->parameter["topoType"]);
 }
 
 void Montecarlo::pivot(int N, int *ipivot) 

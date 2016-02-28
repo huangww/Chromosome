@@ -16,7 +16,7 @@ public:
 private:
     // parameters
     int nBead;
-    int nRod;
+    int nLink;
 
     int** link;         // index of pair of beads linked
 

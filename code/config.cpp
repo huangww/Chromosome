@@ -11,6 +11,9 @@ Config::~Config() { }
 
 void Config::setParameter(Input* input) 
 {
+    if (input->parameter.count("topoType") == 0) {
+        throw "Parameter \"topoType\" is not specified!";
+    }
     topoType = int(input->parameter["topoType"]);
     nBead = int(input->parameter["nBead"]);
 }

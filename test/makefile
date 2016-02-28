@@ -11,6 +11,8 @@ VPATH = code
 
 default: $(TARGET)
 all: default
+debug: CFLAGS += -g
+debug: default
 
 SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.cpp))
 HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.hpp))
@@ -37,5 +39,3 @@ movie:
 plot:
 	python script/plotfig.py
 
-debug: $(TARGET)
-	sudo gdb $(TARGET)

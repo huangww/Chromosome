@@ -3,6 +3,7 @@
 
 #include "project.hpp"
 #include "input.hpp"
+#include <fstream>
 
 class BeadSpring: public Project
 {
@@ -14,13 +15,12 @@ public:
     void run();
 
 private:
-    // parameters
-    int outputStep;
-    double tEnd;
-
     class Bead *bead;
     std::ofstream *outFile;
 
+    // parameters
+    int outputStep;
+    double tEnd;
 };
 
 #endif /* end of include guard: BEADSPRING_HPP_BTRDNUMP */

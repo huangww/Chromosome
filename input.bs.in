@@ -1,0 +1,14 @@
+projectName = BeadRod
+
+topoType = 0
+nBead = 10
+nLink = 10
+tempEff = 1
+
+dt = 1e-4
+tEnd = 1e1
+outputStep = 1e3
+
+# seed = rd()
+seed = 5489
+taskID = 0

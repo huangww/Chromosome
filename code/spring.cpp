@@ -20,10 +20,13 @@ Spring::~Spring()
 void Spring::setParameter(Input *input)
 {
 
-    nBead =int(input->parameter["nRod"]);
-    nRod = int(input->parameter["nRod"]);
+    if (input->parameter.count("nLink") == 0) {
+        throw "Parameter \"nLink\" is not specified!";
+    }
+    nLink = int(input->parameter["nLink"]);
+    nBead =int(input->parameter["nBead"]);
 
-    link = create2DArray<int>(nRod, 2);
+    link = create2DArray<int>(nLink, 2);
     Topo *topo = new Topo();
     topo->setParameter(input);
     link = topo->init(link);
@@ -37,7 +40,7 @@ void Spring::outputLinks()
 {
     std::ofstream output("data/topo.dat");
 
-    for (int i = 0; i < nRod; ++i) {
+    for (int i = 0; i < nLink; ++i) {
             output << std::setw(9) << link[i][0] << '\t' 
                 << std::setw(9) << link[i][1] << std::endl;
     }
@@ -51,7 +54,7 @@ double** Spring::harmonic(double** r, double** f)
     std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
 
     double k = 3.0;
-    for (int i = 0; i < nRod; ++i) {
+    for (int i = 0; i < nLink; ++i) {
         int i0 = link[i][0];
         int i1 = link[i][1];
         for (int j = 0; j < DIM; ++j) {
@@ -71,7 +74,7 @@ double** Spring::fene(double** r, double** f)
 
     double k = 100.0;
     double R0 = 1.1;
-    for (int i = 0; i < nRod; ++i) {
+    for (int i = 0; i < nLink; ++i) {
         int i0 = link[i][0];
         int i1 = link[i][1];
         double d = Distance(&r[i0][0], &r[i1][0], DIM);

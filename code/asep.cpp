@@ -24,10 +24,19 @@ Asep::~Asep()
 
 void Asep::setup(Input *input) 
 {
-    state->setParameter(input);
+    if (input->parameter.count("nSample") == 0) {
+        nSample = 1;
+    }
     nSample = int(input->parameter["nSample"]);
+    if (input->parameter.count("outputStep") == 0) {
+        outputStep = 1;
+    }
     outputStep = int(input->parameter["outputStep"]);
+    if (input->parameter.count("tEnd") == 0) {
+        throw "Parameter \"tEnd\" is not specified!";
+    }
     tEnd = input->parameter["tEnd"];
+    state->setParameter(input);
 
     // Open files for output
     std::ostringstream fname;

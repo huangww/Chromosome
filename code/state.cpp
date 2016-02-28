@@ -28,20 +28,34 @@ State::~State()
 
 void State::setParameter(Input *input)
 {
-// Todo: use try catch here
+    if (input->parameter.count("nSite") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
     nSite = int(input->parameter["nSite"]);
+    if (input->parameter.count("nPar") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
     nPar = int(input->parameter["nPar"]);
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+    }
+    seed = long(input->parameter["seed"]);
 
-    tempEff = input->parameter["tempEff"];
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
     dt = input->parameter["dt"];
+    if (input->parameter.count("tempEff") == 0) {
+        throw "Parameter \"tempEff\" is not specified!";
+    }
+    tempEff = input->parameter["tempEff"];
+
     double jumpRate = 1.0;
     double factor = exp(-1.0/tempEff);
     rateToLeft = jumpRate/(1+factor);
     rateToRight = jumpRate*factor/(1+factor);
     
-    std::random_device rd;
-    // seed = rd();
-    seed = long(input->parameter["seed"]);
 
     // set up the state class
     site = new bool[nSite];

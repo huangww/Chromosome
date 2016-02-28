@@ -10,6 +10,7 @@
 BeadSpring::BeadSpring() : Project()
 {
     bead = NULL;
+    outFile = new std::ofstream[3];
 }
 BeadSpring::~BeadSpring() 
 {
@@ -23,8 +24,14 @@ BeadSpring::~BeadSpring()
 
 void BeadSpring::setup(Input *input) 
 {
-    outputStep = int(input->parameter["outputStep"]);
+    if (input->parameter.count("tEnd") == 0) {
+        throw "Parameter \"tEnd\" is not specified!";
+    }
     tEnd = input->parameter["tEnd"];
+    if (input->parameter.count("outputStep") == 0) {
+        outputStep = 1;
+    }
+    outputStep = int(input->parameter["outputStep"]);
 
     bead = new Bead();
     bead->setParameter(input);
@@ -35,6 +42,7 @@ void BeadSpring::setup(Input *input)
         << "_T" << input->parameter["tempEff"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
+    std::cout << "OK" << std::endl;
     outFile[0].open(fname.str());
     fname.str("");
     fname << "data/rg_N" << input->parameter["nBead"]
