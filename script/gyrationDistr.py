@@ -17,11 +17,11 @@ sp3 = fig.add_subplot(223)
 sp4 = fig.add_subplot(224)
 
 beadNumber = 100
-dataDir = 'data/rg/'
+dataDir = 'data/'
 
 T = 1
-fileName = dataDir + 'rg_N' + str(beadNumber) + \
-        '_T'+str(T) + '_5489.dat'
+fileName = dataDir + 'rg1D_N' + str(beadNumber) + \
+        '_T'+str(T) + '.dat'
 data = np.loadtxt(fileName,comments='#')
 sp1.hist(data,bins=50,normed=True)
 sp1.set_xlabel(r'$R_g^2$')
@@ -29,8 +29,8 @@ sp1.set_ylabel(r"$P(R_g^2)$")
 sp1.legend(['T = ' + str(T)])
 
 T = 10
-fileName = dataDir + 'rg_N' + str(beadNumber) + \
-        '_T'+str(T) + '_5489.dat'
+fileName = dataDir + 'rg1D_N' + str(beadNumber) + \
+        '_T'+str(T) + '.dat'
 data = np.loadtxt(fileName,comments='#')
 sp2.hist(data,bins=50,normed=True)
 sp2.set_xlabel(r'$R_g^2$')
@@ -38,8 +38,8 @@ sp2.set_ylabel(r"$P(R_g^2)$")
 sp2.legend(['T = ' + str(T)])
 
 T = 50
-fileName = dataDir + 'rg_N' + str(beadNumber) + \
-        '_T'+str(T) + '_5489.dat'
+fileName = dataDir + 'rg1D_N' + str(beadNumber) + \
+        '_T'+str(T) + '.dat'
 data = np.loadtxt(fileName,comments='#')
 sp3.hist(data,bins=50,normed=True)
 sp3.set_xlabel(r'$R_g^2$')
@@ -56,8 +56,8 @@ prgs = np.array([0.0, 0.0, 0.0143, 0.1535, 0.4878, \
     0.8733, 1.1462, 1.2498, 1.2100, 1.0804, \
     0.7345, 0.4359, 0.2373, 0.1215, 0.0596, \
     0.0131, 0.0026])
-fileName = dataDir + 'rg_N' + str(beadNumber) + \
-        '_T'+str(T) + '_5489.dat'
+fileName = dataDir + 'rg1D_N' + str(beadNumber) + \
+        '_T'+str(T) + '.dat'
 data = np.loadtxt(fileName,comments='#')
 sp4.hist(data,bins=50,normed=True)
 sp4.plot(t*meanRgs, prgs/meanRgs, 'r-')
