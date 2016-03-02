@@ -21,6 +21,7 @@ CFLAGS	/Users/wenwen/Work/chromosome/makefile	/^CFLAGS = -Wall -std=c++11 -O3$/;
 compute	/Users/wenwen/Work/chromosome/code/state.hpp	/^    class Compute *compute;$/;"	m	language:C++	class:State	typeref:class:State::Compute
 constraint	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::constraint(double** f)$/;"	f	language:C++	class:Rod
 constraint	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** constraint(double** f);$/;"	p	language:C++	class:Rod
+data	/Users/wenwen/Work/chromosome/temp.py	/^data = np.loadtxt('data\/tauForce.dat')$/;"	v	language:Python
 detBandMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double Rod::detBandMetric(int n, double *coeff)$/;"	f	language:C++	class:Rod
 detBandMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double detBandMetric(int n, double *coeff);$/;"	p	language:C++	class:Rod
 dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int* m, int* n, double* A, $/;"	p	language:C++
@@ -106,6 +107,7 @@ linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVector
 main	/Users/wenwen/Work/chromosome/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
 mapleader	/Users/wenwen/.vimrc	/^let mapleader = ","$/;"	v	language:Vim
 maplocalleader	/Users/wenwen/.vimrc	/^let maplocalleader = ","$/;"	v	language:Vim
+matplotlib	/Users/wenwen/Work/chromosome/temp.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
 metricTensor	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int** Rod::metricTensor() $/;"	f	language:C++	class:Rod
@@ -118,6 +120,7 @@ MySys	/Users/wenwen/.vimrc	/^    function MySys()$/;"	f	language:Vim
 nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
 nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
 nLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int *nLinks;$/;"	m	language:C++	struct:Rod::LinkTable
+np	/Users/wenwen/Work/chromosome/temp.py	/^import numpy as np$/;"	i	language:Python
 nPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nPar;$/;"	m	language:C++	class:State
 nSample	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int nSample;$/;"	m	language:C++	class:Asep
 nSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSite;$/;"	m	language:C++	class:State
@@ -139,6 +142,7 @@ outputStep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int outputStep;$/;"
 par2bead	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
 par2bead	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void par2bead();$/;"	p	language:C++	class:State
 parse	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::parse(std::string line) $/;"	f	language:C++	class:Input
+plt	/Users/wenwen/Work/chromosome/temp.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
 print	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::print()$/;"	f	language:C++	class:Input
 print	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::print() $/;"	f	language:C++	class:State

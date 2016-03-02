@@ -4,9 +4,9 @@ nSite = 1000
 nPar = 500
 nSample = 1
 
-tempEff = 35.0
-dt = 17.5
-tEnd = 35000000.0
+tempEff = 100.0
+dt = 50.0
+tEnd = 100000000.0
 outputStep = 1
 
 # seed = rd()

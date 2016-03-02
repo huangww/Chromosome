@@ -48,6 +48,8 @@ void Asep::setup(Input *input)
         << input->parameter["tempEff"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[1].open(fname.str());
+    outFile[1] << "# " << "t\t" << "Rg\t" 
+        << "r[1]\t" << "r[N/2]" << std::endl;
 }
 
 void Asep::run() 
