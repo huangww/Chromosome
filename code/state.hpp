@@ -2,15 +2,15 @@
 #define STATE_HPP_3TUGIGTC
 
 #include <fstream>
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 
-class State: public Parameter
+class State 
 {
 public:
-    State (Simulation *simu);
+    State ();
     virtual ~State ();
 
+    void setParameter(Input *input);
     void init();
     void update();
     void output(std::ofstream* output);
@@ -18,8 +18,18 @@ public:
     double t;       // real time
     double tGrid;   // grid time for output
     double rg;      // radius of gyration
+    double dt;      // time step of the update
 
 private:
+    // parameters
+    int nSite;
+    int nPar;
+
+    double tempEff;
+    double rateToLeft;
+    double rateToRight;
+    unsigned long seed;
+
     bool *site;
     int *pos;
     double *beadPos;

@@ -1,3 +1,4 @@
+tmp/
 *.o
 *.mod
 *.out*
@@ -10,6 +11,7 @@
 *.fdb_latexmk
 *.pyc
 .DS_Store
-build
+test/data
+build/
 data/**/*
 data/*

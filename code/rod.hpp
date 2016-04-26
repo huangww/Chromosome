@@ -1,15 +1,17 @@
 #ifndef ROD_HPP_FFKADSOB
 #define ROD_HPP_FFKADSOB
 
-#include "force.hpp"
 #include "Eigen/Sparse"
+#include "input.hpp"
+#include "bead.hpp"
 
-class Rod: protected Force
+class Rod
 {
 public:
-    Rod (Simulation *simu);
+    Rod (Bead *beadPointer);
     virtual ~Rod ();
 
+    void setParameter(Input *input);
     double** constraint(double** f);
     double** pseudo(double** f);
     double** pseudoRing(double** f);
@@ -29,6 +31,7 @@ private:
         int *nLinks;
         int **table;
     } linkTable;
+    class Bead *bead;
 
     void init();
     void printLinks();
@@ -43,6 +46,12 @@ private:
     void vectorB(double *x, double *B);
     void solverPicard(double *x);
     double detBandMetric(int n, double *coeff);
+
+    // parameters
+    int nLink;
+    int nBead;
+    double dt;
+
 };
 
 

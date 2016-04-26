@@ -1,5 +1,5 @@
 #include "particle.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 #include "random.hpp"
 #include "force.hpp"
 #include <algorithm>
@@ -7,16 +7,17 @@
 #include <iomanip>
 #include <fstream>
 #include <cmath>
+#include <random>
 
-Particle::Particle(Simulation *simu) : Parameter(simu)
+Particle::Particle() 
 {
-    x = new double[nPar];
-    v = new double[nPar];
-    f = new double[nPar];
-    ftotal = new double[nPar];
-    site = new bool[nSite];
+    x = NULL;
+    v = NULL;
+    f = NULL;
+    ftotal = NULL;
+    site = NULL;
 
-    force = new Force(simu);
+    force = NULL;
 }
 Particle::~Particle() 
 {
@@ -29,6 +30,38 @@ Particle::~Particle()
     delete force;
 }
 
+void Particle::setParameter(Input* input) 
+{
+    if (input->parameter.count("nSite") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
+    nSite = int(input->parameter["nSite"]);
+    if (input->parameter.count("nPar") == 0) {
+        throw "Parameter \"nPar\" is not specified!";
+    }
+    nPar = int(input->parameter["nPar"]);
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
+    dt = input->parameter["dt"];
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
+    }
+
+    x = new double[nPar];
+    v = new double[nPar];
+    f = new double[nPar];
+    ftotal = new double[nPar];
+    site = new bool[nSite];
+
+    force = new Force();
+    force->setParameter(input);
+   
+}
 void Particle::init() 
 {
     t = 0;
@@ -105,10 +138,10 @@ void Particle::update()
 
     std::fill(&ftotal[0], &ftotal[0] + nPar, 0);
     addForce(force->brownian(f));
-    addForce(force->repulsive(f));
+    addForce(force->repulsive(x, f));
     addForce(force->external(f));
     if (x[0] < 1.0 || x[nPar-1] > nSite-1.0) {
-        addForce(force->boundary(f));
+        addForce(force->boundary(x, f));
     }
 
     for (int i = 0; i < nPar; ++i) {
@@ -120,10 +153,10 @@ void Particle::updateBD()
 {
     std::fill(&ftotal[0], &ftotal[0] + nPar, 0);
     addForce(force->brownian(f));
-    addForce(force->repulsive(f));
+    addForce(force->repulsive(x, f));
     addForce(force->external(f));
     if (x[0] < 1.0 || x[nPar-1] > nSite-1.0) {
-        addForce(force->boundary(f));
+        addForce(force->boundary(x, f));
     }
 
     // output for debug
@@ -142,16 +175,16 @@ void Particle::updateBD()
     t += dt;
 }
 
-void Particle::output(std::ofstream& output) 
+void Particle::output(std::ofstream& outFile) 
 {
-    output << t << '\t';
+    outFile << t << '\t';
     // double beadPos = 0;
     // for (int i = 0; i < nSite; ++i) {
     //     output << beadPos << '\t';
     //     beadPos += 2*site[i] - 1;
     // }
     for (int i = 0; i < nPar; ++i) {
-        output << std::setw(9) << x[i] << '\t';
+        outFile << std::setw(9) << x[i] << '\t';
     }
-    output << std::endl;
+    outFile << std::endl;
 }
