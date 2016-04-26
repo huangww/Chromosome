@@ -1,22 +1,16 @@
 #ifndef COMPUTE_HPP_6KHWKDTL
 #define COMPUTE_HPP_6KHWKDTL
 
-#include "parameter.hpp"
-#include "simulation.hpp"
 
-class Compute: protected Parameter
+class Compute
 {
 public:
-    Compute (Simulation *simu);
+    Compute ();
     virtual ~Compute ();
 
     double gyrationRadius(int N, double **r);
     double gyrationRadius(int N, double* r);
 
-protected:
-    /* data */
-private:
-    /* data */
 };
 
 

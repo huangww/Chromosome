@@ -12,7 +12,7 @@ def GetScreenShot(FrameNumber):
 # load data 
 dataDir = 'data/'
 # fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)
-fname = dataDir + 'r_N100_T1_1.dat'
+fname = dataDir + 'r_N100_T1000_0.dat'
 print fname
 
 # detect parameters from file name
@@ -37,7 +37,7 @@ factor = 0.15
 scale = 0.4
 
 faxis = frame()
-faxis.pos = [-11, 0, 0]
+faxis.pos = [-5, 0, 0]
 
 # load data
 data = np.loadtxt(fname,comments='#')

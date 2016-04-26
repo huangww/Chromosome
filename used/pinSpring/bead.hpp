@@ -15,7 +15,7 @@ public:
     void init();
     void predict();
     void correct();
-    void output(std::ofstream& output);
+    void output(std::ofstream* output);
     void montecarloUpdate();
 
     double t;
@@ -31,11 +31,15 @@ private:
     class Force *force;
     class Rod *rod;
     class Montecarlo *montecarlo; 
+    class Compute *compute;
 
     void addForce(double **);
     void pinSPB();
     void create();
     void destroy();
+    void outputPos(std::ofstream& output);
+    void outputRg(std::ofstream& output);
+    void outputRd(std::ofstream& output);
 };
 
 #endif /* end of include guard: BEAD_HPP_JGQK9V2L */

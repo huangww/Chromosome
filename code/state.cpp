@@ -1,20 +1,20 @@
 #include "state.hpp"
-#include "simulation.hpp"
+#include "input.hpp"
 #include "random.hpp"
 #include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <random>
 
-
-State::State(Simulation *simu) : Parameter(simu)
+State::State()
 {
-    site = new bool[nSite];
-    pos = new int[nPar];
-    beadPos = new double[nSite];
-    rate = new double[nPar*2];
-    compute = new Compute(simu);
+    site = NULL;
+    pos = NULL;
+    beadPos = NULL;
+    rate =  NULL;
+    compute = NULL;
 }
 
 State::~State() 
@@ -26,8 +26,51 @@ State::~State()
     delete compute;
 }
 
+void State::setParameter(Input *input)
+{
+    if (input->parameter.count("nSite") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
+    nSite = int(input->parameter["nSite"]);
+    if (input->parameter.count("nPar") == 0) {
+        throw "Parameter \"nSite\" is not specified!";
+    }
+    nPar = int(input->parameter["nPar"]);
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
+    }
+
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
+    dt = input->parameter["dt"];
+    if (input->parameter.count("tempEff") == 0) {
+        throw "Parameter \"tempEff\" is not specified!";
+    }
+    tempEff = input->parameter["tempEff"];
+
+    double jumpRate = 1.0;
+    double factor = exp(-1.0/tempEff);
+    // double factor = 1.0;
+    rateToLeft = jumpRate/(1+factor);
+    rateToRight = jumpRate*factor/(1+factor);
+    
+
+    // set up the state class
+    site = new bool[nSite];
+    pos = new int[nPar];
+    beadPos = new double[nSite];
+    rate = new double[nPar*2];
+    compute = new Compute();
+}
+
 void State::init() 
 {
+
     std::fill(&pos[0], &pos[0]+nPar, 0);
     std::fill(&site[0], &site[0]+nSite, 0);
     std::fill(&rate[0], &rate[0]+2*nPar, 0);
@@ -274,7 +317,7 @@ void State::update()
 
 void State::output(std::ofstream* output) 
 {
-    outputPos(output[0]);
+    outputPar(output[0]);
     outputRg(output[1]);
 }
 
@@ -291,10 +334,17 @@ void State::outputSite(std::ofstream& output)
 void State::outputPar(std::ofstream& output) 
 {
     // output particle position
-    output << tGrid << '\t';
-    for (int i = 0; i < nPar; ++i) {
-        output << std::setw(6) << pos[i]; 
+    // output << tGrid << '\t';
+    // for (int i = 0; i < nPar; ++i) {
+    //     output << std::setw(6) << pos[i]; 
+    // }
+    int nHalf = 0;
+    for (int i = 0; i < nSite/2; ++i) {
+        nHalf += site[i];
     }
+    output << pos[nPar-1] << '\t' 
+        << pos[nPar/2] << '\t'
+        << nHalf;
     output << std::endl;
 }
 
@@ -313,7 +363,7 @@ void State::outputRg(std::ofstream& output)
     // output gyration radius
     output << std::setprecision(12) << tGrid << '\t';
     output << std::setprecision(12) << rg << '\t';
-    // output << std::setprecision(12) << beadPos[1] << '\t';
-    // output << std::setprecision(12) << beadPos[nSite/2] << '\t';
+    output << std::setprecision(12) << beadPos[1] << '\t';
+    output << std::setprecision(12) << beadPos[nSite/2] << '\t';
     output << std::endl;
 }

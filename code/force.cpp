@@ -1,15 +1,33 @@
 #include "force.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "input.hpp"
 #include "random.hpp"
 #include "particle.hpp"
 #include "bead.hpp"
+#include "constant.hpp"
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <random>
 
-Force::Force(Simulation *simu) : Parameter(simu) { }
+Force::Force()  { }
 Force::~Force() { }
+
+void Force::setParameter(Input *input) 
+{
+    nSite = int(input->parameter["nSite"]);
+    nPar = int(input->parameter["nPar"]);
+
+    nBead = int(input->parameter["nBead"]);
+    tempEff = input->parameter["tempEff"];
+    dt = input->parameter["dt"];
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
+    }
+}
 
 void Force::print(double* f) 
 {
@@ -29,10 +47,9 @@ void Force::print(double** f)
 }
 
 
-double* Force::repulsive(double* f)
+double* Force::repulsive(double *x, double* f)
 {
     std::fill(&f[0], &f[0] + nPar, 0);
-    double *x = particle->x;
 
     double r0 = 1.0;
     double eps = 1.0;
@@ -52,10 +69,9 @@ double* Force::repulsive(double* f)
     return f;
 }
 
-double** Force::repulsive(double** f)
+double** Force::repulsive(double** r, double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
-    double **r = bead->r;
 
     double r0 = 0.75;
     double eps = 1.0;
@@ -130,10 +146,9 @@ double** Force::external(double** f)
 }
 
 
-double* Force::boundary(double* f)
+double* Force::boundary(double*x, double* f)
 {
     std::fill(&f[0], &f[0] + nPar, 0);
-    double *x = particle->x;
 
     double r0 = 0.5;
     double eps = 1.0;

@@ -1,28 +1,31 @@
-#include "bead.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
+// #include "bead.hpp"
 #include "ultilities.hpp"
 #include "config.hpp"
 #include "force.hpp"
 #include "rod.hpp"
+#include "spring.hpp"
 #include "montecarlo.hpp"
+#include "constant.hpp"
 #include "compute.hpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 
-Bead::Bead(Simulation *simu) : Parameter(simu)
-{
-    r = create2DArray<double>(nBead, DIM);
-    rs = create2DArray<double>(nBead, DIM);
-    // v = create2DArray<double>(nBead, DIM);
-    f = create2DArray<double>(nBead, DIM);
-    ftotal = create2DArray<double>(nBead, DIM);
 
-    force = new Force(simu);
-    rod = new Rod(simu);
-    montecarlo = new Montecarlo(simu);
-    compute = new Compute(simu);
+Bead::Bead()
+{
+    r = NULL;
+    rs = NULL;
+    // v = NULL;
+    f = NULL;
+    ftotal = NULL;
+
+    force = NULL;
+    rod = NULL;
+    spring = NULL;
+    config = NULL;
+    montecarlo = NULL;
+    compute = NULL;
 }
 Bead::~Bead() 
 {
@@ -34,19 +37,54 @@ Bead::~Bead()
 
     delete force;
     delete rod;
+    delete spring;
+    delete config;
     delete montecarlo;
     delete compute;
+}
+
+void Bead::setParameter(Input *input)
+{
+    if (input->parameter.count("nBead") == 0) {
+        throw "Parameter \"nBead\" is not specified!";
+    }
+    nBead = int(input->parameter["nBead"]);
+    if (input->parameter.count("dt") == 0) {
+        throw "Parameter \"dt\" is not specified!";
+    }
+    dt = input->parameter["dt"];
+    
+    // set up the state class
+    r = create2DArray<double>(nBead, DIM);
+    rs = create2DArray<double>(nBead, DIM);
+    // v = create2DArray<double>(nBead, DIM);
+    f = create2DArray<double>(nBead, DIM);
+    ftotal = create2DArray<double>(nBead, DIM);
+
+    force = new Force();
+    force->setParameter(input);
+    if (input->projectName=="BeadRod") {
+        rod = new Rod(this);
+        rod->setParameter(input);
+    }
+    if (input->projectName=="BeadSpring") {
+        spring = new Spring();
+        spring->setParameter(input);
+    }
+    config = new Config();
+    config->setParameter(input);
+    montecarlo = new Montecarlo();
+    montecarlo->setParameter(input);
+    compute = new Compute();
 }
 
 void Bead::init() 
 {
     t = 0.0;
 
-    Config *config = new Config(simulation); 
-    r = config->init();
-    delete config;
-    montecarlo->randomize();
-    // montecarlo->equilibrate();
+    r = config->init(r);
+    // montecarlo->randomize(r);
+    montecarlo->equilibrate(r);
     
     std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
@@ -86,7 +124,7 @@ void Bead::print()
 void Bead::pinSPB() 
 {
     for (int i = 0; i < DIM; ++i) {
-        ftotal[0][i] += -2000.0*r[0][i];
+        ftotal[0][i] += -1000.0*r[0][i];
     }
 }
 
@@ -131,32 +169,60 @@ void Bead::correct()
     t += dt;
 }
 
-void Bead::montecarloUpdate()
+void Bead::update()
 {
-        montecarlo->move();
-        t += dt;
-}
-
-void Bead::output(std::ofstream* output) 
-{
-    outputPos(output[0]);
-    outputRg(output[1]);
-}
-
-void Bead::outputPos(std::ofstream& output) 
-{
-    output << "# t = " << t << std::endl;
+    std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
+    addForce(force->brownian(f));
+    addForce(force->external(f));
+    addForce(spring->harmonic(r, f));
+    // addForce(force->repulsive(f));
+    pinSPB();
+    
+    // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
-            output << std::setw(9) << r[i][j] << '\t';
+            r[i][j] = r[i][j] + ftotal[i][j] * dt;
         }
-        output << std::endl;
+    }
+
+    t += dt;
+}
+
+void Bead::montecarloUpdate()
+{
+    montecarlo->move(r);
+    t += dt;
+}
+
+void Bead::output(std::ofstream* outFile) 
+{
+    // outputPos(outFile[0]);
+    outputRg(outFile[1]);
+    outputRd(outFile[2]);
+}
+
+void Bead::outputPos(std::ofstream& outFile) 
+{
+    outFile << "# t = " << t << std::endl;
+    for (int i = 0; i < nBead; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            outFile << std::setw(9) << r[i][j] << '\t';
+        }
+        outFile << std::endl;
     } 
 }
 
-void Bead::outputRg(std::ofstream& output)
+void Bead::outputRg(std::ofstream& outFile)
 {
     double rg = compute->gyrationRadius(nBead, r);
-    output << std::setw(9) << t << '\t'
+    outFile << std::setw(9) << t << '\t'
         << std::setw(9) << rg << std::endl;
+}
+
+void Bead::outputRd(std::ofstream& outFile)
+{
+    for (int i = 0; i < DIM; ++i) {
+        outFile << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
+    }
+    outFile << std::endl;
 }

@@ -1,14 +1,14 @@
 #include "compute.hpp"
-#include "simulation.hpp"
-#include "parameter.hpp"
+#include "constant.hpp"
 #include <algorithm>
 #include <cmath>
 
-Compute::Compute(Simulation *simu) : Parameter(simu) { }
+Compute::Compute()  { }
 Compute::~Compute() { }
 
 double Compute::gyrationRadius(int N, double** r) 
 {
+    
     double rg = 0;
     double rcm[DIM];
     std::fill(&rcm[0], &rcm[0] + DIM, 0);

@@ -1,21 +1,35 @@
 #include "topo.hpp"
+#include "input.hpp"
 #include <algorithm>
 
 
-Topo::Topo(Simulation *simu) : Parameter(simu) { }
+Topo::Topo()  { }
 Topo::~Topo() { }
+
+void Topo::setParameter(Input *input) 
+{
+    if (input->parameter.count("topoType") == 0) {
+        throw "Parameter \"topoType\" is not specified!";
+    }
+    topoType = int(input->parameter["topoType"]);
+    if (input->parameter.count("nLink") == 0) {
+        throw "Parameter \"nLink\" is not specified!";
+    }
+    nLink = int(input->parameter["nLink"]);
+    nBead = int(input->parameter["nBead"]);
+}
 
 int** Topo::init(int** link)
 {
     switch (topoType) {
         case 0:
-            ring(nRod, link);
+            ring(nLink, link);
             break;
         case 1:
-            chain(nRod, link);
+            chain(nLink, link);
             break;
         default:
-            ring(nRod, link);
+            ring(nLink, link);
     }
 
     return link;

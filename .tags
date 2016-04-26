@@ -1,0 +1,269 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+<A-/>	/Users/wenwen/.vimrc	/^vnoremap <A-\/> <Esc>\/\\%V$/;"	m	language:Vim
+<leader>ee	/Users/wenwen/.vimrc	/^map <silent> <leader>ee :tabnew ~\/.vimrc<cr>$/;"	m	language:Vim
+<leader>g	/Users/wenwen/.vimrc	/^nmap <leader>g :TagbarToggle<CR>$/;"	m	language:Vim
+<leader>gg	/Users/wenwen/.vimrc	/^nmap <leader>gg :UpdateTags -R expand('%:p:h') <CR>$/;"	m	language:Vim
+<leader>hh	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>hh :YcmCompleter GetDoc<CR>$/;"	m	language:Vim
+<leader>jj	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>jj :YcmCompleter GoTo<CR>$/;"	m	language:Vim
+<Leader>ls	/Users/wenwen/.vimrc	/^map <silent> <Leader>ls :silent$/;"	m	language:Vim
+<leader>rr	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>rr :w<CR> :!python  %<CR>$/;"	m	language:Vim
+<Leader>t	/Users/wenwen/.vimrc	/^nnoremap <silent> <Leader>t :ClearCtrlPCache<cr>\\|:CtrlP<cr>$/;"	m	language:Vim
+Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::Asep() : Project()$/;"	f	language:C++	class:Asep
+Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    Asep ();$/;"	p	language:C++	class:Asep
+Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^class Asep: public Project$/;"	c	language:C++
+ASEP_HPP_MB6PNS13	/Users/wenwen/Work/chromosome/code/asep.hpp	/^#define ASEP_HPP_MB6PNS13$/;"	d	language:C++
+b	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **b;         \/\/ vector of rod unnormalized$/;"	m	language:C++	class:Rod
+bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
+beadNumber	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^beadNumber = 100$/;"	v	language:Python
+beadPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *beadPos;$/;"	m	language:C++	class:State
+boundary	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::boundary(double*x, double* f)$/;"	f	language:C++	class:Force
+boundary	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double* boundary(double* x, double* f);$/;"	p	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::brownian(double* f)$/;"	f	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::brownian(double** f)$/;"	f	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double* brownian(double* f);$/;"	p	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double** brownian(double** f);$/;"	p	language:C++	class:Force
+BUILDDIR	/Users/wenwen/Work/chromosome/makefile	/^BUILDDIR = build$/;"	m	language:Make
+CC	/Users/wenwen/Work/chromosome/makefile	/^CC = clang++$/;"	m	language:Make
+CFLAGS	/Users/wenwen/Work/chromosome/makefile	/^CFLAGS = -Wall -std=c++11 -O3$/;"	m	language:Make
+compute	/Users/wenwen/Work/chromosome/code/state.hpp	/^    class Compute *compute;$/;"	m	language:C++	class:State	typeref:class:State::Compute
+constraint	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::constraint(double** f)$/;"	f	language:C++	class:Rod
+constraint	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** constraint(double** f);$/;"	p	language:C++	class:Rod
+dataDir	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^dataDir = 'data\/'$/;"	v	language:Python
+detBandMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double Rod::detBandMetric(int n, double *coeff)$/;"	f	language:C++	class:Rod
+detBandMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double detBandMetric(int n, double *coeff);$/;"	p	language:C++	class:Rod
+dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int* m, int* n, double* A, $/;"	p	language:C++
+dgetri_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetri_(int* m, double* a, int* lda,$/;"	p	language:C++
+dgetrs_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrs_(char* s, int* n, int* nrhs, $/;"	p	language:C++
+dt	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double dt;$/;"	m	language:C++	class:Force
+dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
+dt	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double dt;      \/\/ time step of the update$/;"	m	language:C++	class:State
+equilibrate	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::equilibrate()$/;"	f	language:C++	class:State
+equilibrate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void equilibrate();$/;"	p	language:C++	class:State
+equilibrate	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::equilibrate()$/;"	f	language:C++	class:State
+external	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::external(double* f)$/;"	f	language:C++	class:Force
+external	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::external(double** f)$/;"	f	language:C++	class:Force
+external	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double* external(double* f);$/;"	p	language:C++	class:Force
+external	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double** external(double** f);$/;"	p	language:C++	class:Force
+FigPanel	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def FigPanel():$/;"	f	language:Python
+file	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::file() $/;"	f	language:C++	class:Input
+Force	/Users/wenwen/Work/chromosome/code/force.cpp	/^Force::Force()  { }$/;"	f	language:C++	class:Force
+Force	/Users/wenwen/Work/chromosome/code/force.hpp	/^    Force ();$/;"	p	language:C++	class:Force
+Force	/Users/wenwen/Work/chromosome/code/force.hpp	/^class Force$/;"	c	language:C++
+FORCE_HPP_WU0ZVG8B	/Users/wenwen/Work/chromosome/code/force.hpp	/^#define FORCE_HPP_WU0ZVG8B$/;"	d	language:C++
+fortran_do_enddo	/Users/wenwen/.vimrc	/^let fortran_do_enddo=1$/;"	v	language:Vim
+fortran_fold	/Users/wenwen/.vimrc	/^let fortran_fold=1$/;"	v	language:Vim
+fortran_fold_multilinecomments	/Users/wenwen/.vimrc	/^let fortran_fold_multilinecomments=1$/;"	v	language:Vim
+fortran_free_source	/Users/wenwen/.vimrc	/^let fortran_free_source=1$/;"	v	language:Vim
+fortran_have_tabs	/Users/wenwen/.vimrc	/^let fortran_have_tabs=1$/;"	v	language:Vim
+fortran_more_precise	/Users/wenwen/.vimrc	/^let fortran_more_precise=1$/;"	v	language:Vim
+g	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **g;            \/\/ metric matrix$/;"	m	language:C++	class:Rod
+g:airline#extensions#syntastic#enabled	/Users/wenwen/.vimrc	/^  let g:airline#extensions#syntastic#enabled = 1$/;"	v	language:Vim
+g:airline#extensions#tabline#show_buffers	/Users/wenwen/.vimrc	/^let g:airline#extensions#tabline#show_buffers = 1$/;"	v	language:Vim
+g:airline_left_sep	/Users/wenwen/.vimrc	/^let g:airline_left_sep = '»'$/;"	v	language:Vim
+g:airline_left_sep	/Users/wenwen/.vimrc	/^let g:airline_left_sep = '▶'$/;"	v	language:Vim
+g:airline_right_sep	/Users/wenwen/.vimrc	/^let g:airline_right_sep = '«'$/;"	v	language:Vim
+g:airline_right_sep	/Users/wenwen/.vimrc	/^let g:airline_right_sep = '◀'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^    let g:airline_symbols = {}$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.branch = '⎇'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.crypt = '🔒'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '¶'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '␊'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.linenr = '␤'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = 'Þ'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = 'ρ'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.paste = '∥'$/;"	v	language:Vim
+g:airline_symbols	/Users/wenwen/.vimrc	/^let g:airline_symbols.whitespace = 'Ξ'$/;"	v	language:Vim
+g:ctrlp_custom_ignore	/Users/wenwen/.vimrc	/^let g:ctrlp_custom_ignore = {$/;"	v	language:Vim
+g:ctrlp_prompt_mappings	/Users/wenwen/.vimrc	/^let g:ctrlp_prompt_mappings = {$/;"	v	language:Vim
+g:easytags_async	/Users/wenwen/.vimrc	/^let g:easytags_async = 1$/;"	v	language:Vim
+g:easytags_dynamic_files	/Users/wenwen/.vimrc	/^let g:easytags_dynamic_files = 1$/;"	v	language:Vim
+g:easytags_file	/Users/wenwen/.vimrc	/^let g:easytags_file = expand('%:p:h').'\/.tags'$/;"	v	language:Vim
+g:LatexBox_latexmk_options	/Users/wenwen/.vimrc	/^let g:LatexBox_latexmk_options =$/;"	v	language:Vim
+g:LatexBox_show_warnings	/Users/wenwen/.vimrc	/^let g:LatexBox_show_warnings = 0$/;"	v	language:Vim
+g:LatexBox_viewer	/Users/wenwen/.vimrc	/^let g:LatexBox_viewer = "open -a Skim"$/;"	v	language:Vim
+g:mapleader	/Users/wenwen/.vimrc	/^let g:mapleader = ","$/;"	v	language:Vim
+g:solarized_termcolors	/Users/wenwen/.vimrc	/^let g:solarized_termcolors= 256$/;"	v	language:Vim
+g:solarized_termtrans	/Users/wenwen/.vimrc	/^let g:solarized_termtrans = 1$/;"	v	language:Vim
+g:syntastic_always_populate_loc_list	/Users/wenwen/.vimrc	/^let g:syntastic_always_populate_loc_list = 1$/;"	v	language:Vim
+g:syntastic_auto_jump	/Users/wenwen/.vimrc	/^let g:syntastic_auto_jump=1$/;"	v	language:Vim
+g:syntastic_auto_loc_list	/Users/wenwen/.vimrc	/^let g:syntastic_auto_loc_list = 1$/;"	v	language:Vim
+g:syntastic_check_on_open	/Users/wenwen/.vimrc	/^let g:syntastic_check_on_open = 1$/;"	v	language:Vim
+g:syntastic_check_on_wq	/Users/wenwen/.vimrc	/^let g:syntastic_check_on_wq = 0$/;"	v	language:Vim
+g:syntastic_fortran_errorformat	/Users/wenwen/.vimrc	/^let g:syntastic_fortran_errorformat = '%E%f:%l.%c:,%E%f:%l:,%C,%C%p%*[0123456789^],%ZError:\\ %m,%C%.%#'$/;"	v	language:Vim
+g:syntastic_loc_list_height	/Users/wenwen/.vimrc	/^let g:syntastic_loc_list_height=6$/;"	v	language:Vim
+g:syntastic_python_checkers	/Users/wenwen/.vimrc	/^let g:syntastic_python_checkers = ['python']$/;"	v	language:Vim
+g:syntastic_quiet_messages	/Users/wenwen/.vimrc	/^let g:syntastic_quiet_messages = {"regex": '\\m\\[omp.h\\]'}$/;"	v	language:Vim
+g:syntastic_tex_checkers	/Users/wenwen/.vimrc	/^let g:syntastic_tex_checkers = []  " don't check .tex files$/;"	v	language:Vim
+g:UltiSnipsEditSplit	/Users/wenwen/.vimrc	/^let g:UltiSnipsEditSplit="vertical"$/;"	v	language:Vim
+g:UltiSnipsExpandTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsExpandTrigger="<c-j>"$/;"	v	language:Vim
+g:UltiSnipsJumpBackwardTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsJumpBackwardTrigger="<c-k>"$/;"	v	language:Vim
+g:UltiSnipsJumpForwardTrigger	/Users/wenwen/.vimrc	/^let g:UltiSnipsJumpForwardTrigger="<c-j>"$/;"	v	language:Vim
+g:ycm_autoclose_preview_window_after_completion	/Users/wenwen/.vimrc	/^let g:ycm_autoclose_preview_window_after_completion = 1$/;"	v	language:Vim
+g:ycm_collect_identifiers_from_tags_files	/Users/wenwen/.vimrc	/^let g:ycm_collect_identifiers_from_tags_files = 1$/;"	v	language:Vim
+g:ycm_global_ycm_extra_conf	/Users/wenwen/.vimrc	/^let g:ycm_global_ycm_extra_conf = '~\/.vim\/bundle\/YouCompleteMe\/.ycm_extra_conf.py'$/;"	v	language:Vim
+g:ycm_key_invoke_completion	/Users/wenwen/.vimrc	/^let g:ycm_key_invoke_completion = '<C-Tab>'$/;"	v	language:Vim
+getInput	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::getInput(int argc, char* argv[]) $/;"	f	language:C++	class:Input
+gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD gSparse;     \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Rod
+HEADERS	/Users/wenwen/Work/chromosome/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
+init	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::init() $/;"	f	language:C++	class:Rod
+init	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void init();$/;"	p	language:C++	class:Rod
+init	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::init() $/;"	f	language:C++	class:State
+init	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void init();$/;"	p	language:C++	class:State
+init	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::init() $/;"	f	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::initRandom() $/;"	f	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void initRandom();$/;"	p	language:C++	class:State
+initRandom	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::initRandom() $/;"	f	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::initStretch() $/;"	f	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void initStretch();$/;"	p	language:C++	class:State
+initStretch	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::initStretch() $/;"	f	language:C++	class:State
+Input	/Users/wenwen/Work/chromosome/code/input.cpp	/^Input::Input() { }$/;"	f	language:C++	class:Input
+LIBS	/Users/wenwen/Work/chromosome/makefile	/^LIBS = -llapack -lm -lblas$/;"	m	language:Make
+link	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **link;         \/\/ index of pair of beads linked$/;"	m	language:C++	class:Rod
+LinkTable	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    struct LinkTable {$/;"	s	language:C++	class:Rod
+linkTable	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    } linkTable;$/;"	m	language:C++	class:Rod	typeref:struct:Rod::LinkTable
+linkVectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorB()$/;"	f	language:C++	class:Rod
+linkVectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorB();$/;"	p	language:C++	class:Rod
+linkVectorU	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorU() $/;"	f	language:C++	class:Rod
+linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorU(); $/;"	p	language:C++	class:Rod
+main	/Users/wenwen/Work/chromosome/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
+main	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def main():$/;"	f	language:Python
+mapleader	/Users/wenwen/.vimrc	/^let mapleader = ","$/;"	v	language:Vim
+maplocalleader	/Users/wenwen/.vimrc	/^let maplocalleader = ","$/;"	v	language:Vim
+matplotlib	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
+matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
+metricTensor	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int** Rod::metricTensor() $/;"	f	language:C++	class:Rod
+metricTensor	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int** metricTensor();$/;"	p	language:C++	class:Rod
+metricTensorSparse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::metricTensorSparse() $/;"	f	language:C++	class:Rod
+metricTensorSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void metricTensorSparse();$/;"	p	language:C++	class:Rod
+monteCarloMove	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::monteCarloMove()$/;"	f	language:C++	class:State
+monteCarloMove	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void monteCarloMove();$/;"	p	language:C++	class:State
+monteCarloMove	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::monteCarloMove()$/;"	f	language:C++	class:State
+MySys	/Users/wenwen/.vimrc	/^    function MySys()$/;"	f	language:Vim
+nBead	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nBead;$/;"	m	language:C++	class:Force
+nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
+nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
+nLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int *nLinks;$/;"	m	language:C++	struct:Rod::LinkTable
+np	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import numpy as np$/;"	i	language:Python
+nPar	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nPar;$/;"	m	language:C++	class:Force
+nPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nPar;$/;"	m	language:C++	class:State
+nSample	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int nSample;$/;"	m	language:C++	class:Asep
+nSite	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nSite;$/;"	m	language:C++	class:Force
+nSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSite;$/;"	m	language:C++	class:State
+OBJECTS	/Users/wenwen/Work/chromosome/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
+outFile	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    std::ofstream *outFile;$/;"	m	language:C++	class:Asep
+output	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::output(std::ofstream* output) $/;"	f	language:C++	class:State
+output	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void output(std::ofstream* output);$/;"	p	language:C++	class:State
+output	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::output(std::ofstream* output) $/;"	f	language:C++	class:State
+outputLinks	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::outputLinks() $/;"	f	language:C++	class:Rod
+outputLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void outputLinks();$/;"	p	language:C++	class:Rod
+outputPar	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputPar(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputPar(std::ofstream& output);$/;"	p	language:C++	class:State
+outputPar	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputPar(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputPos(std::ofstream& output) $/;"	f	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputPos(std::ofstream& output);$/;"	p	language:C++	class:State
+outputPos	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputPos(std::ofstream& output) $/;"	f	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputRg(std::ofstream& output) $/;"	f	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputRg(std::ofstream& output);$/;"	p	language:C++	class:State
+outputRg	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputRg(std::ofstream& output) $/;"	f	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::outputSite(std::ofstream& output) $/;"	f	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputSite(std::ofstream& output);$/;"	p	language:C++	class:State
+outputSite	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::outputSite(std::ofstream& output) $/;"	f	language:C++	class:State
+outputStep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int outputStep;$/;"	m	language:C++	class:Asep
+par2bead	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
+par2bead	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void par2bead();$/;"	p	language:C++	class:State
+par2bead	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
+parse	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::parse(std::string line) $/;"	f	language:C++	class:Input
+plt	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
+print	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::print(double* f) $/;"	f	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::print(double** f) $/;"	f	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/force.hpp	/^    void print(double* f);$/;"	p	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/force.hpp	/^    void print(double** f);$/;"	p	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::print()$/;"	f	language:C++	class:Input
+print	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::print() $/;"	f	language:C++	class:State
+print	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void print();$/;"	p	language:C++	class:State
+print	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::print() $/;"	f	language:C++	class:State
+printLinks	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::printLinks() $/;"	f	language:C++	class:Rod
+printLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void printLinks();$/;"	p	language:C++	class:Rod
+printMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::printMetric()$/;"	f	language:C++	class:Rod
+printMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void printMetric();$/;"	p	language:C++	class:Rod
+Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^    Project ();$/;"	p	language:C++	class:Project
+Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^class Project$/;"	c	language:C++
+PROJECT_HPP_SVUCG7LM	/Users/wenwen/Work/chromosome/code/project.hpp	/^#define PROJECT_HPP_SVUCG7LM$/;"	d	language:C++
+pseudo	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudo(double **f) $/;"	f	language:C++	class:Rod
+pseudo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudo(double** f);$/;"	p	language:C++	class:Rod
+pseudoRing	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double **Rod::pseudoRing(double **f)$/;"	f	language:C++	class:Rod
+pseudoRing	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudoRing(double** f);$/;"	p	language:C++	class:Rod
+pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudoSparse(double **f)$/;"	f	language:C++	class:Rod
+pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudoSparse(double **f);$/;"	p	language:C++	class:Rod
+rate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *rate;$/;"	m	language:C++	class:State
+rateToLeft	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rateToLeft;$/;"	m	language:C++	class:State
+rateToRight	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rateToRight;$/;"	m	language:C++	class:State
+repulsive	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::repulsive(double *x, double* f)$/;"	f	language:C++	class:Force
+repulsive	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::repulsive(double** r, double** f)$/;"	f	language:C++	class:Force
+repulsive	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double* repulsive(double* x, double* f);$/;"	p	language:C++	class:Force
+repulsive	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double** repulsive(double** r, double** f);$/;"	p	language:C++	class:Force
+rg	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double rg;      \/\/ radius of gyration$/;"	m	language:C++	class:State
+RgDistr	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def RgDistr():$/;"	f	language:Python
+Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beadPointer)$/;"	f	language:C++	class:Rod
+Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *beadPointer);$/;"	p	language:C++	class:Rod
+Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
+ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
+run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
+run	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void run();$/;"	p	language:C++	class:Asep
+run	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual void run() = 0;$/;"	p	language:C++	class:Project
+seed	/Users/wenwen/Work/chromosome/code/force.hpp	/^    unsigned long seed;$/;"	m	language:C++	class:Force
+seed	/Users/wenwen/Work/chromosome/code/state.hpp	/^    unsigned long seed;$/;"	m	language:C++	class:State
+setLinkTable	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::setLinkTable()$/;"	f	language:C++	class:Rod
+setLinkTable	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void setLinkTable();$/;"	p	language:C++	class:Rod
+setParameter	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::setParameter(Input *input) $/;"	f	language:C++	class:Force
+setParameter	/Users/wenwen/Work/chromosome/code/force.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Force
+setParameter	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::setParameter(Input *input) $/;"	f	language:C++	class:Rod
+setParameter	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Rod
+setParameter	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::setParameter(Input *input)$/;"	f	language:C++	class:State
+setParameter	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:State
+setParameter	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::setParameter(Input *input)$/;"	f	language:C++	class:State
+setup	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::setup(Input *input) $/;"	f	language:C++	class:Asep
+setup	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void setup(Input *input);$/;"	p	language:C++	class:Asep
+setup	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual void setup(Input *input) = 0;$/;"	p	language:C++	class:Project
+site	/Users/wenwen/Work/chromosome/code/state.hpp	/^    bool *site;$/;"	m	language:C++	class:State
+solverPicard	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverPicard(double *x) $/;"	f	language:C++	class:Rod
+solverPicard	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverPicard(double *x);$/;"	p	language:C++	class:Rod
+SpMatD	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++	class:Rod
+SRC	/Users/wenwen/Work/chromosome/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
+SRCDIR	/Users/wenwen/Work/chromosome/makefile	/^SRCDIR = code$/;"	m	language:Make
+state	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    class State *state;$/;"	m	language:C++	class:Asep	typeref:class:Asep::State
+State	/Users/wenwen/Work/chromosome/code/state.cpp	/^State::State()$/;"	f	language:C++	class:State
+State	/Users/wenwen/Work/chromosome/code/state.hpp	/^    State ();$/;"	p	language:C++	class:State
+State	/Users/wenwen/Work/chromosome/code/state.hpp	/^class State $/;"	c	language:C++
+State	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^State::State()$/;"	f	language:C++	class:State
+STATE_HPP_3TUGIGTC	/Users/wenwen/Work/chromosome/code/state.hpp	/^#define STATE_HPP_3TUGIGTC$/;"	d	language:C++
+T	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    typedef Eigen::Triplet<int> T;$/;"	t	language:C++	class:Rod
+t	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double t;       \/\/ real time$/;"	m	language:C++	class:State
+table	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int **table;$/;"	m	language:C++	struct:Rod::LinkTable
+TARGET	/Users/wenwen/Work/chromosome/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
+tempEff	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double tempEff;$/;"	m	language:C++	class:Force
+tempEff	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tempEff;$/;"	m	language:C++	class:State
+tEnd	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    double tEnd;$/;"	m	language:C++	class:Asep
+tGrid	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tGrid;   \/\/ grid time for output$/;"	m	language:C++	class:State
+totalRate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double totalRate;$/;"	m	language:C++	class:State
+u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
+update	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::update() $/;"	f	language:C++	class:State
+update	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void update();$/;"	p	language:C++	class:State
+update	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^void State::update() $/;"	f	language:C++	class:State
+vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
+vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
+VPATH	/Users/wenwen/Work/chromosome/makefile	/^VPATH = code$/;"	m	language:Make
+~Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep
+~Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    virtual ~Asep ();$/;"	p	language:C++	class:Asep
+~Force	/Users/wenwen/Work/chromosome/code/force.cpp	/^Force::~Force() { }$/;"	f	language:C++	class:Force
+~Force	/Users/wenwen/Work/chromosome/code/force.hpp	/^    virtual ~Force ();$/;"	p	language:C++	class:Force
+~Input	/Users/wenwen/Work/chromosome/code/input.cpp	/^Input::~Input() { }$/;"	f	language:C++	class:Input
+~Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual ~Project ();$/;"	p	language:C++	class:Project
+~Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::~Rod() $/;"	f	language:C++	class:Rod
+~Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    virtual ~Rod ();$/;"	p	language:C++	class:Rod
+~State	/Users/wenwen/Work/chromosome/code/state.cpp	/^State::~State() $/;"	f	language:C++	class:State
+~State	/Users/wenwen/Work/chromosome/code/state.hpp	/^    virtual ~State ();$/;"	p	language:C++	class:State
+~State	/Users/wenwen/Work/chromosome/test/code/state.cpp	/^State::~State() $/;"	f	language:C++	class:State
+÷	/Users/wenwen/.vimrc	/^vnoremap ÷ <Esc>\/\\%V$/;"	m	language:Vim

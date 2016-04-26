@@ -16,7 +16,7 @@ static inline int Delta(int i, int j) {
 
 
 // allocate memory for 2d array
-    template <typename T>
+template <typename T>
 T** create2DArray(unsigned nrows, unsigned ncols) {
     T** ptr = new T*[nrows];  // allocate pointers
     T* pool = new T[nrows*ncols];  // allocate pool

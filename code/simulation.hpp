@@ -7,12 +7,12 @@ public:
     Simulation ();
     virtual ~Simulation ();
 
-    class Particle *particle;       // unit of 1D
-    class Bead *bead;               // unit of 3D
-    class State *state;             // for ASEP 
+    class Input *input;     // input scripting
+    class Project *project; // projects of all types
 
-    virtual void print() = 0;
-    virtual void run() = 0;
+    void init();
+    void run();
+    void print();
 };
 
 #endif /* end of include guard: SIMULATION_HPP_ZW9DJGS5 */
