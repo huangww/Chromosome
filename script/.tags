@@ -5,66 +5,59 @@ Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::Asep() : Project()$/;"	
 beadNumber	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^beadNumber = 100$/;"	v	language:Python
 ChangeInput	/Users/wenwen/Work/chromosome/test/run.py	/^def ChangeInput(N, T):$/;"	f	language:Python
 create2DArray	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^T** create2DArray(unsigned nrows, unsigned ncols) {$/;"	f	language:C++
-data	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^data = np.loadtxt(fileName,comments='#')$/;"	v	language:Python
-data	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^data = np.loadtxt(fileName,comments='#')$/;"	v	language:Python
-data	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^data = np.loadtxt(fileName,comments='#')$/;"	v	language:Python
-data	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^data = np.loadtxt(fileName,comments='#')$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/acfFit.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^dataDir = 'data\/'$/;"	v	language:Python
+dataDir	/Users/wenwen/Work/chromosome/tauScaling.py	/^dataDir = 'data\/'$/;"	v	language:Python
 delete2DArray	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^void delete2DArray(T** arr) {$/;"	f	language:C++
 Delta	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^static inline int Delta(int i, int j) {$/;"	f	language:C++
 Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
+Demo	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def Demo():$/;"	f	language:Python
 Distance	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Distance(double *point1, double *point2, int dim);$/;"	p	language:C++
 Dot	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Dot(double* dx, double *dy, int dim);$/;"	p	language:C++
 endTime	/Users/wenwen/Work/chromosome/test/run.py	/^    endTime = time.time()$/;"	v	language:Python
-fig	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^fig = plt.figure(0,figsize=(12,9))$/;"	v	language:Python
+FermiDrac	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def FermiDrac(T, N):$/;"	f	language:Python
+FigPanel	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def FigPanel():$/;"	f	language:Python
 fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
-fileName	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^        '_T'+str(T) + '.dat'$/;"	v	language:Python
-fileName	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^        '_T'+str(T) + '.dat'$/;"	v	language:Python
-fileName	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^        '_T'+str(T) + '.dat'$/;"	v	language:Python
-fileName	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^        '_T'+str(T) + '.dat'$/;"	v	language:Python
 FindFitRange	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FindFitRange(acf):$/;"	f	language:Python
 FitTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FitTau(t, acf):$/;"	f	language:Python
 fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
-font	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^font = {'family' : 'sans-serif',$/;"	v	language:Python
-GetACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF(T, c):$/;"	f	language:Python
+GetACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF(fname):$/;"	f	language:Python
 GetACF0	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetACF0(data):$/;"	f	language:Python
+GetParaList	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetParaList():$/;"	f	language:Python
 glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
 it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
 it	/Users/wenwen/Work/chromosome/test/run.py	/^import itertools as it$/;"	i	language:Python
 main	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def main():$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def main():$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def main():$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/tauScaling.py	/^def main():$/;"	f	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/tauScaling.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 MatrixMulVector	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^void MatrixMulVector(double** matrix,$/;"	p	language:C++
 Mean	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Mean(int N, double* x);$/;"	p	language:C++
-meanRgs	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^meanRgs = beadNumber\/12.0$/;"	v	language:Python
 Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
 np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/tauScaling.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
 PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf):$/;"	f	language:Python
 plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
-prgs	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^    0.0131, 0.0026])$/;"	v	language:Python
+plt	/Users/wenwen/Work/chromosome/tauScaling.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+RgDistr	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def RgDistr():$/;"	f	language:Python
 run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
+savgol_filter	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.signal import savgol_filter$/;"	i	language:Python
 setup	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::setup(Input *input) $/;"	f	language:C++	class:Asep
-sp1	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^sp1 = fig.add_subplot(221)$/;"	v	language:Python
-sp2	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^sp2 = fig.add_subplot(222)$/;"	v	language:Python
-sp3	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^sp3 = fig.add_subplot(223)$/;"	v	language:Python
-sp4	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^sp4 = fig.add_subplot(224)$/;"	v	language:Python
-splev	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
-splrep	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.interpolate import splrep, splev$/;"	i	language:Python
 ss	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
 startTime	/Users/wenwen/Work/chromosome/test/run.py	/^    startTime = time.time()$/;"	v	language:Python
 statsmodels	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
 sys	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import sys$/;"	i	language:Python
-t	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^    2.4,2.8])$/;"	v	language:Python
-T	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^T = 1$/;"	v	language:Python
-T	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^T = 10$/;"	v	language:Python
-T	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^T = 50$/;"	v	language:Python
-T	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^T = 5000$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(0.1, 10, 100)$/;"	v	language:Python
 time	/Users/wenwen/Work/chromosome/test/run.py	/^import time$/;"	i	language:Python
 tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python

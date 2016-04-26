@@ -17,8 +17,10 @@ void Montecarlo::setParameter(Input *input)
     if (input->parameter.count("seed") == 0) {
         std::random_device rd;
         seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
     }
-    seed = long(input->parameter["seed"]);
     if (input->parameter.count("tempEff") == 0) {
         throw "Parameter \"tempEff\" is not specified!";
     }

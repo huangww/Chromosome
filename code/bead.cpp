@@ -1,4 +1,4 @@
-#include "bead.hpp"
+// #include "bead.hpp"
 #include "ultilities.hpp"
 #include "config.hpp"
 #include "force.hpp"

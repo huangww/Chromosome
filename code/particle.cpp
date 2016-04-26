@@ -47,6 +47,9 @@ void Particle::setParameter(Input* input)
     if (input->parameter.count("seed") == 0) {
         std::random_device rd;
         seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
     }
 
     x = new double[nPar];

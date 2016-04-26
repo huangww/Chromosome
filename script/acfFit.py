@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.tsa.stattools as ss
-from scipy.interpolate import splrep, splev
+from scipy.signal import savgol_filter
 import itertools as it
 import os 
 import glob
@@ -15,15 +15,7 @@ def ACF(x):
     end = next((i for i,v in enumerate(acf) if v<1e-6), len(x)-1)
     return acf[:end]
 
-def GetACF0(data):
-    acf = ACF(data[:,1])
-    t = data[:len(acf),0]
-    return t, acf
-
-def GetACF(T, c):
-    fname = dataDir + 'rg1D_N500_T'+str(T)+ \
-            '_c'+str(c)+'_*.dat'
-    print fname
+def GetACF(fname):
     # fname = dataDir + 'rg_N100_T'+str(T)+ \
     #         '_'+str(i)+'.dat'
     fileList = glob.glob(fname)
@@ -40,26 +32,31 @@ def GetACF(T, c):
     minlen = np.array(arrlen).min()
     acf = [x[:minlen] for x in acflist]
     acf = np.array(acf).mean(axis=0)
-    end = next(i for i,v in enumerate(acf) if v<0)
+    end = next(i for i,v in enumerate(acf) if v<1e-6)
     acf = acf[:end]
     t = np.array(tlist[0][:end])
     return t, acf
 
 def FindFitRange(acf):
-    t0 = len(acf)/10
-    t = np.linspace(0, 1000, len(acf))
-    f = splrep(t, np.log(acf))
-    d1 = splev(t, f, der=1)
-    d1Above0 = np.maximum(0, d1)
-    d1sum = [sum(d1Above0[t0:i+1]) for i in range(t0,len(d1))]
-    d2 = splev(t, f, der=2)
-    d2abs = np.fabs(d2)
-    t11 = next((i for i,v in enumerate(d1sum) if v>1e-1), 
-            len(acf)-t0-1)
-    t12 = next((i for i,v in enumerate(d2[t0:]) if v>5e-2), 
-            len(acf)-1)
-    t1 = min(t11, t12) + t0
-    t0 = max(d2[:t1/3].argmin(), len(acf)/10)
+    interval = len(acf)/300
+    inter = interval if interval > 1 else 1
+    x = np.log(acf[::inter])
+    dx1 = np.maximum(0, savgol_filter(x, 5, 2, deriv=1))
+    dx1sum = [dx1[:i+1].sum() for i in range(len(dx1))]
+    end = next((i for i,v in enumerate(dx1sum) if v>0.1), \
+            len(dx1sum)-1)
+    acf = acf[:end*inter]
+    interval = len(acf)/300
+    inter = interval if interval > 1 else 1
+    x = np.log(acf[::inter])
+    dx2 = savgol_filter(x, 5, 2, deriv=2)
+    dx2abs = np.fabs(dx2)
+    cutoff = len(x)/10
+    fitLen = len(x)/3
+    d2sum = [dx2abs[i:i+fitLen].sum() for i in \
+            range(cutoff, len(x)-cutoff-fitLen)]
+    t0 = (np.array(d2sum).argmin() + cutoff) * inter
+    t1 = t0 + fitLen * inter
     return t0, t1
 
 def FitTau(t, acf):
@@ -68,59 +65,46 @@ def FitTau(t, acf):
     if len(tFit) < 10:
         PlotFig(t, acf)
         sys.exit()
-    # PlotFig(t, acf)
     acfFit = acf[t0:t1]
     coefs = np.polyfit(tFit, np.log(acfFit), 1)
     tau = -1./coefs[0]
     print 'tau =', tau
     return tau
 
-def PlotFig(t, acf):
-    plt.close('all')
-    fig = plt.figure(0)
+def GetTau(t, x):
+    acf = ACF(x)
+    t = t[:len(acf)]
+    tau = FitTau(t, acf)
+    return tau
+
+def PlotFig(t, acf, figName='fig/acfFit.pdf'):
+    fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(t, acf,'-')
+    interval = len(acf)/300
+    inter = interval if interval > 1 else 1
+    x = np.log(acf[::inter])
+    dx1 = np.maximum(0, savgol_filter(x, 5, 2, deriv=1))
+    dx1sum = [dx1[:i+1].sum() for i in range(len(dx1))]
+    ax.plot(t[::inter], dx1sum, label='dx1_sum')
     t0, t1 = FindFitRange(acf)
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
-    if len(tFit) > 5:
-        coefs = np.polyfit(tFit, np.log(acfFit), 1)
-        tau = -1./coefs[0]
-        ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]))
+    coefs = np.polyfit(tFit, np.log(acfFit), 1)
+    tau = -1./coefs[0]
+    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]))
+    ax.fill_betweenx(acf, t[t0], t[t1], alpha=0.1)
     ax.set_yscale('log')
     ax.set_xlabel(r'$\delta t$')
     ax.set_ylabel(r'$ACF$')
+    ax.set_title('tau = %g'%tau)
     ax.set_ylim(1e-3, 1)
-    tGrid = np.linspace(0, 1000, len(acf))
-    f = splrep(tGrid, np.log(acf))
-    d1 = splev(tGrid, f, der=1)
-    d1Above0 = np.maximum(0, d1)
-    d1sum = [sum(d1Above0[t0:i+1]) for i in range(t0,len(d1))]
-    d2 = splev(tGrid, f, der=2)
-    d2abs = np.fabs(d2)
-    ax.plot(t, d2abs, label='d2')
-    ax.plot(t[t0:], d1sum, label='d1_sum')
-    ax.axhline(5e-2)
-    ax.axhline(1e-1)
-    ax.fill_betweenx(acf, t[t0], t[t1], alpha=0.1)
-    ax.legend()
-    # ax.set_title(r'$1/F=1$')
-    # ax.text(2*t[-1]/3, 0.5, r'$\tau=$'+str(int(tau)))
-    plt.show()
-    fig.savefig('fig/acfFit.pdf')
+    fig.savefig(figName)
+    plt.close(fig)
 
 def Demo():
     plt.close('all')
-    font = {'family' : 'sans-serif',
-            'serif'  : 'Helvetica',
-            'weight' : 'normal',
-            'size'   : 20 }
-    plt.rc('lines', lw=2)
-    plt.rc('font', **font)
-    plt.rc('text',usetex = True)
     fig = plt.figure(0)
-    fig.subplots_adjust(left=0.05, right =0.98,\
-            bottom=0.1, top =0.90, wspace=0.25)
 
     T = 1
     fname = 'data/acf1D_N100_T'+str(T)+'_c1.dat'
@@ -131,10 +115,10 @@ def Demo():
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
     coefs = np.polyfit(tFit, np.log(acfFit), 1)
-    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]))
+    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]), 'r-')
     ax.set_yscale('log')
-    ax.set_xlabel(r'$t$')
-    ax.set_ylabel(r'$ACF$')
+    ax.set_xlabel(r'$t$',fontsize=15, labelpad=1)
+    ax.set_ylabel(r'$ACF$',fontsize=15, labelpad=1)
     ax.set_ylim(1e-3, 1)
     ax.set_title(r'$1/F=1$')
 
@@ -147,12 +131,13 @@ def Demo():
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
     coefs = np.polyfit(tFit, np.log(acfFit), 1)
-    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]))
+    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]), 'r-')
     ax.set_yscale('log')
-    ax.set_xlabel(r'$t$')
-    ax.set_ylabel(r'$ACF$')
+    ax.set_xlabel(r'$t$', fontsize=15, labelpad=1)
+    ax.set_ylabel(r'$ACF$', fontsize=15, labelpad=1)
     ax.set_ylim(1e-3, 1)
     ax.set_title(r'$1/F=100$')
+    ax.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 
     T = 1000
     fname = 'data/acf1D_N100_T'+str(T)+'_c1.dat'
@@ -163,12 +148,13 @@ def Demo():
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
     coefs = np.polyfit(tFit, np.log(acfFit), 1)
-    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]))
+    ax.plot(tFit, np.exp(coefs[0]*tFit+coefs[1]), 'r-')
     ax.set_yscale('log')
-    ax.set_xlabel(r'$t$')
-    ax.set_ylabel(r'$ACF$')
+    ax.set_xlabel(r'$t$', fontsize=15, labelpad=1)
+    ax.set_ylabel(r'$ACF$', fontsize=15, labelpad=1)
     ax.set_ylim(1e-3, 1)
     ax.set_title(r'$1/F=1000$')
+    ax.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 
     plt.show()
 
@@ -178,25 +164,41 @@ def AddToFile(fname, T, tau):
     f.write('\n')
     f.close()
 
+def GetParaList():
+    fname = dataDir + 'rg1D_N500_*.dat'
+    fnameList = glob.glob(fname)
+    NList = []
+    TList = []
+    for fname in fnameList:
+        paraString = fname.replace('.','_').split('_')
+        N = int(paraString[1][1:])
+        T = float(paraString[2][1:])
+        NList.append(N)
+        TList.append(T)
+    return np.unique(NList), np.unique(TList)
+
+
 def main():
-    # Tarr = list(np.linspace(0.1, 10, 100)) + \
+    # Tarr = list(np.linspace(0.2, 10, 99)) + \
     #          list(np.linspace(15, 100, 18))
-    # Narr = [100, 500, 1000]
-    Tarr = [0.1]
+    # Narr = [100]
+    Tarr = [10]
     Narr = [100]
+    # Narr, Tarr = GetParaList()
     for (N, T) in it.product(Narr, Tarr):
-        fname = 'data/rg1D_N%g_T%g.dat'%(N,T)
+        # fname = dataDir+'rg1D_N%g_T%g_*.dat'%(N,T)
+        # t, acf = GetACF(fname)
+        fname = dataDir+'rg1D_N%g_T%g.dat'%(N,T)
         data = np.loadtxt(fname)
-        # t, acf = GetACF(T, c)
         t, acf = GetACF0(data)
         # fname = 'data/acf1D_N100_T'+str(T)+'_c'+str(c)+'.dat'
         # np.savetxt(fname, (t, acf))
         # t, acf = np.loadtxt(fname)
-        print N, T 
+        print N, T, len(acf)
         tau = FitTau(t, acf)
         PlotFig(t, acf)
-        fname = 'data/tauStrongForceN'+str(N)+'.dat'
-        AddToFile(fname, T, tau)
+        fname = 'data/tauForce_N'+str(N)+'.dat'
+        # AddToFile(fname, T, tau)
     # Demo()
      
 if __name__ == "__main__":
