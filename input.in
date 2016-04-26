@@ -1,15 +1,15 @@
 projectName = Asep
 
-nSite = 500
-nPar = 250
+nSite = 100
+nPar = 50
 nSample = 1
 
-tempEff = 55.0
-dt = 27.5
-tEnd = 55000000.0
+tempEff = 100.0
+dt = 10.0
+tEnd = 10000000.0
 outputStep = 1
 
 # seed = rd()
-seed = 5489
+# seed = 5489
 
-taskID = 98
+taskID = 0

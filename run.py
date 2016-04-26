@@ -7,8 +7,12 @@ import os
 import itertools as it
 import time
 
-Teff = np.linspace(10, 100, 19)
-Nbead = [500, 1000]
+# Teff = np.linspace(0.1, 9.9, 99)
+Teff = np.concatenate([np.linspace(1, 9.5, 18), np.linspace(10, 95, 18), np.linspace(100, 1000, 19)])
+# Teff = [2000] 
+Nbead = [100]
+# Nbead = [10, 20, 30, 50, 70, 100, 200, 300, 500]
+# Teff = [0] 
 fname = 'input.in'
 
 def ChangeInput(N, T):
@@ -22,9 +26,13 @@ def ChangeInput(N, T):
         if len(words) == 3 and words[0] == "tempEff":
             line = line.replace(words[2], str(T))
         if len(words) == 3 and words[0] == "dt":
-            line = line.replace(words[2], str(T/2))
+            dt = min(T/10., 100)
+            # dt = min(N/100., 100)
+            # line = line.replace(words[2], str(T/2))
+            line = line.replace(words[2], str(dt))
         if len(words) == 3 and words[0] == "tEnd":
-            line = line.replace(words[2], str(T*1e6))
+            # line = line.replace(words[2], str(T*1e6))
+            line = line.replace(words[2], str(dt*1e6))
         print line,
 
 if __name__ == "__main__":

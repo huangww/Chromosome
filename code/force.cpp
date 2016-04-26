@@ -7,6 +7,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <random>
 
 Force::Force()  { }
 Force::~Force() { }
@@ -19,6 +20,13 @@ void Force::setParameter(Input *input)
     nBead = int(input->parameter["nBead"]);
     tempEff = input->parameter["tempEff"];
     dt = input->parameter["dt"];
+    if (input->parameter.count("seed") == 0) {
+        std::random_device rd;
+        seed = rd();
+        std::cout << "seed = " << seed << std::endl;
+    } else {
+        seed = long(input->parameter["seed"]);
+    }
 }
 
 void Force::print(double* f) 
