@@ -206,7 +206,7 @@ void Bead::outputPos(std::ofstream& outFile)
     outFile << "# t = " << t << std::endl;
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
-            outFile << std::setw(9) << r[i][j] << '\t';
+            outFile << std::setw(9) << r[i][j]-r[0][j] << '\t';
         }
         outFile << std::endl;
     } 

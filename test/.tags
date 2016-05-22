@@ -1,23 +1,25 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
-BUILDDIR	/Users/wenwen/Work/chromosome/test/makefile	/^BUILDDIR = build$/;"	m	language:Make
-CC	/Users/wenwen/Work/chromosome/test/makefile	/^CC = clang++$/;"	m	language:Make
-CFLAGS	/Users/wenwen/Work/chromosome/test/makefile	/^CFLAGS = -Wall -std=c++11 -O3$/;"	m	language:Make
-ChangeInput	/Users/wenwen/Work/chromosome/test/run.py	/^def ChangeInput(N, T):$/;"	f	language:Python
-endTime	/Users/wenwen/Work/chromosome/test/run.py	/^    endTime = time.time()$/;"	v	language:Python
-fileinput	/Users/wenwen/Work/chromosome/test/run.py	/^import fileinput$/;"	i	language:Python
-fname	/Users/wenwen/Work/chromosome/test/run.py	/^fname = 'input.in'$/;"	v	language:Python
-HEADERS	/Users/wenwen/Work/chromosome/test/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
-it	/Users/wenwen/Work/chromosome/test/run.py	/^import itertools as it$/;"	i	language:Python
-LIBS	/Users/wenwen/Work/chromosome/test/makefile	/^LIBS = -llapack -lm -lblas$/;"	m	language:Make
-main	/Users/wenwen/Work/chromosome/test/test.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
-Nbead	/Users/wenwen/Work/chromosome/test/run.py	/^Nbead = [100, 500, 1000]$/;"	v	language:Python
-np	/Users/wenwen/Work/chromosome/test/run.py	/^import numpy as np$/;"	i	language:Python
-OBJECTS	/Users/wenwen/Work/chromosome/test/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
-os	/Users/wenwen/Work/chromosome/test/run.py	/^import os $/;"	i	language:Python
-SRC	/Users/wenwen/Work/chromosome/test/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
-SRCDIR	/Users/wenwen/Work/chromosome/test/makefile	/^SRCDIR = code$/;"	m	language:Make
-startTime	/Users/wenwen/Work/chromosome/test/run.py	/^    startTime = time.time()$/;"	v	language:Python
-TARGET	/Users/wenwen/Work/chromosome/test/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
-Teff	/Users/wenwen/Work/chromosome/test/run.py	/^Teff = np.linspace(0.1, 10, 100)$/;"	v	language:Python
-time	/Users/wenwen/Work/chromosome/test/run.py	/^import time$/;"	i	language:Python
-VPATH	/Users/wenwen/Work/chromosome/test/makefile	/^VPATH = code$/;"	m	language:Make
+bead	/Users/wenwen/Work/chromosome/test/movie.py	/^bead=[]$/;"	v	language:Python
+color	/Users/wenwen/Work/chromosome/test/movie.py	/^    color = color.blue,$/;"	v	language:Python
+color	/Users/wenwen/Work/chromosome/test/movie.py	/^    color = color.green,$/;"	v	language:Python
+data	/Users/wenwen/Work/chromosome/test/movie.py	/^data = np.loadtxt(fname,comments='#')$/;"	v	language:Python
+dataDir	/Users/wenwen/Work/chromosome/test/movie.py	/^dataDir = '.\/'$/;"	v	language:Python
+factor	/Users/wenwen/Work/chromosome/test/movie.py	/^factor = 0.15$/;"	v	language:Python
+faxis	/Users/wenwen/Work/chromosome/test/movie.py	/^faxis = frame()$/;"	v	language:Python
+fname	/Users/wenwen/Work/chromosome/test/movie.py	/^fname = dataDir + 'eqFile.txt'$/;"	v	language:Python
+frame	/Users/wenwen/Work/chromosome/test/movie.py	/^    frame = faxis)$/;"	v	language:Python
+frame	/Users/wenwen/Work/chromosome/test/movie.py	/^    frame = faxis)$/;"	v	language:Python
+GetScreenShot	/Users/wenwen/Work/chromosome/test/movie.py	/^def GetScreenShot(FrameNumber):        $/;"	f	language:Python
+glob	/Users/wenwen/Work/chromosome/test/movie.py	/^import glob$/;"	i	language:Python
+j	/Users/wenwen/Work/chromosome/test/movie.py	/^    j = t%len(pos)$/;"	v	language:Python
+N	/Users/wenwen/Work/chromosome/test/movie.py	/^N = 279$/;"	v	language:Python
+np	/Users/wenwen/Work/chromosome/test/movie.py	/^import numpy as np$/;"	i	language:Python
+nPolymer	/Users/wenwen/Work/chromosome/test/movie.py	/^nPolymer = 64$/;"	v	language:Python
+os	/Users/wenwen/Work/chromosome/test/movie.py	/^import os$/;"	i	language:Python
+pos	/Users/wenwen/Work/chromosome/test/movie.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
+radius	/Users/wenwen/Work/chromosome/test/movie.py	/^    radius = 1.0*factor,$/;"	v	language:Python
+radius	/Users/wenwen/Work/chromosome/test/movie.py	/^    radius = 1.0*factor,$/;"	v	language:Python
+scale	/Users/wenwen/Work/chromosome/test/movie.py	/^scale = 0.4$/;"	v	language:Python
+scene	/Users/wenwen/Work/chromosome/test/movie.py	/^scene = display(width=1200, height=600, background=(1.0,1.0,1.0))$/;"	v	language:Python
+t	/Users/wenwen/Work/chromosome/test/movie.py	/^    t = t+1$/;"	v	language:Python
+t	/Users/wenwen/Work/chromosome/test/movie.py	/^t=0$/;"	v	language:Python

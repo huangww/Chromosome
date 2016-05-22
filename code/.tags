@@ -24,7 +24,6 @@ ASEP_HPP_MB6PNS13	/Users/wenwen/Work/chromosome/code/asep.hpp	/^#define ASEP_HPP
 ax	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^ax = plt.figure(0).add_subplot(111)$/;"	v	language:Python
 ax	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^ax = plt.figure().add_subplot(111)$/;"	v	language:Python
 ax	/Users/wenwen/Work/chromosome/script/strongForce.py	/^ax = plt.figure().add_subplot(111)$/;"	v	language:Python
-ax	/Users/wenwen/Work/chromosome/script/superposition.py	/^ax = plt.figure().add_subplot(111)$/;"	v	language:Python
 axis	/Users/wenwen/Work/chromosome/script/movie.py	/^    axis = bead[l[1]].pos - bead[l[0]].pos,$/;"	v	language:Python
 b	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **b;         \/\/ vector of rod unnormalized$/;"	m	language:C++	class:Rod
 Bead	/Users/wenwen/Work/chromosome/code/bead.cpp	/^Bead::Bead()$/;"	f	language:C++	class:Bead
@@ -211,7 +210,6 @@ gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::
 gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::gyrationRadius(int N, double** r) $/;"	f	language:C++	class:Compute
 gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    double gyrationRadius(int N, double **r);$/;"	p	language:C++	class:Compute
 gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.hpp	/^    double gyrationRadius(int N, double* r);$/;"	p	language:C++	class:Compute
-GyrationRadius	/Users/wenwen/Work/chromosome/script/superposition.py	/^def GyrationRadius(x):$/;"	f	language:Python
 harmonic	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::harmonic(double** r, double** f) $/;"	f	language:C++	class:Spring
 harmonic	/Users/wenwen/Work/chromosome/code/spring.hpp	/^    double** harmonic(double** r, double** f);$/;"	p	language:C++	class:Spring
 infname	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::string infname;$/;"	m	language:C++	class:Input
@@ -243,6 +241,7 @@ INPUT_HPP_DRBPSRM7	/Users/wenwen/Work/chromosome/code/input.hpp	/^#define INPUT_
 IsHeaderFile	/Users/wenwen/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py	/^def IsHeaderFile( filename ):$/;"	f	language:Python
 it	/Users/wenwen/Work/chromosome/run.py	/^import itertools as it$/;"	i	language:Python
 it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
+it	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^import itertools as it$/;"	i	language:Python
 j	/Users/wenwen/Work/chromosome/script/movie.py	/^    j = t%len(pos)$/;"	v	language:Python
 LennardJones	/Users/wenwen/Work/chromosome/code/potential.cpp	/^double Potential::LennardJones(int N, double **r) $/;"	f	language:C++	class:Potential
 LennardJones	/Users/wenwen/Work/chromosome/code/potential.hpp	/^    double LennardJones(int N, double **r);$/;"	p	language:C++	class:Potential
@@ -257,15 +256,16 @@ linkVectorU	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVecto
 linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorU(); $/;"	p	language:C++	class:Rod
 main	/Users/wenwen/Work/chromosome/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
 main	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def main():$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^def main():$/;"	f	language:Python
 MakeRelativePathsInFlagsAbsolute	/Users/wenwen/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py	/^def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):$/;"	f	language:Python
 mapleader	/Users/wenwen/.vimrc	/^let mapleader = ","$/;"	v	language:Vim
 maplocalleader	/Users/wenwen/.vimrc	/^let maplocalleader = ","$/;"	v	language:Vim
 matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/strongForce.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
-matplotlib	/Users/wenwen/Work/chromosome/script/superposition.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
@@ -301,7 +301,6 @@ N	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^N = np.logspace(1, 3, 100
 N	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^N = 100$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/movie.py	/^N = int(Nstr[0])$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/strongForce.py	/^N = 100$/;"	v	language:Python
-N	/Users/wenwen/Work/chromosome/script/superposition.py	/^N = 2000$/;"	v	language:Python
 nBead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    int nBead;$/;"	m	language:C++	class:Bead
 nBead	/Users/wenwen/Work/chromosome/code/config.hpp	/^    int nBead;$/;"	m	language:C++	class:Config
 nBead	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nBead;$/;"	m	language:C++	class:Force
@@ -318,11 +317,11 @@ nLink	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int nLink;$/;"	m	languag
 nLinks	/Users/wenwen/Work/chromosome/code/rod.hpp	/^        int *nLinks;$/;"	m	language:C++	struct:Rod::LinkTable
 np	/Users/wenwen/Work/chromosome/run.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/movie.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/strongForce.py	/^import numpy as np$/;"	i	language:Python
-np	/Users/wenwen/Work/chromosome/script/superposition.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^import numpy as np$/;"	i	language:Python
 nPar	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nPar;$/;"	m	language:C++	class:Force
 nPar	/Users/wenwen/Work/chromosome/code/particle.hpp	/^    int nPar;$/;"	m	language:C++	class:Particle
@@ -381,13 +380,16 @@ pinSPB	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void pinSPB();$/;"	p	la
 pivot	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::pivot(int N, int *ipivot) $/;"	f	language:C++	class:Montecarlo
 pivot	/Users/wenwen/Work/chromosome/code/montecarlo.hpp	/^    void pivot(int N, int *ipivot);$/;"	p	language:C++	class:Montecarlo
 Plot1DTauScaling	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^def Plot1DTauScaling():$/;"	f	language:Python
+PlotAcf	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def PlotAcf():$/;"	f	language:Python
 PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf, figName='fig\/acfFit.pdf'):$/;"	f	language:Python
+PlotFigMean	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def PlotFigMean():$/;"	f	language:Python
+PlotFigVar	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def PlotFigVar():$/;"	f	language:Python
 PlotTauScaling	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^def PlotTauScaling():$/;"	f	language:Python
 plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/strongForce.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
-plt	/Users/wenwen/Work/chromosome/script/superposition.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/tauScaling.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
 pos	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^    pos = data[:,0]$/;"	v	language:Python
@@ -467,6 +469,9 @@ rotateAxis	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::
 rotateAxis	/Users/wenwen/Work/chromosome/code/montecarlo.hpp	/^    void rotateAxis(int* ipivot, double** r, double* axis);$/;"	p	language:C++	class:Montecarlo
 rotateMatrix	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::rotateMatrix($/;"	f	language:C++	class:Montecarlo
 rotateMatrix	/Users/wenwen/Work/chromosome/code/montecarlo.hpp	/^    void rotateMatrix( double theta, double* axis, $/;"	p	language:C++	class:Montecarlo
+RouseAcf	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def RouseAcf(N, k, t):$/;"	f	language:Python
+RouseMean	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def RouseMean(N, F):$/;"	f	language:Python
+RouseVar	/Users/wenwen/Work/chromosome/script/beadSpringRouse.py	/^def RouseVar(N, F):$/;"	f	language:Python
 rs	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double **rs;    \/\/ predicted postion of beads$/;"	m	language:C++	class:Bead
 run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
 run	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void run();$/;"	p	language:C++	class:Asep
@@ -559,7 +564,6 @@ tau	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^    tau = af.GetTau(t
 tau	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^    tau = af.GetTau(t, pos)$/;"	v	language:Python
 tau	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^    tau = af.GetTau(t, x)$/;"	v	language:Python
 tau	/Users/wenwen/Work/chromosome/script/strongForce.py	/^    tau = af.GetTau(t, x)$/;"	v	language:Python
-tau	/Users/wenwen/Work/chromosome/script/superposition.py	/^tau = 100.$/;"	v	language:Python
 tauFit	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^tauFit = np.log(tau)$/;"	v	language:Python
 tauVal	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    tauVal = af.GetTau(t, x)$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/run.py	/^Teff = np.concatenate([np.linspace(1, 9.5, 18), np.linspace(10, 95, 18), np.linspace(100, 1000, 19)])$/;"	v	language:Python
@@ -604,8 +608,6 @@ x	/Users/wenwen/Work/chromosome/code/particle.hpp	/^    double *x;      \/\/ pos
 x	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    x = data[:,1]$/;"	v	language:Python
 x	/Users/wenwen/Work/chromosome/script/checkTauPeak.py	/^    x = data[:,3]$/;"	v	language:Python
 x	/Users/wenwen/Work/chromosome/script/strongForce.py	/^    x = data[:,1]$/;"	v	language:Python
-x	/Users/wenwen/Work/chromosome/script/superposition.py	/^x = np.linspace(0, 1000, 100)$/;"	v	language:Python
-y	/Users/wenwen/Work/chromosome/script/superposition.py	/^y = N\/2*(1 - np.exp(-x\/tau))$/;"	v	language:Python
 ycm_core	/Users/wenwen/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py	/^import ycm_core$/;"	i	language:Python
 ~Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep
 ~Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    virtual ~Asep ();$/;"	p	language:C++	class:Asep
