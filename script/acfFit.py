@@ -51,7 +51,7 @@ def FindFitRange(acf):
     x = np.log(acf[::inter])
     dx2 = savgol_filter(x, 5, 2, deriv=2)
     dx2abs = np.fabs(dx2)
-    cutoff = len(x)/10
+    cutoff = len(x)/5
     fitLen = len(x)/3
     d2sum = [dx2abs[i:i+fitLen].sum() for i in \
             range(cutoff, len(x)-cutoff-fitLen)]
