@@ -101,7 +101,7 @@ $\mu$ can be written as
         D  =  1^2/2\tau_0 = \frac{1}{2}(\alpha + \beta)
     \end{equation}
     \begin{equation}
-        \mu = \alpha - \beta
+        \mu = \beta - \alpha
     \end{equation}
 \end{subequations}
 
@@ -339,15 +339,17 @@ substitution, obtain
 where $p_H$ is the summation of all higher mode terms $n>1$, $p_0$ and $p_1$
 are stationary mode and longest relaxation mode, respectively, which reads
 \begin{subequations}
-    \label{eq:pdf_terms}
     \begin{equation}
+        \label{eq:pdf_terms_p0}
         p_0(\mathbf{x}) = N!\,\psi_0(x_1)\prod_{i=1}^{N-1}\psi_0(x_{i+1})\Theta(x_{i+1}-x_{i})
     \end{equation}
     \begin{equation}
+        \label{eq:pdf_terms_p1}
         p_1(\mathbf{x}, t| \mathbf{x}_0) =
         A_1(\mathbf{x}, \mathbf{x}_0)\exp(-\lambda_1 t)
     \end{equation}
     \begin{equation}
+        \label{eq:pdf_terms_A1}
         A_1(\mathbf{x}, \mathbf{x}_0) = 
         (N-1)!\,\sum_{i=1}^N\psi_0(x_i)\sum_{j\neq i}^N 
         \sum_{k=1}^N\varphi_1(x_j,x_{k,0})
@@ -359,61 +361,53 @@ longest relaxation mode which relates only the position of particles.
 \section{Pinned Polymer}
 \label{sec:pinned_polymer}
 
-Now we consider transfer back from ASEP model to the dynamics of pinned
-polymer. 
-
+Now we consider transfer back from ASEP model to the dynamics of pinned polymer.
 The position of beads in 1D polymer relates to the rods orientation in the
 following way
 \begin{equation}
     \label{eq:bead_position_sum}
-    r_i = \sum_{j=1}^i z_j = 2\sum_{j=1}^i s_j - i = 2\sum_{j=1}^N\Theta(i - x_j)-i
+    r_m = a\sum_{j=1}^m z_j = a(2\sum_{j=1}^m s_j - m) =
+    a\left[2\sum_{j=1}^N\Theta(m - x_j)-m\right]
 \end{equation}
-where $\sum_{j=1}^i s_j$ is effectively the total number of particles in the range
-of $[0, i]$. Thus we have 
+where summation term is effectively the total number of particles in the range
+of $[0, m]$. Thus we have 
 \begin{equation}
     \label{eq:bead_position_integral}
-    r_i(t|\mathbf{x}_0) = 2 N \frac{\int_{\Omega_i} p(\mathbf{x}, t | \mathbf{x}_0)
-        d\mathbf{x}}{\int_{\Omega} p(\mathbf{x}, t | \mathbf{x}_0)d\mathbf{x}} - i
+    g(r_m, t|r_{m,0}) = \int_{\Omega} \delta(r_m -
+    r_m(\mathbf{x}))p(\mathbf{x}, t | \mathbf{x}_0)d\mathbf{x}
 \end{equation}
-where $\Omega$ is the sample space, notice it is not simply the space of $\Re^N$
-because $x_1 < x_2 < \cdots < x_N$. $\Omega_i$ denotes the subspace of $\Omega$
-that $x \leqslant i$ is satisfied for all particles. Substitute Eq.
-\eqref{eq:p0_p1} into the above one we arrive at
+where $\Omega = \{\mathbf{x} | 0 < x_1 < x_2 < \cdots < x_N\}$ is the sample
+space.  $r_m(\mathbf{x})$ refers to Eq.  \eqref{eq:bead_position_sum}. $g(r_m,
+t|r_{m,0})$ is the PDF of $r_m$ and $r_{m,0}$ is transferred from $\mathbf{x}_0$
+using Eq.  \eqref{eq:bead_position_sum}. Substitute Eq.  \eqref{eq:p0_p1} into
+the above one we arrive at
 \begin{equation}
 \begin{aligned}
     \label{eq:bead_position_substitution}
-    r_i(t|\mathbf{x}_0) = & 2 N \frac{\int_{\Omega_i} p_0(\mathbf{x}) + p_1(\mathbf{x},
-        t | \mathbf{x}_0) + p_H(\mathbf{x}, t| \mathbf{x}_0)
-        d\mathbf{x}}{\int_{\Omega}p(\mathbf{x}, t | \mathbf{x}_0)d\mathbf{x}}-i \\
-    = & \left(2N \frac{\int_{\Omega_i} p_0(\mathbf{x})d\mathbf{x}}{\int_0^{L}
-            p(\mathbf{x}, t | \mathbf{x}_0)d\mathbf{x}}-i\right) + \left(2N
-        \frac{\int_{\Omega_i} p_1(\mathbf{x}, t| \mathbf{x}_0)d\mathbf{x}}
-        {\int_{\Omega} p(\mathbf{x}, t | \mathbf{x}_0)d\mathbf{x}}\right)  \\
-    & + \left(2N \frac{\int_{\Omega_i} p_H(\mathbf{x}, t|
-            \mathbf{x}_0)d\mathbf{x}}{\int_{\Omega} p(\mathbf{x}, t |
-            \mathbf{x}_0)d\mathbf{x}}\right) \\
-    = & r_i^{eq} + \Delta r_i^{relax} + \Delta r_i^{H}
-\end{aligned}
+    g(r_m,t|r_{m,0}) = & \int_{\Omega} \delta(r_m - r_m(\mathbf{x}))
+    p_0(\mathbf{x}) d\mathbf{x}+ \int_{\Omega} \delta(r_m -
+    r_m(\mathbf{x}))p_1(\mathbf{x}, t | \mathbf{x}_0) d\mathbf{x}\\
+    & + \int_{\Omega}\delta(r_m - r_m(\mathbf{x}))p_H(\mathbf{x}, t| \mathbf{x}_0) d\mathbf{x} \\
+    = & g_0(r_m,t|r_{i,0}) + g_1(r_m,t|r_{m,0}) + g_H(r_m,t|r_{m,0})
+    \end{aligned}
 \end{equation}
-We only interested in $r_i^{eq}$ and $\Delta r_i^{relax}$ which we will discuss
-one by one in the following subsection.
+We only interested in $g_0$ and $g_1$ which we will discuss one by one in the
+following subsection.
 
 \subsection{Relaxation time}
 \label{sub:relaxation_time}
 Interestingly, it is every easy to solve the relaxation time in our formalism,
 even simpler than the equilibrium statistics. So we will discuss this part
-first. The longest relaxation time can directly read from $\Delta r_i^{relax}$ as
+first. The longest relaxation time can directly read from $g_1(r_i,t|r_{i,0})$ as
 following
 
 \begin{equation}
     \label{eq:position_relaxation}
     \begin{aligned}
-        \Delta r_i^{relax} = & 2N \frac{\int_{\Omega_i} p_1(\mathbf{x}, t|
-            \mathbf{x}_0) d\mathbf{x}}{\int_{\Omega} p(\mathbf{x}, t |
-            \mathbf{x}_0)d\mathbf{x}} \\
-        = &  2N \frac{\int_{\Omega_i} A_1(\mathbf{x}, \mathbf{x}_0) d\mathbf{x}}
-        {\int_{\Omega} p(\mathbf{x}, t |
-            \mathbf{x}_0)d\mathbf{x}}\times\exp(-\lambda_1 t) \\
+        g_1(r_m,t|r_{m,0}) = & \int_{\Omega} \delta(r_m -
+        r_m(\mathbf{x}))p_1(\mathbf{x}, t | \mathbf{x}_0) d\mathbf{x} \\
+        = &  \int_{\Omega} \delta(r_m - r_m(\mathbf{x})) A_1(\mathbf{x},
+        \mathbf{x}_0) d\mathbf{x} \times\exp(-\lambda_1 t) \\
         = & \Phi(\mathbf{x}, \mathbf{x}_0) \exp(-\lambda_1 t)
     \end{aligned}
 \end{equation}
@@ -493,7 +487,143 @@ data yet, but will update later on.
 \subsection{Equilibrium Statistics}
 \label{sub:equilibrium_statistics}
 
-Working on it...
+From Eq. \eqref{eq:bead_position_integral} we can solve the PDF of every bead
+position in principle. However, because of the lengthy $p(\mathbf{x}, t |
+\mathbf{x}_0)$ we have, it is tedious and not necessary to solve the full
+$g(r_m, t | r_{m,0}$. After solve the relaxation time in previous section, we
+now come to the equilibrium statistics, which essentially is represented
+by $g_0$.
+
+The calculation is straight forward, let us first discuss the case the $\mu=0$,
+namely $\psi_0(x) = \frac{1}{L}$. In order to do the integration over the sample space
+$\Omega$, we need to use the technique called extended phase-space
+integration.\cite{} The idea is easy to illustrated in two variables case. Let us
+say we want to integrate a function which can be written as following
+\begin{equation}
+    \label{eq:integration_illustration_1}
+    I = \int_{0 < x_1 < x_2 < L} d x_1 d x_2 f(x_1, x_2)
+\end{equation}
+If $f(x_1, x_2)$ is invariant under $x_1 \leftrightarrow x_2$, we have 
+\begin{equation}
+    \label{eq:integration_illustration_2}
+    \begin{aligned}
+        I = & \int_{0 < x_1 < x_2 < L} d x_1 d x_2 f(x_1, x_2) \\
+        = &\frac{1}{2}\int_{0}^L d x_1 \int_{0}^L d x_2 f(x_1, x_2)
+    \end{aligned}
+\end{equation}
+And similarly, for $\Omega = \{\mathbf{x} | 0 < x_1 < x_2 < \cdots < x_N <
+L\}$ and $f(\mathbf{x})$ is invariant under $x_i\leftrightarrow x_j$, we have
+\begin{equation}
+    \label{eq:integration_illustration_3}
+    \int_{\Omega} f(\mathbf{x}) d\mathbf{x} = \frac{1}{N!}\int_0^L dx_1 \int_0^L
+    dx_2 \cdots \int_0^L dx_N f(\mathbf{x})
+\end{equation}
+Utilize the above relation and plug $\psi_0(x) = \frac{1}{L}$ into Eq.
+\eqref{eq:bead_position_integral} and use the identity of $\delta$-function we
+obtain
+\begin{align*}
+    g_0(r_m) = & \int_{\Omega} \delta(r_m - r_m(\mathbf{x})) p_0(\mathbf{x})
+    d\mathbf{x} \\
+    = & \frac{1}{N!}\int_0^Ldx_1\int_0^Ldx_2\cdots\int_0^Ldx_N \delta(r_m -
+    r_m(\mathbf{x})) \frac{N!}{L^N} \\
+    = & \int_0^Ldx_1\int_0^Ldx_2\cdots\int_0^Ldx_N \int d k \exp\left\{2\pi i k
+        \left[r_m + ma - 2a\sum_j^N\Theta(m-x_j)\right]\right\} \frac{1}{L^N} \\
+    = & \int dk \exp\left[2\pi i k (r_m + ma)\right] \prod_{j=1}^N\int_0^L
+    \frac{1}{L}\exp\left[-4 a\pi i k\Theta(m-x_j)\right] d x_j \\
+    = & \int dk \exp\left[2\pi i k (r_m + ma)\right] \left(\int_0^L
+        \frac{1}{L}\exp\left[-4a\pi i k\Theta(m-x)\right] d x\right)^N
+\end{align*}
+For the integration involved step function, we have
+\begin{align*}
+    \int_0^L\frac{1}{L}\exp\left[-4a\pi i k\Theta(m-x)\right] d x 
+    = & \int_0^m \frac{1}{L} \exp(-4a\pi i k) dx + \int_m^L \frac{1}{L} dx \\
+    = & \frac{m}{L} \exp(-4a\pi i k) + \left(1 - \frac{m}{L}\right)
+\end{align*}
+Substitute this into the above equation we arrive at
+\begin{align*}
+    g_0(r_m) = & \int dk \exp\left[2\pi i k (r_m + ma)\right]
+    \left[\frac{m}{L} \exp(-4a\pi i k) + \left(1 - \frac{m}{L}\right)\right]^N \\
+    = & \sum_{j=0}^N C(N, j) \left(\frac{m}{L}\right)^{N-j}
+    \left(1-\frac{m}{L}\right)^j \int dk \exp\left(2\pi i k \left\{r_m -\left[2
+                (N-j)- m\right]a\right\}\right) \\
+    = & \sum_{j=0}^N C(N, j) \left(\frac{m}{L}\right)^{N-j}\left(1-\frac{m}{L}\right)^j 
+    \delta\left\{r_m -\left[2(N-j)- m\right]a\right\}
+\end{align*}
+where $C(N, j) = \frac{N!}{j!\,(N-j)!}$. Do a variable transfer of the last
+line, we obtain
+\begin{equation}
+    \label{eq:pdf_bead_postion_no_force}
+    g_0(r_m) = C(N, \frac{r_m + ma}{2a})\left(\frac{m}{L}\right)^{\frac{r_m +
+            ma}{2a}}\left(1-\frac{m}{L}\right)^{N - \frac{r_m + ma}{2a}}
+\end{equation}
+And we have $r_m \in [-ma, (2N-m)a]$. This is a binomial distribution, which can be
+approximated by a Gaussian distribution in large $N$ limit, written as
+\begin{equation}
+    \label{eq:pdf_bead_postion_no_force_gaussian}
+    g_0(r_m) \approx \frac{1}{\sqrt{8\pi Na^2 \frac{m}{L}(1-\frac{m}{L})}} \exp\left( -
+        \frac{r_m^2}{8 N a^2 \frac{m}{L}(1-\frac{m}{L})}\right)
+\end{equation}
+One can read directly from Eq. \eqref{eq:pdf_bead_postion_no_force_gaussian}
+that $\left<r_m\right> = 0$ and $\rm{var}[r_m] = 4Na^2\frac{m}{L}(1-\frac{m}{L}) =
+2a^2m(L-m)/L$. {\color{red} (a factor of $2$ here, check!)}.
+
+The case where $\mu\neq 0$ is basically calculated in the same way with a little bit
+more complex terms. The different term from $\mu=0$ write as 
+\begin{align*}
+    & \int_0^L \psi_0(x)\exp\left[-4a\pi i k\Theta(m-x)\right] d x  \\
+    = & \int_0^m\frac{\mu}{D}\frac{\exp(\frac{\mu x}{D})}{\exp(\frac{\mu
+            L}{D})-1} \exp(-4a\pi i k) dx + \int_m^L
+    \frac{\mu}{D}\frac{\exp(\frac{\mu x}{D})}{\exp(\frac{\mu L}{D})-1}dx \\
+    = & \frac{\exp(\frac{\mu}{D}m) - 1}{\exp(\frac{\mu}{D}L) - 1} 
+    \exp(-4a\pi i k) + \frac{\exp(\frac{\mu}{D}L)-\exp(\frac{\mu}{D}m)}
+    {\exp(\frac{\mu}{D}L)-1} \\
+    = & c_1(m) \exp(-4a\pi i k) + c_2(m)
+\end{align*}
+Substitute in the $g(r_m)$ we get
+\begin{align*}
+    g_0(r_m) = & \int dk \exp\left[2\pi i k (r_m + ma)\right]
+    \left[c_1(m)\exp(-4a\pi i k) + c_2(m)\right]^N \\
+    = & \sum_{j=0}^N C(N, j) c_1^{N-j}(m) c_2^j(m) \int dk \exp\left(2\pi i k
+        \left\{r_m -\left[2 (N-j)- m\right]a\right\}\right) \\
+    = & \sum_{j=0}^N C(N, j) c_1^{N-j}(m)c_2^j(m) \delta\left\{r_m
+        -\left[2(N-j)- m\right]a\right\}
+\end{align*}
+So we have $g(r_m)$ when $\mu\neq 0$
+\begin{equation}
+    \label{eq:pdf_bead_postion_with_force}
+    g_0(r_m) = C(N, \frac{r_m + ma}{2a})c_1^{\frac{r_m + ma}{2a}}(m) c_2^{N -
+        \frac{r_m + ma}{2a}}(m)
+\end{equation}
+And again $r_m \in [-ma, (2N-m)a]$. We also write down the Gaussian
+approximation
+\begin{equation}
+    \label{eq:pdf_bead_postion_with_force_gaussian}
+    g_0(r_m) \approx \frac{1}{2a\sqrt{2\pi N c_1(m)c_2(m)}} \exp\left( -
+        \frac{\left[N-\frac{r_m+ma}{2a}-Nc_2(m)\right]^2}{2 N c_1(m)c_2(m) }\right)
+\end{equation}
+from which we can read
+\begin{align*}
+    &\left<r_m\right> = 2Na[1-c_2(m)] - ma = 2Nac_1(m) - ma \\
+    &\rm{var}[r_m] = 4Na^2c_1(m)c_2(m)
+\end{align*}
+Substitute the expression of $c_1$ and $c_2$ we obtain
+\begin{subequations}
+    \begin{equation}
+        \label{eq:mean_bead_position}
+        \left<r_m\right> = La \frac{\exp(\frac{\mu}{D}m)-1}
+        {\exp(\frac{\mu}{D}L)-1} - ma
+    \end{equation}
+    \begin{equation}
+        \label{eq:var_bead_position}
+        \rm{var}[r_m] =
+        2La^2\frac{\left[\exp(\frac{\mu}{D}L)-\exp(\frac{\mu}{D}m)\right]
+            \left[\exp(\frac{\mu}{D}m)-1\right]}
+        {\left[\exp(\frac{\mu}{D}L)-1\right]^2}
+    \end{equation}
+\end{subequations}
+The final result can be obtained by substitute Eq. \eqref{eq:diffusivity_drift}
+into the above Equations. {\color{red} Wrong result. Need to check!}
+
 
 
 
