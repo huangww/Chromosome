@@ -1,25 +1,14 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
-bead	/Users/wenwen/Work/chromosome/test/movie.py	/^bead=[]$/;"	v	language:Python
-color	/Users/wenwen/Work/chromosome/test/movie.py	/^    color = color.blue,$/;"	v	language:Python
-color	/Users/wenwen/Work/chromosome/test/movie.py	/^    color = color.green,$/;"	v	language:Python
-data	/Users/wenwen/Work/chromosome/test/movie.py	/^data = np.loadtxt(fname,comments='#')$/;"	v	language:Python
-dataDir	/Users/wenwen/Work/chromosome/test/movie.py	/^dataDir = '.\/'$/;"	v	language:Python
-factor	/Users/wenwen/Work/chromosome/test/movie.py	/^factor = 0.15$/;"	v	language:Python
-faxis	/Users/wenwen/Work/chromosome/test/movie.py	/^faxis = frame()$/;"	v	language:Python
-fname	/Users/wenwen/Work/chromosome/test/movie.py	/^fname = dataDir + 'eqFile.txt'$/;"	v	language:Python
-frame	/Users/wenwen/Work/chromosome/test/movie.py	/^    frame = faxis)$/;"	v	language:Python
-frame	/Users/wenwen/Work/chromosome/test/movie.py	/^    frame = faxis)$/;"	v	language:Python
-GetScreenShot	/Users/wenwen/Work/chromosome/test/movie.py	/^def GetScreenShot(FrameNumber):        $/;"	f	language:Python
-glob	/Users/wenwen/Work/chromosome/test/movie.py	/^import glob$/;"	i	language:Python
-j	/Users/wenwen/Work/chromosome/test/movie.py	/^    j = t%len(pos)$/;"	v	language:Python
-N	/Users/wenwen/Work/chromosome/test/movie.py	/^N = 279$/;"	v	language:Python
-np	/Users/wenwen/Work/chromosome/test/movie.py	/^import numpy as np$/;"	i	language:Python
-nPolymer	/Users/wenwen/Work/chromosome/test/movie.py	/^nPolymer = 64$/;"	v	language:Python
-os	/Users/wenwen/Work/chromosome/test/movie.py	/^import os$/;"	i	language:Python
-pos	/Users/wenwen/Work/chromosome/test/movie.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
-radius	/Users/wenwen/Work/chromosome/test/movie.py	/^    radius = 1.0*factor,$/;"	v	language:Python
-radius	/Users/wenwen/Work/chromosome/test/movie.py	/^    radius = 1.0*factor,$/;"	v	language:Python
-scale	/Users/wenwen/Work/chromosome/test/movie.py	/^scale = 0.4$/;"	v	language:Python
-scene	/Users/wenwen/Work/chromosome/test/movie.py	/^scene = display(width=1200, height=600, background=(1.0,1.0,1.0))$/;"	v	language:Python
-t	/Users/wenwen/Work/chromosome/test/movie.py	/^    t = t+1$/;"	v	language:Python
-t	/Users/wenwen/Work/chromosome/test/movie.py	/^t=0$/;"	v	language:Python
+a	/Users/wenwen/Work/chromosome/test/kaki.py	/^a = 2$/;"	v	language:Python
+b	/Users/wenwen/Work/chromosome/test/kaki.py	/^b = 1$/;"	v	language:Python
+cbar	/Users/wenwen/Work/chromosome/test/kaki.py	/^cbar = plt.colorbar()$/;"	v	language:Python
+cs	/Users/wenwen/Work/chromosome/test/kaki.py	/^cs = plt.pcolor(X, Y, rho)$/;"	v	language:Python
+ka	/Users/wenwen/Work/chromosome/test/kaki.py	/^ka = np.linspace(1, 100, 100)$/;"	v	language:Python
+ki	/Users/wenwen/Work/chromosome/test/kaki.py	/^ki = np.linspace(1, 100, 100)$/;"	v	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/test/kaki.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/test/kaki.py	/^import numpy as np$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/test/kaki.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+rho	/Users/wenwen/Work/chromosome/test/kaki.py	/^rho = (a*b + sigma*a*Y)\/(sigma*(a*Y + b*X))$/;"	v	language:Python
+rho	/Users/wenwen/Work/chromosome/test/kaki.py	/^rho = np.ma.masked_where(np.abs(rho*Y + (1-rho)*X - 50) > 1, rho)$/;"	v	language:Python
+rho	/Users/wenwen/Work/chromosome/test/kaki.py	/^rho = np.ma.masked_where(rho>1, rho)$/;"	v	language:Python
+sigma	/Users/wenwen/Work/chromosome/test/kaki.py	/^sigma = 0.1$/;"	v	language:Python
