@@ -44,7 +44,8 @@ for T in Teff:
             alpha = 0.2)
 # plot colorbar legend
 cax = fig.add_axes([0.42, 0.65, 0.02, 0.25])
-fig.text(0.423,0.58, r"$\tilde{T}$")
+# fig.text(0.423,0.58, r"$\tilde{T}$")
+fig.text(0.423,0.58, r"$1/F$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,50,100])
 cb.set_ticklabels([r'$0$',r'$25$',r'$50$'])
@@ -90,6 +91,12 @@ for s,c in zip(pos, cset):
     data = np.loadtxt(fileName)
     sp2.scatter(0.5/2., np.sqrt(2*sum(data[s,3:])), color=c)
 
+# inset illustration
+# import matplotlib.cbook as cbook
+# image_file = cbook.get_sample_data('illustration.png')
+# image = plt.imread(image_file)
+# plt.imshow(image, extent=(10, 10, 10, 10))
+
 # sp2.plot([0.5,0.5],[0,2],'k--')
 fig.text(0.865,0.34, r"$i=10$")
 fig.text(0.865,0.575, r"$i=50$")
@@ -99,7 +106,8 @@ sp2.set_xlim([0.01,1000])
 sp2.set_ylim([0,15])
 sp2.set_yticks([0,5,10,15])
 sp2.set_xscale('log')
-sp2.set_xlabel(r'$\tilde{T}$')
+# sp2.set_xlabel(r'$\tilde{T}$')
+sp2.set_xlabel(r'$1/F$')
 sp2.set_ylabel(r"$\mathrm{var}\left[\mathbf{d}\right]^{1/2}/a$")
 
 fig.savefig('figure3_1.pdf')

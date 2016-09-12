@@ -12,7 +12,8 @@ dataDir = 'data/'
 
 def ACF(x):
     acf= ss.acf(x, nlags=len(x), fft=True)
-    end = next((i for i,v in enumerate(acf) if v<1e-6), len(x)-1)
+    end = next((i for i,v in enumerate(acf) if v<1e-6), \
+            len(x)-1)
     return acf[:end]
 
 def GetACF(fname):
@@ -45,12 +46,11 @@ def FindFitRange(acf):
     dx1sum = [dx1[:i+1].sum() for i in range(len(dx1))]
     end = next((i for i,v in enumerate(dx1sum) if v>0.1), \
             len(dx1sum)-1)
-    acf = acf[:end*inter]
+    acf = acf[:max(end*inter,30)]
     interval = len(acf)/300
     inter = interval if interval > 1 else 1
     x = np.log(acf[::inter])
-    dx2 = savgol_filter(x, 5, 2, deriv=2)
-    dx2abs = np.fabs(dx2)
+    dx2abs = np.abs(savgol_filter(x, 5, 2, deriv=2))
     cutoff = len(x)/5
     fitLen = len(x)/3
     d2sum = [dx2abs[i:i+fitLen].sum() for i in \
@@ -62,19 +62,12 @@ def FindFitRange(acf):
 def FitTau(t, acf):
     t0, t1 = FindFitRange(acf)
     tFit = t[t0:t1]
-    if len(tFit) < 10:
-        PlotFig(t, acf)
-        sys.exit()
     acfFit = acf[t0:t1]
     coefs = np.polyfit(tFit, np.log(acfFit), 1)
     tau = -1./coefs[0]
+    if tau > 1e6 or tau < 0:
+        tau = np.nan
     print 'tau =', tau
-    return tau
-
-def GetTau(t, x):
-    acf = ACF(x)
-    t = t[:len(acf)]
-    tau = FitTau(t, acf)
     return tau
 
 def PlotFig(t, acf, figName='fig/acfFit.pdf'):
@@ -86,7 +79,7 @@ def PlotFig(t, acf, figName='fig/acfFit.pdf'):
     x = np.log(acf[::inter])
     dx1 = np.maximum(0, savgol_filter(x, 5, 2, deriv=1))
     dx1sum = [dx1[:i+1].sum() for i in range(len(dx1))]
-    ax.plot(t[::inter], dx1sum, label='dx1_sum')
+    ax.plot(t[::inter], dx1sum, 'r-', label='dx1_sum')
     t0, t1 = FindFitRange(acf)
     tFit = t[t0:t1]
     acfFit = acf[t0:t1]
@@ -99,8 +92,17 @@ def PlotFig(t, acf, figName='fig/acfFit.pdf'):
     ax.set_ylabel(r'$ACF$')
     ax.set_title('tau = %g'%tau)
     ax.set_ylim(1e-3, 1)
+    ax.set_xlim(0, min(3*t[len(tFit)*3]/2, t[-1]))
+    ax.axvline(t[len(tFit)*3])
     fig.savefig(figName)
     plt.close(fig)
+
+def GetTau(t, x, fig=False, figName='fig/acfFit.pdf'):
+    acf = ACF(x)
+    t = t[:len(acf)]
+    tau = FitTau(t, acf)
+    if fig: PlotFig(t, acf, figName)
+    return tau
 
 def Demo():
     plt.close('all')
@@ -155,7 +157,6 @@ def Demo():
     ax.set_ylim(1e-3, 1)
     ax.set_title(r'$1/F=1000$')
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-
     plt.show()
 
 def AddToFile(fname, T, tau):
@@ -190,7 +191,7 @@ def main():
         # t, acf = GetACF(fname)
         fname = dataDir+'rg1D_N%g_T%g.dat'%(N,T)
         data = np.loadtxt(fname)
-        t, acf = GetACF0(data)
+        t, acf = GetACF(data)
         # fname = 'data/acf1D_N100_T'+str(T)+'_c'+str(c)+'.dat'
         # np.savetxt(fname, (t, acf))
         # t, acf = np.loadtxt(fname)

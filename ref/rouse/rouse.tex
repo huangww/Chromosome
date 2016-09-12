@@ -11,17 +11,17 @@
 
 \begin{document}
 
-\title{Report: Rouse theory of pinned polymer loop}
+\title{Rouse theory of pinned polymer loop}
 \author{Wenwen Huang}
 \date{\today}
 
 \maketitle
 
-\section{Model}
-\label{sec:model}
+% \section{Model}
+% \label{sec:model}
 
-Consider a pinned polymer loop modeled by bead-spring, the dynamical equation
-for a single bead is 
+Consider a pinned polymer loop modeled by beads and connecting springs, the
+dynamical equation for a single bead is 
 
 \begin{equation}
     \label{eq:bead}
@@ -33,11 +33,12 @@ Hookean spring assumed. $\mathbf{f}_j^e$ is the external force exerted on beads,
 $\mathbf{f}_j^b$ is typical brownian force satisfying 
 \begin{equation}
     \label{eq:brownian}
-    \left<\mathbf{f}_j^b\right> = \mathbf 0;
+    \left<\mathbf{f}_j^b\right> = \mathbf 0; 
     \left<f_{i\alpha}^b(t)f_{j\beta}^b(t^\prime)\right> = 2\xi k_B T \delta_{ij}
     \delta_{\alpha\beta}\delta(t-t^\prime)
 \end{equation}
-$\mathbf A$ is the connecting matrix, in case of pinned polymer loop, A has the form
+$\mathbf A$ is the connecting matrix, in case of pinned polymer loop, it has the
+form of following
 \begin{equation}
     \label{eq:connectMatrix}
     \mathbf{A} = \begin{bmatrix}
@@ -48,24 +49,25 @@ $\mathbf A$ is the connecting matrix, in case of pinned polymer loop, A has the 
         \cdots & 0 &-1 &2
     \end{bmatrix}
 \end{equation}
-In addition to the dynamical equation, the boundary condition for a pinned
-polymer loop writes
+Since the polymer is a loop and pinned, so we write down the additional
+constraints besides the dynamical equation. Without loss of generality, the
+pinned point is set at the origin.
 \begin{equation}
     \label{eq:boudary}
     \mathbf r_0 = \mathbf r_N = 0
 \end{equation}
 
-\section{Normal Coordinate}
-\label{sec:normalCoordinate}
+% \section{Normal Coordinate}
+% \label{sec:normalCoordinate}
 
-Eq. \eqref{eq:bead} can be rewrite in the term of vector contains all beads
+The dynamical equation of all beads can be written in the vector term of Eq.
+\eqref{eq:bead}
 \begin{equation}
     \label{eq:beadVector}
-    \xi \frac{d \mathbf{R}}{dt} = - k_H \mathbf{A} \mathbf{R} + \mathbf{F}^e + \mathbf{F}^b
+    \xi \frac{d }{dt} \mathbf{R} = - k_H \mathbf{A} \mathbf{R} + \mathbf{F}^e + \mathbf{F}^b
 \end{equation}
 where $\mathbf{R} = \left[\mathbf r_1, \mathbf r_2, \cdots, \mathbf r_N\right]^T$,
-and similar for $\mathbf{F}^e$, $\mathbf{F}^b$.
-
+and similar vector notation are also applied for $\mathbf{F}^e$, $\mathbf{F}^b$.
 Notice that the connecting matrix $\mathbf{A}$ is real and symmetric, consider
 a similarity transfer 
 \begin{equation}
@@ -75,14 +77,13 @@ a similarity transfer
 here $\Omega$ is a unitary matrix, thus $\lambda_k$ is the eigenvalue of
 matrix $\mathbf A$. 
 
-
-
-
-
-\section{Constant Force Field}
-\label{sec:constantForceField}
+% \section{Constant Force Field}
+% \label{sec:constantForceField}
 We now consider the pinned polymer loop in a constant force field, i.e.
 $\mathbf{f}_j^e = f^e \mathbf{e}_z$.
+
+
+
 
 
 

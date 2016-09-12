@@ -15,6 +15,11 @@ public:
     void update();
     void output(std::ofstream* output);
 
+    // some get and set
+    int* getParticlePos();
+    double* getBeadPos();
+    int getnSite();
+
     double t;       // real time
     double tGrid;   // grid time for output
     double rg;      // radius of gyration
