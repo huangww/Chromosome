@@ -196,9 +196,9 @@ void Bead::montecarloUpdate()
 
 void Bead::output(std::ofstream* outFile) 
 {
-    // outputPos(outFile[0]);
-    outputRg(outFile[1]);
-    outputRd(outFile[2]);
+    outputPos(outFile[0]);
+    // outputRg(outFile[1]);
+    // outputRd(outFile[2]);
 }
 
 void Bead::outputPos(std::ofstream& outFile) 

@@ -1,0 +1,15 @@
+projectName = SingleFile
+
+nSite = 100
+nPar = 50
+nSample = 1
+
+tempEff = 10
+dt = 1e-4
+tEnd = 1e5
+outputStep = 1e4
+
+# seed = rd()
+# seed = 5489
+
+# taskID = 98

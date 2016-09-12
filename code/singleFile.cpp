@@ -33,8 +33,10 @@ void SingleFile::setup(Input* input)
 
     // open files for output
     std::stringstream fname;
-    fname << "data/par_N" << input->parameter["nSite"] << "_T"
-        << input->parameter["tempEff"] << ".dat";
+    fname << "data/" << input->projectName <<
+        "_pos_N" << input->parameter["nSite"] 
+        << "_T" << input->parameter["tempEff"] 
+        << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile.open(fname.str());
 }

@@ -6,13 +6,13 @@ import os
 import glob
 
 def GetScreenShot(FrameNumber):        
-    tmp = getoutput('screencapture -R"0,42,960,457" data/temp.%04d.png' % FrameNumber)
+    tmp = getoutput('screencapture -R"100,50,700,450" data/temp.%04d.png' % FrameNumber)
     return
 
 # load data 
 dataDir = 'data/'
-# fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)
-fname = dataDir + 'r_N100_T1000_0.dat'
+fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)
+# fname = dataDir + 'r_N100_T1000_0.dat'
 print fname
 
 # detect parameters from file name
@@ -23,7 +23,7 @@ N = int(Nstr[0])
 Teff = int(Tstr[0])
 
 # set up the scene or movie
-scene = display(width=1200, height=600, background=(1.0,1.0,1.0))
+scene = display(width=960, height=480, background=(1.0,1.0,1.0))
 scene.fullscreen = True
 scene.autoscale = False
 # calculate the center position of the scene
@@ -37,7 +37,7 @@ factor = 0.15
 scale = 0.4
 
 faxis = frame()
-faxis.pos = [-5, 0, 0]
+faxis.pos = [-5, -2, 0]
 
 # load data
 data = np.loadtxt(fname,comments='#')
@@ -73,8 +73,8 @@ rod = [cylinder(pos=bead[l[0]].pos,
 # label = label(text='',height=20,color=(1.0,0,0))
 #start the mainloop
 t=0
-# while t<len(beadPosition):
-while 1:
+while t<len(pos):
+# while 1:
     j = t%len(pos)
     # label.text='Frame=%1.0f'%j
     for i in range(N):
@@ -85,7 +85,7 @@ while 1:
     rate(30)
     if t == 0:
         scene.waitfor('click keydown')
-    # GetScreenShot(t)
+    GetScreenShot(t)
     # if t>100:
     #     s = scene.kb.getkey()
     # if s == 's':

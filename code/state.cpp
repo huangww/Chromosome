@@ -53,9 +53,10 @@ void State::setParameter(Input *input)
     }
     tempEff = input->parameter["tempEff"];
 
-    double jumpRate = 1.0;
+    double jumpRate = 2.0;
     double factor = exp(-1.0/tempEff);
     // double factor = 1.0;
+    std::cout << factor << std::endl;
     rateToLeft = jumpRate/(1+factor);
     rateToRight = jumpRate*factor/(1+factor);
     
@@ -324,9 +325,9 @@ void State::output(std::ofstream* output)
 void State::outputSite(std::ofstream& output) 
 {
     // output site state
-    output << tGrid << '\t';
+    // output << tGrid << '\t';
     for (int i = 0; i < nSite; ++i) {
-        output << std::setw(6) << site[i] << ' ';
+        output << site[i] << ' ';
     } 
     output << std::endl;
 }
@@ -335,25 +336,18 @@ void State::outputPar(std::ofstream& output)
 {
     // output particle position
     // output << tGrid << '\t';
-    // for (int i = 0; i < nPar; ++i) {
-    //     output << std::setw(6) << pos[i]; 
-    // }
-    int nHalf = 0;
-    for (int i = 0; i < nSite/2; ++i) {
-        nHalf += site[i];
+    for (int i = 0; i < nPar; ++i) {
+        output << pos[i] << '\t'; 
     }
-    output << pos[nPar-1] << '\t' 
-        << pos[nPar/2] << '\t'
-        << nHalf;
     output << std::endl;
 }
 
 void State::outputPos(std::ofstream& output) 
 {
      // output corresponding polymer bead position
-    output << tGrid << '\t';
+    // output << tGrid << '\t';
     for (int i = 0; i < nSite; ++i) {
-        output << std::setw(6) << beadPos[i] << ' ';
+        output << beadPos[i] << '\t';
     } 
     output << std::endl;
 }

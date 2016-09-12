@@ -40,14 +40,16 @@ void Asep::setup(Input *input)
 
     // Open files for output
     std::ostringstream fname;
-    fname << "data/par_N" << input->parameter["nSite"] << "_T"
-        << input->parameter["tempEff"] 
+    fname << "data/" << input->projectName <<
+        "_par_N" << input->parameter["nSite"] 
+        << "_T" << input->parameter["tempEff"] 
         << "_" << input->parameter["taskID"] << ".dat";
     outFile[0].open(fname.str());
     std::cout << fname.str() << std::endl;
     fname.str("");
-    fname << "data/rg1D_N" << input->parameter["nSite"] << "_T"
-        << input->parameter["tempEff"] 
+    fname << "data/" << input->projectName <<
+        "_rg_N" << input->parameter["nSite"] 
+        << "_T" << input->parameter["tempEff"] 
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[1].open(fname.str());
@@ -70,6 +72,7 @@ void Asep::run()
             // output to data file
             if (step % outputStep == 0) {
                 state->output(outFile);
+                // this->output();
             }
 
             // rgMean[step] += state->rg;
@@ -89,3 +92,4 @@ void Asep::run()
     // }
     // delete [] rgMean;
 }
+

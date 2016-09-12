@@ -12,6 +12,7 @@ public:
 
     void setup(Input *input);
     void run();
+    void output();
 
 private:
     class State *state;
