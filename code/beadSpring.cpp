@@ -38,19 +38,22 @@ void BeadSpring::setup(Input *input)
 
     // open files for output
     std::stringstream fname;
-    fname << "data/r_N" << input->parameter["nBead"]
+    fname << "data/" << input->projectName 
+        << "_r_N" << input->parameter["nBead"]
         << "_T" << input->parameter["tempEff"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[0].open(fname.str());
     fname.str("");
-    fname << "data/rg_N" << input->parameter["nBead"]
+    fname << "data/" << input->projectName
+        << "_rg_N" << input->parameter["nBead"]
         << "_T" << input->parameter["tempEff"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[1].open(fname.str());
     fname.str("");
-    fname << "data/rd_N" << input->parameter["nBead"]
+    fname << "data/" << input->projectName
+        << "_rd_N" << input->parameter["nBead"]
         << "_T" << input->parameter["tempEff"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
@@ -61,6 +64,7 @@ void BeadSpring::setup(Input *input)
 void BeadSpring::run() 
 {
     bead->init();
+    // bead->init("equilibrate");
 
     double t = 0;
     int maxStep = int(tEnd / bead->dt);
@@ -78,7 +82,8 @@ void BeadSpring::run()
         }
 
         // MD Move
-        bead->update();
+        bead->rungerKuttaUpdate();
+        // bead->eulerUpdate();
         
         t += bead->dt;
     }

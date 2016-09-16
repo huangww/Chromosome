@@ -1,6 +1,6 @@
 LIBS = -llapack -lm -lblas
 CC = clang++
-CFLAGS = -Wall -std=c++11 -O3
+CFLAGS = -Wall -std=c++11 -o3
 SRCDIR = code
 BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out

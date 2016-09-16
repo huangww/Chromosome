@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 
 
 Bead::Bead()
@@ -83,14 +84,30 @@ void Bead::init()
     t = 0.0;
 
     r = config->init(r);
-    // montecarlo->randomize(r);
-    montecarlo->equilibrate(r);
     
     std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
     std::fill(&f[0][0], &f[0][0]+nBead*DIM, 0);
     std::fill(&ftotal[0][0], &ftotal[0][0]+nBead*DIM, 0);
 }
+
+void Bead::init(const char* mode) 
+{
+    t = 0.0;
+
+    r = config->init(r);
+    if (strcmp(mode,"random")==0) {
+        montecarlo->randomize(r);
+    } else if (strcmp(mode,"equilibrate")==0) {
+        montecarlo->equilibrate(r);
+    }
+    
+    std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
+    // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
+    std::fill(&f[0][0], &f[0][0]+nBead*DIM, 0);
+    std::fill(&ftotal[0][0], &ftotal[0][0]+nBead*DIM, 0);
+}
+
 
 void Bead::print() 
 {
@@ -128,6 +145,11 @@ void Bead::pinSPB()
     }
 }
 
+void Bead::addDrivenSPB() 
+{
+    ftotal[0][0] += 300.0*sin(t);
+}
+
 void Bead::addForce(double **f)
 {
     for (int i = 0; i < nBead; ++i) {
@@ -144,7 +166,7 @@ void Bead::predict()
     // addForce(rod->pseudoSparse(f));
     addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
-    addForce(force->external(f));
+    addForce(force->constant(f));
     // addForce(force->repulsive(f));
     
     // predict the next step position as rs
@@ -169,16 +191,16 @@ void Bead::correct()
     t += dt;
 }
 
-void Bead::update()
+void Bead::eulerUpdate()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
+
+    addForce(spring->fene(r, f));
+    addForce(force->repulsive(r, f));
+    addDrivenSPB();
     addForce(force->brownian(f));
-    addForce(force->external(f));
-    addForce(spring->harmonic(r, f));
-    // addForce(force->repulsive(f));
-    pinSPB();
     
-    // predict the next step position as rs
+    // predict the next step position
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
             r[i][j] = r[i][j] + ftotal[i][j] * dt;
@@ -188,6 +210,36 @@ void Bead::update()
     t += dt;
 }
 
+void Bead::rungerKuttaUpdate()
+{
+    std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
+
+    addForce(spring->fene(r, f));
+    addForce(force->repulsive(r, f));
+    addDrivenSPB();
+    f = force->brownian(f);
+    
+    for (int i = 0; i < nBead; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            rs[i][j] = r[i][j] + ftotal[i][j]*dt + f[i][j]*dt;
+        }
+    }
+
+    addForce(spring->fene(rs, f));
+    addForce(force->repulsive(rs, f));
+    addDrivenSPB();
+    f = force->brownian(f);
+
+    for (int i = 0; i < nBead; ++i) {
+        for (int j = 0; j < DIM; ++j) {
+            r[i][j] = r[i][j] + ftotal[i][j]*dt/2.0 + f[i][j]*dt;
+        }
+    }
+
+    t += dt;
+}
+
+
 void Bead::montecarloUpdate()
 {
     montecarlo->move(r);
@@ -196,6 +248,9 @@ void Bead::montecarloUpdate()
 
 void Bead::output(std::ofstream* outFile) 
 {
+    if (std::isnan(r[0][0])) {
+       throw "NaN error in r!"; 
+    }
     outputPos(outFile[0]);
     // outputRg(outFile[1]);
     // outputRd(outFile[2]);
@@ -206,7 +261,7 @@ void Bead::outputPos(std::ofstream& outFile)
     outFile << "# t = " << t << std::endl;
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
-            outFile << std::setw(9) << r[i][j]-r[0][j] << '\t';
+            outFile << std::setw(9) << r[i][j] << '\t';
         }
         outFile << std::endl;
     } 

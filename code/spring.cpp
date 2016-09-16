@@ -48,12 +48,30 @@ void Spring::outputLinks()
     output.close();
 }
 
+double** Spring::bending(double** r, double** f) 
+{
+    std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
+
+    double k = 30.0;
+    for (int i = 0; i < nLink; ++i) {
+        int i0 = link[i][0];
+        int i1 = link[i][1];
+        for (int j = 0; j < DIM; ++j) {
+            double df;
+            df = -k*(r[i0][j]-r[i1][j]); 
+            f[i0][j] += df;
+            f[i1][j] -= df;
+        }
+    }
+    
+    return f;
+}
 
 double** Spring::harmonic(double** r, double** f) 
 {
     std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
 
-    double k = 3.0;
+    double k = 30.0;
     for (int i = 0; i < nLink; ++i) {
         int i0 = link[i][0];
         int i1 = link[i][1];
@@ -72,7 +90,7 @@ double** Spring::fene(double** r, double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead*DIM, 0);
 
-    double k = 100.0;
+    double k = 10.0;
     double R0 = 1.1;
     for (int i = 0; i < nLink; ++i) {
         int i0 = link[i][0];

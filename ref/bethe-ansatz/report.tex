@@ -20,12 +20,12 @@ lattice. The master equation of the particle can be written as
 \begin{subequations}
 \begin{eqnarray}
     \label{eq:single-particle-a}
-    \frac{d}{dt} P(x, t) & = & \alpha P(x-1, t) + \beta P(x+1, t) - (\alpha +
-    \beta)P(x, t) \\
+    \frac{d}{dt} P_x(t) & = & \alpha P_{x-1}(t) + \beta P_{x+1}(t) - (\alpha +
+    \beta)P_x(t) \\
     \label{eq:single-particle-b}
-    \frac{d}{dt} P(1, t) & = & \beta P(2, t) - \alpha P(1, t) \\
+    \frac{d}{dt} P_1(t) & = & \beta P_2(t) - \alpha P_1(t) \\
     \label{eq:single-particle-c}
-    \frac{d}{dt} P(L, t) & = & \alpha P(L-1, t) - \beta P(L, t)
+    \frac{d}{dt} P_L(t) & = & \alpha P_{L-1}(t) - \beta P_L(t)
 \end{eqnarray}
 \end{subequations}
 where $\alpha$ and $\beta$ is hopping rate of particle to left and right,
@@ -38,8 +38,8 @@ condition
 \begin{subequations}
     \label{eq:boundaries-single-particle}
 \begin{eqnarray}
-    \alpha P(0, t) = \beta P(1, t) \\
-    \alpha P(L, t) = \beta P(L+1, t)
+    \alpha P_0(t) = \beta P_1(t) \\
+    \alpha P_L(t) = \beta P_{L+1}(t)
 \end{eqnarray}
 \end{subequations}
 The above equations use the technique so called ``ghost coordinate", i.e.
@@ -50,7 +50,7 @@ The advantage of using Eq. \eqref{eq:boundaries-single-particle} is that it
 simplifies the calculation a lot.  
 
 To solve the case of single particle ASEP, we take the ansatz of separation of
-variables $P(x, t) = \phi(x)e^{\lambda t}$ and plug into the master equation,
+variables $P_x(t) = \phi(x)e^{\lambda t}$ and plug into the master equation,
 obtaining 
 \begin{equation}
     \label{eq:eigen}
@@ -58,7 +58,7 @@ obtaining
 \end{equation}
 Given that $x$ is an integer number, Eq. \eqref{eq:eigen} is essentially a set
 of liner difference equations with the boundaries by substituting the ansatz of
-$P(x,t)$ into boundaries of Eq. \eqref{eq:boundaries-single-particle}: 
+$P_x(t)$ into boundaries of Eq. \eqref{eq:boundaries-single-particle}: 
 \begin{subequations}
     \label{eq:boundaries-phi}
 \begin{eqnarray}
@@ -105,34 +105,35 @@ eigenvectors. The results are summarised as following
     \end{eqnarray}
 \end{subequations}
 The eigenvalue $\lambda_L = 0$ and corresponding eigenvector represent the
-stationary mode. By properly choose the constant, one can check the
-orthogonality and completeness of the eigenfunctions. 
+stationary mode. By properly choose the constant and when $L\rightarrow\infty$,
+one can check the orthogonality and completeness of the eigenfunctions.
+{\color{red} Need to double check!}
 \begin{eqnarray}
     \label{eq:orthogonality}
-    \sum_{x} \phi_k(x)\phi_l(x) & = & \delta_{k,l} \\
+    \sum_{x=1}^L \phi_k(x)\phi_l(x) & = & \delta_{k,l} \\
     \label{eq:completeness}
-    \sum_{k} \phi_k(x)\phi_k(y) & = & \delta_{x,y} 
+    \sum_{k=1}^L \phi_k(x)\phi_k(y) & = & \delta_{x,y} 
 \end{eqnarray}
 So for arbitrary initial distribution of $P(x, 0)$, we can always decompose it as 
 \begin{equation}
     \label{eq:decompose-intial-single}
-    P(x,0) = \sum_k{c_k \phi_k(x)}
+    P_x(0) = \sum_k{c_k \phi_k(x)}
 \end{equation}
 where $c_k$ can be calculated by 
 \begin{equation}
     \label{eq:coeff-k}
-    c_k = \sum_x{\phi_k(x) P(x,0)}
+    c_k = \sum_x{\phi_k(x) P_x(0)}
 \end{equation}
 Finally, the solution of single particle on reflecting lattice can be written as
 \begin{equation}
     \label{eq:solution-single}
-    P(x,t) = \sum_k{\phi_k(x)e^{\lambda_k t}}\sum_y{\phi_k(y)P(y,0)}
+    P_x(t) = \sum_k{\phi_k(x)e^{\lambda_k t}}\sum_y{\phi_k(y)P_y(0)}
 \end{equation}
-For the special case that $P(x,0) = \delta_{x,y}$, solution
+For the special case that $P_x(0) = \delta_{x,y}$, solution
 \eqref{eq:solution-single} can be simplified to
 \begin{equation}
     \label{eq:solution-single-simplified}
-    P(x,t) = \sum_k{\phi_k(x)\phi_k(y)e^{\lambda_k t}}
+    P_x(t) = \sum_k{\phi_k(x)\phi_k(y)e^{\lambda_k t}}
 \end{equation}
 
 With the complete solution of single particle, we can go further to systems of

@@ -5,10 +5,10 @@ nBead = 100
 nLink = 100
 tempEff = 100
 
-dt = 1e-4
-tEnd = 1e3
+dt = 2e-4
+tEnd = 1e2
 outputStep = 1e3
 
 # seed = rd()
-# seed = 5489
+seed = 5489
 taskID = 0

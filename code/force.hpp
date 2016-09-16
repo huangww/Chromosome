@@ -17,8 +17,8 @@ public:
     double** repulsive(double** r, double** f);
     double* brownian(double* f);
     double** brownian(double** f);
-    double* external(double* f);
-    double** external(double** f);
+    double* constant(double* f);
+    double** constant(double** f);
     double* boundary(double* x, double* f);
 
 private:
