@@ -124,7 +124,7 @@ double** Force::brownian(double** f)
 }
 
 
-double* Force::external(double* f)
+double* Force::constant(double* f)
 {
     for (int i = 0; i < nPar; ++i) {
         f[i] = - 1.0 / tempEff;
@@ -133,7 +133,7 @@ double* Force::external(double* f)
     return f;
 }
 
-double** Force::external(double** f)
+double** Force::constant(double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
@@ -168,3 +168,4 @@ double* Force::boundary(double*x, double* f)
 
     return f;
 }
+

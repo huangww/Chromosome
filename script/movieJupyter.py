@@ -5,8 +5,8 @@ import glob
 
 # load data 
 dataDir = 'data/'
-fname = max(glob.iglob(dataDir + 'r_*.dat'), key=os.path.getctime)
-# fname = dataDir + 'r_N50_T0_0.dat'
+# fname = max(glob.iglob(dataDir + 'r_*.dat'), key=os.path.getctime)
+fname = dataDir + 'BeadSpring_r_N100_T100_0.dat'
 print fname
 
 # detect parameters from file name

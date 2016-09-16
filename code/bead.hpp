@@ -13,11 +13,16 @@ public:
     void setParameter(Input *input);
     void print();
     void init();
+    void init(const char* mode);
     void predict();
     void correct();
-    void update();
+    void eulerUpdate();
+    void rungerKuttaUpdate();
     void montecarloUpdate();
     void output(std::ofstream* outFile);
+    void outputPos(std::ofstream& output);
+    void outputRd(std::ofstream& output);
+    void outputRg(std::ofstream& output);
 
     double t;
     double dt;
@@ -39,11 +44,9 @@ private:
 
     void addForce(double **);
     void pinSPB();
+    void addDrivenSPB();
     void create();
     void destroy();
-    void outputPos(std::ofstream& output);
-    void outputRd(std::ofstream& output);
-    void outputRg(std::ofstream& output);
     
     // parameters
     int nBead;

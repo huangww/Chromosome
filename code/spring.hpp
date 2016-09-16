@@ -10,6 +10,7 @@ public:
     virtual ~Spring ();
 
     void setParameter(Input* input);
+    double** bending(double** r, double** f);
     double** harmonic(double** r, double** f);
     double** fene(double** r, double** f);
 
