@@ -188,11 +188,15 @@ void Montecarlo::moveRingPair(int N, double** r)
 
 void Montecarlo::moveThreeRingPair(int N, double** r)
 {
-    int monomer[3] = {10, 20, 30};      // To change later
-    monomer[0] = N/6;
-    int pairSize1 = 2*monomer[0]-1;
-    int pairSize2 = 2*monomer[1]-1;
-    int pairSize3 = 2*monomer[2]-1;
+    int m[3];
+    int monomer = (N+5)/2;
+    m[1] = monomer * 245/1257;
+    m[2] = monomer * 454/1257;
+    m[0] = monomer - m[1] -m[2];
+
+    int pairSize1 = 2*m[0]-1;
+    int pairSize2 = 2*m[1]-1;
+    int pairSize3 = 2*m[2]-1;
     double** pair1 = create2DArray<double>(pairSize1,DIM);
     double** pair2 = create2DArray<double>(pairSize2,DIM);
     double** pair3 = create2DArray<double>(pairSize3,DIM);
@@ -282,7 +286,7 @@ void Montecarlo::moveTry(int N, double** r)
             moveThreeRingPair(N, r);
             break;
         default:
-            moveRing(N, r);
+            throw "Invalid topoType!";
     }
 }
 

@@ -5,8 +5,7 @@ import glob
 
 # load data 
 dataDir = 'data/'
-# fname = max(glob.iglob(dataDir + 'r_*.dat'), key=os.path.getctime)
-fname = dataDir + 'BeadSpring_r_N100_T100_0.dat'
+fname = max(glob.iglob(dataDir + '*_r_*.dat'), key=os.path.getctime)
 print fname
 
 # detect parameters from file name
@@ -19,7 +18,7 @@ Teff = int(Tstr[0])
 # set up the scene or movie
 bg = vector(1., 1., 1.)
 scene = canvas(width=800, height=480, background=bg)
-factor = 0.15
+factor = 0.1
 scale = 0.5
 
 # faxis = frame()
@@ -33,8 +32,9 @@ pos = scale*data.reshape([-1,N,3])
 bead=[]
 # monomer = [279,227,123]
 bead.append(sphere(pos = vec(0,0,0),
-    radius = 2.0*factor,
-    color = color.red))
+    radius = 1.5*factor,
+    # radius = 2.0*factor,
+    color = color.magenta))
     # frame = faxis))
 bead.extend([sphere(pos = vec(pos[0,i,0],pos[0,i,1],pos[0,i,2]),
     radius = 1.0*factor,
@@ -44,13 +44,17 @@ bead.extend([sphere(pos = vec(pos[0,i,0],pos[0,i,1],pos[0,i,2]),
    
 # Connect beads with rods
 # for a simple ring 
-link = [[i, (i+1)%N] for i in range(N)]
+# link = [[i, (i+1)%N] for i in range(N)]
 # or load topology data
-# link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')
+link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')
+# rod = [helix(pos=bead[l[0]].pos, 
 rod = [cylinder(pos=bead[l[0]].pos, 
     axis = bead[l[1]].pos - bead[l[0]].pos,
     radius = 0.5 * factor, 
     color = bead[max(l[0], l[1])].color)
+    # color = color.yellow,
+    # thickness = 0.1*factor,
+    # coils = 8)
     # frame = faxis)
     for l in link]
 
@@ -73,11 +77,12 @@ while t<len(pos):
     for i in range(N):
 	# bead[i].pos = vector(pos[j,i])
 	bead[i].pos = vector(pos[j,i,0],pos[j,i,1],pos[j,i,2])
-    for i,l in zip(range(N), link):
+    for i,l in zip(range(len(link)), link):
 	rod[i].pos=bead[l[0]].pos
 	rod[i].axis=bead[l[1]].pos-bead[l[0]].pos
     # im = ImageGrab.grab()
     # im.save('tmp/tmp.%04d.png'%j)
+    # scene.waitfor('click')
     t = t+1
     rate(30)
 

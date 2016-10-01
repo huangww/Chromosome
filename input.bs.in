@@ -1,11 +1,11 @@
 projectName = BeadSpring
 
-topoType = 0
-nBead = 100
-nLink = 100
-tempEff = 100
+topoType = 4
+# nBead = 1257
+nBead = 125
+tempEff = 10
 
-dt = 2e-4
+dt = 1e-4
 tEnd = 1e2
 outputStep = 1e3
 

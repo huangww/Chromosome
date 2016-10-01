@@ -19,6 +19,8 @@ public:
     double** brownian(double** f);
     double* constant(double* f);
     double** constant(double** f);
+    double* periodic(double* f);
+    double** periodic(double** f);
     double* boundary(double* x, double* f);
 
 private:

@@ -27,8 +27,17 @@ double** Config::init(double** r)
         case 1:
             chain(nBead, r);
             break;
+        case 2:
+            ringPair(nBead, r);
+            break;
+        case 3:
+            ringPairWithCentromere(nBead, r);
+            break;
+        case 4:
+            threeRingPair(nBead, r);
+            break;
         default:
-            ring(nBead, r);
+            throw "Invalid topoType!";
     }
 
     return r;
@@ -151,7 +160,7 @@ void Config::ringPairWithCentromere(int N, double **pos)
     std::fill(&pos[0][0], &pos[0][0] + N * DIM, 0);
 
     int ringSize = (N+2)/2;
-    int cm = ringSize;
+    int cm = ringSize/2;
     if (cm > ringSize) { 
        std::cout << "Improper centromere position!" << std::endl;
     }
@@ -180,7 +189,11 @@ void Config::threeRingPair(int N, double **pos)
 {
     std::fill(&pos[0][0], &pos[0][0] + N * DIM, 0);
 
-    int m[3] = {10, 10, 10};
+    int m[3];
+    int monomer = (N+5)/2;
+    m[1] = monomer * 245/1257;
+    m[2] = monomer * 454/1257;
+    m[0] = monomer - m[1] -m[2];
 
     int pairSize1 = 2*m[0]-1;
     double **pair1 = create2DArray<double>(pairSize1,DIM);

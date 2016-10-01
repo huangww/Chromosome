@@ -73,7 +73,7 @@ double** Force::repulsive(double** r, double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
-    double r0 = 0.75;
+    double r0 = 0.25;
     double eps = 1.0;
     for (int i = 0; i < nBead; ++i) {
         for (int j = i+1; j < nBead; ++j) {
@@ -138,12 +138,32 @@ double** Force::constant(double** f)
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
     for (int i = 0; i < nBead; ++i) {
+        f[i][0] = 1.0 / tempEff;
+    }
+    return f;
+}
+
+double* Force::periodic(double* f)
+{
+    for (int i = 0; i < nPar; ++i) {
+        f[i] = - 1.0 / tempEff;
+    }
+
+    return f;
+}
+
+double** Force::periodic(double** f)
+{
+    std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
+
+    for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
             f[i][0] = 1.0 / tempEff;
         }
     }
     return f;
 }
+
 
 
 double* Force::boundary(double*x, double* f)

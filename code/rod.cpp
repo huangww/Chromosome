@@ -13,6 +13,7 @@
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
 
+
 Rod::Rod(Bead *beadPointer)
 {
     bead = beadPointer;
@@ -20,78 +21,50 @@ Rod::Rod(Bead *beadPointer)
     u = NULL;
     b = NULL;
     g = NULL;
-    linkTable.nLinks = NULL;
-    linkTable.table = NULL;
+    gSparse = NULL;
+    nPair = NULL;
+    linkPair = NULL;
+    topo = NULL;
 }
 Rod::~Rod() 
 {
-    delete2DArray(link);
     delete2DArray(u);
     delete2DArray(b);
-    delete2DArray(g);
-    delete linkTable.nLinks;
-    delete2DArray(linkTable.table);
+    delete topo;
 }
 
 void Rod::setParameter(Input *input) 
 {
 
-    nLink = int(input->parameter["nLink"]);
     nBead = int(input->parameter["nBead"]);
+    // nLink = int(input->parameter["nLink"]);
     dt = input->parameter["dt"];
 
-    link = create2DArray<int>(nLink, 2);
+    // setup the link topology
+    topo = new Topo();
+    topo->setParameter(input);
+    topo->init();
+    // topo->initSparse();
+    nLink = topo->getNumLink();
+    link = topo->getLink();
+    g = topo->getMetricTensor();
+    // gSparse = topo->getMetricTensorSparse();
+    linkPair = topo->getLinkPair();
+    nPair = topo->getNumPair();
+
     u = create2DArray<double>(nLink+DIM, DIM);
     b = create2DArray<double>(nLink+DIM, DIM);
-    g = create2DArray<int>(nLink, nLink);
-    gSparse = SpMatD(nLink, nLink);
-    linkTable.nLinks = new int[nBead];
-    linkTable.table = create2DArray<int>(3*nLink, 6);
-
-    // setup the link topology
-    Topo *topo = new Topo();
-    topo->setParameter(input);
-    link = topo->init(link);
-    outputLinks();
-    delete topo;
-
-    init();
+    // init();
 }
 
 void Rod::init() 
 {
-    // init the metric matrix
-    g = metricTensor();
-    // printMetric();
-    
+
     // metric in sparse format using Egen lib
-    metricTensorSparse();
-    
-    // init linkTable
-    setLinkTable();
+    // metricTensorSparse();
+
 }
 
-void Rod::printLinks() 
-{
-    std::cout << " Rod Topology: " << std::endl;
-    for (int i = 0; i < nLink; ++i) {
-        std::cout << "Rod " << i << ":  " << 
-            link[i][0] << '\t' << link[i][1] 
-            << std::endl;
-    }
-}
-
-void Rod::outputLinks() 
-{
-    std::ofstream output("data/topo.dat");
-
-    for (int i = 0; i < nLink; ++i) {
-            output << std::setw(9) << link[i][0] << '\t' 
-                << std::setw(9) << link[i][1] << std::endl;
-    }
-
-    output.close();
-}
 
 void Rod::printMetric()
 {
@@ -119,13 +92,14 @@ double** Rod::linkVectorU()
         }
     }
 
+    // additional unit vector for first bead costraints
     for (int i = 0; i < DIM; ++i) {
         for (int j = 0; j < DIM; ++j) {
             u[nLink+i][j] = 0;
         }
         u[nLink+i][i] = 1;
     }
-        
+
     return u;
 }
 
@@ -146,113 +120,51 @@ double** Rod::linkVectorB()
     return b;
 }
 
-int** Rod::metricTensor() 
-{
-    std::fill(&g[0][0], &g[0][0] + nLink * nLink, 0);
-
-    for (int i = 0; i < nLink; i++) {
-        g[i][i] = -2;
-        for (int j = 0; j < nLink; j++) {
-            if (i==j) continue;
-            int condition1 = (link[i][0]-link[j][1]) *
-                (link[i][1]-link[j][0]);
-            int condition2 = (link[i][0]-link[j][0]) *
-                (link[i][1]-link[j][1]);
-            if (condition1 == 0) {
-                g[i][j] = 1;
-            }
-            else if (condition2 == 0) {
-                g[i][j] = -1;
-            }
-        }
-    }
-
-    return g;
-}
-
-void Rod::metricTensorSparse() 
-{
-    std::vector<T> tripletList;
-    tripletList.reserve(3*nLink);
-    for (int i = 0; i < nLink; i++) {
-        tripletList.push_back(T(i,i,-2));
-        for (int j = 0; j < nLink; j++) {
-            if (i==j) continue;
-            int condition1 = (link[i][0]-link[j][1]) *
-                (link[i][1]-link[j][0]);
-            int condition2 = (link[i][0]-link[j][0]) *
-                (link[i][1]-link[j][1]);
-            if (condition1 == 0) {
-                tripletList.push_back(T(i,j,1));
-            }
-            else if (condition2 == 0) {
-                tripletList.push_back(T(i,j,-1));
-            }
-        }
-    }
-    gSparse.setFromTriplets(tripletList.begin(), tripletList.end());
-    gSparse.makeCompressed();
-}
-
-void Rod::setLinkTable()
-{
-    int count = 0;
-    for (int l = 0; l < nBead; ++l) {
-        int countLink = 0;
-        for (int i = 0; i < nLink; ++i) {
-            for (int j = i+1; j < nLink; ++j) {
-                if (g[i][j]!=0) {
-                    int i0,i1,j0,j1;
-                    i0 = link[i][0];
-                    i1 = link[i][1];
-                    j0 = link[j][0];
-                    j1 = link[j][1];
-                    if ((l-i0)*(l-i1)*(l-j0)*(l-j1)==0) {
-                        linkTable.table[count][0] = i;
-                        linkTable.table[count][1] = i0;
-                        linkTable.table[count][2] = i1;
-                        linkTable.table[count][3] = j;
-                        linkTable.table[count][4] = j0;
-                        linkTable.table[count][5] = j1;
-                        count++;
-                        countLink++;
-                    }
-                }
-            }
-        }
-        linkTable.nLinks[l] = countLink;
-    }
-}
-
 void Rod::matrixA(double *A) 
 {
     std::fill(&A[0], &A[0] + (nLink+DIM) * (nLink+DIM), 0);
 
     for (int i = 0; i < nLink; i++) {
+        // normal A entities 
         for (int j = 0; j < nLink; j++) {
             if (g[i][j] != 0) {
-                // Indices transfer: A[j*Rodnumber+i] = A[i][j]
+                // Indices transfer: A[j*nLink+i] = A[i][j]
                 A[j*(nLink+DIM)+i] = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+            }
+        }
+        // the one for pinned bead Fc[1]*b[k], symetric matrix
+        // for a ring, A[N+i, 1] = u[1] . b[N+i]
+        if (link[i][0]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                A[i*(nLink+DIM)+nLink+j] = 
+                    Dot(&b[nLink+j][0],&u[i][0], DIM);
+                A[(nLink+j)*(nLink+DIM)+i] = 
+                    Dot(&b[i][0],&u[nLink+j][0], DIM);
+            }
+        } 
+        // the one for pinned bead Fc[1]*b[k]
+        // for a ring, A[N+i, N] = u[N] . b[N+i]
+        if (link[i][1]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                A[(nLink+j)*(nLink+DIM)+i] = 
+                    -Dot(&b[i][0],&u[nLink+j][0], DIM);
+                A[i*(nLink+DIM)+(nLink+j)] = 
+                    -Dot(&b[nLink+j][0],&u[i][0], DIM);
             }
         }
     }
 
     for (int i = 0; i < DIM; ++i) {
-        A[(nLink+i)*(nLink+DIM)] = 
-            -Dot(&b[0][0],&u[nLink+i][0], DIM);
-        A[(nLink+i)*(nLink+DIM)+(nLink-1)] = 
-            Dot(&b[nLink-1][0],&u[nLink+i][0], DIM);
-        A[nLink+i] = -Dot(&b[nLink+i][0],&u[0][0], DIM);
-        A[(nLink-1)*(nLink+DIM)+(nLink+i)] = 
-            Dot(&b[nLink+i][0],&u[nLink-1][0], DIM);
         A[(nLink+i)*(nLink+DIM)+(nLink+i)] = 
-            -Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
+            Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
     }
 
 }
 
 void Rod::vectorB(double *x, double *B)
 {
+    // B =  (1 - b^2[i] - nonlinear term)/(2dt)
+    // nonlinear term = ((Fc[i+1]-Fc[i])*dt)^2
     for (int i = 0; i < nLink; i++) {
         double tmp[DIM];
         std::fill(&tmp[0], &tmp[0] + DIM, 0);
@@ -283,10 +195,12 @@ void Rod::vectorB(double *x, double *B)
         B[i] = (1.0 - dotBiBi)/(2.0*dt) -
             dt * dotTiTi/2.0;
     }
+
+    // Additional constraint for the first bead
     for (int i = 0; i < DIM; ++i) {
-        B[nLink+i] = bead->rs[0][i]/dt;
+        B[nLink+i] = -bead->rs[0][i]/dt;
         // prescribe moving term
-        // B[nLink] = (bead->rs[0][0]-x(t))/dt;
+        // B[nLink] = -(bead->rs[0][0]-x(t))/dt;
     }
 }
 
@@ -302,7 +216,7 @@ void Rod::solverPicard(double *x)
     dgetrf_(&n, &n, A, &lda, iPIv, &info);
 
     double xold[nLink+DIM];
-    for (int step = 0; step < 500; step++)
+    for (int step = 0; step < 1000; step++)
     {
         std::copy(&x[0], &x[0] + nLink + DIM, &xold[0]);
         double B[nLink+DIM];
@@ -310,10 +224,10 @@ void Rod::solverPicard(double *x)
 
         //tmp output
         // if (fabs(bead->t - 0.0050) < 1e-4) {
-        //     for (int i = 0; i < nLink+DIM; ++i) {
-        //         std::cout << x[i] << ' ' << B[i] << std::endl;
-        //     }
-        //     std::cin.get();
+        // for (int i = 0; i < nLink+DIM; ++i) {
+        //     std::cout << x[i] << ' ' << B[i] << std::endl;
+        // }
+        // std::cin.get();
         // }
         //tmp output
 
@@ -335,6 +249,125 @@ void Rod::solverPicard(double *x)
     throw "MaxStep exceeded in Picard!";
 }
 
+void Rod::jacobian(double *x, double *A, double *B)
+{
+    // F[i] = \sum_j g[i,j] * b[i] . u[j] * x[j]
+    // + (\sum_j g[i,j] * b[i] . u[j] * x[j])^2 * dt / 2
+    //  + (b[i]^2 - 1)/(2dt)
+    // J[i,j] = \partial F[i] / \partial x[j]
+    // J[i,j] = g[i,j] * b[i].u[j] + dt * g[i,j]
+    // * b[i].u[j] * (\sum_j g[i,j] * b[i].u[j] * x[j])
+
+    std::fill(&A[0], &A[0] + (nLink+DIM) * (nLink+DIM), 0);
+    std::fill(&B[0], &B[0] + (nLink+DIM), 0);
+
+    double tmp[nLink+DIM]; //  sum_j g[i,j] * b[i].u[j] * x[j]
+    std::fill(&tmp[0], &tmp[0] + (nLink+DIM), 0);
+    for (int i = 0; i < nLink; i++) {
+        // normal A entities 
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                // Indices transfer: A[j*nLink+i] = A[i][j]
+                A[j*(nLink+DIM)+i] = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+                tmp[i] += A[j*(nLink+DIM)+i]*x[j];
+            }
+        }
+
+        // the one for pinned bead Fc[1]*b[k], symetric matrix
+        // for a ring, A[N+j, 1] = u[1] . b[N+j]
+        if (link[i][0]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                A[i*(nLink+DIM)+nLink+j] = 
+                    Dot(&b[nLink+j][0],&u[i][0], DIM);
+                tmp[nLink+j] += A[i*(nLink+DIM)+nLink+j]*x[i];
+                A[(nLink+j)*(nLink+DIM)+i] = 
+                    Dot(&b[i][0],&u[nLink+j][0], DIM);
+                tmp[i] += A[i*(nLink+DIM)+nLink+j]*x[nLink+j];
+            }
+        } 
+        // the one for pinned bead Fc[1]*b[k]
+        // for a ring, A[N+i, N] = u[N] . b[N+i]
+        if (link[i][1]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                A[(nLink+j)*(nLink+DIM)+i] = 
+                    -Dot(&b[i][0],&u[nLink+j][0], DIM);
+                tmp[i] += A[(nLink+j)*(nLink+DIM)+i]*x[nLink+j];
+                A[i*(nLink+DIM)+(nLink+j)] = 
+                    -Dot(&b[nLink+j][0],&u[i][0], DIM);
+                tmp[nLink+j] += A[i*(nLink+DIM)+(nLink+j)]*x[i];
+            }
+        }
+    }
+
+    for (int i = 0; i < DIM; ++i) {
+        A[(nLink+i)*(nLink+DIM)+(nLink+i)] = 
+            Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
+        tmp[nLink+i] += 
+        A[(nLink+i)*(nLink+DIM)+(nLink+i)] * x[nLink+i];
+    }
+
+    for (int i = 0; i < nLink+DIM; ++i) {
+        for (int j = 0; j < nLink+DIM; ++j) {
+            if (A[j*(nLink+DIM)+i]!=0) {
+                A[j*(nLink+DIM)+i] *= (1. + tmp[i]*dt);
+            }
+        }
+        if (i<nLink) {
+        B[i] = tmp[i] + tmp[i]*tmp[i]*dt/2 + 
+            (Dot(&b[i][0], &b[i][0], DIM) - 1) / (2.*dt);
+        } else {
+            B[i] = tmp[i] + bead->rs[0][i-nLink]/dt;
+        }
+    }
+
+}
+
+void Rod::inverse(double *A, int N)
+{
+    int *IPIV = new int[N+1];
+    int LWORK = N*N;
+    double *WORK = new double[LWORK];
+    int INFO;
+
+    dgetrf_(&N,&N,A,&N,IPIV,&INFO);
+    dgetri_(&N,A,&N,IPIV,WORK,&LWORK,&INFO);
+
+    delete [] IPIV;
+    delete [] WORK;
+}
+
+void Rod::solverNewton(double *x) 
+{
+    double xold[nLink+DIM];
+    for (int step = 0; step < 1000; step++)
+    {
+        std::copy(&x[0], &x[0] + nLink + DIM, &xold[0]);
+        double A[(nLink+DIM)*(nLink+DIM)];
+        double B[nLink+DIM];
+        jacobian(xold, A, B);
+        inverse(A, nLink+DIM);
+
+        for (int i = 0; i < nLink+DIM; ++i) {
+            double sumAB = 0;
+            for (int j = 0; j < nLink+DIM; ++j) {
+                sumAB += A[j*(nLink+DIM)+i]*B[j];
+            } 
+            x[i] = xold[i] - sumAB;
+        }
+
+        double maxDiff = fabs(xold[0] - x[0]);
+        for (int i = 1; i < nLink+DIM; i++) {
+            if (fabs(xold[i] - x[i]) > maxDiff) {
+                maxDiff = fabs(xold[i] - x[i]);
+            }
+        }
+        if (maxDiff < 1e-6) return;
+    }
+
+    bead->print();
+    throw "MaxStep exceeded in Newton!";
+}
+
 double** Rod::constraint(double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
@@ -344,6 +377,7 @@ double** Rod::constraint(double** f)
     double tension[nLink+DIM];
     std::fill(&tension[0], &tension[0] + nLink + DIM, 0);
     solverPicard(tension);
+    // solverNewton(tension);
 
     for (int i = 0; i < nBead; i++) {
         for (int j = 0; j < nLink; j++) {
@@ -391,14 +425,14 @@ double** Rod::pseudo(double **f)
 
     int count = 0;
     for (int k = 0; k < nBead; ++k) {
-        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+        for (int l = 0; l < nPair[k]; ++l) {
             int i,i0,i1,j,j0,j1;
-            i = linkTable.table[count][0];
-            i0 = linkTable.table[count][1];
-            i1 = linkTable.table[count][2];
-            j = linkTable.table[count][3];
-            j0 = linkTable.table[count][4];
-            j1 = linkTable.table[count][5];
+            i = linkPair[count][0];
+            i0 = linkPair[count][1];
+            i1 = linkPair[count][2];
+            j = linkPair[count][3];
+            j0 = linkPair[count][4];
+            j1 = linkPair[count][5];
             count++;
             double uij;
             uij = Dot(&u[i][0], &u[j][0], DIM); 
@@ -421,8 +455,8 @@ double** Rod::pseudoSparse(double **f)
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
     u = linkVectorU();
-    SpMatD metric(gSparse);
-    SpMatD uij(gSparse);
+    SpMatD metric(*gSparse);
+    SpMatD uij(*gSparse);
     for (int k = 0; k < uij.outerSize(); ++k) {
         for (SpMatD::InnerIterator it(uij, k); it; ++it) {
             int i = it.row();
@@ -430,7 +464,7 @@ double** Rod::pseudoSparse(double **f)
             it.valueRef() = Dot(&u[i][0], &u[j][0], DIM);
         }
     }
-    metric = -uij.cwiseProduct(gSparse);
+    metric = -uij.cwiseProduct(*gSparse);
 
     // calculate the inverse of the metric matrix
     SpMatD I(nLink,nLink);
@@ -438,20 +472,20 @@ double** Rod::pseudoSparse(double **f)
     // Eigen::SparseLU<SpMatD> solver;
     Eigen::SimplicialLDLT<SpMatD> solver;
     solver.compute(metric);
-    std::cout << solver.determinant() << std::endl;
+    // std::cout << solver.determinant() << std::endl;
     metric = solver.solve(I);
-    metric = metric.cwiseProduct(gSparse);
+    metric = metric.cwiseProduct(*gSparse);
 
     int count = 0;
     for (int k = 0; k < nBead; ++k) {
-        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+        for (int l = 0; l < nPair[k]; ++l) {
             int i,i0,i1,j,j0,j1;
-            i = linkTable.table[count][0];
-            i0 = linkTable.table[count][1];
-            i1 = linkTable.table[count][2];
-            j = linkTable.table[count][3];
-            j0 = linkTable.table[count][4];
-            j1 = linkTable.table[count][5];
+            i = linkPair[count][0];
+            i0 = linkPair[count][1];
+            i1 = linkPair[count][2];
+            j = linkPair[count][3];
+            j0 = linkPair[count][4];
+            j1 = linkPair[count][5];
             count++;
             double pgr[DIM];
             for (int m = 0; m < DIM; ++m) {
@@ -496,7 +530,7 @@ double **Rod::pseudoRing(double **f)
     double detG = -coeff[0]*coeff[0]*det1 
         - coeff[nLink-1]*coeff[nLink-1]*det2
         + 2*det3 - 2*sign*prodCoeff; // check
-    
+
     double metricInv[nLink][nLink];
     std::fill(&metricInv[0][0], &metricInv[0][0] + nLink*nLink, 0);
     double detTop, detBottom, cofG;
@@ -526,8 +560,8 @@ double **Rod::pseudoRing(double **f)
         detBottom = detBandMetric(nLink-i-2, &coeff[i+2]); //check
         det3 = coeff[i]*detTop*detBottom;
         cofG = coeff[0]*coeff[0]*det1 
-        + coeff[nLink-1]*coeff[nLink-1]*det2 -
-        2*det3 - sign*prodCoeff/coeff[i]; // check
+            + coeff[nLink-1]*coeff[nLink-1]*det2 -
+            2*det3 - sign*prodCoeff/coeff[i]; // check
         metricInv[i][i-1] = cofG / detG;
         metricInv[i-1][i] = metricInv[i][i-1];
     }
@@ -546,7 +580,7 @@ double **Rod::pseudoRing(double **f)
         - sign*prodCoeff/coeff[nLink-1];
     metricInv[nLink-1][nLink-2] = cofG / detG;
     metricInv[nLink-2][nLink-1] = metricInv[nLink-1][nLink-2];
-    
+
     cofG = -coeff[0]*detBandMetric(nLink-2, &coeff[2]) 
         - sign*prodCoeff / coeff[0];
     metricInv[0][nLink-1] = cofG / detG;
@@ -554,14 +588,14 @@ double **Rod::pseudoRing(double **f)
 
     int count = 0;
     for (int k = 0; k < nBead; ++k) {
-        for (int l = 0; l < linkTable.nLinks[k]; ++l) {
+        for (int l = 0; l < nPair[k]; ++l) {
             int i,i0,i1,j,j0,j1;
-            i = linkTable.table[count][0];
-            i0 = linkTable.table[count][1];
-            i1 = linkTable.table[count][2];
-            j = linkTable.table[count][3];
-            j0 = linkTable.table[count][4];
-            j1 = linkTable.table[count][5];
+            i = linkPair[count][0];
+            i0 = linkPair[count][1];
+            i1 = linkPair[count][2];
+            j = linkPair[count][3];
+            j0 = linkPair[count][4];
+            j1 = linkPair[count][5];
             count++;
             double uij;
             uij = Dot(&u[i][0], &u[j][0], DIM); 

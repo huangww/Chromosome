@@ -171,8 +171,18 @@ def var_z_cm(cm, N, T):
     return var_z_cm
 
 
-
 def rouse_mean(N, T):
+    f = 1./float(T)
+    k_H = 3
+    z_mean = np.zeros(N)
+    for i in range(1, N):
+        sumTerm = 0
+        for l in range(1, (N+1)/2):
+            sumTerm += np.sin(i*(2*l-1)*np.pi/N)/((2*l-1)*np.pi*(np.sin((2*l-1)*np.pi/(2*N)))**2)
+        z_mean[i] = sumTerm * f / k_H
+    return z_mean
+
+def rouse_mean2(N, T):
     f = 1./float(T)
     k_H = 3
     z_mean = np.zeros(N)
