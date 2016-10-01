@@ -27,7 +27,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(CFLAGS) $(LIBS) -o $@
 
 run:
-	./$(TARGET)
+	./$(TARGET) input.br.in
 
 clean :
 	-rm -rf $(BUILDDIR)/*

@@ -5,6 +5,8 @@
 #include "input.hpp"
 #include "bead.hpp"
 
+typedef Eigen::SparseMatrix<double> SpMatD;
+
 class Rod
 {
 public:
@@ -18,33 +20,29 @@ public:
     double** pseudoSparse(double **f);
 
 private:
-    typedef Eigen::SparseMatrix<double> SpMatD;
-    typedef Eigen::Triplet<int> T;
 
     int **link;         // index of pair of beads linked
     double **u;         // unit vector of rod
     double **b;         // vector of rod unnormalized
-    int **g;            // metric matrix
-    SpMatD gSparse;     // metric matrix sparse representation
+    int **g;            // metric matrix, first bead pinned
+    SpMatD* gSparse;    // metric matrix sparse representation
 
-    struct LinkTable {
-        int *nLinks;
-        int **table;
-    } linkTable;
+    int *nPair;         // # of link pairs related to each bead
+    int **linkPair;     // table of link pairs
+
     class Bead *bead;
+    class Topo *topo;
 
     void init();
-    void printLinks();
-    void outputLinks();
     void printMetric();
-    void setLinkTable();
     double** linkVectorU(); 
     double** linkVectorB();
-    int** metricTensor();
-    void metricTensorSparse();
     void matrixA(double *A);
     void vectorB(double *x, double *B);
     void solverPicard(double *x);
+    void jacobian(double *x, double *A, double *B);
+    void inverse(double *A, int N);
+    void solverNewton(double *x);
     double detBandMetric(int n, double *coeff);
 
     // parameters

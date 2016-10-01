@@ -82,8 +82,8 @@ void BeadSpring::run()
         }
 
         // MD Move
-        bead->rungerKuttaUpdate();
-        // bead->eulerUpdate();
+        // bead->rungerKuttaUpdate();
+        bead->eulerUpdate();
         
         t += bead->dt;
     }

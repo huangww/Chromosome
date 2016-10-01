@@ -69,7 +69,7 @@ void Bead::setParameter(Input *input)
         rod->setParameter(input);
     }
     if (input->projectName=="BeadSpring") {
-        spring = new Spring();
+        spring = new Spring(this);
         spring->setParameter(input);
     }
     config = new Config();
@@ -147,7 +147,7 @@ void Bead::pinSPB()
 
 void Bead::addDrivenSPB() 
 {
-    ftotal[0][0] += 300.0*sin(t);
+    ftotal[0][0] += 300.0*sin(t/10.0);
 }
 
 void Bead::addForce(double **f)
@@ -162,12 +162,12 @@ void Bead::addForce(double **f)
 void Bead::predict()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
-    // addForce(rod->pseudo(f));
+    addForce(rod->pseudo(f));
     // addForce(rod->pseudoSparse(f));
-    addForce(rod->pseudoRing(f));
+    // addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
     addForce(force->constant(f));
-    // addForce(force->repulsive(f));
+    addForce(force->repulsive(r, f));
     
     // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
@@ -196,8 +196,11 @@ void Bead::eulerUpdate()
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
 
     addForce(spring->fene(r, f));
-    addForce(force->repulsive(r, f));
-    addDrivenSPB();
+    // addForce(spring->bending(r, f));
+    // addForce(force->repulsive(r, f));
+    // addDrivenSPB();
+    addForce(force->constant(f));
+    pinSPB();
     addForce(force->brownian(f));
     
     // predict the next step position
@@ -215,6 +218,7 @@ void Bead::rungerKuttaUpdate()
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
 
     addForce(spring->fene(r, f));
+    addForce(spring->bending(r, f));
     addForce(force->repulsive(r, f));
     addDrivenSPB();
     f = force->brownian(f);
@@ -226,6 +230,7 @@ void Bead::rungerKuttaUpdate()
     }
 
     addForce(spring->fene(rs, f));
+    addForce(spring->bending(rs, f));
     addForce(force->repulsive(rs, f));
     addDrivenSPB();
     f = force->brownian(f);
@@ -238,7 +243,6 @@ void Bead::rungerKuttaUpdate()
 
     t += dt;
 }
-
 
 void Bead::montecarloUpdate()
 {

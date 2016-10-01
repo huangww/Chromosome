@@ -2,11 +2,12 @@
 #define SPRING_HPP_QBXE97YK
 
 #include "input.hpp"
+#include "bead.hpp"
 
 class Spring
 {
 public:
-    Spring ();
+    Spring (Bead *beadPointer);
     virtual ~Spring ();
 
     void setParameter(Input* input);
@@ -20,8 +21,16 @@ private:
     int nLink;
 
     int** link;         // index of pair of beads linked
+    int* nPair;
+    int** linkPair;
+    int** g;            // metric tensor, linking matrix
+    double** u;         // unit vector of links
 
-    void outputLinks();
+    class Bead *bead;
+    class Topo *topo;
+
+    // functions
+    double** linkVector(double** r);
 };
 
 #endif /* end of include guard: SPRING_HPP_QBXE97YK */
