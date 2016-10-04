@@ -245,7 +245,7 @@ void Rod::solverPicard(double *x)
         if (maxDiff < 1e-6) return;
     }
 
-    bead->print();
+    // bead->print();
     throw "MaxStep exceeded in Picard!";
 }
 
@@ -313,10 +313,11 @@ void Rod::jacobian(double *x, double *A, double *B)
             }
         }
         if (i<nLink) {
-        B[i] = tmp[i] + tmp[i]*tmp[i]*dt/2 + 
-            (Dot(&b[i][0], &b[i][0], DIM) - 1) / (2.*dt);
+            // if inverse is used, must use B[i]
+            B[i] = -(tmp[i] + tmp[i]*tmp[i]*dt/2 +
+                (Dot(&b[i][0], &b[i][0], DIM) - 1) / (2.*dt));
         } else {
-            B[i] = tmp[i] + bead->rs[0][i-nLink]/dt;
+            B[i] = -(tmp[i] + bead->rs[0][i-nLink]/dt);
         }
     }
 
@@ -345,15 +346,27 @@ void Rod::solverNewton(double *x)
         double A[(nLink+DIM)*(nLink+DIM)];
         double B[nLink+DIM];
         jacobian(xold, A, B);
-        inverse(A, nLink+DIM);
 
+        int n = nLink+DIM;
+        int lda = nLink+DIM;
+        int iPIv[nLink+DIM+1];
+        int info;
+        char s = 'N';
+        int nrhs = 1;
+        dgetrf_(&n, &n, A, &lda, iPIv, &info);
+        dgetrs_(&s, &n, &nrhs, A, &n, iPIv, B, &n, &info);
         for (int i = 0; i < nLink+DIM; ++i) {
-            double sumAB = 0;
-            for (int j = 0; j < nLink+DIM; ++j) {
-                sumAB += A[j*(nLink+DIM)+i]*B[j];
-            } 
-            x[i] = xold[i] - sumAB;
+            x[i] = xold[i] + B[i];
         }
+
+        // inverse(A, nLink+DIM);
+        // for (int i = 0; i < nLink+DIM; ++i) {
+        //     double sumAB = 0;
+        //     for (int j = 0; j < nLink+DIM; ++j) {
+        //         sumAB+=A[j*(nLink+DIM)+i] * B[j];
+        //     }
+        //     x[i] = xold[i] - sumAB;
+        // }
 
         double maxDiff = fabs(xold[0] - x[0]);
         for (int i = 1; i < nLink+DIM; i++) {
@@ -364,7 +377,7 @@ void Rod::solverNewton(double *x)
         if (maxDiff < 1e-6) return;
     }
 
-    bead->print();
+    // bead->print();
     throw "MaxStep exceeded in Newton!";
 }
 
@@ -376,8 +389,8 @@ double** Rod::constraint(double** f)
     b = linkVectorB();
     double tension[nLink+DIM];
     std::fill(&tension[0], &tension[0] + nLink + DIM, 0);
-    solverPicard(tension);
-    // solverNewton(tension);
+    // solverPicard(tension);
+    solverNewton(tension);
 
     for (int i = 0; i < nBead; i++) {
         for (int j = 0; j < nLink; j++) {
