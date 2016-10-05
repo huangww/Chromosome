@@ -12,7 +12,6 @@
 #include <iomanip>
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
-#include "Eigen/unsupported/Eigen/NonLinearOptimization"
 
 
 Rod::Rod(Bead *beadPointer)
@@ -380,85 +379,6 @@ void Rod::solverNewton(double *x)
 
     // bead->print();
     throw "MaxStep exceeded in Newton!";
-}
-
-void Rod::solverHydrj(double *x)
-{
- struct hybrj_functor : Functor<double>
-{
-
-    use namespace Eigen
-    hybrj_functor(void) : Functor<double>(9,9) {}
-
-    int operator()(const VectorXd &x, VectorXd &fvec)
-    {
-        double temp, temp1, temp2;
-        const VectorXd::Index n = x.size();
-        assert(fvec.size()==n);
-        for (VectorXd::Index k = 0; k < n; k++)
-        {
-            temp = (3. - 2.*x[k])*x[k];
-            temp1 = 0.;
-            if (k) temp1 = x[k-1];
-            temp2 = 0.;
-            if (k != n-1) temp2 = x[k+1];
-            fvec[k] = temp - temp1 - 2.*temp2 + 1.;
-        }
-        return 0;
-    }
-    int df(const VectorXd &x, MatrixXd &fjac)
-    {
-        const VectorXd::Index n = x.size();
-        assert(fjac.rows()==n);
-        assert(fjac.cols()==n);
-        for (VectorXd::Index k = 0; k < n; k++)
-        {
-            for (VectorXd::Index j = 0; j < n; j++)
-                fjac(k,j) = 0.;
-            fjac(k,k) = 3.- 4.*x[k];
-            if (k) fjac(k,k-1) = -1.;
-            if (k != n-1) fjac(k,k+1) = -2.;
-        }
-        return 0;
-    }
-};
-
-{
-  const int n=9;
-  int info;
-  VectorXd x(n);
-
-  /* the following starting values provide a rough fit. */
-  x.setConstant(n, -1.);
-
-
-  // do the computation
-  hybrj_functor functor;
-  HybridNonLinearSolver<hybrj_functor> solver(functor);
-  solver.diag.setConstant(n, 1.);
-  solver.useExternalScaling = true;
-  info = solver.solve(x);
-
-  // check return value
-  VERIFY_IS_EQUAL(info, 1);
-  VERIFY_IS_EQUAL(solver.nfev, 11);
-  VERIFY_IS_EQUAL(solver.njev, 1);
-
-  // check norm
-  VERIFY_IS_APPROX(solver.fvec.blueNorm(), 1.192636e-08);
-
-
-// check x
-  VectorXd x_ref(n);
-  x_ref <<
-     -0.5706545,    -0.6816283,    -0.7017325,
-     -0.7042129,     -0.701369,    -0.6918656,
-     -0.665792,    -0.5960342,    -0.4164121;
-  VERIFY_IS_APPROX(x, x_ref);
-
-}
-
-
 }
 
 double** Rod::constraint(double** f)
