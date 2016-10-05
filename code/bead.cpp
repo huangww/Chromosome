@@ -1,11 +1,10 @@
-// #include "bead.hpp"
+#include "bead.hpp"
 #include "ultilities.hpp"
 #include "config.hpp"
 #include "force.hpp"
 #include "rod.hpp"
 #include "spring.hpp"
 #include "montecarlo.hpp"
-#include "constant.hpp"
 #include "compute.hpp"
 #include <fstream>
 #include <iostream>
@@ -15,11 +14,13 @@
 
 Bead::Bead()
 {
+#ifdef PLAIN
     r = NULL;
     rs = NULL;
     // v = NULL;
     f = NULL;
     ftotal = NULL;
+#endif
 
     force = NULL;
     rod = NULL;
@@ -30,11 +31,13 @@ Bead::Bead()
 }
 Bead::~Bead() 
 {
+#ifdef PLAIN
     delete2DArray(r);
     delete2DArray(rs);
     // delete2DArray(v);
     delete2DArray(f);
     delete2DArray(ftotal);
+#endif
 
     delete force;
     delete rod;
@@ -54,13 +57,22 @@ void Bead::setParameter(Input *input)
         throw "Parameter \"dt\" is not specified!";
     }
     dt = input->parameter["dt"];
-    
+
+#ifdef EIGEN
+    r(nBead);
+    rs(nBead);
+    f(nBead);
+    ftotal(nBead);
+#endif
+   
+#ifdef PLAIN
     // set up the state class
     r = create2DArray<double>(nBead, DIM);
     rs = create2DArray<double>(nBead, DIM);
     // v = create2DArray<double>(nBead, DIM);
     f = create2DArray<double>(nBead, DIM);
     ftotal = create2DArray<double>(nBead, DIM);
+#endif
 
     force = new Force();
     force->setParameter(input);
@@ -82,19 +94,22 @@ void Bead::setParameter(Input *input)
 void Bead::init() 
 {
     t = 0.0;
-
     r = config->init(r);
-    
+
+#ifdef PLAIN
     std::copy(&r[0][0], &r[0][0] + nBead * DIM, &rs[0][0]);
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
     std::fill(&f[0][0], &f[0][0]+nBead*DIM, 0);
     std::fill(&ftotal[0][0], &ftotal[0][0]+nBead*DIM, 0);
+#endif 
+
 }
 
 void Bead::init(const char* mode) 
 {
     t = 0.0;
 
+#ifdef PLAIN
     r = config->init(r);
     if (strcmp(mode,"random")==0) {
         montecarlo->randomize(r);
@@ -106,6 +121,7 @@ void Bead::init(const char* mode)
     // std::fill(&v[0][0], &v[0][0]+nBead*DIM, 0);
     std::fill(&f[0][0], &f[0][0]+nBead*DIM, 0);
     std::fill(&ftotal[0][0], &ftotal[0][0]+nBead*DIM, 0);
+#endif
 }
 
 

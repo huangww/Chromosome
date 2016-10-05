@@ -1,5 +1,5 @@
 #include "compute.hpp"
-#include "constant.hpp"
+#include "input.hpp"
 #include <algorithm>
 #include <cmath>
 

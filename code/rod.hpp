@@ -1,11 +1,9 @@
 #ifndef ROD_HPP_FFKADSOB
 #define ROD_HPP_FFKADSOB
 
-#include "Eigen/Sparse"
 #include "input.hpp"
 #include "bead.hpp"
 
-typedef Eigen::SparseMatrix<double> SpMatD;
 
 class Rod
 {

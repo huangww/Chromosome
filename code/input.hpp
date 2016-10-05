@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include "define.hpp"
 
 class Input
 {

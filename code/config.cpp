@@ -1,6 +1,5 @@
 #include "config.hpp"
 #include "input.hpp"
-#include "constant.hpp"
 #include "random.hpp"
 #include "ultilities.hpp"
 #include <cmath>
@@ -43,6 +42,32 @@ double** Config::init(double** r)
     return r;
 }
 
+Vec Config::init(Vec r) 
+{
+    switch (topoType) {
+        case 0:
+            ring(nBead, r);
+            break;
+        case 1:
+            chain(nBead, r);
+            break;
+        case 2:
+            ringPair(nBead, r);
+            break;
+        case 3:
+            ringPairWithCentromere(nBead, r);
+            break;
+        case 4:
+            threeRingPair(nBead, r);
+            break;
+        default:
+            throw "Invalid topoType!";
+    }
+
+    return r;
+}
+
+
 
 void Config::ring(int N, double **pos) 
 {
@@ -73,12 +98,50 @@ void Config::ring(int N, double **pos)
         
 }
 
+void Config::ring(int N, Vec pos) 
+{
+    pos.setZero();
+    
+    pos(0,1) = pos(0,0) + cos(PI/6.0);
+    pos(1,1) = pos(1,1) + sin(PI/6.0);
+    pos(0,N-1) = pos(0,0) + cos(-PI/6.0);
+    pos(1,N-1) = pos(1,0) + sin(-PI/6.0);
+
+    if (N % 2 == 0) {
+        pos(0, N/2) = N/2 + sqrt(3.0) - 2.0;
+        for (int i = 2; i < N/2; i++) {
+            pos(0, i) = pos(0, 1) + i - 1;	
+            pos(1, i) = pos(1, 1);	
+            pos(0, N-i) = pos(0, N-1) + i - 1;	
+            pos(1, N-i) = pos(1, N-1);	
+        }
+    }
+    else {
+        for (int i = 2; i < N/2+1; i++) {
+            pos(0, i) = pos(0, 1) + i - 1;	
+            pos(1, i) = pos(1, 1);	
+            pos(0, N-i) = pos(0, N-1) + i - 1;	
+            pos(1, N-i) = pos(1, N-1);	
+        }
+    }
+        
+}
+
 void Config::chain(int N, double **pos) 
 {
     std::fill(&pos[0][0], &pos[0][0] + N * DIM, 0);
 
     for (int i = 0; i < N; ++i) {
         pos[i][0] = i;
+    }
+}
+
+void Config::chain(int N, Vec pos) 
+{
+    pos.setZero();
+
+    for (int i = 0; i < N; ++i) {
+        pos(0, i) = i;
     }
 }
 
@@ -154,6 +217,23 @@ void Config::ringPair(int N, double **pos)
     delete2DArray(ring1);
     delete2DArray(ring2);
 }
+void Config::ringPair(int N, Vec pos) 
+{
+    pos.setZero();
+
+    int ringSize = int((N+1)/2);
+    Vec ring1;ring1(ringSize);
+    Vec ring2;ring2(ringSize);
+
+    ring(ringSize, ring1);
+    ring(ringSize, ring2);
+    pos.leftCols(ringSize) = ring1;
+    for (int i = 1; i < ringSize; ++i) {
+        pos(0, ringSize+i-1) = - ring2(0, i);	
+        pos(1, ringSize+i-1) = - ring2(1, i);	
+    }
+
+}
 
 void Config::ringPairWithCentromere(int N, double **pos) 
 {
@@ -183,6 +263,21 @@ void Config::ringPairWithCentromere(int N, double **pos)
 
     delete2DArray(chain1);
     delete2DArray(chain2);
+}
+
+void Config::ringPairWithCentromere(int N, Vec pos) 
+{
+    pos.setZero();
+
+    int ringSize = (N+2)/2;
+    int cm = ringSize/2;
+    if (cm > ringSize) { 
+       std::cout << "Improper centromere position!" << std::endl;
+    }
+    ring(ringSize, pos);
+
+    // Vec chain1(cm+1);
+    // not finish yet
 }
 
 void Config::threeRingPair(int N, double **pos) 
@@ -221,5 +316,19 @@ void Config::threeRingPair(int N, double **pos)
     delete2DArray(pair1);
     delete2DArray(pair2);
     delete2DArray(pair3);
+
+}
+
+void Config::threeRingPair(int N, Vec pos) 
+{
+    pos.setZero();
+
+    int m[3];
+    int monomer = (N+5)/2;
+    m[1] = monomer * 245/1257;
+    m[2] = monomer * 454/1257;
+    m[0] = monomer - m[1] -m[2];
+
+    // not finish yet
 
 }

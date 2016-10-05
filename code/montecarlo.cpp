@@ -1,6 +1,5 @@
 #include "montecarlo.hpp"
 #include "input.hpp"
-#include "constant.hpp"
 #include "potential.hpp"
 #include "ultilities.hpp"
 #include "random.hpp"

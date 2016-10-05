@@ -2,7 +2,6 @@
 #include "input.hpp"
 #include "project.hpp"
 #include "bead.hpp"
-#include "constant.hpp"
 #include "ultilities.hpp"
 #include "topo.hpp"
 #include <iostream>

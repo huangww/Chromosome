@@ -3,7 +3,6 @@
 #include "random.hpp"
 #include "particle.hpp"
 #include "bead.hpp"
-#include "constant.hpp"
 #include <cmath>
 #include <algorithm>
 #include <iostream>

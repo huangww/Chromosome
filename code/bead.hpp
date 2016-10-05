@@ -26,14 +26,28 @@ public:
 
     double t;
     double dt;
+
 // protected:
+#ifdef EIGEN
+    Vec r;          // postion of beads
+    Vec rs;         // predicted postion of beads
+    Vec f;          // forces applied on beads
+#endif
+#ifdef PLAIN
     double **r;     // postion of beads
     double **rs;    // predicted postion of beads
     double **f;     // forces applied on beads
     // double **v;     // velocity of beads
+#endif
 
 private:
+
+#ifdef EIGEN
+    Vec ftotal;
+#endif
+#ifdef PLAIN
     double **ftotal;    // total force
+#endif
 
     class Force *force;
     class Rod *rod;

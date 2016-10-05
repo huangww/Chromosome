@@ -1,56 +1,228 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+addDrivenSPB	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::addDrivenSPB() $/;"	f	language:C++	class:Bead
+addDrivenSPB	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void addDrivenSPB();$/;"	p	language:C++	class:Bead
+addForce	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::addForce(double **f)$/;"	f	language:C++	class:Bead
+addForce	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void addForce(double **);$/;"	p	language:C++	class:Bead
 b	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **b;         \/\/ vector of rod unnormalized$/;"	m	language:C++	class:Rod
+Bead	/Users/wenwen/Work/chromosome/code/bead.cpp	/^Bead::Bead()$/;"	f	language:C++	class:Bead
+Bead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Bead ();$/;"	p	language:C++	class:Bead
+Bead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^class Bead$/;"	c	language:C++
 bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
+BEAD_HPP_JGQK9V2L	/Users/wenwen/Work/chromosome/code/bead.hpp	/^#define BEAD_HPP_JGQK9V2L$/;"	d	language:C++
+bending	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::bending(double** r, double** f)$/;"	f	language:C++	class:Spring
+boundary	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::boundary(double*x, double* f)$/;"	f	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::brownian(double* f)$/;"	f	language:C++	class:Force
+brownian	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::brownian(double** f)$/;"	f	language:C++	class:Force
+BUILDDIR	/Users/wenwen/Work/chromosome/makefile	/^BUILDDIR = build$/;"	m	language:Make
+CC	/Users/wenwen/Work/chromosome/makefile	/^CC = clang++$/;"	m	language:Make
+CFLAGS	/Users/wenwen/Work/chromosome/makefile	/^CFLAGS = -Wall -std=c++11$/;"	m	language:Make
+chain	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::chain(int N, double **pos) $/;"	f	language:C++	class:Config
+chain	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::chain(int N, Vec pos) $/;"	f	language:C++	class:Config
+chain	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void chain(int N, double **pos);$/;"	p	language:C++	class:Config
+chain	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void chain(int N, Vec pos);$/;"	p	language:C++	class:Config
+compute	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Compute *compute;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Compute
+Compute	/Users/wenwen/Work/chromosome/code/compute.cpp	/^Compute::Compute()  { }$/;"	f	language:C++	class:Compute
+config	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Config *config;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Config
+Config	/Users/wenwen/Work/chromosome/code/config.cpp	/^Config::Config()  { } $/;"	f	language:C++	class:Config
+Config	/Users/wenwen/Work/chromosome/code/config.hpp	/^    Config ();$/;"	p	language:C++	class:Config
+Config	/Users/wenwen/Work/chromosome/code/config.hpp	/^class Config$/;"	c	language:C++
+CONFIG_HPP_4IBHETEB	/Users/wenwen/Work/chromosome/code/config.hpp	/^#define CONFIG_HPP_4IBHETEB$/;"	d	language:C++
+constant	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::constant(double* f)$/;"	f	language:C++	class:Force
+constant	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::constant(double** f)$/;"	f	language:C++	class:Force
 constraint	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::constraint(double** f)$/;"	f	language:C++	class:Rod
 constraint	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** constraint(double** f);$/;"	p	language:C++	class:Rod
+correct	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::correct()$/;"	f	language:C++	class:Bead
+correct	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void correct();$/;"	p	language:C++	class:Bead
+create	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void create();$/;"	p	language:C++	class:Bead
+DEFINE_HPP_WK25WEMJ	/Users/wenwen/Work/chromosome/code/define.hpp	/^#define DEFINE_HPP_WK25WEMJ$/;"	d	language:C++
+destroy	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void destroy();$/;"	p	language:C++	class:Bead
 detBandMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double Rod::detBandMetric(int n, double *coeff)$/;"	f	language:C++	class:Rod
 detBandMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double detBandMetric(int n, double *coeff);$/;"	p	language:C++	class:Rod
 dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int* m, int* n, double* A, $/;"	p	language:C++
 dgetri_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetri_(int* m, double* a, int* lda,$/;"	p	language:C++
 dgetrs_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrs_(char* s, int* n, int* nrhs, $/;"	p	language:C++
+DIM	/Users/wenwen/Work/chromosome/code/define.hpp	/^#define DIM /;"	d	language:C++
+dt	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double dt;$/;"	m	language:C++	class:Bead
 dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
+energy	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^double Montecarlo::energy(int N, double **r) $/;"	f	language:C++	class:Montecarlo
+equilibrate	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::equilibrate(double **r)$/;"	f	language:C++	class:Montecarlo
+eulerUpdate	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::eulerUpdate()$/;"	f	language:C++	class:Bead
+eulerUpdate	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void eulerUpdate();$/;"	p	language:C++	class:Bead
+f	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double **f;     \/\/ forces applied on beads$/;"	m	language:C++	class:Bead
+f	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Vec f;          \/\/ forces applied on beads$/;"	m	language:C++	class:Bead
+fene	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::fene(double** r, double** f) $/;"	f	language:C++	class:Spring
+file	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void file();$/;"	p	language:C++	class:Input
+fixedChain	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::fixedChain(int N, double **pos) $/;"	f	language:C++	class:Config
+fixedChain	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void fixedChain(int N, double **pos);$/;"	p	language:C++	class:Config
+force	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Force *force;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Force
+Force	/Users/wenwen/Work/chromosome/code/force.cpp	/^Force::Force()  { }$/;"	f	language:C++	class:Force
+ftotal	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double **ftotal;    \/\/ total force$/;"	m	language:C++	class:Bead
+ftotal	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Vec ftotal;$/;"	m	language:C++	class:Bead
 g	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **g;            \/\/ metric matrix, first bead pinned$/;"	m	language:C++	class:Rod
+getInput	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void getInput(int argc, char *argv[]);$/;"	p	language:C++	class:Input
 gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Rod
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::gyrationRadius(int N, double* r) $/;"	f	language:C++	class:Compute
+gyrationRadius	/Users/wenwen/Work/chromosome/code/compute.cpp	/^double Compute::gyrationRadius(int N, double** r) $/;"	f	language:C++	class:Compute
+harmonic	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::harmonic(double** r, double** f) $/;"	f	language:C++	class:Spring
+HEADERS	/Users/wenwen/Work/chromosome/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
+infname	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::string infname;$/;"	m	language:C++	class:Input
+init	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::init() $/;"	f	language:C++	class:Bead
+init	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::init(const char* mode) $/;"	f	language:C++	class:Bead
+init	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void init();$/;"	p	language:C++	class:Bead
+init	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void init(const char* mode);$/;"	p	language:C++	class:Bead
+init	/Users/wenwen/Work/chromosome/code/config.cpp	/^double** Config::init(double** r) $/;"	f	language:C++	class:Config
+init	/Users/wenwen/Work/chromosome/code/config.cpp	/^Vec Config::init(Vec r) $/;"	f	language:C++	class:Config
+init	/Users/wenwen/Work/chromosome/code/config.hpp	/^    double** init(double **r);$/;"	p	language:C++	class:Config
+init	/Users/wenwen/Work/chromosome/code/config.hpp	/^    Vec init(Vec r);$/;"	p	language:C++	class:Config
 init	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::init() $/;"	f	language:C++	class:Rod
 init	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void init();$/;"	p	language:C++	class:Rod
+init	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^void Simulation::init() $/;"	f	language:C++	class:Simulation
+Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^    Input ();$/;"	p	language:C++	class:Input
+Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^class Input$/;"	c	language:C++
+INPUT_HPP_DRBPSRM7	/Users/wenwen/Work/chromosome/code/input.hpp	/^#define INPUT_HPP_DRBPSRM7$/;"	d	language:C++
 inverse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::inverse(double *A, int N)$/;"	f	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void inverse(double *A, int N);$/;"	p	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::jacobian(double *x, double *A, double *B)$/;"	f	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void jacobian(double *x, double *A, double *B);$/;"	p	language:C++	class:Rod
+LennardJones	/Users/wenwen/Work/chromosome/code/potential.cpp	/^double Potential::LennardJones(int N, double **r) $/;"	f	language:C++	class:Potential
+LIBS	/Users/wenwen/Work/chromosome/makefile	/^LIBS = -llapack -lm -lblas$/;"	m	language:Make
 link	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **link;         \/\/ index of pair of beads linked$/;"	m	language:C++	class:Rod
 linkPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **linkPair;     \/\/ table of link pairs$/;"	m	language:C++	class:Rod
+linkVector	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::linkVector(double** r)$/;"	f	language:C++	class:Spring
 linkVectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorB()$/;"	f	language:C++	class:Rod
 linkVectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorB();$/;"	p	language:C++	class:Rod
 linkVectorU	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorU() $/;"	f	language:C++	class:Rod
 linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorU(); $/;"	p	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
+montecarlo	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Montecarlo *montecarlo; $/;"	m	language:C++	class:Bead	typeref:class:Bead::Montecarlo
+Montecarlo	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^Montecarlo::Montecarlo() { }$/;"	f	language:C++	class:Montecarlo
+montecarloUpdate	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::montecarloUpdate()$/;"	f	language:C++	class:Bead
+montecarloUpdate	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void montecarloUpdate();$/;"	p	language:C++	class:Bead
+move	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^int Montecarlo::move(double **r)$/;"	f	language:C++	class:Montecarlo
+moveChain	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveChain(int N, double** r)$/;"	f	language:C++	class:Montecarlo
+moveRing	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveRing(int N, double** r) $/;"	f	language:C++	class:Montecarlo
+moveRingPair	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveRingPair(int N, double** r)$/;"	f	language:C++	class:Montecarlo
+moveRingPairWithCentromere	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveRingPairWithCentromere(int N, double** r)$/;"	f	language:C++	class:Montecarlo
+moveThreeRingPair	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveThreeRingPair(int N, double** r)$/;"	f	language:C++	class:Montecarlo
+moveTry	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::moveTry(int N, double** r)$/;"	f	language:C++	class:Montecarlo
+nBead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    int nBead;$/;"	m	language:C++	class:Bead
+nBead	/Users/wenwen/Work/chromosome/code/config.hpp	/^    int nBead;$/;"	m	language:C++	class:Config
 nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
 nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
 nPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int *nPair;         \/\/ # of link pairs related to each bead$/;"	m	language:C++	class:Rod
+OBJECTS	/Users/wenwen/Work/chromosome/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
+output	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::output(std::ofstream* outFile) $/;"	f	language:C++	class:Bead
+output	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void output(std::ofstream* outFile);$/;"	p	language:C++	class:Bead
+outputPos	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::outputPos(std::ofstream& outFile) $/;"	f	language:C++	class:Bead
+outputPos	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void outputPos(std::ofstream& output);$/;"	p	language:C++	class:Bead
+outputRd	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::outputRd(std::ofstream& outFile)$/;"	f	language:C++	class:Bead
+outputRd	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void outputRd(std::ofstream& output);$/;"	p	language:C++	class:Bead
+outputRg	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::outputRg(std::ofstream& outFile)$/;"	f	language:C++	class:Bead
+outputRg	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void outputRg(std::ofstream& output);$/;"	p	language:C++	class:Bead
+parameter	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::map<std::string, double> parameter;$/;"	m	language:C++	class:Input
+parse	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void parse(std::string line);$/;"	p	language:C++	class:Input
+periodic	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::periodic(double* f)$/;"	f	language:C++	class:Force
+periodic	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::periodic(double** f)$/;"	f	language:C++	class:Force
+PI	/Users/wenwen/Work/chromosome/code/define.hpp	/^#define PI /;"	d	language:C++
+pinSPB	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::pinSPB() $/;"	f	language:C++	class:Bead
+pinSPB	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void pinSPB();$/;"	p	language:C++	class:Bead
+pivot	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::pivot(int N, int *ipivot) $/;"	f	language:C++	class:Montecarlo
+Potential	/Users/wenwen/Work/chromosome/code/potential.cpp	/^Potential::Potential()  { }$/;"	f	language:C++	class:Potential
+predict	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::predict()$/;"	f	language:C++	class:Bead
+predict	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void predict();$/;"	p	language:C++	class:Bead
+print	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::print() $/;"	f	language:C++	class:Bead
+print	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void print();$/;"	p	language:C++	class:Bead
+print	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::print(double* f) $/;"	f	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::print(double** f) $/;"	f	language:C++	class:Force
+print	/Users/wenwen/Work/chromosome/code/input.hpp	/^    void print();$/;"	p	language:C++	class:Input
 printMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::printMetric()$/;"	f	language:C++	class:Rod
 printMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void printMetric();$/;"	p	language:C++	class:Rod
+projectName	/Users/wenwen/Work/chromosome/code/input.hpp	/^    std::string projectName;$/;"	m	language:C++	class:Input
 pseudo	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudo(double **f) $/;"	f	language:C++	class:Rod
 pseudo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudo(double** f);$/;"	p	language:C++	class:Rod
 pseudoRing	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double **Rod::pseudoRing(double **f)$/;"	f	language:C++	class:Rod
 pseudoRing	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudoRing(double** f);$/;"	p	language:C++	class:Rod
 pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudoSparse(double **f)$/;"	f	language:C++	class:Rod
 pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudoSparse(double **f);$/;"	p	language:C++	class:Rod
+quenchedRing	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::quenchedRing(int N, double **pos) $/;"	f	language:C++	class:Config
+quenchedRing	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void quenchedRing(int N, double **pos); $/;"	p	language:C++	class:Config
+quenchedRing	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void quenchedRing(int N, Vec pos); $/;"	p	language:C++	class:Config
+r	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double **r;     \/\/ postion of beads$/;"	m	language:C++	class:Bead
+r	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Vec r;          \/\/ postion of beads$/;"	m	language:C++	class:Bead
+randomize	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::randomize(double **r)$/;"	f	language:C++	class:Montecarlo
+repulsive	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::repulsive(double *x, double* f)$/;"	f	language:C++	class:Force
+repulsive	/Users/wenwen/Work/chromosome/code/force.cpp	/^double** Force::repulsive(double** r, double** f)$/;"	f	language:C++	class:Force
+ring	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ring(int N, double **pos) $/;"	f	language:C++	class:Config
+ring	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ring(int N, Vec pos) $/;"	f	language:C++	class:Config
+ring	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ring(int N, double **pos);$/;"	p	language:C++	class:Config
+ring	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ring(int N, Vec pos);$/;"	p	language:C++	class:Config
+ringPair	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ringPair(int N, double **pos) $/;"	f	language:C++	class:Config
+ringPair	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ringPair(int N, Vec pos) $/;"	f	language:C++	class:Config
+ringPair	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ringPair(int N, double **pos); $/;"	p	language:C++	class:Config
+ringPair	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ringPair(int N, Vec pos); $/;"	p	language:C++	class:Config
+ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ringPairWithCentromere(int N, double **pos) $/;"	f	language:C++	class:Config
+ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::ringPairWithCentromere(int N, Vec pos) $/;"	f	language:C++	class:Config
+ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ringPairWithCentromere(int N, double **pos);$/;"	p	language:C++	class:Config
+ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void ringPairWithCentromere(int N, Vec pos);$/;"	p	language:C++	class:Config
+rod	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Rod *rod;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beadPointer)$/;"	f	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *beadPointer);$/;"	p	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
 ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
+rotateAxis	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::rotateAxis(int* ipivot, double** r, $/;"	f	language:C++	class:Montecarlo
+rotateMatrix	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::rotateMatrix($/;"	f	language:C++	class:Montecarlo
+rs	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double **rs;    \/\/ predicted postion of beads$/;"	m	language:C++	class:Bead
+rs	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    Vec rs;         \/\/ predicted postion of beads$/;"	m	language:C++	class:Bead
+run	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^void Simulation::run() $/;"	f	language:C++	class:Simulation
+rungerKuttaUpdate	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::rungerKuttaUpdate()$/;"	f	language:C++	class:Bead
+rungerKuttaUpdate	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void rungerKuttaUpdate();$/;"	p	language:C++	class:Bead
+setParameter	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::setParameter(Input *input)$/;"	f	language:C++	class:Bead
+setParameter	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Bead
+setParameter	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::setParameter(Input* input) $/;"	f	language:C++	class:Config
+setParameter	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Config
+setParameter	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::setParameter(Input *input) $/;"	f	language:C++	class:Force
+setParameter	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::setParameter(Input *input) $/;"	f	language:C++	class:Montecarlo
 setParameter	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::setParameter(Input *input) $/;"	f	language:C++	class:Rod
 setParameter	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Rod
+setParameter	/Users/wenwen/Work/chromosome/code/spring.cpp	/^void Spring::setParameter(Input *input)$/;"	f	language:C++	class:Spring
+Simulation	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^Simulation::Simulation() $/;"	f	language:C++	class:Simulation
 solverHydrj	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverHydrj(double *x);$/;"	p	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverNewton(double *x) $/;"	f	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverNewton(double *x);$/;"	p	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverPicard(double *x) $/;"	f	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverPicard(double *x);$/;"	p	language:C++	class:Rod
-SpMatD	/Users/wenwen/Work/chromosome/code/rod.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
+SpMatD	/Users/wenwen/Work/chromosome/code/define.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
+spring	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    class Spring *spring;$/;"	m	language:C++	class:Bead	typeref:class:Bead::Spring
+Spring	/Users/wenwen/Work/chromosome/code/spring.cpp	/^Spring::Spring(Bead *beadPointer)$/;"	f	language:C++	class:Spring
+SRC	/Users/wenwen/Work/chromosome/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
+SRCDIR	/Users/wenwen/Work/chromosome/makefile	/^SRCDIR = code$/;"	m	language:Make
+straightRing	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::straightRing(int N, double **pos) $/;"	f	language:C++	class:Config
+straightRing	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void straightRing(int N, double **pos); $/;"	p	language:C++	class:Config
+straightRing	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void straightRing(int N, Vec pos); $/;"	p	language:C++	class:Config
+t	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    double t;$/;"	m	language:C++	class:Bead
+TARGET	/Users/wenwen/Work/chromosome/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
+threeRingPair	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::threeRingPair(int N, double **pos) $/;"	f	language:C++	class:Config
+threeRingPair	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::threeRingPair(int N, Vec pos) $/;"	f	language:C++	class:Config
+threeRingPair	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void threeRingPair(int N, double **pos); $/;"	p	language:C++	class:Config
+threeRingPair	/Users/wenwen/Work/chromosome/code/config.hpp	/^    void threeRingPair(int N, Vec pos); $/;"	p	language:C++	class:Config
 topo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Topo *topo;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Topo
+topoType	/Users/wenwen/Work/chromosome/code/config.hpp	/^    int topoType;$/;"	m	language:C++	class:Config
 u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
+Vec	/Users/wenwen/Work/chromosome/code/define.hpp	/^typedef Eigen::Matrix<double, DIM, Eigen::Dynamic> Vec;$/;"	t	language:C++
 vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
 vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
+VPATH	/Users/wenwen/Work/chromosome/makefile	/^VPATH = code$/;"	m	language:Make
+~Bead	/Users/wenwen/Work/chromosome/code/bead.cpp	/^Bead::~Bead() $/;"	f	language:C++	class:Bead
+~Bead	/Users/wenwen/Work/chromosome/code/bead.hpp	/^    virtual ~Bead ();$/;"	p	language:C++	class:Bead
+~Compute	/Users/wenwen/Work/chromosome/code/compute.cpp	/^Compute::~Compute() { }$/;"	f	language:C++	class:Compute
+~Config	/Users/wenwen/Work/chromosome/code/config.cpp	/^Config::~Config() { }$/;"	f	language:C++	class:Config
+~Config	/Users/wenwen/Work/chromosome/code/config.hpp	/^    virtual ~Config ();$/;"	p	language:C++	class:Config
+~Force	/Users/wenwen/Work/chromosome/code/force.cpp	/^Force::~Force() { }$/;"	f	language:C++	class:Force
+~Input	/Users/wenwen/Work/chromosome/code/input.hpp	/^    virtual ~Input ();$/;"	p	language:C++	class:Input
+~Montecarlo	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^Montecarlo::~Montecarlo() { }$/;"	f	language:C++	class:Montecarlo
+~Potential	/Users/wenwen/Work/chromosome/code/potential.cpp	/^Potential::~Potential() { }$/;"	f	language:C++	class:Potential
 ~Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::~Rod() $/;"	f	language:C++	class:Rod
 ~Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    virtual ~Rod ();$/;"	p	language:C++	class:Rod
+~Simulation	/Users/wenwen/Work/chromosome/code/simulation.cpp	/^Simulation::~Simulation() $/;"	f	language:C++	class:Simulation
+~Spring	/Users/wenwen/Work/chromosome/code/spring.cpp	/^Spring::~Spring() $/;"	f	language:C++	class:Spring

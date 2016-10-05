@@ -31,6 +31,7 @@ void Simulation::init()
     if (input->projectName=="SingleFile") 
         project = new SingleFile;
 
+
     input->print();
 
     if (project==NULL) {

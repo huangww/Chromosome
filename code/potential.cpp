@@ -1,6 +1,5 @@
 #include "potential.hpp"
 #include "input.hpp"
-#include "constant.hpp"
 #include "bead.hpp"
 #include <cmath>
 
