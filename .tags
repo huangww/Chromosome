@@ -215,6 +215,7 @@ glob	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import glob$/;"	i	l
 glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/movie.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import glob$/;"	i	language:Python
+griddata	/Users/wenwen/Work/chromosome/test.py	/^from matplotlib.mlab import griddata$/;"	i	language:Python
 gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Rod
 gSparse	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Topo
 harmonic	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::harmonic(double** r, double** f) $/;"	f	language:C++	class:Spring
@@ -279,6 +280,7 @@ matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.py
 matplotlib	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/test.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
 meanz	/Users/wenwen/Work/chromosome/script/theory.py	/^def meanz(N, T):$/;"	f	language:Python
@@ -332,6 +334,7 @@ nPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nPar;$/;"	m	language
 nSample	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int nSample;$/;"	m	language:C++	class:Asep
 nSite	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nSite;$/;"	m	language:C++	class:Force
 nSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSite;$/;"	m	language:C++	class:State
+numpy	/Users/wenwen/Work/chromosome/test.py	/^import numpy$/;"	i	language:Python
 OBJECTS	/Users/wenwen/Work/chromosome/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
 os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/movie.py	/^import os$/;"	i	language:Python
@@ -375,6 +378,7 @@ plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as
 plt	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/test.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
 pos	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^pos = [10,50,100,150]$/;"	v	language:Python
 pos	/Users/wenwen/Work/chromosome/script/movie.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
@@ -561,7 +565,11 @@ vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x
 vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
 VPATH	/Users/wenwen/Work/chromosome/makefile	/^VPATH = code$/;"	m	language:Make
 x	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    x = data[:,1]$/;"	v	language:Python
+x	/Users/wenwen/Work/chromosome/test.py	/^x = numpy.random.rand(100)$/;"	v	language:Python
 xy_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def xy_var(m, n, N, T):$/;"	f	language:Python
+y	/Users/wenwen/Work/chromosome/test.py	/^y = numpy.random.rand(100)$/;"	v	language:Python
+z	/Users/wenwen/Work/chromosome/test.py	/^z = numpy.random.rand(100)$/;"	v	language:Python
+zz	/Users/wenwen/Work/chromosome/test.py	/^zz = griddata(x,y,z,xx,yy, interp='linear')$/;"	v	language:Python
 z_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def z_var(m, n, N, T):$/;"	f	language:Python
 z_var_1D	/Users/wenwen/Work/chromosome/script/theory.py	/^def z_var_1D(m, n, N, T):$/;"	f	language:Python
 ~Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep

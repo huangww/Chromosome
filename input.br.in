@@ -1,7 +1,7 @@
 projectName = BeadRod
 
 topoType = 4
-nBead = 1257
+nBead = 125
 # nLink = 50
 tempEff = 1000
 

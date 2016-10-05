@@ -9,21 +9,14 @@ dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int*
 dgetri_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetri_(int* m, double* a, int* lda,$/;"	p	language:C++
 dgetrs_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrs_(char* s, int* n, int* nrhs, $/;"	p	language:C++
 dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
-Functor	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  Functor() : m_inputs(InputsAtCompileTime), m_values(ValuesAtCompileTime) {}$/;"	f	language:C++	struct:Functor
-Functor	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  Functor(int inputs, int values) : m_inputs(inputs), m_values(values) {}$/;"	f	language:C++	struct:Functor
-Functor	/Users/wenwen/Work/chromosome/code/rod.hpp	/^struct Functor$/;"	s	language:C++
 g	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **g;            \/\/ metric matrix, first bead pinned$/;"	m	language:C++	class:Rod
 gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Rod
 init	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::init() $/;"	f	language:C++	class:Rod
 init	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void init();$/;"	p	language:C++	class:Rod
-inputs	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  int inputs() const { return m_inputs; }$/;"	f	language:C++	struct:Functor
-InputsAtCompileTime	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    InputsAtCompileTime = NX,$/;"	e	language:C++	enum:Functor::__anon1
-InputType	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  typedef Matrix<Scalar,InputsAtCompileTime,1> InputType;$/;"	t	language:C++	struct:Functor
 inverse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::inverse(double *A, int N)$/;"	f	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void inverse(double *A, int N);$/;"	p	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::jacobian(double *x, double *A, double *B)$/;"	f	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void jacobian(double *x, double *A, double *B);$/;"	p	language:C++	class:Rod
-JacobianType	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  typedef Matrix<Scalar,ValuesAtCompileTime,InputsAtCompileTime> JacobianType;$/;"	t	language:C++	struct:Functor
 link	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **link;         \/\/ index of pair of beads linked$/;"	m	language:C++	class:Rod
 linkPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **linkPair;     \/\/ table of link pairs$/;"	m	language:C++	class:Rod
 linkVectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorB()$/;"	f	language:C++	class:Rod
@@ -32,8 +25,6 @@ linkVectorU	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVecto
 linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorU(); $/;"	p	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
-m_inputs	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  const int m_inputs, m_values;$/;"	m	language:C++	struct:Functor
-m_values	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  const int m_inputs, m_values;$/;"	m	language:C++	struct:Functor
 nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
 nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
 nPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int *nPair;         \/\/ # of link pairs related to each bead$/;"	m	language:C++	class:Rod
@@ -49,10 +40,8 @@ Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beadPointer)$/;"
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *beadPointer);$/;"	p	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
 ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
-Scalar	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  typedef _Scalar Scalar;$/;"	t	language:C++	struct:Functor
 setParameter	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::setParameter(Input *input) $/;"	f	language:C++	class:Rod
 setParameter	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Rod
-solverHydrj	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverHydrj(double *x)$/;"	f	language:C++	class:Rod
 solverHydrj	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverHydrj(double *x);$/;"	p	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverNewton(double *x) $/;"	f	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverNewton(double *x);$/;"	p	language:C++	class:Rod
@@ -61,9 +50,6 @@ solverPicard	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverPicard(
 SpMatD	/Users/wenwen/Work/chromosome/code/rod.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
 topo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Topo *topo;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Topo
 u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
-values	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  int values() const { return m_values; }$/;"	f	language:C++	struct:Functor
-ValuesAtCompileTime	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    ValuesAtCompileTime = NY$/;"	e	language:C++	enum:Functor::__anon1
-ValueType	/Users/wenwen/Work/chromosome/code/rod.hpp	/^  typedef Matrix<Scalar,ValuesAtCompileTime,1> ValueType;$/;"	t	language:C++	struct:Functor
 vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
 vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
 ~Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::~Rod() $/;"	f	language:C++	class:Rod
