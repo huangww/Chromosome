@@ -45,6 +45,9 @@ private:
     void solverNewton(double *x);
     void solverHydrj(double *x);
     double detBandMetric(int n, double *coeff);
+    // int tension_f(const gsl_vector *x, void *p, gsl_vector *f);
+    // int tension_df(const gsl_vector *x, void *p, gsl_matrix *df);
+    // int tension_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix *df);
 
     // parameters
     int nLink;

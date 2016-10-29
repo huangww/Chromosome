@@ -1,9 +1,9 @@
 projectName = BeadRod
 
-topoType = 4
+topoType = 0
 nBead = 125
 # nLink = 50
-tempEff = 1000
+tempEff = 10
 
 dt = 1e-4
 tEnd = 1

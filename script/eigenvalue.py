@@ -4,6 +4,26 @@ from scipy.misc import comb
 import itertools as it
 from numpy.linalg import *
 
+def TransitionMartrixPeriodic(a, b, N, L):
+    nDim = int(comb(L, N))
+    M = np.zeros([nDim, nDim])
+    pos = range(L)
+    for i,x in zip(range(nDim),it.combinations(pos, N)):
+        for j,y in zip(range(nDim),it.combinations(pos, N)):
+            diffxy = np.array(x) - np.array(y)
+            if sum(abs(diffxy)) == 1:
+                if sum(diffxy) == 1:
+                    M[i,j] = a
+                if sum(diffxy) == -1:
+                    M[i,j] = b
+            if (y[-1]==(L-1) and x[0]==0 and x[1:]==y[:-1]):
+                M[i,j] = a
+            if (y[0]==0 and x[-1]==(L-1) and x[:-1]==y[1:]):
+                M[i,j] = b
+    for k in range(len(M)):
+        M[k,k] = -sum(M[:,k])
+    return M
+
 
 def TransitionMartrix(a, b, N, L):
     nDim = int(comb(L, N))
@@ -66,11 +86,20 @@ def ExtraEigenVector():
             # data = np.array(data)
             # plt.plot(data[:,0], data[:,1], data[:,-1])
     plt.show()
-    
+
+def MinimalExample():
+    N, L = (2, 4)
+    a, b = (2, 1)
+    M = TransitionMartrixPeriodic(a, b, N, L)
+    print M
+    ev = eigvals(M)
+    print ev
+
 
 def main():
     # EigenValues()
-    ExtraEigenVector()
+    # ExtraEigenVector()
+    MinimalExample()
 
 
 if __name__ == "__main__":
