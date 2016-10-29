@@ -1,6 +1,12 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+a	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double a;$/;"	m	language:C++	struct:rparams	file:
+b	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double **b;$/;"	m	language:C++	struct:params	file:
+b	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double b;$/;"	m	language:C++	struct:rparams	file:
 b	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **b;         \/\/ vector of rod unnormalized$/;"	m	language:C++	class:Rod
 bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
+BUILDDIR	/Users/wenwen/Work/chromosome/makefile	/^BUILDDIR = build$/;"	m	language:Make
+CC	/Users/wenwen/Work/chromosome/makefile	/^CC = clang++$/;"	m	language:Make
+CFLAGS	/Users/wenwen/Work/chromosome/makefile	/^CFLAGS = -Wall -std=c++11 -O3$/;"	m	language:Make
 constraint	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::constraint(double** f)$/;"	f	language:C++	class:Rod
 constraint	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** constraint(double** f);$/;"	p	language:C++	class:Rod
 detBandMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double Rod::detBandMetric(int n, double *coeff)$/;"	f	language:C++	class:Rod
@@ -8,15 +14,20 @@ detBandMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double detBandMet
 dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int* m, int* n, double* A, $/;"	p	language:C++
 dgetri_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetri_(int* m, double* a, int* lda,$/;"	p	language:C++
 dgetrs_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrs_(char* s, int* n, int* nrhs, $/;"	p	language:C++
+dt	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double dt;$/;"	m	language:C++	struct:params	file:
 dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
+g	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    int **g;$/;"	m	language:C++	struct:params	file:
 g	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **g;            \/\/ metric matrix, first bead pinned$/;"	m	language:C++	class:Rod
 gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Rod
+HEADERS	/Users/wenwen/Work/chromosome/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
 init	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::init() $/;"	f	language:C++	class:Rod
 init	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void init();$/;"	p	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::inverse(double *A, int N)$/;"	f	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void inverse(double *A, int N);$/;"	p	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::jacobian(double *x, double *A, double *B)$/;"	f	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void jacobian(double *x, double *A, double *B);$/;"	p	language:C++	class:Rod
+LIBS	/Users/wenwen/Work/chromosome/makefile	/^LIBS = -llapack -lm -lblas -lgsl$/;"	m	language:Make
+link	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    int **link;$/;"	m	language:C++	struct:params	file:
 link	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **link;         \/\/ index of pair of beads linked$/;"	m	language:C++	class:Rod
 linkPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **linkPair;     \/\/ table of link pairs$/;"	m	language:C++	class:Rod
 linkVectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVectorB()$/;"	f	language:C++	class:Rod
@@ -25,11 +36,15 @@ linkVectorU	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::linkVecto
 linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVectorU(); $/;"	p	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
+n	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    const size_t n;$/;"	m	language:C++	struct:params	file:
 nBead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nBead;$/;"	m	language:C++	class:Rod
 nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
 nPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int *nPair;         \/\/ # of link pairs related to each bead$/;"	m	language:C++	class:Rod
+OBJECTS	/Users/wenwen/Work/chromosome/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
+params	/Users/wenwen/Work/chromosome/code/rod.cpp	/^struct params {$/;"	s	language:C++	file:
 printMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::printMetric()$/;"	f	language:C++	class:Rod
 printMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void printMetric();$/;"	p	language:C++	class:Rod
+print_state	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int print_state (size_t iter, gsl_multiroot_fdfsolver * s) $/;"	f	language:C++
 pseudo	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudo(double **f) $/;"	f	language:C++	class:Rod
 pseudo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudo(double** f);$/;"	p	language:C++	class:Rod
 pseudoRing	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double **Rod::pseudoRing(double **f)$/;"	f	language:C++	class:Rod
@@ -40,17 +55,32 @@ Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beadPointer)$/;"
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *beadPointer);$/;"	p	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
 ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
+rosenbrock_df	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_df (const gsl_vector * x, void *params, $/;"	f	language:C++
+rosenbrock_f	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_f (const gsl_vector * x, void *params, $/;"	f	language:C++
+rosenbrock_fdf	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_fdf (const gsl_vector * x, void *params,$/;"	f	language:C++
+rparams	/Users/wenwen/Work/chromosome/code/rod.cpp	/^struct rparams$/;"	s	language:C++	file:
+rs0	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double *rs0;$/;"	m	language:C++	struct:params	file:
 setParameter	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::setParameter(Input *input) $/;"	f	language:C++	class:Rod
 setParameter	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void setParameter(Input *input);$/;"	p	language:C++	class:Rod
+solverHydrj	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverHydrj(double *x) $/;"	f	language:C++	class:Rod
 solverHydrj	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverHydrj(double *x);$/;"	p	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverNewton(double *x) $/;"	f	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverNewton(double *x);$/;"	p	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverPicard(double *x) $/;"	f	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverPicard(double *x);$/;"	p	language:C++	class:Rod
 SpMatD	/Users/wenwen/Work/chromosome/code/rod.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
+SRC	/Users/wenwen/Work/chromosome/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
+SRCDIR	/Users/wenwen/Work/chromosome/makefile	/^SRCDIR = code$/;"	m	language:Make
+TARGET	/Users/wenwen/Work/chromosome/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
+tension_df	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_df(const gsl_vector *x, void *p, gsl_matrix *df)$/;"	f	language:C++
+tension_f	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_f(const gsl_vector *x, void *p, gsl_vector *f)$/;"	f	language:C++
+tension_fdf	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix *df)$/;"	f	language:C++
+testSolver	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void testSolver()$/;"	f	language:C++
 topo	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Topo *topo;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Topo
+u	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double **u;$/;"	m	language:C++	struct:params	file:
 u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
 vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
 vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
+VPATH	/Users/wenwen/Work/chromosome/makefile	/^VPATH = code$/;"	m	language:Make
 ~Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::~Rod() $/;"	f	language:C++	class:Rod
 ~Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    virtual ~Rod ();$/;"	p	language:C++	class:Rod

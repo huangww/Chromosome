@@ -12,7 +12,10 @@
 #include <iomanip>
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
-
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_multiroots.h>
+#include <cstdlib>
+#include <cstdio>
 
 Rod::Rod(Bead *beadPointer)
 {
@@ -282,7 +285,7 @@ void Rod::jacobian(double *x, double *A, double *B)
                 tmp[nLink+j] += A[i*(nLink+DIM)+nLink+j]*x[i];
                 A[(nLink+j)*(nLink+DIM)+i] = 
                     Dot(&b[i][0],&u[nLink+j][0], DIM);
-                tmp[i] += A[i*(nLink+DIM)+nLink+j]*x[nLink+j];
+                tmp[i] += A[(nLink+j)*(nLink+DIM)+i]*x[nLink+j];
             }
         } 
         // the one for pinned bead Fc[1]*b[k]
@@ -381,6 +384,384 @@ void Rod::solverNewton(double *x)
     throw "MaxStep exceeded in Newton!";
 }
 
+
+struct params {
+    const size_t n;
+    int **link;
+    int **g;
+    double **u;
+    double **b;
+    double *rs0;
+    double dt;
+};
+
+int tension_f(const gsl_vector *x, void *p, gsl_vector *f)
+{
+    struct params *para = (struct params *)p;
+    int n = para->n;
+    int nLink = n - DIM;
+    int **link, **g;
+    double **u, **b, *rs0, dt;
+    link = para->link;
+    g = para->g;
+    u = para->u;
+    b = para->b;
+    rs0 = para->rs0;
+    dt = para->dt;
+
+    double value;
+    double tmp[n]; //  sum_j g[i,j] * b[i].u[j] * x[j]
+    std::fill(&tmp[0], &tmp[0] + n, 0);
+    for (int i = 0; i < nLink; i++) {
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                value = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+                tmp[i] += value*gsl_vector_get(x,j);
+            }
+        }
+
+        if (link[i][0]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = Dot(&b[nLink+j][0],&u[i][0], DIM);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+                value = Dot(&b[i][0],&u[nLink+j][0], DIM);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+            }
+        } 
+        if (link[i][1]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = -Dot(&b[i][0],&u[nLink+j][0], DIM);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+                value = -Dot(&b[nLink+j][0],&u[i][0], DIM);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+            }
+        }
+    }
+
+    for (int i = 0; i < DIM; ++i) {
+        value = Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
+        tmp[nLink+i] += value * gsl_vector_get(x,nLink+i);
+    }
+
+    for (int i = 0; i < nLink+DIM; ++i) {
+        if (i<nLink) {
+            // if inverse is used, must use B[i]
+            value = -(tmp[i] + tmp[i]*tmp[i]*dt/2 +
+                (Dot(&b[i][0], &b[i][0], DIM) - 1) / (2.*dt));
+            gsl_vector_set(f, i, value);
+        } else {
+            value = -(tmp[i] + rs0[i-nLink]/dt);
+            gsl_vector_set(f, i, value);
+        }
+    }
+
+    return GSL_SUCCESS;
+}
+
+int tension_df(const gsl_vector *x, void *p, gsl_matrix *df)
+{
+    struct params *para = (struct params *)p;
+    int n = para->n;
+    int nLink = n - DIM;
+    int **link, **g;
+    double **u, **b, *rs0, dt;
+    link = para->link;
+    g = para->g;
+    u = para->u;
+    b = para->b;
+    rs0 = para->rs0;
+    dt = para->dt;
+
+
+    double value;
+    double tmp[n]; //  sum_j g[i,j] * b[i].u[j] * x[j]
+    std::fill(&tmp[0], &tmp[0] + n, 0);
+    for (int i = 0; i < nLink; i++) {
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                value = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+                gsl_matrix_set(df, i, j, value);
+                tmp[i] += value*gsl_vector_get(x,j);
+            }
+        }
+
+        if (link[i][0]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = Dot(&b[nLink+j][0],&u[i][0], DIM);
+                gsl_matrix_set(df, nLink+j, i, value);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+                value = Dot(&b[i][0],&u[nLink+j][0], DIM);
+                gsl_matrix_set(df, i, nLink+j, value);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+            }
+        } 
+        if (link[i][1]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = -Dot(&b[i][0],&u[nLink+j][0], DIM);
+                gsl_matrix_set(df, i, nLink+j, value);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+                value = -Dot(&b[nLink+j][0],&u[i][0], DIM);
+                gsl_matrix_set(df, nLink+j, i, value);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+            }
+        }
+    }
+
+    for (int i = 0; i < DIM; ++i) {
+        value = Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
+        gsl_matrix_set(df, nLink+i, nLink+i, value);
+        tmp[nLink+i] += value * gsl_vector_get(x,nLink+i);
+    }
+
+    for (int i = 0; i < nLink+DIM; ++i) {
+        for (int j = 0; j < nLink+DIM; ++j) {
+            value = gsl_matrix_get(df, i, j);
+            if (value!=0) {
+                value *= (1. + tmp[i]*dt);
+                gsl_matrix_set(df, i, j, value);
+            }
+        }
+    }
+
+    // std::cout << "check tesnion_df" << std::endl;
+    // for (int i = 0; i < n; ++i) {
+    //     for (int j = 0; j < n; ++j) {
+    //         std::cout <<  gsl_matrix_get(df, i, j) << ' ';
+    //     }
+    //     std::cout << '\n';
+    // }
+
+    return GSL_SUCCESS;
+}
+
+int tension_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix *df)
+{
+    struct params *para = (struct params *)p;
+    int n = para->n;
+    int nLink = n - DIM;
+    int **link, **g;
+    double **u, **b, *rs0, dt;
+    link = para->link;
+    g = para->g;
+    u = para->u;
+    b = para->b;
+    rs0 = para->rs0;
+    dt = para->dt;
+
+    double value;
+    double tmp[n]; //  sum_j g[i,j] * b[i].u[j] * x[j]
+    std::fill(&tmp[0], &tmp[0] + n, 0);
+    for (int i = 0; i < nLink; i++) {
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                value = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+                gsl_matrix_set(df, i, j, value);
+                tmp[i] += value*gsl_vector_get(x,j);
+            }
+        }
+
+        if (link[i][0]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = Dot(&b[nLink+j][0],&u[i][0], DIM);
+                gsl_matrix_set(df, nLink+j, i, value);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+                value = Dot(&b[i][0],&u[nLink+j][0], DIM);
+                gsl_matrix_set(df, i, nLink+j, value);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+            }
+        } 
+        if (link[i][1]==0) {
+            for (int j = 0; j < DIM; ++j) {
+                value = -Dot(&b[i][0],&u[nLink+j][0], DIM);
+                gsl_matrix_set(df, i, nLink+j, value);
+                tmp[i] += value*gsl_vector_get(x,nLink+j);
+                value = -Dot(&b[nLink+j][0],&u[i][0], DIM);
+                gsl_matrix_set(df, nLink+j, i, value);
+                tmp[nLink+j] += value*gsl_vector_get(x,i);
+            }
+        }
+    }
+
+    for (int i = 0; i < DIM; ++i) {
+        value = Dot(&b[nLink+i][0],&u[nLink+i][0], DIM);
+        gsl_matrix_set(df, nLink+i, nLink+i, value);
+        tmp[nLink+i] += value * gsl_vector_get(x,nLink+i);
+    }
+
+    for (int i = 0; i < nLink+DIM; ++i) {
+        for (int j = 0; j < nLink+DIM; ++j) {
+            value = gsl_matrix_get(df, i, j);
+            if (value!=0) {
+                value *= (1. + tmp[i]*dt);
+                gsl_matrix_set(df, i, j, value);
+            }
+        }
+        if (i<nLink) {
+            // if inverse is used, must use B[i]
+            value = -(tmp[i] + tmp[i]*tmp[i]*dt/2 +
+                (Dot(&b[i][0], &b[i][0], DIM) - 1) / (2.*dt));
+            gsl_vector_set(f, i, value);
+        } else {
+            value = -(tmp[i] + rs0[i-nLink]/dt);
+            gsl_vector_set(f, i, value);
+        }
+    }
+
+
+    return GSL_SUCCESS;
+}
+
+struct rparams
+{
+    double a;
+    double b;
+};
+
+int rosenbrock_f (const gsl_vector * x, void *params, 
+        gsl_vector * f)
+{
+    double a = ((struct rparams *) params)->a;
+    double b = ((struct rparams *) params)->b;
+
+    const double x0 = gsl_vector_get (x, 0);
+    const double x1 = gsl_vector_get (x, 1);
+
+    const double y0 = a * (1 - x0);
+    const double y1 = b * (x1 - x0 * x0);
+
+    gsl_vector_set (f, 0, y0);
+    gsl_vector_set (f, 1, y1);
+
+    return GSL_SUCCESS;
+}
+
+int rosenbrock_df (const gsl_vector * x, void *params, 
+        gsl_matrix * J)
+{
+    const double a = ((struct rparams *) params)->a;
+    const double b = ((struct rparams *) params)->b;
+
+    const double x0 = gsl_vector_get (x, 0);
+
+    const double df00 = -a;
+    const double df01 = 0;
+    const double df10 = -2 * b  * x0;
+    const double df11 = b;
+
+    gsl_matrix_set (J, 0, 0, df00);
+    gsl_matrix_set (J, 0, 1, df01);
+    gsl_matrix_set (J, 1, 0, df10);
+    gsl_matrix_set (J, 1, 1, df11);
+
+    return GSL_SUCCESS;
+}
+
+int rosenbrock_fdf (const gsl_vector * x, void *params,
+        gsl_vector * f, gsl_matrix * J)
+{
+    rosenbrock_f (x, params, f);
+    rosenbrock_df (x, params, J);
+
+    return GSL_SUCCESS;
+}
+
+int print_state (size_t iter, gsl_multiroot_fdfsolver * s) 
+{
+    printf ("iter = %3zu x = % .3f % .3f "
+            "f(x) = % .3e % .3e\n",
+            iter,
+            gsl_vector_get (s->x, 0), 
+            gsl_vector_get (s->x, 1),
+            gsl_vector_get (s->f, 0), 
+            gsl_vector_get (s->f, 1));
+    return 0;
+}
+
+void testSolver()
+{
+    const gsl_multiroot_fdfsolver_type *T;
+    gsl_multiroot_fdfsolver *s;
+
+    int status;
+    size_t iter = 0;
+
+    const size_t n = 2;
+    struct rparams p = {1.0, 10.0};
+    gsl_multiroot_function_fdf f = {&rosenbrock_f, 
+        &rosenbrock_df, 
+        &rosenbrock_fdf, 
+        n, &p};
+
+    double x_init[2] = {-10.0, -5.0};
+    gsl_vector *x = gsl_vector_alloc (n);
+
+    gsl_vector_set (x, 0, x_init[0]);
+    gsl_vector_set (x, 1, x_init[1]);
+
+    T = gsl_multiroot_fdfsolver_gnewton;
+    s = gsl_multiroot_fdfsolver_alloc (T, n);
+    gsl_multiroot_fdfsolver_set (s, &f, x);
+
+    print_state (iter, s);
+
+    do
+    {
+        iter++;
+
+        status = gsl_multiroot_fdfsolver_iterate (s);
+
+        print_state (iter, s);
+
+        if (status)
+            break;
+
+        status = gsl_multiroot_test_residual (s->f, 1e-7);
+    }
+    while (status == GSL_CONTINUE && iter < 1000);
+
+    printf ("status = %s\n", gsl_strerror (status));
+
+    gsl_multiroot_fdfsolver_free (s);
+    gsl_vector_free (x);
+}
+
+void Rod::solverHydrj(double *x) 
+{
+    // testSolver();
+    // std::cin.get();
+    int status;
+    size_t iter = 0;
+    const size_t n = nLink+DIM;
+    struct params p = {n, link, g, u, b, &(bead->rs[0][0]), dt};
+
+    gsl_vector *x0 = gsl_vector_alloc (n);
+    gsl_vector_set_all(x0, 0.0);
+
+    const gsl_multiroot_fdfsolver_type *T;
+    gsl_multiroot_fdfsolver *s;
+    T = gsl_multiroot_fdfsolver_hybridj;
+    s = gsl_multiroot_fdfsolver_alloc(T, n);
+    gsl_multiroot_function_fdf func = {tension_f, 
+        tension_df, tension_fdf, n, &p};
+    gsl_multiroot_fdfsolver_set (s, &func, x0);
+
+    do {
+        iter++;
+        status = gsl_multiroot_fdfsolver_iterate (s);
+        if (status) break;
+        status = gsl_multiroot_test_residual (s->f, 1e-6);
+    } while (status == GSL_CONTINUE && iter < 1000);
+
+    // printf ("status = %s\n", gsl_strerror (status));
+
+    for (int i = 0; i < nLink+DIM; ++i) {
+        x[i] = gsl_vector_get(s->x, i);
+    }
+    gsl_multiroot_fdfsolver_free(s);
+    gsl_vector_free(x0);
+}
+
+
 double** Rod::constraint(double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
@@ -389,8 +770,9 @@ double** Rod::constraint(double** f)
     b = linkVectorB();
     double tension[nLink+DIM];
     std::fill(&tension[0], &tension[0] + nLink + DIM, 0);
-    // solverPicard(tension);
-    solverNewton(tension);
+    solverPicard(tension);
+    // solverNewton(tension);
+    // solverHydrj(tension);
 
     for (int i = 0; i < nBead; i++) {
         for (int j = 0; j < nLink; j++) {
