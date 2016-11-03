@@ -19,6 +19,7 @@ dataDir	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^dataDir = 'data\/
 delete2DArray	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^void delete2DArray(T** arr) {$/;"	f	language:C++
 Delta	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^static inline int Delta(int i, int j) {$/;"	f	language:C++
 Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
+Demo	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^def Demo():            $/;"	f	language:Python
 Demo	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def Demo():$/;"	f	language:Python
 Distance	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Distance(double *point1, double *point2, int dim);$/;"	p	language:C++
 division	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^from __future__ import division$/;"	i	language:Python
@@ -43,10 +44,17 @@ glob	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import glob$/;"	i	la
 h	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^h = (g - f).subs([(a, 1), (b, 2)])$/;"	v	language:Python
 h1	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^h1 = h.subs([(x1,1),(x2,2)])$/;"	v	language:Python
 h2	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^h2 = h.subs([(x1,L-1),(x2,L)])$/;"	v	language:Python
+i	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    i = 2*L-i if i > L else i$/;"	v	language:Python
+i	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    i = t % (2*L)$/;"	v	language:Python
+i0	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    i0 = (t-1) % (2*L)$/;"	v	language:Python
+i0	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    i0 = 2*L-i0 if i0 > L else i0$/;"	v	language:Python
+initPos	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^initPos = [0, 2, 5, 6, L-1]$/;"	v	language:Python
 it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
 it	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^import itertools as it$/;"	i	language:Python
 j	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    j = t%len(pos)$/;"	v	language:Python
+L	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^L = 10$/;"	v	language:Python
 L	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^L = 4$/;"	v	language:Python
+lattice	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^lattice = cylinder(pos=vector(0,0,0), axis=vector(L, 0, 0), radius=0.1, color=color.cyan, opacity=0.2)$/;"	v	language:Python
 link	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')$/;"	v	language:Python
 main	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^def main():$/;"	f	language:Python
@@ -59,22 +67,29 @@ matplotlib	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplo
 MatrixMulVector	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^void MatrixMulVector(double** matrix,$/;"	p	language:C++
 Mean	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Mean(int N, double* x);$/;"	p	language:C++
 MinimalExample	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^def MinimalExample():$/;"	f	language:Python
+N	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^N = L \/ 2$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^N = int(Nstr[0])$/;"	v	language:Python
+neighbor	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^neighbor = 1$/;"	v	language:Python
 np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^import numpy as np$/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import os$/;"	i	language:Python
 parameters	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^parameters = fname.split('_')$/;"	v	language:Python
+particle	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^particle = [sphere(pos=vector(initPos[i], 0, 0), radius = 0.2,  color=color.green, opacity=0.8) for i in range(N)]$/;"	v	language:Python
 PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf):$/;"	f	language:Python
 plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+pointerLeft	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^pointerLeft = arrow(pos=vector(7,-1,0),axis=vector(-3,0,0), shaftwidth=0.2, color=color.magenta, opacity=0.3)$/;"	v	language:Python
+pointerRight	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^pointerRight = arrow(pos=vector(4,1,0),axis=vector(3,0,0), shaftwidth=0.2, color=color.magenta, opacity=0.3)$/;"	v	language:Python
 pos	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
+posFrame	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^posFrame = np.zeros([tEnd+1, N])$/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    radius = 0.5 * factor, $/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    radius = 1.0*factor,$/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    radius = 1.5*factor,$/;"	v	language:Python
@@ -83,18 +98,28 @@ rod	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^rod = [cylinder(pos=b
 run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
 savgol_filter	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.signal import savgol_filter$/;"	i	language:Python
 scale	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^scale = 0.5$/;"	v	language:Python
+scene	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^scene = canvas(width=800, height=480, background=vector(1,1,1))$/;"	v	language:Python
 scene	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^scene = canvas(width=800, height=480, background=bg)$/;"	v	language:Python
 setup	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::setup(Input *input) $/;"	f	language:C++	class:Asep
 ss	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
 statsmodels	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
+step	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    step = i - i0$/;"	v	language:Python
 sys	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import sys$/;"	i	language:Python
+t	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    t = t + 1$/;"	v	language:Python
+t	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^    t = t + 1$/;"	v	language:Python
+t	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^t = 0$/;"	v	language:Python
+t	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^t=1$/;"	v	language:Python
 t	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    t = t+1$/;"	v	language:Python
 t	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^t=0$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^Teff = int(Tstr[0])$/;"	v	language:Python
+tEnd	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^tEnd = 100$/;"	v	language:Python
+ticks	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^ticks = [cylinder(pos=vector(i, -0.1, 0), axis=vector(0, 0.2, 0), radius = 0.02, color = color.blue) for i in range(L+1)]$/;"	v	language:Python
 TransitionMartrix	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^def TransitionMartrix(a, b, N, L):$/;"	f	language:Python
 TransitionMartrixPeriodic	/Users/wenwen/Work/chromosome/script/eigenvalue.py	/^def TransitionMartrixPeriodic(a, b, N, L):$/;"	f	language:Python
 tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
 ULTILITIES_HPP_QBDNOQTX	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^#define ULTILITIES_HPP_QBDNOQTX$/;"	d	language:C++
 Variance	/Users/wenwen/Work/chromosome/code/ultilities.hpp	/^double Variance(int N, double* x);$/;"	p	language:C++
+wallLeft	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^wallLeft = box(pos=vector(-0.05,0,0), length=0.05, height=1, width=1, color=color.yellow, opacity=0.8)$/;"	v	language:Python
+wallRight	/Users/wenwen/Work/chromosome/script/movieASEP.py	/^wallRight = box(pos=vector(L+0.05,0,0), length=0.05, height=1, width=1, color=color.yellow, opacity=0.8)$/;"	v	language:Python
 zr	/Users/wenwen/Work/chromosome/script/solveEigenvalues.py	/^zr = solve([h1, h2], [z1, z2])$/;"	v	language:Python
 ~Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::~Asep() $/;"	f	language:C++	class:Asep
