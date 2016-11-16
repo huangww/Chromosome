@@ -1,12 +1,12 @@
 projectName = BeadRod
 
 topoType = 0
-nBead = 125
+nBead = 100
 # nLink = 50
 tempEff = 10
 
 dt = 1e-4
-tEnd = 1
+tEnd = 100
 outputStep = 1e3
 
 # seed = rd()

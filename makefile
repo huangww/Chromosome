@@ -5,7 +5,7 @@ TARGET = $(BUILDDIR)/a.out
 CXXFLAGS += -Wall -std=c++11 -O3
 CXXFLAGS += -I/usr/local/include
 LDFLAGS += -L/usr/local/lib
-LDLIBS = -llapack -lm -lblas -lgsl
+LDLIBS = -llapack -lm -lgsl -lgslcblas 
 
 VPATH = code
 
@@ -29,7 +29,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ $(LDLIBS)
 
 run:
-	./$(TARGET) input.br.in
+	./$(TARGET) input.in
 
 clean :
 	-rm -rf $(BUILDDIR)/*

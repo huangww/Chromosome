@@ -56,7 +56,7 @@ void State::setParameter(Input *input)
     double jumpRate = 2.0;
     double factor = exp(-1.0/tempEff);
     // double factor = 1.0;
-    std::cout << factor << std::endl;
+    // std::cout << factor << std::endl;
     rateToLeft = jumpRate/(1+factor);
     rateToRight = jumpRate*factor/(1+factor);
     
@@ -254,8 +254,8 @@ void State::update()
 
             // update state, carefully
             bool checkSite;
-            totalRate -= (rate[2*index-1]+rate[2*index]
-                    +rate[2*index+1]+rate[2*index+2]);
+            // clean the old rates in totalRate that need to update
+            totalRate -= (rate[2*index]+rate[2*index+1]);
             if (direction) {
                 // move particle right
                 site[pos[index]] = false;
@@ -283,30 +283,35 @@ void State::update()
                 // no need to check the right side
                 rate[2*index+1] = rateToRight;
             }
+            // update the new rates to totalRate
+            totalRate += (rate[2*index]+rate[2*index+1]);
 
             // update rate of (i-1)th and (i+1)th particle
             if (index != 0) {
                 // check the right side of (i-1)th particle
+                totalRate -= rate[2*index-1];
                 checkSite = site[pos[index-1]+1];
                 if (checkSite) 
                     rate[2*index-1] = 0;
                 else
                     rate[2*index-1] = rateToRight;
+                totalRate += rate[2*index-1];
             }
             if (index != nPar-1) {
                 // check the left side of (i+1)th particle
+                totalRate -= rate[2*index+2];
                 checkSite = site[pos[index+1]-1];
                 if (checkSite) 
                     rate[2*index+2] = 0;
                 else
                     rate[2*index+2] = rateToLeft;
+                totalRate += rate[2*index+2];
             }
-            totalRate += (rate[2*index-1]+rate[2*index]
-                    +rate[2*index+1]+rate[2*index+2]);
             t += dtJump;
         } else {
             t = tGrid;
         }
+        
     }
 
     // update corresponding bead cofiguration
@@ -318,7 +323,9 @@ void State::update()
 
 void State::output(std::ofstream* output) 
 {
-    outputPar(output[0]);
+    // outputPar(output[0]);
+    // outputSite(output[0]);
+    // outputPos(output[0]);
     outputRg(output[1]);
 }
 
@@ -355,9 +362,8 @@ void State::outputPos(std::ofstream& output)
 void State::outputRg(std::ofstream& output) 
 {
     // output gyration radius
-    output << std::setprecision(12) << tGrid << '\t';
-    output << std::setprecision(12) << rg << '\t';
-    output << std::setprecision(12) << beadPos[1] << '\t';
-    output << std::setprecision(12) << beadPos[nSite/2] << '\t';
+    output << std::setw(9) << tGrid << '\t';
+    // output << std::setw(9) << rg << '\t';
+    output << std::setw(9) << beadPos[nSite/2] << '\t';
     output << std::endl;
 }

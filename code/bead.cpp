@@ -167,7 +167,7 @@ void Bead::predict()
     // addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
     addForce(force->constant(f));
-    addForce(force->repulsive(r, f));
+    // addForce(force->repulsive(r, f));
     
     // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
@@ -255,9 +255,9 @@ void Bead::output(std::ofstream* outFile)
     if (std::isnan(r[0][0])) {
        throw "NaN error in r!"; 
     }
-    outputPos(outFile[0]);
-    // outputRg(outFile[1]);
-    // outputRd(outFile[2]);
+    // outputPos(outFile[0]);
+    outputRg(outFile[1]);
+    outputRd(outFile[2]);
 }
 
 void Bead::outputPos(std::ofstream& outFile) 

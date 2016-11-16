@@ -14,15 +14,6 @@ def z_var(i, N, T):
             (np.sinh(N/float(2*T))*np.cosh((N-2*i)/float(4*T))**2)
     return z_var
 
-# def raw_var(i, N, T):
-#     T = 2*T
-#     raw_var = 2.0*T/(1.0+np.exp(2.0*(i-N/2)/float(T)))
-#     return raw_var
-#
-# def z_var(i, N, T):
-#     z_var = (raw_var(0,N,T)-raw_var(i,N,T))*(raw_var(i,N,T)-raw_var(N,N,T))/(raw_var(0,N,T)-raw_var(N,N,T))
-#     return z_var
-    
 fig = plt.figure(0,figsize=(10,4))
 plt.rc('text', usetex=True)
 font = {'family' : 'sans-serif',

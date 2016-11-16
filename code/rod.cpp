@@ -58,6 +58,9 @@ void Rod::setParameter(Input *input)
     u = create2DArray<double>(nLink+DIM, DIM);
     b = create2DArray<double>(nLink+DIM, DIM);
     // init();
+    
+    // printMetric();
+    // std::cin.get();
 }
 
 void Rod::init() 
@@ -812,7 +815,7 @@ double** Rod::pseudo(double **f)
 
     // calculate the inverse of the metric matrix
     int n = nLink;
-    int iPIv[nLink];
+    int iPIv[nLink+1];
     int info;
     double work[nLink];
     dgetrf_(&n, &n, metric, &n, iPIv, &info);
