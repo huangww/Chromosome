@@ -53,23 +53,23 @@ The advantage of using Eq. \eqref{eq:boundaries-single-particle} is that it
 simplifies the calculation a lot.  
 
 To solve the case of single particle ASEP, we take the ansatz of separation of
-variables $P(x,t) = \psi(x)e^{\lambda t}$ and plug into the master equation,
+variables $P(x,t) = \phi(x)e^{\lambda t}$ and plug into the master equation,
 obtaining 
 \begin{equation}
     \label{eq:eigen}
-    \beta\psi(x+1) -(\alpha+\beta+\lambda)\psi(x) + \alpha\psi(x-1) = 0
+    \beta\phi(x+1) -(\alpha+\beta+\lambda)\phi(x) + \alpha\phi(x-1) = 0
 \end{equation}
 Given that $x$ is an integer number, Eq. \eqref{eq:eigen} is essentially a set
 of liner difference equations with the boundaries by substituting the ansatz of
 $P_x(t)$ into boundaries of Eq. \eqref{eq:boundaries-single-particle}: 
 \begin{subequations}
-    \label{eq:boundaries-psi}
+    \label{eq:boundaries-phi}
 \begin{eqnarray}
-    \alpha\psi(0) = \beta\psi(1) \\
-    \alpha \psi(L) = \beta \psi(L+1)
+    \alpha\phi(0) = \beta\phi(1) \\
+    \alpha \phi(L) = \beta \phi(L+1)
 \end{eqnarray}
 \end{subequations}
-The standard method to find the solution is again to take an ansatz $\psi(x) =
+The standard method to find the solution is again to take an ansatz $\phi(x) =
 Az^x$, where $z$ is an arbitrary complex number. We arrive at the characteristic
 quadratic equation 
 \begin{equation}
@@ -80,9 +80,9 @@ The two roots fulfill $z_+z_- = \frac{\alpha}{\beta}$. And the solution of
 \eqref{eq:eigen} can be written as 
 \begin{equation}
     \label{eq:eigen-solution}
-    \psi(x) = A_+ z_+^{x} + A_- z_-^{x}
+    \phi(x) = A_+ z_+^{x} + A_- z_-^{x}
 \end{equation}
-By applying the boundaries Eq. \eqref{eq:boundaries-psi} to Eq.
+By applying the boundaries Eq. \eqref{eq:boundaries-phi} to Eq.
 \eqref{eq:eigen-solution} we can find all the eigenvalues and corresponding
 eigenvectors. The results are summarised as following
 
@@ -90,70 +90,53 @@ eigenvectors. The results are summarised as following
     \label{eq:single-particle-eigenmodes}
     \begin{aligned}
         \lambda_0 & = 0; 
-        ~\psi_0(x) = const. \left(\frac{\alpha}{\beta}\right)^{x}; \\
+        ~\phi_0(x) = const. \left(\frac{\alpha}{\beta}\right)^{x}; \\
         \lambda_k & = -(\alpha+\beta) +
         2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L}); 
         ~k=1,2,\dots, L-1 \\
-        \psi_k(x) & = const. \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}}
+        \phi_k(x) & = const. \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}}
             \left[\sin\left(\frac{k\pi}{L}x\right) -
                 \sqrt{\frac{\beta}{\alpha}}\sin\left(\frac{k\pi}{L}(x-1)\right)\right].
     \end{aligned}
 \end{equation}
 The eigenvalue $\lambda_0 = 0$ and corresponding eigenvector represent the
-stationary mode $\psi_0(x)$. We want to remark here another equivalent general
-form of eigenfunctions specific to the reflecting boundary case:
-\begin{subequations}
-    \label{eq:eigenModes}
-\begin{eqnarray}
-    \label{eq:stationaryEigenMode}
-    &\psi_s(x)  =  A\left(\frac{\alpha}{\beta}\right)^x \\
-    \label{eq:nonstationaryEigenModes}
-    &\psi(x)  =  \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}}
-    \left(A_+ e^{ipx} +  A_-e^{-ipx}\right) 
-\end{eqnarray}
-\end{subequations}
-$A,~A_+,~A_-$ are amplitude coefficients that will be fixed by the
-boundary conditions and/or normalization, $p$ is the wave vector of excited
-eigenmodes, in case of single particle case above, $p=\frac{k\pi}{L}$.
-Here however, we separate the stationary and the non-stationary cases, we will
-show later that Eq. \eqref{eq:eigenModes} will be very useful for searching the
-solution of more than one particle ASEP.
-
+stationary mode $\phi_0(x)$. 
 Define a scalar product between any two functions by 
-\begin{equation} \label{eq:scalarPoduct} (\psi, \phi) =
-    \int\frac{\psi(x)\phi(x)}{\psi_{0}(x)}dx 
+\begin{equation} \label{eq:scalarPoduct} (\phi, \psi) =
+    % \int\frac{\phi(x)\phi(x)}{\phi_{0}(x)}dx 
+    \sum_{x}\frac{\phi(x)\psi(x)}{\phi_{0}(x)}
 \end{equation}
-Notice that definition Eq. \eqref{eq:scalarPoduct} makes $\psi_0(x)$ identical
-to the stationary distribution $P^e(x)$.
+Notice that definition Eq. \eqref{eq:scalarPoduct} makes $\phi_0(x)$ identical
+to the stationary distribution $P^e(x)$, and remember here $x$ is an integer.
 By properly choose the constant and when $L\rightarrow\infty$,
 one can check the orthogonality and completeness of the eigenfunctions.
 \begin{eqnarray}
     \label{eq:orthogonality}
-    \sum_{x=1}^L \psi_k(x)\psi_l(x) & = & \delta_{k,l} \\
+    \sum_{x=1}^L \phi_k(x)\phi_l(x) & = & \delta_{k,l} \\
     \label{eq:completeness}
-    \sum_{k=1}^L \psi_k(x)\psi_k(y) & = & \delta_{x,y} 
+    \sum_{k=1}^L \phi_k(x)\phi_k(y) & = & \delta_{x,y} 
 \end{eqnarray}
 So for arbitrary initial distribution of $P(x, 0)$, we can always decompose it as 
 \begin{equation}
     \label{eq:decompose-intial-single}
-    P(x,0) = \sum_k{c_k \psi_k(x)}
+    P(x,0) = \sum_k{c_k \phi_k(x)}
 \end{equation}
 where $c_k$ can be calculated by 
 \begin{equation}
     \label{eq:coeff-k}
-    c_k = \sum_x{\psi_k(x) P(x,0)}
+    c_k = \sum_x{\phi_k(x) P(x,0)}
 \end{equation}
 Finally, the solution of single particle on reflecting lattice can be written as
 \begin{equation}
     \label{eq:solution-single}
-    P(x,t) = \sum_k{\psi_k(x)e^{\lambda_k
-            t}}\sum_{x^\prime}{\psi_k(x^\prime)P(x^\prime,0)}
+    P(x,t) = \sum_k{\phi_k(x)e^{\lambda_k
+            t}}\sum_{x^\prime}{\phi_k(x^\prime)P(x^\prime,0)}
 \end{equation}
 For the special case that $P(x,0) = \delta_{x,y}$, solution
 \eqref{eq:solution-single} can be simplified to
 \begin{equation}
     \label{eq:solution-single-simplified}
-    P(x,t) = \sum_k{\psi_k(x)\psi_k(y)e^{\lambda_k t}}
+    P(x,t) = \sum_k{\phi_k(x)\phi_k(y)e^{\lambda_k t}}
 \end{equation}
 
 With the complete solution of single particle, we can go further to systems of
@@ -176,13 +159,13 @@ Firstly, we shall write down the master equation, which looks as following
 We take the same eigenfunction expansion as for the single particle case:
 \begin{equation}
     \label{eq:solutionTwo}
-    P(x_1, x_2, t) = \sum_{k} \Psi_{k}(x_1, x_2) e^{\lambda_k t}
+    P(x_1, x_2, t) = \sum_{k} \Psi_{k}(x_1, x_2) e^{\Lambda_k t}
 \end{equation}
 Plug into the master equation Eq. \eqref{eq:masterEqTwo} we have
 \begin{equation}
     \begin{aligned}
     \label{eq:eigenModesTwo}
-    \lambda \Psi(x_1, x_2) = & \alpha \Psi(x_1-1, x_2) + \beta \Psi(x_1+1, x_2)
+    \Lambda \Psi(x_1, x_2) = & \alpha \Psi(x_1-1, x_2) + \beta \Psi(x_1+1, x_2)
     \\ &+ \alpha \Psi(x_1, x_2-1) + \beta \Psi(x_1, x_2+1) \\ 
     &- 2(\alpha+\beta)\Psi(x_1, x_2)
     \end{aligned}
@@ -202,9 +185,29 @@ This can be also written as a boundary condition as
     \label{eq:exclusionCondition}
     \alpha \Psi(x, x) + \beta \Psi(x+1, x+1) = (\alpha + \beta) \Psi(x, x+1)
 \end{equation}
-Notice that the exclusive condition must hold for any $x$. The notation of $\Psi(x,
-x)$ may looks a little bit weird, but keep in mind that it is a boundary condition
-that denotes the limiting situation $x_1=x_2$.
+Notice that the exclusive condition must hold for any $x$. The notation of
+$\Psi(x, x)$ may looks a little bit weird, but keep in mind that it is a
+boundary condition that denotes the limiting situation $x_1=x_2$.
+
+Before delve into the Bethe Ansatz solution, we want to remark here another
+equivalent general form of eigenfunctions specific for single particle on
+lattice with the reflecting boundaries:
+\begin{subequations}
+    \label{eq:eigenModes}
+\begin{eqnarray}
+    \label{eq:stationaryEigenMode}
+    &\psi_s(x)  =  A\left(\frac{\alpha}{\beta}\right)^x \\
+    \label{eq:nonstationaryEigenModes}
+    &\psi(x)  =  \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}}
+    \left(A_+ e^{ipx} +  A_-e^{-ipx}\right) 
+\end{eqnarray}
+\end{subequations}
+$A,~A_+,~A_-$ are amplitude coefficients that will be fixed by the
+boundary conditions and/or normalization, $p$ is the wave vector of excited
+eigenmodes, in case of single particle case above, $p=\frac{k\pi}{L}$.
+Here however, we separate the stationary and the non-stationary cases, we will
+show later that Eq. \eqref{eq:eigenModes} will be very useful for searching the
+solution of more than one particle ASEP.
 
 The idea to construct the $N$ particle solution is inspired by the standard
 Coordinate Bethe Ansatz (CBA). However, instead of using the plain plane wave
@@ -215,10 +218,17 @@ The example of Ansatz for $\Psi(x_1, x_2)$ reads
     \label{eq:ansatzTwo}
     \Psi(x_1, x_2) = \psi_1(x_1)\psi_2(x_2) + \tilde{\psi}_2(x_1)\tilde{\psi}_1(x_2)
 \end{equation}
-Here $\psi_n(x)$ is assumed to take the general form of Eq.
-\eqref{eq:eigenModes}, either stationary or non-stationary. And
+Here $\psi_n(x)$ is draw from of Eq.
+\eqref{eq:eigenModes}, either stationary Eq. \eqref{eq:stationaryEigenMode} or
+non-stationary Eq.\eqref{eq:nonstationaryEigenModes}. We classify $\psi_1,
+~\tilde{\psi}_1$ as one class and $\psi_2,~\tilde{\psi}_2$ as the other class.
+Basically, the number of this class equals to the number of particles.
+For one class, if it is in non-stationary modes, 
 $\tilde{\psi}_n(x)$ share the same wave vector $p_n$ with $\psi_n(x)$ but
-different amplitude coefficients $A_{n\pm}$. The main idea is to tune these
+different amplitude coefficients $A_{n\pm}$. And if the class is in the
+stationary mode, then functions in the class are basically differentiated by
+amplitude coefficient $A$. It is important that $\psi_n$ and $\tilde{\psi}_n$
+have different amplitude coefficients. The main idea is to tune these
 amplitude coefficients so that $\Psi(x_1, x_2)$ satisfies the reflecting
 boundaries Eq. \eqref{eq:boundaries-two-particles} and exclusive condition Eq.
 \eqref{eq:exclusionCondition}.  
@@ -230,13 +240,13 @@ boundaries Eq. \eqref{eq:boundaries-two-particles} and exclusive condition Eq.
 %     \label{eq:subMasterEqTwo}
 %     \begin{eqnarray}
 %         \alpha\psi_1(x-1) + \beta\psi_1(x+1) - 
-%         (\alpha+\beta+\lambda)\psi_1(x) = 0 \\
+%         (\alpha+\beta+\Lambda)\psi_1(x) = 0 \\
 %         \alpha\psi_2(x-1) + \beta\psi_2(x+1) - 
-%         (\alpha+\beta+\lambda)\psi_2(x) = 0 \\
+%         (\alpha+\beta+\Lambda)\psi_2(x) = 0 \\
 %         \alpha\tilde{\psi_1}(x-1) + \beta\tilde{\psi_1}(x+1) - 
-%         (\alpha+\beta+\lambda)\tilde{\psi_1}(x) = 0 \\
+%         (\alpha+\beta+\Lambda)\tilde{\psi_1}(x) = 0 \\
 %         \alpha\tilde{\psi_2}(x-1) + \beta\tilde{\psi_2}(x+1) - 
-%         (\alpha+\beta+\lambda)\tilde{\psi_2}(x) = 0
+%         (\alpha+\beta+\Lambda)\tilde{\psi_2}(x) = 0
 %     \end{eqnarray}
 % \end{subequations}
 In the following subsections, we will discuss several different cases
@@ -259,7 +269,7 @@ Plug in to \eqref{eq:ansatzTwo} we obtain
 where $A=A_1\tilde{A}_1+A_2\tilde{A}_2$. One can readily check that Eq.
 \eqref{eq:stationaryTwo} is exactly the stationary eigenfunction of the two
 particle system as expected. First, we can easily obtain the corresponding
-eigenvalue is $\lambda=0$ by simply plug it in to Eq. \eqref{eq:eigenModesTwo}.
+eigenvalue is $\Lambda_0=0$ by simply plug it in to Eq. \eqref{eq:eigenModesTwo}.
 And then one can check the reflecting boundaries Eq.
 \eqref{eq:boundaries-two-particles} and the exclusive condition Eq.
 \eqref{eq:exclusionCondition} are both fulfilled. 
@@ -302,7 +312,7 @@ We first insert the solution to the master equation Eq. \eqref{eq:eigenModesTwo}
 obtaining the corresponding eigenvalue:
 \begin{equation}
     \label{eq:eigenvaluesTwo1}
-    \lambda = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(p_2)
+    \Lambda = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(p_2)
 \end{equation} 
 $p_2$ is the wave vector that will be determined later. 
 
@@ -345,7 +355,7 @@ Finally, use the consistency condition that
 We obtain the Bethe equation 
 \begin{equation}
     \label{eq:betheEqTwo1}
-    e^{2p_2L} = 1
+    e^{i2p_2L} = 1
 \end{equation}
 Solve the equation we get $p_2=\frac{k\pi}{L}$. Notice that it is exactly the
 same as the spectrum of single particle case. With the solution of $p_2$ we can
@@ -357,17 +367,17 @@ eigenfunctions are summarized as following
     \label{eq:eigenTwo}
     \begin{eqnarray}
         \label{eq:eigenvaluesTwo}
-        \lambda_k & = &
+        \Lambda_k & = &
         -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L});
         ~k=1,2,\dots, L-1  \\
         \label{eq:eigenvectorsTwo}
-        \Psi(x_1, x_2) & = & A\left[ \frac{\alpha}{\beta}
+        \Psi_k(x_1, x_2) & = & A\left[ \frac{\alpha}{\beta}
             \left(\frac{\alpha}{\beta}
-            \right)^{x_1}\psi_k(x_2)+\left(\frac{\alpha}{\beta}\right)^{x_2}
-            \psi_k(x_1) \right]
+            \right)^{x_1}\phi_k(x_2)+\left(\frac{\alpha}{\beta}\right)^{x_2}
+            \phi_k(x_1) \right]
     \end{eqnarray}
 \end{subequations}
-Here $\psi_k(x)$ is exactly single particle non-stationary eigenfunction and
+Here $\phi_k(x)$ is exactly single particle non-stationary eigenfunction and
 $A$ is a constant normalization coefficient.
 
 We now turn to the second type of non-stationary eigenmodes. Notice that, the
@@ -388,7 +398,7 @@ first write down the Ansatz:
 Plug it in to the master equation, we get the corresponding eigenvalues
 \begin{equation}
     \label{eq:eigenvaluesTwo2}
-    \lambda = \sum_{n=1}^2\left[-(\alpha+\beta) + 
+    \Lambda = \sum_{n=1}^2\left[-(\alpha+\beta) + 
         2\sqrt{\alpha\beta}\cos(p_n)\right]
 \end{equation} 
 And plug it in to the reflecting boundaries, we obtain
@@ -442,16 +452,23 @@ particle and change the direction of wave vector, i.e., $p_n\leftrightarrow-p_n$
 On the other hand, Eq. \eqref{eq:scatterFactorExclusive} can be interpreted as
 a permutator that permutates two neighboring particles $n\leftrightarrow (n+1)$.
 Let us say particle $1$ starts from the left side of the lattice and then
-permutates with all the particle at right side until reaches the right boundary,
-and then reflects by the boundary, become a particle traveling in the oppsite
-direction, and then permutates with all the left side particles until reaches
-the left side boundary, and then reflects again, which recovers the initial
-state. A schematica of this process is shown in Fig.
-\ref{fig:travelingParticle}. In this sense, the particle works as if it is on a
+permutates with all the particle at right side until reaches the right boundary
+(of course in case of two particles, there are only one particle at the right
+side), and then reflects by the boundary, become a particle traveling in the
+oppsite direction, and then permutates with all the left side particles until
+reaches the left side boundary, and then reflects again, which recovers the
+initial state. A schematic of this process is shown in Fig.
+\ref{fig:betheEq}. In this sense, the particle works as if it is on a
 lattice with periodic boundary. Use this interpretation and the well know result
 of periodic Bethe Equation, once can easily recover exactly Eq.
 \eqref{eq:betheEqTwo2}. 
 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{betheEq}
+    \caption{Intepretation of Bethe Equation.}
+    \label{fig:betheEq}
+\end{figure}
 By solving the Bethe equation, one can get $p_1$ and $p_2$ and thus all
 amplitude coefficients up to a constant normalization factor. Then Eq.
 \eqref{eq:eigenvaluesTwo2} gives the eigenvalues and Eq.
@@ -468,12 +485,12 @@ first type of non-stationary eigenmodes which is not compatible by Eq.
 To summarize, the complete solution of two particle hopping system with
 reflecting boundaries was found. The solution is shown in the form of
 eigenfunction expansion, i.e. Eq. \eqref{eq:eigenModesTwo}. The stationary
-eigenfunction with eigenvalue $\lambda=0$ is listed as Eq.
+eigenfunction with eigenvalue $\Lambda_0=0$ is listed as Eq.
 \eqref{eq:stationaryTwo}, while the two types of non-stationary eigenvalues and
 corresponding eigenfunctions are listed in Eq. \eqref{eq:eigenvaluesTwo1},
 \eqref{eq:eigenvaluesTwo2} and Eq.
 \eqref{eq:nonstationaryModesTwo1}, \eqref{eq:nonstationaryModesTwo2},
-respectively. They can be fully determined by  solving The Bethe equation Eq.
+respectively. They can be fully determined by  solving the Bethe Equation Eq.
 \eqref{eq:betheEqTwo1} and Eq. \eqref{eq:betheEqTwo2}. Part of them are
 analytically shown in Eq. \eqref{eq:eigenTwo}.
 
@@ -483,8 +500,8 @@ particle system always contain the eigenvalues of single partile system. We will
 show later this can be generalised that the eigenvalues of $N+1$ particle system
 always contain the eigenvalues of $N$ particle system for $N<L/2$. Secondly, the
 relaxation time of the system is realted to the largest non-zero eigenvalue
-$\lambda_1$. Eq.  \eqref{eq:eigenTwo} hints
-$\lambda_1=-(\alpha+\beta)+2\sqrt{\alpha\beta} \cos\left(\frac{\pi}{L}\right)$.
+$\Lambda_1$. Eq.  \eqref{eq:eigenTwo} hints
+$\Lambda_1=-(\alpha+\beta)+2\sqrt{\alpha\beta} \cos\left(\frac{\pi}{L}\right)$.
 However, since there is no analytical solution for eigenvalues of the second
 kind, it will be difficult to rigously prove that. Nummerical evidences will be
 provided to verify this is indeed true.
@@ -541,7 +558,7 @@ Intuitively, we construct the $N$ particles stationary solution as
 \end{equation}
 
 One can plug in the master equation check that the corresponding eigenvalue
-$\lambda= 0$, and also verify the exclusive condition as well as the reflecting
+$\Lambda_0= 0$, and also verify the exclusive condition as well as the reflecting
 boundaries are fulfilled by insert the solution in to Eq.
 \eqref{eq:exclusionConditionN} and Eq. \eqref{eq:boundaries-N-particles}
 separately.
@@ -624,14 +641,20 @@ superscript $\sigma$ means the amplitude coefficients $A_n^{\sigma}$ or
 $A_{n\pm}^{\sigma}$ are not the same for different permutations.
 
 We again insert the solution to the master equation Eq. \eqref{eq:masterEqN},
-obtaining the simple corresponding eigenvalue 
+notice that the amplitude coefficients are irrelevant with the eigenvalues. So
+we obtain the simple form of corresponding eigenvalue 
 \begin{equation}
     \label{eq:eigenvaluesN}
-    \lambda = \sum_{n=1}^N \lambda_n
+    \Lambda = \sum_{n=1}^N \lambda_n
 \end{equation}
-The expression of $\lambda_n$ depends on wether $\psi_n^{\sigma}$ is stationary
-or non-stationary. For stationary $\lambda_n=0$, for non-stationary $\lambda_n=
--(\alpha+\beta)+2\sqrt{\alpha\beta}\cos(p_n)$.
+$\lambda_n$ here is a function and its expression depends on whether
+$\psi_n^{\sigma}$ is stationary or non-stationary. For stationary $\lambda_n=0$,
+for non-stationary $\lambda_n(p_n)=
+-(\alpha+\beta)+2\sqrt{\alpha\beta}\cos(p_n)$.  Notice that, as we can see from
+the two particles example, the Bethe Equations will give the value of $p_n$ and
+determine the eigenvalues. In general, they are more than one solution because
+Bethe Equations are nonlinear, and different solution can lead to different
+eigenvalues.
 
 We now consider that the non-stationary eigenfunctions is constructed by $N_s$ of
 Eq. \eqref{eq:stationaryEigenMode} classes and $N-N_s$ of Eq.
@@ -698,25 +721,34 @@ in the eigenvalue set of $N$ particle system. Notice that this is only true for
 $N<L/2$. For $N>L/2$, one can easily use the particle-hole duality which shows
 that the eigenvalue of $N$ particles system should be the same as $L-N$
 particles system.
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{spectrum}
+    \caption{Left: embeding of eigenvalues; Right: benchmark of eigenvalues from
+        Bethe Ansatz theory to directly diagonalize transition matrix, $N=2$.
+        $L=10$, $\alpha=2$ and $\beta=1$ for both. }
+    \label{fig:spectrum}
+\end{figure}
 
 Finally, we remark that the Bethe Equations have to be solved numerically in
 most cases. However, there is a small set of non-stationary eigenvalue and
-eigenvectors we can obtain analytically, which is correspond to the case with
+eigenvectors we can obtain analytically, which correspond to the case with
 just one excitation mode. The results are summarized as following:  
 \begin{subequations}
     \label{eq:eigenN}
     \begin{eqnarray}
-        \label{eq:eigenvaluesN}
-        \lambda_k  = 
+        \label{eq:partEigenvaluesN}
+        \Lambda_k  = 
         -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L});
         ~k=1,2,\dots, L-1  \\
         \label{eq:eigenvectorsN}
-        \Psi(x_1, x_2, \cdots, x_N)  =  A \sum_{k=1}^N
-        \left(\frac{\alpha}{\beta}\right)^{k-1} \psi_k(x_k)\prod_{j\neq k} 
-         \left(\frac{\alpha}{\beta}\right)^{x_j}
+        \Psi_k(x_1, x_2, \cdots, x_N)  =  A \sum_{n=1}^N
+        \left(\frac{\alpha}{\beta}\right)^{n-1} \phi_k(x_n)\prod_{m\neq n} 
+         \left(\frac{\alpha}{\beta}\right)^{x_m}
     \end{eqnarray}
 \end{subequations}
-Notice that the set of eigenvalue is exact the single particle spectrum.
+Notice that the set of eigenvalue is exact the single particle spectrum, and
+again $\phi_k(x)$ is exactly the single particle eigenfunction.
 Fortunately, the numerical evidence shows that the most interesting
 eigenmode, i.e. the slowest relaxation mode, is contained in this set. 
 We will discuss it in next section. 
@@ -727,19 +759,19 @@ We will discuss it in next section.
 The largest non-zero eigenvalue we found and verified by numerical results is 
 \begin{equation}
     \label{eq:largestEigenvalue}
-    \lambda_1 = -(\alpha+\beta) +
+    \Lambda_1 = -(\alpha+\beta) +
     2\sqrt{\alpha\beta}\cos(\frac{\pi}{L})
 \end{equation}
-If $L\ll 1$, we can expand the cos term, obtain 
+If $L \gg 1$, we can expand the cos term, obtain 
 \begin{equation}
     \label{eq:largestEigenvalueExpanded}
-    \lambda_1 = -(\sqrt{\beta}-\sqrt{\alpha})^2 +
+    \Lambda_1 = -(\sqrt{\beta}-\sqrt{\alpha})^2 -
     \frac{\sqrt{\alpha\beta}\pi^2}{L^2}
 \end{equation}
 And the relaxation time can be calculated as 
 \begin{equation}
     \label{eq:relaxationTime}
-    \tau = -\frac{1}{\lambda_1}
+    \tau = -\frac{1}{\Lambda_1}
 \end{equation}
 
 There are several information we can read form Eq.
