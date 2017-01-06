@@ -62,7 +62,9 @@ def main():
             'size'   : 15 }
     plt.rc('lines', lw=2)
     plt.rc('font', **font)
-    fig = plt.figure(0, figsize=(6.6, 4.4))
+    fig = plt.figure(0, figsize=(6, 4.2))
+    fig.subplots_adjust(left=0.13, right =0.95,\
+            bottom=0.13, top =0.95, wspace=0.25)
     ax = fig.add_subplot(111)
     # px = densitySchutz(T, N, L)
     # px = tagPdf(T, 30, N, L)
@@ -72,11 +74,13 @@ def main():
     for T in Tarray:
         px = density(T, N, L)
         fx = 1./(1.+np.exp((x-N)/float(T)))
-        line, = ax.plot(x, px, '-', label=r'$1/F=$'+str(T))
+        labelString = r"$\frac{k_B T}{2Fa}=$" + \
+                r"${}$".format(T)
+        line, = ax.plot(x, px, '-', label=labelString)
         ax.plot(x, fx, 'o', c = line.get_color())
-    ax.legend()
-    ax.set_xlabel('Index')
-    ax.set_ylabel('Density profile')
+    ax.legend(fontsize=15)
+    ax.set_xlabel(r'$\rm{Index}$')
+    ax.set_ylabel(r'$\rho(x)$')
     axinset = inset_axes(ax, width="40%", height="40%", loc=3)
     plt.xticks(visible=False)
     plt.yticks(visible=False)

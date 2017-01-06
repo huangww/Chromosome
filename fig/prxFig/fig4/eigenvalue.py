@@ -98,6 +98,7 @@ def MinimalExample():
 
 
 def Demo():            
+    fig = plt.figure(0,figsize=(5, 3.6))
     plt.rc('text', usetex=True)
     font = {'family' : 'sans-serif',
             'serif'  : 'Helvetica',
@@ -105,23 +106,26 @@ def Demo():
             'size'   : 15 }
     plt.rc('lines', lw=2)
     plt.rc('font', **font)
-    fig, (ax1, ax2) = plt.subplots(1,2, gridspec_kw = 
-            {'width_ratios':[1, 3]})
-    # fig.set_size_inches(6.3, 4.3)
+    # fig, (ax1, ax2) = plt.subplots(1,2, gridspec_kw = 
+    #         {'width_ratios':[1, 3]})
+    fig.subplots_adjust(left=0.13, right =0.95,\
+            bottom=0.13, top =0.95, wspace=0.15)
+
+    ax1 = plt.subplot2grid((1, 3), (0, 0))
     a, b, L = (1, 2, 10)
     M = TransitionMartrix(a, b, 1, L)
-    ev1 = eigvals(M)
+    ev1 = eigvals(M)/(a+b)
     for x in ev1:
         ax1.scatter(1, x, marker='_', color='r')
     M = TransitionMartrix(a, b, 2, L)
-    ev2 = eigvals(M)
+    ev2 = eigvals(M)/(a+b)
     for x in ev2:
         if np.isclose(ev1, x, rtol=1e-3).any():
             ax1.scatter(2, x, marker='_', color='r')
         else:
             ax1.scatter(2, x, marker='_', color='b')
     M = TransitionMartrix(a, b, 3, L)
-    ev3 = eigvals(M)
+    ev3 = eigvals(M)/(a+b)
     for x in ev3:
         if np.isclose(ev1, x, rtol=1e-3).any():
             ax1.scatter(3, x, marker='_', color='r')
@@ -134,13 +138,17 @@ def Demo():
     ax1.set_ylabel('Eigenvlues')
     ax1.set_ylim(ymax=1)
 
+    ax2 = plt.subplot2grid((1,3), (0, 1), colspan=2)
     ev2 = np.sort(ev2)[::-1]
     for i,x in zip(range(len(ev2)), ev2):
         ax2.scatter(i, x, s=30, marker='s', color='b')
         ax2.scatter(i, x, s=20, marker='*', color='r')
     ax2.set_xlabel(r'$k$')
     # ax2.set_ylabel('Eigenvalues')
-    ax2.legend(['Matrix diagonalize', 'Bethe-ansatz'], loc='lower left')
+    ax2.legend(['Matrix diagonalization', 'Bethe-ansatz'], loc='lower left', fontsize=14)
+    ax2.set_ylim(ax1.get_ylim())
+    ax2.set_xlim([0, 50])
+    ax2.set_yticklabels([])
     
     plt.show()
 

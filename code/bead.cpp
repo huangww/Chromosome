@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <cmath>
 
 
 Bead::Bead()
@@ -166,7 +167,7 @@ void Bead::predict()
     // addForce(rod->pseudoSparse(f));
     // addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
-    addForce(force->constant(f));
+    // addForce(force->constant(f));
     // addForce(force->repulsive(r, f));
     
     // predict the next step position as rs
@@ -255,19 +256,19 @@ void Bead::output(std::ofstream* outFile)
     if (std::isnan(r[0][0])) {
        throw "NaN error in r!"; 
     }
-    // outputPos(outFile[0]);
-    outputRg(outFile[1]);
-    outputRd(outFile[2]);
+    outputPos(outFile[0]);
+    // outputRg(outFile[1]);
+    // outputRd(outFile[2]);
 }
 
 void Bead::outputPos(std::ofstream& outFile) 
 {
-    outFile << "# t = " << t << std::endl;
+    outFile << "# t = " << t << '\n';
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
             outFile << std::setw(9) << r[i][j] << '\t';
         }
-        outFile << std::endl;
+        outFile << '\n';
     } 
 }
 
@@ -275,13 +276,15 @@ void Bead::outputRg(std::ofstream& outFile)
 {
     double rg = compute->gyrationRadius(nBead, r);
     outFile << std::setw(9) << t << '\t'
-        << std::setw(9) << rg << std::endl;
+        << std::setw(9) << rg << '\n';
 }
 
 void Bead::outputRd(std::ofstream& outFile)
 {
+    outFile << std::setw(9) << t << '\t';
     for (int i = 0; i < DIM; ++i) {
-        outFile << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
+        outFile << std::setw(9) << 
+            r[nBead/2][i] - r[0][i] << '\t';
     }
-    outFile << std::endl;
+    outFile << '\n';
 }

@@ -63,6 +63,7 @@ void BeadRod::run()
 {
 
     bead->init("equilibrate");
+    // bead->init();
 
     double t = 0;
     int maxStep = int(tEnd / bead->dt);

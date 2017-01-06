@@ -94,6 +94,7 @@
  \includeonly{Declaration/declaration, Abstract/abstract}
 \fi
 
+
 % ***************************** Chapter Mode ***********************************
 % The chapter mode allows user to only print particular chapters with references
 % Title, Contents, Frontmatter are disabled by default
@@ -146,6 +147,15 @@
 % Backmatter should be commented out, if you are using appendices after References
 %\backmatter
 
+% ********************************** Appendices ********************************
+
+\begin{appendices} % Using appendices environment for more functunality
+
+\include{Appendix1/appendix1}
+\include{Appendix2/appendix2}
+
+\end{appendices}
+
 % ********************************** Bibliography ******************************
 \begin{spacing}{0.9}
 
@@ -153,11 +163,14 @@
 % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
 % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
 
-\bibliographystyle{apalike}
+% \bibliographystyle{apsrev4-1}
+% \bibliographystyle{plain}
+\bibliographystyle{unsrt}
 %\bibliographystyle{unsrt} % Use for unsorted references  
 %\bibliographystyle{plainnat} % use this to have URLs listed in References
 \cleardoublepage
-\bibliography{References/references} % Path to your References.bib file
+% \bibliography{References/references} % Path to your References.bib file
+\bibliography{/Users/wenwen/Documents/MendeleyDocs/library.bib} % Path to your References.bib file
 
 
 % If you would like to use BibLaTeX for your references, pass `custombib' as
@@ -170,14 +183,6 @@
 
 \end{spacing}
 
-% ********************************** Appendices ********************************
-
-\begin{appendices} % Using appendices environment for more functunality
-
-\include{Appendix1/appendix1}
-\include{Appendix2/appendix2}
-
-\end{appendices}
 
 % *************************************** Index ********************************
 \printthesisindex % If index is present
