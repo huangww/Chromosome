@@ -8,35 +8,38 @@
 <leader>jj	/Users/wenwen/.vimrc	/^nnoremap <silent> <leader>jj :YcmCompleter GoTo<CR>$/;"	m	language:Vim
 <Leader>ls	/Users/wenwen/.vimrc	/^map <silent> <Leader>ls :silent$/;"	m	language:Vim
 <Leader>t	/Users/wenwen/.vimrc	/^nnoremap <silent> <Leader>t :ClearCtrlPCache<cr>\\|:CtrlP<cr>$/;"	m	language:Vim
-a	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double a;$/;"	m	language:C++	struct:rparams	file:
+a	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^a = 6.*factor\/(1.+factor)$/;"	v	language:Python
 a	/Users/wenwen/Work/chromosome/script/parameters.py	/^a = 2e-7$/;"	v	language:Python
 ACF	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def ACF(x):$/;"	f	language:Python
 addDrivenSPB	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::addDrivenSPB() $/;"	f	language:C++	class:Bead
 addForce	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::addForce(double **f)$/;"	f	language:C++	class:Bead
 addForce	/Users/wenwen/Work/chromosome/code/particle.cpp	/^    void Particle::addForce(double *f)$/;"	f	language:C++	class:Particle
 AddToFile	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def AddToFile(fname, T, tau):$/;"	f	language:Python
+add_texture	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def add_texture(a, code):$/;"	f	language:Python
 af	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import acfFit as af$/;"	i	language:Python
 Asep	/Users/wenwen/Work/chromosome/code/asep.cpp	/^Asep::Asep() : Project()$/;"	f	language:C++	class:Asep
 Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    Asep ();$/;"	p	language:C++	class:Asep
 Asep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^class Asep: public Project$/;"	c	language:C++
 ASEP_HPP_MB6PNS13	/Users/wenwen/Work/chromosome/code/asep.hpp	/^#define ASEP_HPP_MB6PNS13$/;"	d	language:C++
+ax	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^ax = fig.add_subplot(111)$/;"	v	language:Python
 ax	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^ax = plt.figure(0).add_subplot(111)$/;"	v	language:Python
-axis	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    axis = bead[l[1]].pos - bead[l[0]].pos,$/;"	v	language:Python
+axinset	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^axinset = plt.axes([0.6, 0.26, 0.32, 0.3])$/;"	v	language:Python
+axis	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    axis = bead[l[1]].pos - bead[l[0]].pos,$/;"	v	language:Python
 axis	/Users/wenwen/Work/chromosome/script/movie.py	/^    axis = bead[l[1]].pos - bead[l[0]].pos,$/;"	v	language:Python
 axis	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    axis = bead[l[1]].pos - bead[l[0]].pos,$/;"	v	language:Python
-b	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double **b;$/;"	m	language:C++	struct:params	file:
-b	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double b;$/;"	m	language:C++	struct:rparams	file:
 b	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **b;         \/\/ vector of rod unnormalized$/;"	m	language:C++	class:Rod
+b	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^b = 6.\/(1.+factor)$/;"	v	language:Python
 Bead	/Users/wenwen/Work/chromosome/code/bead.cpp	/^Bead::Bead()$/;"	f	language:C++	class:Bead
 bead	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    class Bead *bead;$/;"	m	language:C++	class:Rod	typeref:class:Rod::Bead
-bead	/Users/wenwen/Work/chromosome/movieJupyter.py	/^bead=[]$/;"	v	language:Python
+bead	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^bead=[]$/;"	v	language:Python
 bead	/Users/wenwen/Work/chromosome/script/movie.py	/^bead=[]$/;"	v	language:Python
 bead	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^bead=[]$/;"	v	language:Python
 beadNumber	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^beadNumber = 100$/;"	v	language:Python
+beadNumber	/Users/wenwen/Work/chromosome/script/trimer.py	/^beadNumber = 3$/;"	v	language:Python
 beadPos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double *beadPos;$/;"	m	language:C++	class:State
 BeadRod	/Users/wenwen/Work/chromosome/code/beadRod.cpp	/^BeadRod::BeadRod() : Project()$/;"	f	language:C++	class:BeadRod
 bending	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::bending(double** r, double** f)$/;"	f	language:C++	class:Spring
-bg	/Users/wenwen/Work/chromosome/movieJupyter.py	/^bg = vector(1., 1., 1.)$/;"	v	language:Python
+bg	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^bg = vector(1., 1., 1.)$/;"	v	language:Python
 bg	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^bg = vector(1., 1., 1.)$/;"	v	language:Python
 boundary	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::boundary(double*x, double* f)$/;"	f	language:C++	class:Force
 boundary	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double* boundary(double* x, double* f);$/;"	p	language:C++	class:Force
@@ -48,7 +51,7 @@ BUILDDIR	/Users/wenwen/Work/chromosome/makefile	/^BUILDDIR = build$/;"	m	languag
 cax	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^cax = fig.add_axes([0.42, 0.65, 0.02, 0.25])$/;"	v	language:Python
 cb	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)$/;"	v	language:Python
 CC	/Users/wenwen/Work/chromosome/makefile	/^CC = clang++$/;"	m	language:Make
-center	/Users/wenwen/Work/chromosome/movieJupyter.py	/^	  (np.max(pos[:,:,2]) + np.min(pos[:,:,2]))\/2.)$/;"	v	language:Python
+center	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^	  (np.max(pos[:,2]) + np.min(pos[:,2]))\/2.)$/;"	v	language:Python
 center	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^	  (np.max(pos[:,:,2]) + np.min(pos[:,:,2]))\/2.)$/;"	v	language:Python
 chain	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::chain(int N, double **pos) $/;"	f	language:C++	class:Config
 chain	/Users/wenwen/Work/chromosome/code/topo.cpp	/^void Topo::chain(int N, int **link)$/;"	f	language:C++	class:Topo
@@ -59,9 +62,10 @@ cmx	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import matplot
 cNorm	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^cNorm = colors.Normalize(vmin = 0, vmax = max(pos))$/;"	v	language:Python
 cNorm	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^cNorm = colors.Normalize(vmin = 0, vmax = max(Teff))$/;"	v	language:Python
 coefs	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^coefs = np.polyfit(NbeadFit, tauFit, 1)$/;"	v	language:Python
-color	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    color = bead[max(l[0], l[1])].color)$/;"	v	language:Python
-color	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    color = color.green)$/;"	v	language:Python
-color	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    color = color.magenta))$/;"	v	language:Python
+coils	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    coils = 10)$/;"	v	language:Python
+color	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    color = 0.5*color.magenta))$/;"	v	language:Python
+color	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    color = color.cyan) $/;"	v	language:Python
+color	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    color = vector(0.1,0.1,1),$/;"	v	language:Python
 color	/Users/wenwen/Work/chromosome/script/movie.py	/^    color = bead[max(l[0], l[1])].color,$/;"	v	language:Python
 color	/Users/wenwen/Work/chromosome/script/movie.py	/^    color = color.green,$/;"	v	language:Python
 color	/Users/wenwen/Work/chromosome/script/movie.py	/^    color = color.red,$/;"	v	language:Python
@@ -82,23 +86,29 @@ constant	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double** constant(do
 constraint	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::constraint(double** f)$/;"	f	language:C++	class:Rod
 constraint	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** constraint(double** f);$/;"	p	language:C++	class:Rod
 correct	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::correct()$/;"	f	language:C++	class:Bead
+cosang	/Users/wenwen/Work/chromosome/script/trimer.py	/^cosang = np.zeros(len(vec1))$/;"	v	language:Python
+cosang	/Users/wenwen/Work/chromosome/script/trimer.py	/^cosang = np.zeros(len(vec1))$/;"	v	language:Python
 count	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^        count = count + 1$/;"	v	language:Python
 count	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    count = 0$/;"	v	language:Python
+cpos	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^    cpos = displayscale*scene.mouse.camera$/;"	v	language:Python
 cset	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^cset = ['LightSkyBlue','DodgerBlue','RoyalBlue','DarkBlue']$/;"	v	language:Python
+ctr	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^    ctr = displayscale*scene.center$/;"	v	language:Python
+cup	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^    cup = scene.up$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^        data = np.loadtxt(fileName)$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    data = np.loadtxt(fileName)$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    data = np.loadtxt(fileName)$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    data = np.loadtxt(fileName)$/;"	v	language:Python
-data	/Users/wenwen/Work/chromosome/movieJupyter.py	/^data = np.loadtxt(fname,comments='#')$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    data = np.loadtxt(fname)$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/script/movie.py	/^data = np.loadtxt(fname,comments='#')$/;"	v	language:Python
 data	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^data = np.loadtxt(fname,comments='#')$/;"	v	language:Python
+data	/Users/wenwen/Work/chromosome/script/trimer.py	/^data = np.loadtxt(dataDir + 'trimer.dat')$/;"	v	language:Python
+data	/Users/wenwen/Work/chromosome/script/trimer.py	/^data = np.loadtxt(dataDir + 'trimer_pseudo.dat')$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^dataDir = '.\/'$/;"	v	language:Python
-dataDir	/Users/wenwen/Work/chromosome/movieJupyter.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/acfFit.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/movie.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^dataDir = 'data\/'$/;"	v	language:Python
+dataDir	/Users/wenwen/Work/chromosome/script/trimer.py	/^dataDir = 'data\/trimer\/'$/;"	v	language:Python
 Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
 Demo	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def Demo():$/;"	f	language:Python
 DemoLattice	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def DemoLattice():$/;"	f	language:Python
@@ -108,40 +118,60 @@ detBandMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double detBandMet
 dgetrf_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrf_(int* m, int* n, double* A, $/;"	p	language:C++
 dgetri_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetri_(int* m, double* a, int* lda,$/;"	p	language:C++
 dgetrs_	/Users/wenwen/Work/chromosome/code/rod.hpp	/^extern "C" int dgetrs_(char* s, int* n, int* nrhs, $/;"	p	language:C++
+displayscale	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^    displayscale = 10.0\/(mag(scene.mouse.camera-scene.center)*tan(scene.fov\/2.))$/;"	v	language:Python
+displayscale	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^displayscale = 1.0 # global scale factor to adjust display.range to 100$/;"	v	language:Python
 dt	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double dt;$/;"	m	language:C++	class:Force
-dt	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double dt;$/;"	m	language:C++	struct:params	file:
 dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
 dt	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double dt;      \/\/ time step of the update$/;"	m	language:C++	class:State
+end	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            end = light_code.rfind('}')$/;"	v	language:Python
 energy	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^double Montecarlo::energy(int N, double **r) $/;"	f	language:C++	class:Montecarlo
 equilibrate	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::equilibrate(double **r)$/;"	f	language:C++	class:Montecarlo
 equilibrate	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::equilibrate()$/;"	f	language:C++	class:State
 equilibrate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void equilibrate();$/;"	p	language:C++	class:State
 eulerUpdate	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::eulerUpdate()$/;"	f	language:C++	class:Bead
 exponent	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^exponent = coefs[0]$/;"	v	language:Python
+export	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export(display=None, filename=None, include_list=None, xy_ratio=4.\/3.,$/;"	f	language:Python
+export_arrow	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_arrow(a):$/;"	f	language:Python
+export_box	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_box(a):$/;"	f	language:Python
+export_cone	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_cone(a):$/;"	f	language:Python
+export_curve	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_curve(a):$/;"	f	language:Python
+export_cylinder	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_cylinder(a):$/;"	f	language:Python
+export_ellipsoid	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_ellipsoid(a):$/;"	f	language:Python
+export_label	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_label(a):$/;"	f	language:Python
+export_pyramid	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_pyramid(a):$/;"	f	language:Python
+export_ring	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_ring(a):$/;"	f	language:Python
+export_sphere	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_sphere(a):$/;"	f	language:Python
 F	/Users/wenwen/Work/chromosome/script/parameters.py	/^F = gamma * v$/;"	v	language:Python
 f	/Users/wenwen/Work/chromosome/script/parameters.py	/^f = kB*T\/a$/;"	v	language:Python
-factor	/Users/wenwen/Work/chromosome/movieJupyter.py	/^factor = 0.1$/;"	v	language:Python
+factor	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^factor = np.exp(-1.\/Teff)$/;"	v	language:Python
+factor	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^factor = 0.2$/;"	v	language:Python
 factor	/Users/wenwen/Work/chromosome/script/movie.py	/^factor = 0.15$/;"	v	language:Python
 factor	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^factor = 0.1$/;"	v	language:Python
 faxis	/Users/wenwen/Work/chromosome/script/movie.py	/^faxis = frame()$/;"	v	language:Python
 fene	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::fene(double** r, double** f) $/;"	f	language:C++	class:Spring
 FermiDrac	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def FermiDrac(T, N):$/;"	f	language:Python
 fig	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^fig = plt.figure(0,figsize=(10,4))$/;"	v	language:Python
+fig	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^fig = plt.figure(0,figsize=(5, 3.6))$/;"	v	language:Python
 FigPanel	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^def FigPanel():$/;"	f	language:Python
 file	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::file() $/;"	f	language:C++	class:Input
+file	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^    file = open(filename, 'wt')$/;"	v	language:Python
 fileName	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^        fileName = dataDir + 'MD_N'+str(N)+'_T'+str(T)+'_xyz_varxyz.dat'$/;"	v	language:Python
 fileName	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    fileName = dataDir + 'MD_N'+str(N)+'_T'+str(T)+'_xyz_varxyz.dat'$/;"	v	language:Python
 fileName	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    fileName = dataDir + 'MD_N'+str(N)+'_T02_xyz_varxyz.dat'$/;"	v	language:Python
 fileName	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    fileName = dataDir + 'MD_N'+str(N)+'_T05_xyz_varxyz.dat'$/;"	v	language:Python
 FindContour	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^def FindContour(fname):$/;"	f	language:Python
 FindFitRange	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FindFitRange(acf):$/;"	f	language:Python
+find_rotations	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def find_rotations(a):$/;"	f	language:Python
 FitTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def FitTau(t, acf):$/;"	f	language:Python
 fixedChain	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::fixedChain(int N, double **pos) $/;"	f	language:C++	class:Config
-fname	/Users/wenwen/Work/chromosome/movieJupyter.py	/^fname = max(glob.iglob(dataDir + '*_r_*.dat'), key=os.path.getctime)$/;"	v	language:Python
+fname	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^fname = 'BeadRod_tau_N100.dat'$/;"	v	language:Python
+fname	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^fname = 'BeadRod_tau_N100_p.dat'$/;"	v	language:Python
+fname	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^fname = 'pos.dat'$/;"	v	language:Python
 fname	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    fname = "data\/rg1D_N" + str(N) + "_T2000_0.dat"$/;"	v	language:Python
 fname	/Users/wenwen/Work/chromosome/script/movie.py	/^fname = max(glob.iglob(dataDir + 'r*.dat'), key=os.path.getctime)$/;"	v	language:Python
 fname	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^fname = max(glob.iglob(dataDir + '*_r_*.dat'), key=os.path.getctime)$/;"	v	language:Python
 font	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^font = {'family' : 'sans-serif',$/;"	v	language:Python
+font	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^font = {'family' : 'sans-serif',$/;"	v	language:Python
 Force	/Users/wenwen/Work/chromosome/code/force.cpp	/^Force::Force()  { }$/;"	f	language:C++	class:Force
 Force	/Users/wenwen/Work/chromosome/code/force.hpp	/^    Force ();$/;"	p	language:C++	class:Force
 Force	/Users/wenwen/Work/chromosome/code/force.hpp	/^class Force$/;"	c	language:C++
@@ -155,7 +185,8 @@ fortran_more_precise	/Users/wenwen/.vimrc	/^let fortran_more_precise=1$/;"	v	lan
 frame	/Users/wenwen/Work/chromosome/script/movie.py	/^    frame = faxis)$/;"	v	language:Python
 frame	/Users/wenwen/Work/chromosome/script/movie.py	/^    frame = faxis)$/;"	v	language:Python
 frame	/Users/wenwen/Work/chromosome/script/movie.py	/^    frame = faxis))$/;"	v	language:Python
-g	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    int **g;$/;"	m	language:C++	struct:params	file:
+function	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^                function = globals().get(function_name)$/;"	v	language:Python
+function_name	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^                function_name = 'export_' + obj_name$/;"	v	language:Python
 g	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **g;            \/\/ metric matrix, first bead pinned$/;"	m	language:C++	class:Rod
 g	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int **g;            \/\/ metric tensor$/;"	m	language:C++	class:Topo
 g:airline#extensions#syntastic#enabled	/Users/wenwen/.vimrc	/^  let g:airline#extensions#syntastic#enabled = 1$/;"	v	language:Vim
@@ -222,12 +253,12 @@ getNumPair	/Users/wenwen/Work/chromosome/code/topo.cpp	/^int* Topo::getNumPair()
 getNumPair	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int* getNumPair();$/;"	p	language:C++	class:Topo
 GetParaList	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetParaList():$/;"	f	language:Python
 getParticlePos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int* getParticlePos();$/;"	p	language:C++	class:State
+getpolar	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def getpolar(a):$/;"	f	language:Python
 GetScreenShot	/Users/wenwen/Work/chromosome/script/movie.py	/^def GetScreenShot(FrameNumber):        $/;"	f	language:Python
 GetTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetTau(t, x, fig=False, figName='fig\/acfFit.pdf'):$/;"	f	language:Python
 getTotalLinkPair	/Users/wenwen/Work/chromosome/code/topo.cpp	/^int Topo::getTotalLinkPair()$/;"	f	language:C++	class:Topo
 getTotalLinkPair	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int getTotalLinkPair();$/;"	p	language:C++	class:Topo
 glob	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import glob$/;"	i	language:Python
-glob	/Users/wenwen/Work/chromosome/movieJupyter.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/movie.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import glob$/;"	i	language:Python
@@ -236,6 +267,7 @@ gSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    SpMatD* gSparse;    \/\
 gSparse	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    SpMatD* gSparse;    \/\/ metric matrix sparse representation$/;"	m	language:C++	class:Topo
 harmonic	/Users/wenwen/Work/chromosome/code/spring.cpp	/^double** Spring::harmonic(double** r, double** f) $/;"	f	language:C++	class:Spring
 HEADERS	/Users/wenwen/Work/chromosome/makefile	/^HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.hpp))$/;"	m	language:Make
+ihat	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^ihat=vector(1, 0, 0)$/;"	v	language:Python
 imread	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^from skimage.io import imread$/;"	i	language:Python
 index	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^index = np.arange(0,N)$/;"	v	language:Python
 init	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::init() $/;"	f	language:C++	class:Bead
@@ -261,17 +293,25 @@ integral_xy_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def integral_xy
 inverse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::inverse(double *A, int N)$/;"	f	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void inverse(double *A, int N);$/;"	p	language:C++	class:Rod
 it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
-j	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    j = t%len(pos)$/;"	v	language:Python
 j	/Users/wenwen/Work/chromosome/script/movie.py	/^    j = t%len(pos)$/;"	v	language:Python
 j	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    j = t%len(pos)$/;"	v	language:Python
 jacobian	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::jacobian(double *x, double *A, double *B)$/;"	f	language:C++	class:Rod
 jacobian	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void jacobian(double *x, double *A, double *B);$/;"	p	language:C++	class:Rod
+jhat	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^jhat=vector(0, 1, 0)$/;"	v	language:Python
 kB	/Users/wenwen/Work/chromosome/script/parameters.py	/^kB = 1.38e-23 $/;"	v	language:Python
+key	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^        key = obj.__class__$/;"	v	language:Python
+khat	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^khat=vector(0, 0, 1)$/;"	v	language:Python
+L	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^L = 100$/;"	v	language:Python
+la	/Users/wenwen/Work/chromosome/script/trimer.py	/^import numpy.linalg as la$/;"	i	language:Python
+lcolor	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            lcolor = (mag(light),mag(light),mag(light)) # intensity of light (Visual 3 lights are white)$/;"	v	language:Python
+lcolor	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            lcolor = light.color$/;"	v	language:Python
 LDLIBS	/Users/wenwen/Work/chromosome/makefile	/^LDLIBS = -llapack -lm -lblas -lgsl$/;"	m	language:Make
-link	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    int **link;$/;"	m	language:C++	struct:params	file:
+legal	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^legal = {frame:'frame', sphere:'sphere', box:'box', cylinder:'cylinder',$/;"	v	language:Python
+light_code	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            light_code = light_code[:end] + '    shadowless\\n' + light_code[end:]$/;"	v	language:Python
+light_code	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^        light_code = light_template % { 'posx':pos.x, 'posy':pos.y, 'posz':pos.z,$/;"	v	language:Python
 link	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **link;         \/\/ index of pair of beads linked$/;"	m	language:C++	class:Rod
 link	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int** link;$/;"	m	language:C++	class:Topo
-link	/Users/wenwen/Work/chromosome/movieJupyter.py	/^link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')$/;"	v	language:Python
+link	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^link = [[i, (i+1)%N] for i in range(N)]$/;"	v	language:Python
 link	/Users/wenwen/Work/chromosome/script/movie.py	/^link = [[i, (i+1)%N] for i in range(N)]$/;"	v	language:Python
 link	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')$/;"	v	language:Python
 linkPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int **linkPair;     \/\/ table of link pairs$/;"	m	language:C++	class:Rod
@@ -294,11 +334,13 @@ matplotlib	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import 
 matplotlib	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import matplotlib.colorbar as colorbar$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import matplotlib.colors as colors$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/script/trimer.py	/^import matplotlib.pylab as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/test.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::matrixA(double *A) $/;"	f	language:C++	class:Rod
 matrixA	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void matrixA(double *A);$/;"	p	language:C++	class:Rod
@@ -325,9 +367,8 @@ moveTry	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::mov
 mp	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import mpmath as mp$/;"	i	language:Python
 mu	/Users/wenwen/Work/chromosome/script/parameters.py	/^mu = 0.89$/;"	v	language:Python
 MySys	/Users/wenwen/.vimrc	/^    function MySys()$/;"	f	language:Vim
-n	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    const size_t n;$/;"	m	language:C++	struct:params	file:
 N	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^N = 300$/;"	v	language:Python
-N	/Users/wenwen/Work/chromosome/movieJupyter.py	/^N = int(Nstr[0])$/;"	v	language:Python
+N	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^N = 15$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^N = np.logspace(1, 3, 100)$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/movie.py	/^N = int(Nstr[0])$/;"	v	language:Python
 N	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^N = int(Nstr[0])$/;"	v	language:Python
@@ -338,9 +379,12 @@ Nbead	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^Nbead = [10, 20, 30, 
 NbeadFit	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^NbeadFit = np.log(Nbead)$/;"	v	language:Python
 nLink	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int nLink;$/;"	m	language:C++	class:Rod
 nLink	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int nLink;$/;"	m	language:C++	class:Topo
+no_reflection	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def no_reflection(a):$/;"	f	language:Python
+no_shadow	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def no_shadow(a):$/;"	f	language:Python
 np	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import numpy as np$/;"	i	language:Python
-np	/Users/wenwen/Work/chromosome/movieJupyter.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import numpy as np$/;"	i	language:Python
@@ -349,6 +393,7 @@ np	/Users/wenwen/Work/chromosome/script/movie.py	/^import numpy as np$/;"	i	lang
 np	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/parameters.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/script/theory.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/script/trimer.py	/^import numpy as np$/;"	i	language:Python
 nPair	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    int *nPair;         \/\/ # of link pairs related to each bead$/;"	m	language:C++	class:Rod
 nPair	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int* nPair;         \/\/ # of link pair for each bead$/;"	m	language:C++	class:Topo
 nPar	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nPar;$/;"	m	language:C++	class:Force
@@ -356,9 +401,11 @@ nPar	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nPar;$/;"	m	language
 nSample	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int nSample;$/;"	m	language:C++	class:Asep
 nSite	/Users/wenwen/Work/chromosome/code/force.hpp	/^    int nSite;$/;"	m	language:C++	class:Force
 nSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int nSite;$/;"	m	language:C++	class:State
+numpy	/Users/wenwen/Work/chromosome/script/trimer.py	/^import numpy.linalg as la$/;"	i	language:Python
 numpy	/Users/wenwen/Work/chromosome/test.py	/^import numpy$/;"	i	language:Python
 OBJECTS	/Users/wenwen/Work/chromosome/makefile	/^OBJECTS = $(patsubst %.cpp, $(BUILDDIR)\/%.o, $(notdir $(SRC)))$/;"	m	language:Make
-os	/Users/wenwen/Work/chromosome/movieJupyter.py	/^import os$/;"	i	language:Python
+object_code	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^                object_code = function(obj)$/;"	v	language:Python
+obj_name	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            obj_name = legal[key]$/;"	v	language:Python
 os	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import os $/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/movie.py	/^import os$/;"	i	language:Python
 os	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^import os$/;"	i	language:Python
@@ -384,10 +431,8 @@ outputSite	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void outputSite(st
 outputStep	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    int outputStep;$/;"	m	language:C++	class:Asep
 par2bead	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::par2bead()$/;"	f	language:C++	class:State
 par2bead	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void par2bead();$/;"	p	language:C++	class:State
-parameters	/Users/wenwen/Work/chromosome/movieJupyter.py	/^parameters = fname.split('_')$/;"	v	language:Python
 parameters	/Users/wenwen/Work/chromosome/script/movie.py	/^parameters = fname.split('_')$/;"	v	language:Python
 parameters	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^parameters = fname.split('_')$/;"	v	language:Python
-params	/Users/wenwen/Work/chromosome/code/rod.cpp	/^struct params {$/;"	s	language:C++	file:
 parse	/Users/wenwen/Work/chromosome/code/input.cpp	/^void Input::parse(std::string line) $/;"	f	language:C++	class:Input
 Particle	/Users/wenwen/Work/chromosome/code/particle.cpp	/^Particle::Particle() $/;"	f	language:C++	class:Particle
 periodic	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::periodic(double* f)$/;"	f	language:C++	class:Force
@@ -398,18 +443,27 @@ pinSPB	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::pinSPB() $/;"	f	
 pivot	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::pivot(int N, int *ipivot) $/;"	f	language:C++	class:Montecarlo
 PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf, figName='fig\/acfFit.pdf'):$/;"	f	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/script/trimer.py	/^import matplotlib.pylab as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/test.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 pos	/Users/wenwen/Work/chromosome/code/state.hpp	/^    int *pos;$/;"	m	language:C++	class:State
 pos	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^pos = [10,50,100,150]$/;"	v	language:Python
-pos	/Users/wenwen/Work/chromosome/movieJupyter.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^                pos = displayscale*light.pos$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^                pos = norm(light.direction) * 1000.0 # far away to simulate parallel light$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            pos = norm(light) * 1000.0 # far away to simulate parallel light$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^pos = np.loadtxt(fname,comments='#')$/;"	v	language:Python
 pos	/Users/wenwen/Work/chromosome/script/movie.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
 pos	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^pos = scale*data.reshape([-1,N,3])$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/script/trimer.py	/^pos = data.reshape([-1,beadNumber,3])$/;"	v	language:Python
+pos	/Users/wenwen/Work/chromosome/script/trimer.py	/^pos = data.reshape([-1,beadNumber,3])$/;"	v	language:Python
+povexport	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^import povexport$/;"	i	language:Python
 povexport	/Users/wenwen/Work/chromosome/script/movie.py	/^import povexport$/;"	i	language:Python
+POVEXPORT_VERSION	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^POVEXPORT_VERSION = "povexport 2009-08-26 for Visual 3 and Visual 5"$/;"	v	language:Python
 predict	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::predict()$/;"	f	language:C++	class:Bead
 print	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::print() $/;"	f	language:C++	class:Bead
 print	/Users/wenwen/Work/chromosome/code/force.cpp	/^void Force::print(double* f) $/;"	f	language:C++	class:Force
@@ -424,7 +478,7 @@ printLinks	/Users/wenwen/Work/chromosome/code/topo.cpp	/^void Topo::printLinks()
 printLinks	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    void printLinks();$/;"	p	language:C++	class:Topo
 printMetric	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::printMetric()$/;"	f	language:C++	class:Rod
 printMetric	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void printMetric();$/;"	p	language:C++	class:Rod
-print_state	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int print_state (size_t iter, gsl_multiroot_fdfsolver * s) $/;"	f	language:C++
+process_frame	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def process_frame(a, code):$/;"	f	language:Python
 Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^    Project ();$/;"	p	language:C++	class:Project
 Project	/Users/wenwen/Work/chromosome/code/project.hpp	/^class Project$/;"	c	language:C++
 PROJECT_HPP_SVUCG7LM	/Users/wenwen/Work/chromosome/code/project.hpp	/^#define PROJECT_HPP_SVUCG7LM$/;"	d	language:C++
@@ -436,9 +490,9 @@ pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^double** Rod::pseudoSp
 pseudoSparse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** pseudoSparse(double **f);$/;"	p	language:C++	class:Rod
 quenchedRing	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::quenchedRing(int N, double **pos) $/;"	f	language:C++	class:Config
 R	/Users/wenwen/Work/chromosome/script/parameters.py	/^R = 5e-8$/;"	v	language:Python
-radius	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    radius = 0.5 * factor, $/;"	v	language:Python
-radius	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    radius = 1.0*factor,$/;"	v	language:Python
-radius	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    radius = 1.5*factor,$/;"	v	language:Python
+radius	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    radius = 0.5 * factor, $/;"	v	language:Python
+radius	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    radius = 1.0*factor,$/;"	v	language:Python
+radius	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    radius = 1.5*factor,$/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movie.py	/^    radius = 0.5 * factor, $/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movie.py	/^    radius = 1.0*factor,$/;"	v	language:Python
 radius	/Users/wenwen/Work/chromosome/script/movie.py	/^    radius = 2.0*factor,$/;"	v	language:Python
@@ -468,20 +522,14 @@ ringPairWithCentromere	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    void ri
 Rod	/Users/wenwen/Work/chromosome/code/rod.cpp	/^Rod::Rod(Bead *beadPointer)$/;"	f	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    Rod (Bead *beadPointer);$/;"	p	language:C++	class:Rod
 Rod	/Users/wenwen/Work/chromosome/code/rod.hpp	/^class Rod$/;"	c	language:C++
-rod	/Users/wenwen/Work/chromosome/movieJupyter.py	/^rod = [cylinder(pos=bead[l[0]].pos, $/;"	v	language:Python
 rod	/Users/wenwen/Work/chromosome/script/movie.py	/^rod = [cylinder(pos=bead[l[0]].pos, $/;"	v	language:Python
 rod	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^rod = [cylinder(pos=bead[l[0]].pos, $/;"	v	language:Python
 ROD_HPP_FFKADSOB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^#define ROD_HPP_FFKADSOB$/;"	d	language:C++
-rosenbrock_df	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_df (const gsl_vector * x, void *params, $/;"	f	language:C++
-rosenbrock_f	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_f (const gsl_vector * x, void *params, $/;"	f	language:C++
-rosenbrock_fdf	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int rosenbrock_fdf (const gsl_vector * x, void *params,$/;"	f	language:C++
 rotateAxis	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::rotateAxis(int* ipivot, double** r, $/;"	f	language:C++	class:Montecarlo
 rotateMatrix	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::rotateMatrix($/;"	f	language:C++	class:Montecarlo
 rouse_mean	/Users/wenwen/Work/chromosome/script/theory.py	/^def rouse_mean(N, T):$/;"	f	language:Python
 rouse_mean2	/Users/wenwen/Work/chromosome/script/theory.py	/^def rouse_mean2(N, T):$/;"	f	language:Python
 rouse_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def rouse_var(N, T):$/;"	f	language:Python
-rparams	/Users/wenwen/Work/chromosome/code/rod.cpp	/^struct rparams$/;"	s	language:C++	file:
-rs0	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double *rs0;$/;"	m	language:C++	struct:params	file:
 run	/Users/wenwen/Work/chromosome/code/asep.cpp	/^void Asep::run() $/;"	f	language:C++	class:Asep
 run	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    void run();$/;"	p	language:C++	class:Asep
 run	/Users/wenwen/Work/chromosome/code/beadRod.cpp	/^void BeadRod::run() $/;"	f	language:C++	class:BeadRod
@@ -491,10 +539,10 @@ rungerKuttaUpdate	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::runge
 savgol_filter	/Users/wenwen/Work/chromosome/script/acfFit.py	/^from scipy.signal import savgol_filter$/;"	i	language:Python
 scalarMap	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)$/;"	v	language:Python
 scalarMap	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)$/;"	v	language:Python
-scale	/Users/wenwen/Work/chromosome/movieJupyter.py	/^scale = 0.5$/;"	v	language:Python
+scale	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^scale = 0.5$/;"	v	language:Python
 scale	/Users/wenwen/Work/chromosome/script/movie.py	/^scale = 0.4$/;"	v	language:Python
 scale	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^scale = 0.5$/;"	v	language:Python
-scene	/Users/wenwen/Work/chromosome/movieJupyter.py	/^scene = canvas(width=800, height=480, background=bg)$/;"	v	language:Python
+scene	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^scene = canvas(width=800, height=480, background=bg)$/;"	v	language:Python
 scene	/Users/wenwen/Work/chromosome/script/movie.py	/^scene = display(width=960, height=480, background=(1.0,1.0,1.0))$/;"	v	language:Python
 scene	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^scene = canvas(width=800, height=480, background=bg)$/;"	v	language:Python
 seed	/Users/wenwen/Work/chromosome/code/force.hpp	/^    unsigned long seed;$/;"	m	language:C++	class:Force
@@ -530,16 +578,17 @@ setup	/Users/wenwen/Work/chromosome/code/project.hpp	/^    virtual void setup(In
 setup	/Users/wenwen/Work/chromosome/code/singleFile.cpp	/^void SingleFile::setup(Input* input) $/;"	f	language:C++	class:SingleFile
 SingleFile	/Users/wenwen/Work/chromosome/code/singleFile.cpp	/^SingleFile::SingleFile() : Project()$/;"	f	language:C++	class:SingleFile
 site	/Users/wenwen/Work/chromosome/code/state.hpp	/^    bool *site;$/;"	m	language:C++	class:State
-solverHydrj	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverHydrj(double *x) $/;"	f	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverNewton(double *x) $/;"	f	language:C++	class:Rod
 solverNewton	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverNewton(double *x);$/;"	p	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverPicard(double *x) $/;"	f	language:C++	class:Rod
 solverPicard	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void solverPicard(double *x);$/;"	p	language:C++	class:Rod
+solverPicardUnpinned	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::solverPicardUnpinned(double *x) $/;"	f	language:C++	class:Rod
 sp1	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^sp1 = fig.add_subplot(121)$/;"	v	language:Python
 sp2	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^sp2 = fig.add_subplot(122)$/;"	v	language:Python
 SpMatD	/Users/wenwen/Work/chromosome/code/rod.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
 SpMatD	/Users/wenwen/Work/chromosome/code/topo.hpp	/^typedef Eigen::SparseMatrix<double> SpMatD;$/;"	t	language:C++
 Spring	/Users/wenwen/Work/chromosome/code/spring.cpp	/^Spring::Spring(Bead *beadPointer)$/;"	f	language:C++	class:Spring
+spring	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^spring = [helix(pos=bead[l[0]].pos, $/;"	v	language:Python
 SRC	/Users/wenwen/Work/chromosome/makefile	/^SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)\/*.cpp))$/;"	m	language:Make
 SRCDIR	/Users/wenwen/Work/chromosome/makefile	/^SRCDIR = code$/;"	m	language:Make
 ss	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
@@ -553,8 +602,6 @@ straightRing	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::straig
 sys	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import sys$/;"	i	language:Python
 t	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double t;       \/\/ real time$/;"	m	language:C++	class:State
 T	/Users/wenwen/Work/chromosome/code/topo.hpp	/^typedef Eigen::Triplet<int> T;$/;"	t	language:C++
-t	/Users/wenwen/Work/chromosome/movieJupyter.py	/^    t = t+1$/;"	v	language:Python
-t	/Users/wenwen/Work/chromosome/movieJupyter.py	/^t=0$/;"	v	language:Python
 t	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    t = data[:,0]$/;"	v	language:Python
 t	/Users/wenwen/Work/chromosome/script/movie.py	/^    t = t+1$/;"	v	language:Python
 t	/Users/wenwen/Work/chromosome/script/movie.py	/^t=0$/;"	v	language:Python
@@ -564,21 +611,22 @@ T	/Users/wenwen/Work/chromosome/script/parameters.py	/^T = 273.15 + 25$/;"	v	lan
 t	/Users/wenwen/Work/chromosome/script/parameters.py	/^t = gamma*a*a\/(kB*T)$/;"	v	language:Python
 TARGET	/Users/wenwen/Work/chromosome/makefile	/^TARGET = $(BUILDDIR)\/a.out$/;"	m	language:Make
 tau	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^tau = []$/;"	v	language:Python
+tau0	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^tau0 = (L\/np.pi)**2\/3$/;"	v	language:Python
+tauData	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^tauData = np.loadtxt(fname)$/;"	v	language:Python
+tauData	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^tauData = np.loadtxt(fname)$/;"	v	language:Python
 tauFit	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^tauFit = np.log(tau)$/;"	v	language:Python
+tauTheory	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^def tauTheory(a, b, L):$/;"	f	language:Python
 tauVal	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    tauVal = af.GetTau(t, x)$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^Teff = [1,2,10,20,50,100,200]$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^Teff = [10,20,50,100]$/;"	v	language:Python
-Teff	/Users/wenwen/Work/chromosome/movieJupyter.py	/^Teff = int(Tstr[0])$/;"	v	language:Python
+Teff	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^Teff = np.linspace(1, 1000, 1000)$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/script/movie.py	/^Teff = int(Tstr[0])$/;"	v	language:Python
 Teff	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^Teff = int(Tstr[0])$/;"	v	language:Python
 tempEff	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double tempEff;$/;"	m	language:C++	class:Force
 tempEff	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tempEff;$/;"	m	language:C++	class:State
 tEnd	/Users/wenwen/Work/chromosome/code/asep.hpp	/^    double tEnd;$/;"	m	language:C++	class:Asep
-tension_df	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_df(const gsl_vector *x, void *p, gsl_matrix *df)$/;"	f	language:C++
-tension_f	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_f(const gsl_vector *x, void *p, gsl_vector *f)$/;"	f	language:C++
-tension_fdf	/Users/wenwen/Work/chromosome/code/rod.cpp	/^int tension_fdf(const gsl_vector *x, void *p, gsl_vector *f, gsl_matrix *df)$/;"	f	language:C++
-testSolver	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void testSolver()$/;"	f	language:C++
 tGrid	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double tGrid;   \/\/ grid time for output$/;"	m	language:C++	class:State
+thickness	/Users/wenwen/Work/chromosome/fig/sketch/sketch.py	/^    thickness = 0.1*factor,$/;"	v	language:Python
 threeRingPair	/Users/wenwen/Work/chromosome/code/config.cpp	/^void Config::threeRingPair(int N, double **pos) $/;"	f	language:C++	class:Config
 threeRingPair	/Users/wenwen/Work/chromosome/code/topo.cpp	/^void Topo::threeRingPair(int N, int **link)$/;"	f	language:C++	class:Topo
 threeRingPair	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    void threeRingPair(int N, int **link);$/;"	p	language:C++	class:Topo
@@ -590,9 +638,11 @@ Topo	/Users/wenwen/Work/chromosome/code/topo.hpp	/^class Topo$/;"	c	language:C++
 topoType	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int topoType;$/;"	m	language:C++	class:Topo
 TOPO_HPP_FJPVDXQX	/Users/wenwen/Work/chromosome/code/topo.hpp	/^#define TOPO_HPP_FJPVDXQX$/;"	d	language:C++
 totalRate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double totalRate;$/;"	m	language:C++	class:State
+transparency	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def transparency(a):$/;"	f	language:Python
 tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
-u	/Users/wenwen/Work/chromosome/code/rod.cpp	/^    double **u;$/;"	m	language:C++	struct:params	file:
 u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
+unpinnedMatrixA	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::unpinnedMatrixA(double *A) $/;"	f	language:C++	class:Rod
+unpinnedVectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::unpinnedVectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
 update	/Users/wenwen/Work/chromosome/code/particle.cpp	/^    void Particle::update() $/;"	f	language:C++	class:Particle
 update	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::update() $/;"	f	language:C++	class:State
 update	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void update();$/;"	p	language:C++	class:State
@@ -608,10 +658,17 @@ var_z	/Users/wenwen/Work/chromosome/script/theory.py	/^def var_z(N, T):$/;"	f	la
 var_zi_1D	/Users/wenwen/Work/chromosome/script/theory.py	/^def var_zi_1D(i, N, T):$/;"	f	language:Python
 var_z_1D	/Users/wenwen/Work/chromosome/script/theory.py	/^def var_z_1D(N, T):$/;"	f	language:Python
 var_z_cm	/Users/wenwen/Work/chromosome/script/theory.py	/^def var_z_cm(cm, N, T):$/;"	f	language:Python
+vec1	/Users/wenwen/Work/chromosome/script/trimer.py	/^vec1 = pos[:,0]-pos[:,1]$/;"	v	language:Python
+vec1	/Users/wenwen/Work/chromosome/script/trimer.py	/^vec1 = pos[:,0]-pos[:,1]$/;"	v	language:Python
+vec2	/Users/wenwen/Work/chromosome/script/trimer.py	/^vec2 = pos[:,2]-pos[:,1]$/;"	v	language:Python
+vec2	/Users/wenwen/Work/chromosome/script/trimer.py	/^vec2 = pos[:,2]-pos[:,1]$/;"	v	language:Python
 vectorB	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::vectorB(double *x, double *B)$/;"	f	language:C++	class:Rod
 vectorB	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void vectorB(double *x, double *B);$/;"	p	language:C++	class:Rod
+version	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def version():$/;"	f	language:Python
 VPATH	/Users/wenwen/Work/chromosome/makefile	/^VPATH = code$/;"	m	language:Make
 x	/Users/wenwen/Work/chromosome/script/checkRouse.py	/^    x = data[:,1]$/;"	v	language:Python
+x	/Users/wenwen/Work/chromosome/script/trimer.py	/^x = np.linspace(0,np.pi,100)$/;"	v	language:Python
+x	/Users/wenwen/Work/chromosome/script/trimer.py	/^x = np.linspace(0,np.pi,100)$/;"	v	language:Python
 x	/Users/wenwen/Work/chromosome/test.py	/^x = numpy.random.rand(100)$/;"	v	language:Python
 xy_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def xy_var(m, n, N, T):$/;"	f	language:Python
 y	/Users/wenwen/Work/chromosome/test.py	/^y = numpy.random.rand(100)$/;"	v	language:Python

@@ -91,7 +91,7 @@ sp2.plot(index,zvar,'k--')
 # add colorbar legend
 cax = fig.add_axes([0.41, 0.66, 0.02, 0.25])
 # fig.text(0.41,0.59, r"$\tilde{T}$")
-fig.text(0.405,0.59, r"$1/F$")
+fig.text(0.405,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,25,50])
 for T in Teff:
@@ -100,7 +100,7 @@ for T in Teff:
 
 cax = fig.add_axes([0.885, 0.66, 0.02, 0.25])
 # fig.text(0.885,0.59, r"$\tilde{T}$")
-fig.text(0.88,0.59, r"$1/F$")
+fig.text(0.88,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,25,50])
 for T in Teff:

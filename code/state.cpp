@@ -346,7 +346,7 @@ void State::outputPar(std::ofstream& output)
     for (int i = 0; i < nPar; ++i) {
         output << pos[i] << '\t'; 
     }
-    output << std::endl;
+    output << '\n';
 }
 
 void State::outputPos(std::ofstream& output) 
@@ -356,7 +356,7 @@ void State::outputPos(std::ofstream& output)
     for (int i = 0; i < nSite; ++i) {
         output << beadPos[i] << '\t';
     } 
-    output << std::endl;
+    output << '\n';
 }
 
 void State::outputRg(std::ofstream& output) 
@@ -365,5 +365,5 @@ void State::outputRg(std::ofstream& output)
     output << std::setw(9) << tGrid << '\t';
     // output << std::setw(9) << rg << '\t';
     output << std::setw(9) << beadPos[nSite/2] << '\t';
-    output << std::endl;
+    output << '\n';
 }
