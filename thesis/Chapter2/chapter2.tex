@@ -95,8 +95,14 @@ On the other hand, the distribution of rigid bead-rod trimer without \emph{pseud
     p(\theta) = const. (1-\frac{1}{4}\cos^2\theta)^{1/2}\sin\theta
 \end{equation}
 So they are not the same as we see here. The reason for this discrepancy is the rigidity of constraints reduce the phase space of the trimer from $6$ dimensional gully to $4$ dimension manifold. The simple Brownian force ensures the probability is uniform among the manifold but not $\theta$. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{trimer}
+    \caption{The distribution of included angle of a bead-rod trimer. (a) without \emph{pseudo} force; (b) with \emph{pseudo} force. The blue bins are from Brownian Dynamics simulation results. Inset of (a) is a sketch for the trimer. }
+    \label{fig:trimer}
+\end{figure}
 
-To solve the problem and obtain the statistics we want, Fixman introduced an effective \emph{pseudo} potential depends on the polymer configuration \cite{Fixman1974}, and hence we have a \emph{pseudo} force in Eq. \ref{eq:beadrodEq}. The explicit form of the \emph{pseudo} force can be written as
+To solve the problem and obtain the statistics we want, Fixman introduced an effective \emph{pseudo} potential depends on the polymer configuration \cite{Fixman1974}, and hence we have a \emph{pseudo} force in Eq. \eqref{eq:beadrodEq}. The explicit form of the \emph{pseudo} force can be written as
 \begin{subequations}
     \label{eq:pseudoForce}
     \begin{equation}
@@ -113,7 +119,7 @@ $\bullet$ Other potential forces $\mathbf{F}_i^{u}$
 Other potential forces count the forces derived from bending energy, excluded volume effect and other interaction potentials. The general form of this force can be written as
 \begin{equation}
     \label{eq:potentialForce}
-        \mathbf{F}_i^{u} = -\frac{\partial U}{\partial\mathbf{r}_i}
+    \mathbf{F}_i^{u} = -\sum_{U}\frac{\partial U}{\partial\mathbf{r}_i}
 \end{equation}
 here $U$ can be different potentials. For instance, the bending potential can be calculated as 
 \begin{equation}
@@ -140,6 +146,8 @@ One can add more interaction potentials into the model. However, adding more pot
 \subsection{The bead-spring model}
 \label{sub:the_bead_spring_model}
 
+The bead-spring model is another commonly used polymer model. There are several reasons that we use the bead-spring model complementary with the bead-rod model. First, the bead-spring model can work as a benchmark model of the bead-rod model. Unlike the bead-rod model, a \emph{pseudo} force have to be added to obtain the correct random walk statistics, the model of beads connected by Hookean springs is intrinsically a system satisfied the random walk statistics. Second, we can understanding the role of finite extensibility by comparing the bead-rod and bead-spring model. Third, the computation power needed for bead-spring model is much less than the bead-rod because we avoid to calculate the \emph{pseudo} force and implicit constraint force. Let us now look at the details of our bead-spring model.
+
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\linewidth]{beadspring}
@@ -147,17 +155,84 @@ One can add more interaction potentials into the model. However, adding more pot
     \label{fig:beadspring}
 \end{figure}
 
+To model the chromosome in fission yeast during nuclear oscillation, we also need a looping structure like the bead-rod model above. The first bead represents the SPB, shown in Fig. \ref{fig:beadspring}. The dynamical equation is similar to the bead-rod model, can be written as following
+\begin{equation}
+    \label{eq:beadspringEq}
+    \xi \frac{d \mathbf{r}_i}{d t} = \mathbf{F}_i^{u} + \mathbf{F}_i^{spring} + \mathbf{F}_i^{e} + \mathbf{F}_i^{b}
+\end{equation}
+The notations here are the same as the bead-rod model. In addition, the Brownain force, external force and the potential force are the same as in the bead-rod model. What is different is that the \emph{pseudo} force is not needed and the constraint force is replaced by the spring force $\mathbf{F}_i^{spring}$. Notice that for a bead in a loop, there are two springs connecting to it. Thus
+\begin{equation}
+    \label{eq:springForce}
+    \mathbf{F}_i^{spring} = F_i^s(Q_i)\mathbf{u}_i - F_{i-1}^s(Q_{i-1})\mathbf{u}_{i-1}
+\end{equation}
+here, $F_i^s(Q_i)$ is the tension of the $i^{\rm{th}}$ spring and $Q_i$ is the length of the spring. $\mathbf{u}_i$ is the unit vector for the orientation of the $i^{\rm{th}}$ spring.
+
+There are different type of springs we can use for the model. Here, we will introduce two most commonly used ones and both are used somewhere in the later chapters.
+
+$\bullet$ The Hookean spring
+
+The Hookean spring is a linear spring, where the tension of spring depends linearly on the length. 
+\begin{equation}
+    \label{eq:hookeanSpring}
+    F^{Hookean} = H (Q-Q_0)
+\end{equation}
+where $H$ is the Hookean spring constant and $Q_0$ is the natural length of the spring. In practical $Q_0$ is set to $a$, which equals to the length of the bead-rod model. However, sometimes the zero length springs are used. We will point out when needed. 
+
+$\bullet$ The Finite Extensible Nonlinear Elastic (FENE) spring
+
+The FENE spring is another commonly used spring. The force law of the spring is
+\begin{equation}
+    \label{eq:feneSpring}
+    F^{FENE} = \frac{H Q}{1-(Q/R_0)^2}
+\end{equation}
+here $R_0$ is the maximal length of the spring. As we can see in Eq. \eqref{eq:feneSpring}, $F^{FENE}\rightarrow\infty$ when $Q\rightarrow R_0$. 
+
+
+
 
 %********************************** %Second Section  *************************************
 
 \section{The Brownian Dynamics simulation method}
 \label{sec:the_brownian_dynamics_simulation_method}
+After introducing the model, in this section, we will illustrate how to simulation the model numerically. Since we will plan to do most of the theoretical analysis in the later chapters and the simulation results are used to benchmark, it is convenient that we show the methods of simulation before that. 
 
-\subsection{BD of bead-rod model}
+The Brownian Dynamics (BD) simulation is a kind of Molecule Dynamics (MD) simulation technique. The governing equation of each monomer or particle is integrated to get the trajectories. And physical quantities are measured by ensemble average over trajectories of thousands of monomers. In our situation, the governing equations are Eq. \eqref{eq:beadrodEq} or Eq. \eqref{eq:beadspringEq}. Our interested quantities are something like the average space distance between two beads, the typical size of the polymer and the characteristic time scale of the system dynamics. These are all tractable by BD simulations. 
+
+In the following subsections, we will introduce the algorithms used to do the bead-rod and bead-spring simulation separately. The simulation code is implemented in C++2011. Most the simulation are computed in our clusters with $X86$ architecture.
+
+\subsection{BD simulation of the bead-rod model}
 \label{sub:bd_of_bead_rod_model}
 
-\subsection{BD of bead-spring model}
+The goal of simulation is essentially to solve the first order ordinary stochastic differential equation Eq. \eqref{eq:beadrodEq} numerically. However, the simple integration algorithm such as the Euler algorithm would not work here. This is because of the implicit constraint force $\mathbf{F}_i^{c}$. Here we employ the predictor-corrector algorithm introduced by Liu \cite{Liu1989}. 
+
+To simplify the illustration of the algorithm, we will ignore all complex potential forces and the external force in Eq. \eqref{eq:beadrodEq}, i.e. $\mathbf{F}_i^{u} = \mathbf{F}_i^{e} = \mathbf{0}$. It is easy to add them back after knowing the algorithm. The dynamical equation after simplification looks 
+\begin{equation}
+    \label{eq:beadrodSimple}
+    \frac{d \mathbf{r}_i}{d t} = \frac{1}{\xi}\left(\mathbf{F}_i^{c} + \mathbf{F}_i^{pseudo} + \mathbf{F}_i^{b}\right)
+\end{equation}
+
+The predictor-corrector algorithm is a two step algorithm and can be divided into the predict step and correct step. In the predict step, the next time step position is evaluated without considering the constraints
+\begin{equation}
+    \label{eq:beadrodPredict}
+    \mathbf{r}_i^*(t+\Delta t) = \mathbf{r}_i(t) + \frac{1}{\xi}(\mathbf{F}_i^{pseudo} + \mathbf{F}_i^{b})\Delta t
+\end{equation}
+In order to do the calculation, we need to evaluate the Brownian force and the \emph{pseudo} force first. Here we will show how to do that one by one.
+
+$\bullet$ Evaluation of the Brownain force $\mathbf{F}_i^{b}$
+
+
+$\bullet$ Evaluation of the \emph{pseudo} force $\mathbf{F}_i^{pseudo}$
+
+
+\subsection{BD simulation of the bead-spring model}
 \label{sub:bd_of_bead_spring_model}
+
+And we nondimensionalize the dynamical equation by rescaling the variable in the following way:
+\begin{equation}
+    \label{eq:dimensionless}
+    \mathbf{r}^{\prime}\to \mathbf{r}/a;~t^{\prime}\to t/(\xi a^2/k_BT);~\mathbf{F}^{\prime}\to\mathbf{F}/(k_BT/a).
+\end{equation}
+After the rescaling, the length unit is set to the size of the rod. Without causing of confusing, we will ignore the prime in our notation. 
 
 
 

@@ -163,7 +163,7 @@ void Bead::addForce(double **f)
 void Bead::predict()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
-    addForce(rod->pseudo(f));
+    // addForce(rod->pseudo(f));
     // addForce(rod->pseudoSparse(f));
     // addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
