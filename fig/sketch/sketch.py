@@ -12,7 +12,7 @@ factor = 0.2
 scale = 0.5
 
 ## load data 
-fname = 'pos.dat'
+fname = 'posChain.dat'
 print fname
 pos = np.loadtxt(fname,comments='#')
 

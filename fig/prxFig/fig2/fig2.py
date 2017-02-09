@@ -6,31 +6,34 @@ import matplotlib.cm as cmx
 
 def mean_n_1D(i, N, T):
     Teff = float(T)
-    # mu = (N)/2.0
-    mu = (N+1)/2.0
+    mu = (N-1)/2.0
     mean_n_1D = 1.0/(1+np.exp((i-mu)/Teff))
     return mean_n_1D
 
 def var_n_1D(i, N, T):
-    Teff = float(T)
-    mu = (N)/2.0
-    # mu = (N+1)/2.0
-    pn = 1.0/(1+np.exp((i-mu)/Teff)) 
-    var_n_1D = pn * (1 - pn)
+    p = mean_n_1D(i, N, T)
+    var_n_1D = p * (1 - p)
     return var_n_1D
 
 def mean_zi_1D(i, N, T):
     Teff = float(T)
     mean_zi_1D = 0
     for i0 in range(i):
-        mean_zi_1D += (2*mean_n_1D(i0+1, N, Teff)-1)
+        mean_zi_1D += (2*mean_n_1D(i0, N, Teff)-1)
     return mean_zi_1D
 
 def z_var_1D(m, n, N, T):
     z_var_1D = 0
     for i in range(m,n):
-        z_var_1D += 4*var_n_1D(i+1, N, T)
+        z_var_1D += 4*var_n_1D(i, N, T)
     return z_var_1D
+
+def var_zi_1D_add(i, N, T):
+    Teff = float(T)
+    var_zi_1D_add = 0
+    for i0 in range(min(i, N-i)):
+        var_zi_1D_add += 4*var_n_1D(i0, N, Teff)
+    return var_zi_1D_add
 
 def var_zi_1D(i, N, T):
     Teff = float(T)
@@ -77,6 +80,7 @@ for T in Teff:
     meanz, varz = (np.append(meanz, meanz[0]), np.append(varz, varz[0]))
     colorVar = scalarMap.to_rgba(T)
     zmean = [mean_zi_1D(i, N, T) for i in index]
+    # zvar = [var_zi_1D(i, N, T) for i in index]
     zvar = [var_zi_1D(i, N, T) for i in index]
     line, = sp1.plot(index,zmean, color = colorVar)
     sp1.plot(index[::5], meanz[::5], 'o', color = colorVar)
@@ -85,13 +89,14 @@ for T in Teff:
 
 # plot line of Tinf
 sp1.plot([0,N],[0,0],'k--')
+# zvar = [var_zi_1D(i, N, 1000000) for i in index]
 zvar = [var_zi_1D(i, N, 1000000) for i in index]
 sp2.plot(index,zvar,'k--')
 
 # add colorbar legend
 cax = fig.add_axes([0.41, 0.66, 0.02, 0.25])
-# fig.text(0.41,0.59, r"$\tilde{T}$")
-fig.text(0.405,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
+fig.text(0.41,0.59, r"$\tilde{T}$", fontsize=15)
+# fig.text(0.405,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,25,50])
 for T in Teff:
@@ -99,8 +104,8 @@ for T in Teff:
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=0., headwidth=6.0))
 
 cax = fig.add_axes([0.885, 0.66, 0.02, 0.25])
-# fig.text(0.885,0.59, r"$\tilde{T}$")
-fig.text(0.88,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
+fig.text(0.885,0.59, r"$\tilde{T}$",fontsize=15)
+# fig.text(0.88,0.59, r"$\frac{k_B T}{2Fa}$", fontsize=15)
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,25,50])
 for T in Teff:
@@ -118,7 +123,9 @@ sp2.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
 sp2.set_ylabel(r"$\mathrm{var}\left[z_i\right]/a^2$")
 # sp2.set_yticks([0, 20, 40, 60, 80])
 sp2.set_ylim([0, 30])
+# sp2.set_ylim([0, 50])
 
+zvar = [var_zi_1D(i, N, 1000000) for i in index]
 # fig.set_tight_layout(True)
-fig.savefig('figure2.pdf')
+fig.savefig('meanVar1D.pdf')
 plt.show()

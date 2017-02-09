@@ -53,7 +53,7 @@ def densitySchutz(T, N, L):
     return np.array(rho)
 
 
-def main():
+def plotCompareFig():
     plt.close('all')
     plt.rc('text', usetex=True)
     font = {'family' : 'sans-serif',
@@ -73,14 +73,14 @@ def main():
     x = np.arange(1, L+1)
     for T in Tarray:
         px = density(T, N, L)
-        fx = 1./(1.+np.exp((x-N)/float(T)))
-        labelString = r"$\frac{k_B T}{2Fa}=$" + \
+        fx = 1./(1.+np.exp((x-(L+1)/2.)/float(T)))
+        labelString = r"$\frac{k_B T}{\Delta E}=$" + \
                 r"${}$".format(T)
         line, = ax.plot(x, px, '-', label=labelString)
         ax.plot(x, fx, 'o', c = line.get_color())
     ax.legend(fontsize=15)
     ax.set_xlabel(r'$\rm{Index}$')
-    ax.set_ylabel(r'$\rho(x)$')
+    ax.set_ylabel(r'$\mathbb{P}(n_j)$')
     axinset = inset_axes(ax, width="40%", height="40%", loc=3)
     plt.xticks(visible=False)
     plt.yticks(visible=False)
@@ -89,11 +89,59 @@ def main():
     x = np.arange(1, L+1)
     for T in Tarray:
         px = density(T, N, L)
-        fx = 1./(1.+np.exp((x-N)/float(T)))
+        fx = 1./(1.+np.exp((x-(L+1)/2.)/float(T)))
         line, = axinset.plot(x, px, '-', label='1/F='+str(T))
         axinset.plot(x, fx, 'o', c = line.get_color())
     plt.show()
 
+def plotCompareFig2():
+    plt.close('all')
+    plt.rc('text', usetex=True)
+    font = {'family' : 'sans-serif',
+            'serif'  : 'Helvetica',
+            'weight' : 'normal',
+            'size'   : 15 }
+    plt.rc('lines', lw=2)
+    plt.rc('font', **font)
+    fig = plt.figure(0, figsize=(10, 5))
+    Tarray = [1, 2, 5, 10, 1000]
+    labelStr0 = r"$\tilde{T}=$"
+    labelStr = [r"$1$", r"$2$", r"$5$", r"$10$", r"$10^3$"]
+    labelStr = [labelStr0 + s for s in labelStr]
+    N, L = (5, 10)
+    x = np.arange(1, L+1)
+    ax = fig.add_subplot(121)
+    for i,T in enumerate(Tarray):
+        px = density(T, N, L)
+        fx = 1./(1.+np.exp((x-(L+1)/2.)/float(T)))
+        line, = ax.plot(x, px, '-', label=labelStr[i])
+        ax.plot(x, fx, 'o', c = line.get_color())
+    ax.set_xlabel(r'$\rm{Index}$')
+    ax.set_ylabel(r'$\mathbb{P}(n_j)$')
+    ax.legend(loc='lower left',fontsize=15)
+
+    Tarray = [1, 10, 50, 100, 1000]
+    labelStr0 = r"$\tilde{T}=$"
+    labelStr = [r"$1$", r"$10$", r"$50$", r"$10^2$", r"$10^3$"]
+    labelStr = [labelStr0 + s for s in labelStr]
+    N, L = (50, 100)
+    x = np.arange(1, L+1)
+    ax = fig.add_subplot(122)
+    for i,T in enumerate(Tarray):
+        px = density(T, N, L)
+        fx = 1./(1.+np.exp((x-(L+1)/2.)/float(T)))
+        labelString = r"$\tilde{T}$=" + \
+                r"${}$".format(str())
+        line, = ax.plot(x, px, '-', label=labelStr[i])
+        ax.plot(x, fx, 'o', c = line.get_color())
+    ax.set_xlabel(r'$\rm{Index}$')
+    ax.set_ylabel(r'$\mathbb{P}(n_j)$')
+    ax.legend(loc='lower left', fontsize=15)
+    plt.show()
+
+def main():
+    plotCompareFig2()
+    return 
 
 if __name__ == "__main__":
     main()

@@ -81,11 +81,11 @@ void BeadRod::run()
         }
 
         // Monte-Carlo Move
-        // bead->montecarloUpdate();
+        bead->montecarloUpdate();
 
         // MD Move
-        bead->predict();
-        bead->correct();
+        // bead->predict();
+        // bead->correct();
         
         t += bead->dt;
     }
