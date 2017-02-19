@@ -11,7 +11,7 @@ We will start by introducing the setting of the model in the first section. The 
 %********************************** %First Section  **************************************
 \section{Pinned polymer loop in a constant force field}
 \label{sec:pinned_polymer_loop}
-As we know, the nuclear oscillation in fission yeast is an oscillating dynamics. So in principle, the system is out of equilibrium by definition. However, notice that the time period of the nuclear oscillation is about $10$ mins. The oscillation can be divided into two parts. The chromosomes move towards to the opposite direction in each part. If the relaxation time of the system is much less than half of the oscillation period, then it is proper to think the system as a equilibrium system. Actually, we will show in next chapter that this is indeed true. The relaxation time of the chromosome system is calculated. It turns out the relaxation time scale is $\sim10$ s. So the equilibrium assumption is justified. 
+As we know, the nuclear oscillation in fission yeast is an oscillating dynamics. So in principle, the system is out of equilibrium by definition. However, notice that the time period of the nuclear oscillation is about $10$ mins. The oscillation can be divided into two parts. The chromosomes move towards to the opposite direction in each part. If the relaxation time of the system is much smaller than half of the oscillation period, then it is proper to think the system as a equilibrium system. Actually, we will show in next chapter that this is indeed true. The relaxation time of the chromosome system is calculated. It turns out the relaxation time scale is $\sim10$ s. So the equilibrium assumption is justified. 
 
 \begin{figure}[htpb]
     \centering
@@ -28,7 +28,7 @@ On the other hand, experimental evidence shows that the velocity of the SPB is a
     \label{fig:beadrod}
 \end{figure}
 
-Let us first clarify some notations here. There are $L$ beads (including the SPB) in the loop and the SPB is denoted by $\mathbf{r}_0$ or $\mathbf{r}_L$ in periodic indexing. Without loss of generality, we assume it is pinned to the origin point, i.e. $\mathbf{r}_0 = \mathbf{r}_L = 0$. The length of each rod is $a$. And the constant external force field denotes by $\mathbf{F}$ is in the $z$ direction. The potential energy of the pinned polymer loop can be written as:
+Let us first clarify some notations here. There are $L$ beads (including the SPB) in the loop and the SPB is denoted by $\mathbf{r}_0$ or $\mathbf{r}_L$ in periodic indexing. Without loss of generality, we assume it is pinned to the origin point, i.e. $\mathbf{r}_0 = \mathbf{r}_L = \mathbf{0}$. The length of each rod is $a$. And the constant external force field denotes by $\mathbf{F}$ is in the $z$ direction. The potential energy of the pinned polymer loop can be written as:
 \begin{equation}
     \label{eq:energyBeadrod}
     E = E_0 - a\sum_{i=1}^{L} \mathbf{F}\cdot\mathbf{r}_i
@@ -92,7 +92,7 @@ $\bullet$ The dynamics of 1D polymer can be mapped to the particle hopping proce
 
 $\bullet$ The mapping is essentially from a two state system to a two state system. One can also interpret the two state as spin up and spin down or any other two state systems. We use the particle-lattice interpretation because it is familiar and intuitive to most people. 
 
-Now let discuss the energy of the system. Rewrite Eq. \eqref{eq:energyRodsum} in 1D we get
+Now let us discuss the energy of the system. Rewrite Eq. \eqref{eq:energyRodsum} in 1D we get
 \begin{equation}
     \label{eq:energyRodsum1D}
     E = E_0 - Fa \sum_{i=1}^L\sum_{j=1}^i u_j.
@@ -190,6 +190,12 @@ As we said above, the grand canonical ensemble only ensures the loop condition o
     \rho^L(z_i=z) = \frac{\rho(z_i=z|z_0=0)\rho(z_{L-i}=z|z_L=0)}{\rho(z_L=0|z_0=0)},
 \end{equation}
 where $\rho(z_i=z)$ is the probability density function of finding the $i^{\rm{th}}$ bead at position $z$, $\rho(z_k=z|z_j=0)$ are the propagators. Eq. \eqref{eq:brownianforce} means that the probability density equals two pieces of random walk trajectory of length $i$ and $L-i$ meet at position $z$ on the condition that they are belong to the same loop. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{meanVar1D}
+    \caption{Mean and variance of the 1D pinned polymer bead positions. MC simulation results (dots) are compared with theoretical results (solid lines) Eq. \ref{eq:meanVarPos1DExpression}. The length of the polymer loop $L=10$. The black dash line indicates the case $\tilde{T}\rightarrow\infty$, i.e. no external force field. }
+    \label{fig:meanVar1D}
+\end{figure}
 
 Notice that the propagators are Gaussian with the variance added up by the variance of individual steps, i.e Eq. \eqref{eq:varPos1D}. So that $\rho^L(z_i = z)$ is also Gaussian. Its variance is given by
 \begin{equation}
@@ -205,13 +211,6 @@ Plug in Eq. \eqref{eq:nvar} and Eq. \eqref{eq:varPos1D} we can obtain the varian
     \end{align}
 \end{subequations}
 We can see from the above formulas that the $z_i-z_{L-i}$ symmetry is satisfied. And a strong external force field leads to a stretched configuration and a small fluctuation of bead position. This result is compared with the Monte-Carlo simulations, see in Fig. \ref{fig:meanVar1D}.
-
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=1.0\linewidth]{meanVar1D}
-    \caption{Mean and variance of the 1D pinned polymer bead positions. MC simulation results (dots) are compared with theoretical results (solid lines) Eq. \ref{eq:meanVarPos1DExpression}. The length of the polymer loop $L=10$. The black dash line indicates the case $\tilde{T}\rightarrow\infty$, i.e. no external force field. }
-    \label{fig:meanVar1D}
-\end{figure}
 
 In this subsection, we solved the mean and variance of bead position for 1D pinned polymer loop in an external force field. The strategy is using the \emph{Fermi-Dirac} statistics and re-enforce the loop condition by the Brownian bridge technique. Excellent results verified by the Monte-Carlo simulation are obtained. However, we have to say, this is just an approximate method. In the next subsection, we will use the canonical ensemble to obtain the exact solution. 
 
@@ -333,7 +332,7 @@ In this section, we solve the equilibrium statistics of the pinned polymer loop 
 %********************************** % Third Section  *************************************
 \section{Equilibrium statistics in 3D}
 \label{sec:equilibrium_statistics_in_3d}
-In 3D, the equilibrium statistics of the pinned polymer loop model can still be calculated using the similar stately. The orientation of rods have two more degree of freedom in 3D. As shown in section \ref{sec:pinned_polymer_loop}, the external force is assume in the $z$ direction. Let us use the spherical coordinates to describe the polymer system. Denote $\theta_j$ the angle between the $j^{\rm{th}}$ rod and the $z$-axis, and $\phi_j$ the rotational angle along $z$-axis. Then the three dimensional loop condition can be written as
+In 3D, the equilibrium statistics of the pinned polymer loop model can still be calculated using the similar strategy. The orientation of rods have two more degree of freedom in 3D. As shown in section \ref{sec:pinned_polymer_loop}, the external force is assume in the $z$ direction. Let us use the spherical coordinates to describe the polymer system. Denote $\theta_j$ the angle between the $j^{\rm{th}}$ rod and the $z$-axis, and $\phi_j$ the rotational angle along $z$-axis. Then the loop condition along the force direction can be written as
 \begin{equation}
     \label{eq:loopCondition3D}
     \sum_{j=1}^L \cos\theta_j = 0.
@@ -396,7 +395,7 @@ Finally, by imposing the Brownian bridge condition, the variance of bead positio
     \label{eq:varBrownianBridge3D}
     \text{var}\left[z_k\right] = a^2\frac{\sum_{j=0}^{k}\text{var}\left[\cos\theta_j\right]\sum_{j=L-k}^{L}\text{var}\left[\cos\theta_j\right]}{\sum_{j=0}^{L}\text{var}\left[\cos\theta_j\right]}.
 \end{equation}
-The analytical results above are compared with the 3D Monte-Carlo simulations (see section \ref{sec:monte_carlo_simulation_of_the_bead_rod_model}). We can see in Fig. \ref{fig:meanVarZ3D} that again an excellent agreement is observed. 
+The analytical results above are compared with the 3D Monte-Carlo simulations (see section \ref{sec:monte_carlo_simulation_of_the_bead_rod_model}). We can see in Fig. \ref{fig:meanVarZ3D} that again an excellent agreement is obtained. 
 
 \begin{figure}[htpb]
     \centering
@@ -446,35 +445,93 @@ In the prophase I of fission yeast, the dramatic chromosome movements are observ
     \label{fig:pair}
 \end{figure}
 
-In the mean time of chromosome pairing, the nucleus of fission yeast is oscillating. As we discussed in Chapter $2$, the oscillation can be divided into two pieces of steady motion, which can be further transferred to the scenario of pinned polymer loop in an external force field. One can intuitively imagine that the chromosomes will be more stretched when subjecting to an stronger external force field. So the statistical distance between two corresponding loci will be shorten. Biologically, if the statistical distance is smaller than $400$nm, then it is said been paired. It is interesting to ask how does the pulling facilitate the paring of homologous. 
+In the mean time of chromosome pairing, the nucleus of fission yeast is oscillating. As we discussed in Chapter $2$, the oscillation can be divided into two pieces of steady motion, which can be further transferred to the scenario of pinned polymer loop in an external force field. One can intuitively imagine that the chromosomes will be more stretched when subjecting to an stronger external force field. So the statistical distance between two corresponding loci will be shorten. Biologically, if the statistical distance is smaller than $400$ nm, then it is said been paired. It is interesting to ask how does the pulling facilitate the paring of homologous. 
 
-We will calculate the statistical distance of $\mathbf{d}_i$ (show in Fig. \ref{fig:pair}) for different external force field. 
-
+In next subsection, we will discuss how to apply our theory to get insights of the paring problem of chromosomes. 
 
 \subsection{Theory fits to the biology}
 \label{sub:theory_fits_to_the_biology}
 
+In order to fit our theory to the real biological problem, let us first discuss some related parameters which are listed in table \ref{tab:parameters} (Chapter 1). During cell division, chromosomes are highly condensed. As a consequence, the Kuhn length is large to be $\sim 200$ nm. With the length of chromosomes in base pair and the compact ratio listed in the same table, we can estimate that the total number of monomers in the longest chromosome is about $300$. We will discuss the paring problem of the longest pair of chromosomes because the paring of shorter ones is easier comparing to the former. 
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\linewidth]{paring}
-    \caption{paring}
+    \caption{The distance between corresponding loci of homologous pair varies withe the dimensionless temperature. Different curve indicates different location along the chromosome. The shaded region denotes the separation below which the chromosomes are considered to be paired. Dots are BD simulation data and solid lines are results from our theory. Inset is an sketch of the observing loci along the chromosome. Parameters are shown in the context.}
     \label{fig:paring}
 \end{figure}
 
-%********************************** % Fifth Section  *************************************
+In the model, we measure the distance between two corresponding beads of the polymer pair, see in Fig. \ref{fig:pair}. These two beads correspond to the same loci of homologous. The paring process is supposed to bring them together with a statistical distance less then $400$ nm. 
+Then we ask the question that is the pulled movement offers an sufficient force for the pairing. 
 
-\section{Two intersecting Loops}
-\label{sec:two_intersecting_loops}
+To answer this question, we measure how the statistical distance $\mathbf{d}$ varies with the dimensionless temperature $\tilde{T}$. Notice that for a fixed thermal temperature $T$, a smaller dimensionless temperature means large external force $F$. Furthermore, this distance is measured at different location along the chromosome, see in the inset of Fig. \ref{fig:paring}.  
+Given that the excluded volume effect is ignored, the three dimensional mean distance between two corresponding beads is zero. The statistical distance is defined as the square root of its variance and the variance is calculated as:
+\begin{equation}
+    \label{eq:statisticalDistance}
+    \text{var}\left[\mathbf{d}_i\right] = 
+    \text{var}\left[\mathbf{r}_i - \mathbf{r}_i^\prime\right] = 2 \text{var}\left[\mathbf{r}_i\right]
+    = 2\left( \text{var}\left[x\right] + \text{var}\left[y\right] + \text{var}\left[z\right]\right)
+\end{equation}
 
+We shown in Fig. \ref{fig:paring} the results from our model. Now let us estimate the value of dimensionless temperature from the experimental facts. Using the Stokes relation $F = 6\pi\eta R v$, the strength of external force field can be evaluated. $\eta$ is the viscosity of nucleoplasm which is estimated by the experimentalist as $1000$ times of water. $R$ is the bead radius can be estimated as half of the Kuhn length $R \approx 100$ nm. The moving velocity $v \approx 2.5\mu$m/min is measured from the experiment. As a result, we can obtain $F \approx 7\times10^{-14}$ N. Using the temperature $T=300$ K and Kuhn length $a=200$ nm, we can finally obtain $\tilde{T} \approx 0.3$. This is a parameter locates at the lower left strong force regime in Fig. \ref{fig:paring}. As we can see from the figure, the distance between corresponding beads is smaller and mostly below the paring threshold. So the conclusion is the pulling motion aligns chromosomes and supplies an sufficient force for the paring. 
+
+As mentioned in the first chapter, redistribution of dynein motors is the mechanism drives the nuclear oscillation.  We now ask the question whether the number of involving motor molecules sufficient for the motion. 
+
+To answer this question, let us first estimate the total force needed for the pulling motion. According the genomic length of each chromosome together with a compaction ratio of $100$ bp/nm and a Kuhn length of $200$ nm, the total number of monomers in fission yeast is $\sim 1260$. So the total pulling force is $F_{total} \approx 100$ pN. The stall force of dynein motors has been reported within the range of $1-7$ pN \cite{Toba2006,Gennerich2007}. This corresponds to $14-100$ dynein motors pulling together. Previous measurements shows that there are $50-100$ dynein motors engaged in pulling of the SPB \cite{Ananthanarayanan2013}. Thus the experimentally observed number of dynein motors is sufficient to generate a force for the alignment of the chromosomes.  
+
+
+\subsection{Two intersecting Loops}
+\label{sub:two_intersecting_loops}
+In this subsection, let us consider an application of our theory, which is also possible to happen in the biological circumstance. In biology, the pairing process of homologous is often said to be analogy to the zipping process of a zipper \cite{Tsai2011}. Namely, segments near to the SPB are paired in prior. However, it is still possible that a pair of beads in the middle part of chromosome bond before those in between. This could caused by the recombination process which involving several types of enzymes and double strand breaks. On the other hand, there is a hypothesis that the centromeres of homologous are still bond together during nuclear oscillation. 
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.6\linewidth]{centromere}
-    \caption{centromere}
+    \caption{The sketch of two intersecting loops $1$ and $1^\prime$ which are connected at one additional bead with index $c$. Shaded regions indicate the redefined loops A and B. The distance $\mathbf{d}$ between two homologous beads $h$ and $2c-h$ is illustrated. }
     \label{fig:centromere}
 \end{figure}
 
-%********************************** % Sixth Section  *************************************
+To discuss this problem, we propose a scenario shown in Fig. \ref{fig:centromere}. A pair of chromosomes (denoted by $1$ and $1^\prime$) is pinned at the SPB with an additional constraint at some intermediate bead position (indexed by $c$, where $0<c<L$). However, bead $c$ is not pinned so that it can still move around. 
+
+In order to solve this problem, we redefine the loops as shown in Fig. \ref{fig:centromere}. The loop A starts at the pinned point, continues along the loop $1$, to the constraint point $c$ and then returns to the origin along the loop $1^\prime$ by the path of the same length. It is shown in Fig. \ref{fig:centromere} shaded with cyan color in between. The loop B is shown in Fig. \ref{fig:centromere} shaded with orange color in between. We are interested in the distance $\mathbf{d}$ between two homologous beads as shown in the figure. Denote the first bead position with index $h$, then the other one can be denoted by $2c-h$ considering the loop A. 
+
+To calculate the PDF of $\mathbf{d} := \mathbf{r}_h - \mathbf{r}_{2c-h}$, which denote as $\rho(\mathbf{d})$, let us first calculate the joint positional PDF $\rho_{h, 2c-h}(\mathbf{r}_1, \mathbf{r}_2)$. Denote the propagator as $\rho_{k\rightarrow j}(\mathbf{r}_1 | \mathbf{r}_2) = \rho(\mathbf{r}_k = \mathbf{r}_1 | \mathbf{r}_j = \mathbf{r}_2)$. Notice that the propagator is a (multi-variate) Gaussian function with a mean and variance summing up by path steps. Then we can apply the similar Brownian bridge condition, obtaining
+\begin{equation}
+    \label{eq:jointPdfDistance}
+    \rho_{h,2c-h}(\mathbf{r}_1, \mathbf{r}_2) = \frac{\rho_{0\rightarrow h}(\mathbf{r}_1|0)\rho_{h\rightarrow 2c-h}(\mathbf{r}_1|\mathbf{r}_2)\rho_{0\rightarrow 2c-h}(\mathbf{r}_2|0)}{\rho_{0\rightarrow 2c}(0|0)}.
+\end{equation}
+And then the PDF $\rho(\mathbf{d})$ can be calculated as 
+\begin{equation}
+    \label{eq:pdfDistance}
+    \rho(\mathbf{d}) = \int\int d\mathbf{r}_1 d\mathbf{r}_2 \delta(\mathbf{d} - (\mathbf{r}_1 - \mathbf{r}_2))\rho_{h, 2c-h}(\mathbf{r}_1, \mathbf{r}_2),
+\end{equation}
+Without evaluate the integrals in Eq. \eqref{eq:pdfDistance}, one can conclude $\rho(\mathbf{d})$ is Gaussian because $\rho_{h,2c-h}(\mathbf{r}_1, \mathbf{r}_2)$ is Gaussian. It is not difficult to obtain the mean distance is $\left<\mathbf{d}\right>=\mathbf{0}$ because of no excluded volume effect. And the variance can calculate the same way as our previous procedure. For example, the $z$-component variance is
+\begin{equation}
+    \label{eq:zvarDistance}
+    \text{var}\left[ d_z \right] = 2 \frac{\sigma_{0\rightarrow h,z}^2\sigma_{h\rightarrow c,z}^2}{\sigma_{0\rightarrow c,z}^2}, 
+\end{equation}
+where each variance is calculated according to Eq. \eqref{eq:meanVarRod}. The result compare with simulations is shown in Fig. \ref{fig:varCentromere}. We see that fluctuations of the distance is reduced with the additional constraint point compared with the unconstrained case. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.6\linewidth]{varCentromere}
+    \caption{Variance of the distance between homologous beads with additional constraint. The constraint is located at the bead with index $c=100$. Circles denote the simulation results while the solid lines represent the theory. The dashed lines show the variance of the unconstrained case with different color indicates different dimensionless temperature. The black dashed line shows the limit of unconstrained force-free Brownian bridge.}
+    \label{fig:varCentromere}
+\end{figure}
+
+In this section, we apply the theory of our model to the alignment problem of homologous in meiotic fission yeast. Despite the simplicity of our model, we still obtain quantitatively consistent results respecting to the biological facts. On the other hand, because of the simple model, we are able to tract it analytically. Fluctuations of distance between homologous beads are calculated analytically to quantify the paring process. The theoretical results are all verified by simulations. In addition, by discussing the case of two intersecting polymer loops, we find the additional constraint helps to reduce the fluctuations, thus facilitate the pairing process. 
+
+
+%********************************** % Fifth Section  *************************************
+
 \section{Summary}
 \label{sec:summary_chp3}
 
-Yen Ting Lin. 
+In this chapter, we discuss the equilibrium statistics of pined polymer loops in an external force field, which is our model for chromosomes in meiotic fission yeast. 
+
+We first solve the statistics in a idealized 1D model. We introduce a technique which combines the \emph{Fermi-Dirac} statistics and Brownian Bridge condition to solve the problem in \emph{grand} canonical ensemble. The solution found is compared to the exact solution, which can be obtain after utilize the analogy to a number partition problem. However, we found that the results from our technique are quite accurate and the exact solution is quite cumbersome for later calculations. Thus the first approach is preferred. Using the result, we are able to calculate the mean and variance of bead position.  
+
+And then we extend our theory to the three dimensional system. The same method of Brownian Bridge is used to solve the statistics. Also the three dimensional mean and variance of bead position is calculated. 
+
+In the last section, we use our theoretical results to discuss the real biological problem. The alignment of homologous chromosomes is discussed. Furthermore, we discussed the chromosome with possible additional intermediate constraint by applying our theory to the two intersecting loops case. We found both the pulling movement of chromosomes and the additional bonding between homologous facilitate the pairing and alignment of chromosomes.
+
+Last but not least, we would like to mention that the work of this chapter was done by closing cooperation Dr. Yen-Ting Lin. Many of the credits is belong to him. We would like to give our special thank to him here. 
+
+In next chapter, we will delve deeper to study the non-equilibrium properties of the pinned polymer loop polymer in an external force field. 

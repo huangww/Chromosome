@@ -196,12 +196,12 @@ void Bead::eulerUpdate()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
 
-    addForce(spring->fene(r, f));
+    pinSPB();
+    addForce(spring->harmonic(r, f));
+    // addForce(spring->fene(r, f));
     // addForce(spring->bending(r, f));
     // addForce(force->repulsive(r, f));
-    // addDrivenSPB();
     addForce(force->constant(f));
-    pinSPB();
     addForce(force->brownian(f));
     
     // predict the next step position

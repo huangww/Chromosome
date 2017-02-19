@@ -29,7 +29,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ $(LDLIBS)
 
 run:
-	./$(TARGET) input.br.in
+	./$(TARGET) input.bs.in
 
 clean :
 	-rm -rf $(BUILDDIR)/*

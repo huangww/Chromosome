@@ -63,15 +63,15 @@ void BeadSpring::setup(Input *input)
 
 void BeadSpring::run() 
 {
-    bead->init();
-    // bead->init("equilibrate");
+    // bead->init();
+    bead->init("equilibrate");
 
     double t = 0;
     int maxStep = int(tEnd / bead->dt);
     for (int step = 0; step < maxStep; ++step) {
         // output bead position to data file
         // if (step % int(1.0/bead->dt) == 0) {
-        if (step % outputStep == 0) {
+        if (step % outputStep == 0 && t >= 1e4) {
             bead->output(outFile);
         }
 

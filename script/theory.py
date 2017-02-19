@@ -189,16 +189,13 @@ def var_z_cm(cm, N, T):
             var_z_cm[i] = 2*v0s*vst/v0t
     return var_z_cm
 
-
 def rouse_mean(N, T):
     f = 1./float(T)
     k_H = 3
     z_mean = np.zeros(N)
+    l = np.arange(1, (N+1)/2)
     for i in range(1, N):
-        sumTerm = 0
-        for l in range(1, (N+1)/2):
-            sumTerm += np.sin(i*(2*l-1)*np.pi/N)/((2*l-1)*np.pi*(np.sin((2*l-1)*np.pi/(2*N)))**2)
-        z_mean[i] = sumTerm * f / k_H
+        z_mean[i] = np.sum(np.sin(i*(2*l-1)*np.pi/N)/((2*l-1)*np.pi*(np.sin((2*l-1)*np.pi/(2*N)))**2)) * f / k_H
     return z_mean
 
 def rouse_mean2(N, T):
@@ -214,6 +211,14 @@ def rouse_mean2(N, T):
     return z_mean
 
 def rouse_var(N, T):
+    k_H = 3.
+    rvar = np.zeros(N)
+    k = np.arange(1, N)
+    for i in range(1, N):
+        rvar[i] = 3.*np.sum((np.sin((i*k*np.pi)/N)/np.sin((k*np.pi)/(2*N)))**2)/(2*k_H*N)
+    return rvar
+
+def rouse_var2(N, T):
     f = 1./float(T)
     k_H = 3
     z_var = np.zeros(N)
