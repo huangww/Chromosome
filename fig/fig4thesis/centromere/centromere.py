@@ -29,7 +29,7 @@ cNorm = colors.Normalize(vmin = 0, vmax = max(Teff))
 scalarMap = cmx.ScalarMappable(norm = cNorm, cmap = cMap)
 for T in Teff:
     colorVar = scalarMap.to_rgba(T)
-    varz = var_z(N, T)
+    varz = 2*var_z(N, T) # variance of distance
     varzcm = var_z_cm(cm, N, T)
     varz, varzcm = (np.append(varz, varz[0]), np.append(varzcm, varzcm[0]))
     # varz = np.concatenate((varz,[0]))
@@ -44,8 +44,8 @@ for T in Teff:
     ax.plot(index[::10],data[::10,3],'o', color=colorVar)
 
 # plot High T limit
-T = 5000
-varz = var_z(N, T)
+T = 10000
+varz = 2*var_z(N, T)
 varz = np.append(varz, varz[0])
 ax.plot(index,varz,'k--')
 
@@ -54,12 +54,12 @@ cax = fig.add_axes([0.84, 0.65, 0.04, 0.25])
 fig.text(0.845,0.58, r"$\tilde{T}$")
 cb = colorbar.ColorbarBase(cax, cmap = cMap, norm = cNorm)
 cb.set_ticks([0,20,50])
-cb.set_ticklabels([r'$0$',r'$10$',r'$25$'])
+# cb.set_ticklabels([r'$0$',r'$10$',r'$25$'])
 for T in Teff:
     colorVar = scalarMap.to_rgba(T)
     cax.annotate('', xy=(-0.0, T/float(max(Teff))), xytext=(-1.0, T/float(max(Teff))), arrowprops=dict(facecolor=colorVar,edgecolor='none',width=0.0, headwidth=6.0))
 
-ax.set_xticks([0,100, 200, 300])
+# ax.set_xticks([0,100, 200, 300])
 # ax.set_ylim([0,120])
 ax.set_xlabel(r'$\mathrm{Bead}\ \mathrm{index}\ i$')
 ax.set_ylabel(r"$\mathrm{var}\left[d_{i,z}\right]/a^2$")
