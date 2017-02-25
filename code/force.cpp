@@ -138,7 +138,8 @@ double** Force::constant(double** f)
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
     for (int i = 0; i < nBead; ++i) {
-        f[i][0] = 1.0 / tempEff;
+        // f[i][0] = 1.0 / tempEff;
+        f[i][0] = 1.0;
     }
     return f;
 }

@@ -121,6 +121,7 @@ colorVar	/Users/wenwen/Work/chromosome/fig/figure4paper/fig3/fig3.py	/^    color
 colorVar	/Users/wenwen/Work/chromosome/fig/prxFig/fig2/fig2.py	/^    colorVar = scalarMap.to_rgba(T)$/;"	v	language:Python
 colorVar	/Users/wenwen/Work/chromosome/fig/prxFig/fig2/fig2.py	/^    colorVar = scalarMap.to_rgba(T)$/;"	v	language:Python
 colorVar	/Users/wenwen/Work/chromosome/fig/prxFig/fig2/fig2.py	/^    colorVar = scalarMap.to_rgba(T)$/;"	v	language:Python
+comb	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^from scipy.misc import comb$/;"	i	language:Python
 compute	/Users/wenwen/Work/chromosome/code/state.hpp	/^    class Compute *compute;$/;"	m	language:C++	class:State	typeref:class:State::Compute
 Config	/Users/wenwen/Work/chromosome/code/config.cpp	/^Config::Config()  { } $/;"	f	language:C++	class:Config
 constant	/Users/wenwen/Work/chromosome/code/force.cpp	/^double* Force::constant(double* f)$/;"	f	language:C++	class:Force
@@ -157,6 +158,8 @@ dataDir	/Users/wenwen/Work/chromosome/script/gyrationDistr.py	/^dataDir = 'data\
 dataDir	/Users/wenwen/Work/chromosome/script/movie.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^dataDir = 'data\/'$/;"	v	language:Python
 dataDir	/Users/wenwen/Work/chromosome/script/trimer.py	/^dataDir = 'data\/trimer\/'$/;"	v	language:Python
+dataMerge	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^def dataMerge(fname):$/;"	f	language:Python
+Demo	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def Demo():            $/;"	f	language:Python
 Demo	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def Demo():$/;"	f	language:Python
 Demo	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def Demo():$/;"	f	language:Python
 DemoLattice	/Users/wenwen/Work/chromosome/script/fermiDrac.py	/^def DemoLattice():$/;"	f	language:Python
@@ -173,6 +176,7 @@ displayscale	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^displayscal
 dt	/Users/wenwen/Work/chromosome/code/force.hpp	/^    double dt;$/;"	m	language:C++	class:Force
 dt	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double dt;$/;"	m	language:C++	class:Rod
 dt	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double dt;      \/\/ time step of the update$/;"	m	language:C++	class:State
+EigenValues	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def EigenValues():            $/;"	f	language:Python
 end	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^            end = light_code.rfind('}')$/;"	v	language:Python
 energy	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^double Montecarlo::energy(int N, double **r) $/;"	f	language:C++	class:Montecarlo
 equilibrate	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::equilibrate(double **r)$/;"	f	language:C++	class:Montecarlo
@@ -191,6 +195,7 @@ export_label	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_
 export_pyramid	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_pyramid(a):$/;"	f	language:Python
 export_ring	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_ring(a):$/;"	f	language:Python
 export_sphere	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def export_sphere(a):$/;"	f	language:Python
+ExtraEigenVector	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def ExtraEigenVector():$/;"	f	language:Python
 F	/Users/wenwen/Work/chromosome/script/parameters.py	/^F = gamma * v$/;"	v	language:Python
 f	/Users/wenwen/Work/chromosome/script/parameters.py	/^f = kB*T\/a$/;"	v	language:Python
 factor	/Users/wenwen/Work/chromosome/fig/prxFig/fig6/fig6.py	/^factor = np.exp(-1.\/Teff)$/;"	v	language:Python
@@ -322,6 +327,7 @@ GetScreenShot	/Users/wenwen/Work/chromosome/script/movie.py	/^def GetScreenShot(
 GetTau	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def GetTau(t, x, fig=False, figName='fig\/acfFit.pdf'):$/;"	f	language:Python
 getTotalLinkPair	/Users/wenwen/Work/chromosome/code/topo.cpp	/^int Topo::getTotalLinkPair()$/;"	f	language:C++	class:Topo
 getTotalLinkPair	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int getTotalLinkPair();$/;"	p	language:C++	class:Topo
+glob	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^import glob as glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import glob$/;"	i	language:Python
 glob	/Users/wenwen/Work/chromosome/script/movie.py	/^import glob$/;"	i	language:Python
@@ -360,6 +366,7 @@ integral_xy_var	/Users/wenwen/Work/chromosome/fig/fig4thesis/paring/theory.py	/^
 integral_xy_var	/Users/wenwen/Work/chromosome/script/theory.py	/^def integral_xy_var(i, N, T):$/;"	f	language:Python
 inverse	/Users/wenwen/Work/chromosome/code/rod.cpp	/^void Rod::inverse(double *A, int N)$/;"	f	language:C++	class:Rod
 inverse	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    void inverse(double *A, int N);$/;"	p	language:C++	class:Rod
+it	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^import itertools as it$/;"	i	language:Python
 it	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import itertools as it$/;"	i	language:Python
 j	/Users/wenwen/Work/chromosome/script/movie.py	/^    j = t%len(pos)$/;"	v	language:Python
 j	/Users/wenwen/Work/chromosome/script/movieJupyter.py	/^    j = t%len(pos)$/;"	v	language:Python
@@ -393,6 +400,8 @@ linkVectorU	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double** linkVector
 listTopo	/Users/wenwen/Work/chromosome/code/topo.cpp	/^void Topo::listTopo()$/;"	f	language:C++	class:Topo
 listTopo	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    void listTopo();$/;"	p	language:C++	class:Topo
 main	/Users/wenwen/Work/chromosome/code/main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++
+main	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^def main():$/;"	f	language:Python
+main	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVarRouse/meanVarRouse.py	/^def main():$/;"	f	language:Python
 main	/Users/wenwen/Work/chromosome/fig/prxFig/fig7/fig7.py	/^def main():$/;"	f	language:Python
@@ -408,6 +417,8 @@ matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py	/^import matplotlib.colorbar as colorbar$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py	/^import matplotlib.colors as colors$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^import matplotlib.cm as cmx$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^import matplotlib.colorbar as colorbar$/;"	i	language:Python
 matplotlib	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^import matplotlib.colors as colors$/;"	i	language:Python
@@ -459,6 +470,7 @@ mean_z_1D	/Users/wenwen/Work/chromosome/script/theory.py	/^def mean_z_1D(N, T):$
 mean_z_1D_sum	/Users/wenwen/Work/chromosome/fig/fig4thesis/paring/theory.py	/^def mean_z_1D_sum(N, T):$/;"	f	language:Python
 mean_z_1D_sum	/Users/wenwen/Work/chromosome/script/theory.py	/^def mean_z_1D_sum(N, T):$/;"	f	language:Python
 measure	/Users/wenwen/Work/chromosome/fig/shape/imageParse.py	/^from skimage import measure$/;"	i	language:Python
+MinimalExample	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def MinimalExample():$/;"	f	language:Python
 Montecarlo	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^Montecarlo::Montecarlo() { }$/;"	f	language:C++	class:Montecarlo
 monteCarloMove	/Users/wenwen/Work/chromosome/code/state.cpp	/^void State::monteCarloMove()$/;"	f	language:C++	class:State
 monteCarloMove	/Users/wenwen/Work/chromosome/code/state.hpp	/^    void monteCarloMove();$/;"	p	language:C++	class:State
@@ -494,6 +506,8 @@ nLink	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int nLink;$/;"	m	languag
 no_reflection	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def no_reflection(a):$/;"	f	language:Python
 no_shadow	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def no_shadow(a):$/;"	f	language:Python
 np	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^import numpy as np$/;"	i	language:Python
+np	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVarRouse/meanVarRouse.py	/^import numpy as np$/;"	i	language:Python
 np	/Users/wenwen/Work/chromosome/fig/fig4thesis/paring/paring.py	/^import numpy as np$/;"	i	language:Python
@@ -563,6 +577,7 @@ pinSPB	/Users/wenwen/Work/chromosome/code/bead.cpp	/^void Bead::pinSPB() $/;"	f	
 pivot	/Users/wenwen/Work/chromosome/code/montecarlo.cpp	/^void Montecarlo::pivot(int N, int *ipivot) $/;"	f	language:C++	class:Montecarlo
 plotCompareFig	/Users/wenwen/Work/chromosome/fig/prxFig/fig7/fig7.py	/^def plotCompareFig():$/;"	f	language:Python
 plotCompareFig2	/Users/wenwen/Work/chromosome/fig/prxFig/fig7/fig7.py	/^def plotCompareFig2():$/;"	f	language:Python
+PlotFig	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^def PlotFig():$/;"	f	language:Python
 PlotFig	/Users/wenwen/Work/chromosome/script/acfFit.py	/^def PlotFig(t, acf, figName='fig\/acfFit.pdf'):$/;"	f	language:Python
 plotfig	/Users/wenwen/Work/chromosome/script/trimer.py	/^def plotfig():$/;"	f	language:Python
 plotMeanVar	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVarRouse/meanVarRouse.py	/^def plotMeanVar():$/;"	f	language:Python
@@ -571,6 +586,8 @@ plotTauForce	/Users/wenwen/Work/chromosome/script/timeScaling.py	/^def plotTauFo
 plotTauLength	/Users/wenwen/Work/chromosome/script/timeScaling.py	/^def plotTauLength():$/;"	f	language:Python
 plotVarXY	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^def plotVarXY():$/;"	f	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/centromere/centromere.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/diffnPar/diffnPar.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
+plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVar3D/meanVar3D.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/meanVarRouse/meanVarRouse.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
 plt	/Users/wenwen/Work/chromosome/fig/fig4thesis/paring/paring.py	/^import matplotlib.pyplot as plt$/;"	i	language:Python
@@ -802,6 +819,8 @@ Topo	/Users/wenwen/Work/chromosome/code/topo.hpp	/^class Topo$/;"	c	language:C++
 topoType	/Users/wenwen/Work/chromosome/code/topo.hpp	/^    int topoType;$/;"	m	language:C++	class:Topo
 TOPO_HPP_FJPVDXQX	/Users/wenwen/Work/chromosome/code/topo.hpp	/^#define TOPO_HPP_FJPVDXQX$/;"	d	language:C++
 totalRate	/Users/wenwen/Work/chromosome/code/state.hpp	/^    double totalRate;$/;"	m	language:C++	class:State
+TransitionMartrix	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def TransitionMartrix(a, b, N, L):$/;"	f	language:Python
+TransitionMartrixPeriodic	/Users/wenwen/Work/chromosome/fig/fig4thesis/eigenvalue/eigenvalue.py	/^def TransitionMartrixPeriodic(a, b, N, L):$/;"	f	language:Python
 transparency	/Users/wenwen/Work/chromosome/fig/sketch/povexport.py	/^def transparency(a):$/;"	f	language:Python
 tsa	/Users/wenwen/Work/chromosome/script/acfFit.py	/^import statsmodels.tsa.stattools as ss$/;"	i	language:Python
 u	/Users/wenwen/Work/chromosome/code/rod.hpp	/^    double **u;         \/\/ unit vector of rod$/;"	m	language:C++	class:Rod
