@@ -1,11 +1,11 @@
-\chapter{Dynamical Properties of Pulled Polymer Loops}
+\chapter{Relaxation Dynamics of the Forced Pinned Polymer Loop}
 \graphicspath{{Chapter4/Figs/}}
 
-In previous chapter, the equilibrium statistics of pinned polymer loops in an external force field are discussed in details. However, we known that the nuclear oscillation in fission yeast is of course a non-equilibrium process. So we have to assume the relaxation time of the system is much smaller than the oscillation period to make our discussion reasonable. The assumption need to be justified. On the other hand, it is interesting to know the dynamical properties of pinned polymers in an external field from theoretical point of view. To the best of our knowledge, the way to calculate the relaxation time of a pinned bead-rod model is still missing. 
+In previous chapter, the equilibrium statistics of pinned polymer loops in an external force field are discussed in details. However, we have to assume the relaxation time of the system is much smaller than the oscillation period to make our discussion reasonable. The assumption need to be justified. On the other hand, it is interesting to know the dynamical properties of pinned polymers in an external field from theoretical point of view. To the best of our knowledge, the way to calculate the relaxation time of a pinned bead-rod model in an external force field is still missing. 
 
-In this chapter, we will study the dynamical properties of pinned polymer loop model representing the chromosomes in fission yeast. We will verify our assumption of short relaxation time used in previous chapter. Using the Rouse theory, we first study the pinned bead-spring polymer loop in an external force field. Then using the mapping from bead-rod polymer to the particle-lattice picture, we calculate the full dynamics of the 1D system. The Bethe-ansatz method is utilized to solve the dynamics. Excellent results is obtained and compared to the projection of 3D polymer results from BD simulations. 
+In this chapter, we will study the dynamical properties of pinned polymer loop model representing the chromosomes in fission yeast. We will verify our assumption of short relaxation time used in previous chapter. Using the Rouse theory, we first study the pinned bead-spring polymer loop in an external force field. Then using the mapping from bead-rod polymer to the particle-lattice picture, we calculate the full dynamics of the 1D system. The Bethe ansatz method is utilized to solve the dynamics. Excellent results is obtained and compared to the projection of 3D polymer results from BD simulations. 
 
-In the first section, we illustrate how to apply the Rouse theory on our pinned polymer loop model in an external filed. In the second section, we introduce the mapping from 1D polymer dynamics to the ASEP (Asymmetric Simple Exclusion Process). An brief background knowledge of ASEP is introduced. In the third section, we use the Bethe-ansatz method to solve the ASEP problem exactly and calculate the relaxation time analytically. In the force section, we try to apply our calculation to the 3D bead-rod model. Finally, a summary is given in the last section. 
+In the first section, we illustrate how to apply the Rouse theory on our pinned polymer loop model in an external filed. In the second section, we introduce the mapping from 1D polymer dynamics to the ASEP (Asymmetric Simple Exclusion Process) and show some interesting results from the Kinetic Monte-Carlo simulations. In the third section, we use the Bethe ansatz method to solve the ASEP problem exactly and calculate the relaxation time analytically. In the forth section, we try to apply our calculation to the 3D bead-rod model. Finally, a summary is given in the last section. 
 
 
 
@@ -198,15 +198,15 @@ For the relaxation time, plug Eq. \eqref{eq:entropicSpringConstant} into the Eq.
     \label{eq:relaxationTimeRouseRod}
     \tau = \frac{\xi a^2 L^2}{3 \pi^2 k_B T}. 
 \end{equation}
-Interestingly, it is coincide with the relaxation time of a free bead-spring polymer chain with $L$ monomers. And again, it does not depend on the external force field. 
+Interestingly, it is coincide with the relaxation time of a free bead-spring polymer chain with $L$ monomers. And again, it does not depend on the external force field. We want to remark here in case of 1D, $k_H = k_B T / a^2$, which results a factor of $3$ for the relaxation time. The result will used in our later discussion. 
 
 In this section, we discussed the Rouse theory for pinned polymer loop in an external force field. Use the theory we calculate the equilibrium mean and variance of bead position and the relaxation time. The equilibrium results are compared to the results from the bead-rod model. We found the relaxation time of the bead-spring model does not depend on the external force field. Physically, it is caused by the infinite extensibility of the springs and not realistic. To explore to role of finite extensibility, in following sections, we will try to solve the relaxation time of the rigid bead-rod model. In next section, we will first introduce the mapping from the dynamics of pinned polymer loop to ASEP in 1D. 
 
 
 %********************************** %Second Section  *************************************
-\section{1D Pinned Bead-rod Loop Maps to ASEP}
+\section{1D pinned bead-rod loop can be mapped to ASEP}
 \label{sec:1d_pinned_bead_rod_loop_maps_to_asep}
-Like the same strategy used when we study the equilibrium statistics, we also begin with the simplest 1D model for the discussion of dynamics for the pinned bead-rod model. We have illustrated the mapping from one dimensional polymer loop to particles on lattice sites in previous chapter. Here, we will show that the same mapping can also used to study the polymer dynamics. The dynamics of the bead-rod polymer can be mapped to the hopping process of the exclusive particles, which is called ASEP (Asymmetric Simple Exclusion Process). After the illustration of the mapping, we will go back to introduce some of the background knowledge about the ASEP. And then, some simulation results are shown to guile us to the solution of reflecting ASEP.
+Like the same strategy used when we study the equilibrium statistics, we also begin with the simplest 1D model for the discussion of dynamics for the pinned bead-rod model. We have illustrated the mapping from one dimensional polymer loop to particles on lattice sites in previous chapter. Here, we will show that the same mapping can also used to study the polymer dynamics. The dynamics of the bead-rod polymer can be mapped to the hopping process of the exclusive particles, which is called ASEP (Asymmetric Simple Exclusion Process). And then, some simulation results are shown to guile us to the solution of reflecting ASEP.
 
 \subsection{The mapping to ASEP}
 \label{sub:the_mapping_to_asep}
@@ -223,78 +223,51 @@ Now, let us consider dynamics problem in the picture of particle-lattice. It is 
 
 To answer this question, let us consider just one particle with its neighboring sites and take the example of the particle hops to the left site. The particle hops to the left affects the states of two neighboring sites and thus the states of two neighboring rods in the polymer picture. Correspondingly, the two rods orientation change from left-right to right-left. So one step of particle hopping corresponds to a flip of two neighboring rods in the polymer picture. The same analyse can be applied to the case of particle hops to right. See in the schematic Fig. \ref{fig:asep} (b). And then our next question is how to determine the hopping rate to left and right. 
 
-Let us denote the rate of particle hopping to the right and to the left with $\alpha$ and $\beta$ respectively. Then the detailed balance condition shows
+Let us denote the rate of particle hopping to the right and to the left with $\alpha$ and $\beta$ respectively. Then the detailed balance condition indicates
 \begin{equation}
     \label{eq:detailedBalance}
     \frac{\alpha}{\beta} = \frac{P_{l+1}}{P_{l}} = \exp\left(-\frac{\Delta E}{k_B T}\right),
 \end{equation}
-where $P_l,P_{l+1}$ is the probability of the configurations before and after the hopping, which also represents the probability of corresponding polymer configuration before and after change of rod orientation. $\Delta E$ is the energy required for the change of the rod orientation. 
+where $P_l,P_{l+1}$ is the probability of the configurations before and after the hopping, which also represents the probability of corresponding polymer configuration before and after change of rods orientation. $\Delta E$ is the energy required for the change of the rods orientation. 
+On the other hand, the external force field only affects the bias of the hopping rate. The total hopping rate of a particle is determined by the effective temperature of the system, which is a constant independent of the external force. Basically, we should have $\alpha + \beta \propto k_{B}T$. However, to fully determine $\alpha$ and $\beta$, we need an exact expression of the total hopping rate. So let us now discuss how to estimate the total hopping rate.
 
-Here, we want to argue that $\Delta E = 2Fa$ for a one dimensional discrete model while $\Delta E = Fa$ for a continuous model. By continuous model we mean the 1D bead-spring model or the 3D polymer model where projected bead position can vary smoothly along the force direction. 
-In this case, the change of orientation of the connectors only requires an average displacement of $a$ along the force field direction. However, in the 1D discrete model, there is no such ``displacement'' except a discrete hopping of states, and the energy required for this hopping is calculated by the energy difference between the initial and final states.
-
-On the other hand, the external force field only affects the bias of the hopping rate. The total hopping rate of a particle is determined by the effective temperature of the system, which is a constant independent of the external force. So let us discuss the total hopping rate in the case of no external force field. 
-
-To match the time scale of the particle hopping model to the polymer model, we identify that the average time for a particle to do a hopping should be the same as the average time for the changing of orientation of corresponding connectors. Since it is hard to estimate this time scale in the 1D discrete model, we assume it is the same as the continuous polymer model. This is implied the facts that the time scale of 2D or 3D bead-rod model is correctly described by the Rouse theory in the case of no external force. For the continuous polymer model without external force field, changing orientation of two neighboring connectors requires the diffusion of the shared bead of an average distance $a$. We have
+We need to think the problem in the polymer picture. Since the total hopping rate is independent of external force field, let us consider the case of no external force field.  
+Conceptually, the total hopping rate of a particle should equal to the rate of flipping of two neighboring rods. Let us denote the time of flipping two neighboring rods as $\tau_0$, then we have
 \begin{equation}
     \label{eq:alphaPlusBeta}
-    \alpha + \beta = r_{\text{total}} = \frac{1}{\tau_0},
+    \alpha + \beta = r_{\text{total}} = \frac{1}{\tau_0}.
 \end{equation}
-and $t_0$ can be calculated as
+To estimate $\tau_0$, we assume it is the time for the shared bead of the two neighboring rods diffuse over a distance changes the rods orientation.  It is straightforward to find this distance is $2a$ for a one dimensional discrete polymer loop model, where $a$ is the length of the rod. However, we want to argue that the distance is $a$ rather than $2a$ for a continuous mode. By continuous model we mean the 1D bead-spring model or the 3D polymer model where the projected bead position varies smoothly along the force direction. It is reasonable because the orientation of rods are already changed when the bead diffuse over $a$ on average. Correspondingly, the energy difference over the diffusion is $\Delta E = Fa$.
+We mention this because we want to compare our results with the BD simulation results later on. And the BD simulations can only be done for the continuous models.
+With the above arguments, $\tau_0$ can be calculated as
 \begin{equation}
     \label{eq:timeScale}
     \tau_0 = \frac{a^2}{2 D} = \frac{\xi a^2}{2k_{B}T},
  \end{equation}
-where the diffusion constant $D = k_B T / \xi$ is used according to the Einstein relation. $\xi$ is the friction coefficient of the bead monomer. 
+where the diffusion constant $D = k_B T / \xi$ is used according to the Einstein relation. And $\xi$ is the friction coefficient of the bead monomer. 
     
-Combining Eq. \eqref{eq:detailedBalance} and Eq. \eqref{eq:alphaPlusBeta} we can obtain
+Combining Eq.~\eqref{eq:detailedBalance}, Eq.~\eqref{eq:alphaPlusBeta} and Eq.~\eqref{eq:timeScale}, we can obtain
 \begin{subequations}
     \label{eq:hoppingRate}
     \begin{align}
-        \alpha  =   \frac{r_{\text{total}}\exp{(-\Delta E / k_B T)}}{1+\exp{(- \Delta E / k_B T)}}, \\
-        \beta  =  \frac{r_{\text{total}}}{1+\exp{(- \Delta E / k_B T)}}.
+        \alpha  = \frac{2k_B T}{\xi a^2}\frac{\exp{(- Fa/k_B T)}}{1+\exp{(- Fa / k_B T)}}, \\
+        \beta  =  \frac{2k_B T}{\xi a^2}\frac{1}{1+\exp{(- Fa / k_B T)}}.
     \end{align}
 \end{subequations}
+With Eq. \eqref{eq:hoppingRate}, we now have a well defined reflecting ASEP model maps to the polymer dynamics. There are several things we want to remark here: 
 
+$\bullet$ There are only two parameters in the reflecting ASEP model, $\alpha,~\beta$. And we assume here $\alpha,~\beta$ are the same for different lattice sites, i.e. an homogeneous hopping system. 
 
-With Eq. \eqref{eq:hoppingRate} and Eq. \eqref{eq:timeScale}, we know have a well defined ASEP model with reflecting boundary conditions. And we are ready to delve deeper to solve the dynamics. But before that, let us first explain  why do we solve the problem in this way. 
+$\bullet$ The mapping represented by Eq.~\eqref{eq:hoppingRate} is a mapping from 1D particle hopping system to a 1D bead-rod polymer loop. If we want to discuss the 3D polymer system, a factor of $3$ should be multiplied to the total hopping rate. We will discuss more about this later. 
 
-Our goal is to solve the dynamics of the bead-rod polymer in an external force field. However, it is a difficult task as we have shown in previous section that the commonly used Rouse theory does not work. So we use the map from polymer to particle-lattice and define a corresponding ASEP model. The thing is ASEP is one of the fundamental models of non-equilibrium statistical physics with a wealth of tools to analyze it. For example, the Bethe-ansatz method is widely used to solve the model exactly. So our strategy is again to map our essential problem to a well known model and then solve the model and map it back to our original problem. 
+$\bullet$ Our goal is to solve the dynamics of the bead-rod polymer in an external force field. However, it is a difficult task as we have shown in previous section that the commonly used Rouse theory does not work. So we use the map from polymer to particle-lattice and define a corresponding ASEP model. The thing is ASEP is one of the fundamental models of non-equilibrium statistical physics with a wealth of tools to analyze it. For example, the Bethe ansatz method is widely used to solve the model exactly. So our strategy is again to map our essential problem to a well known model and then solve the model and map it back to our original problem. 
 
-Although ASEP is a well studied non-equilibrium model, there are not so many works dealing with the particular case of reflecting boundary conditions. To the best of our knowledge, the exact solution of the full dynamics is still missing. In the next section, we will solve the problem use the Bethe-ansatz method. However, we would like to introduce a little bit the background of ASEP before doing that. 
+Although ASEP is a well studied non-equilibrium model, there are not so many works dealing with the particular case of reflecting boundary conditions. To the best of our knowledge, the exact solution of the full dynamics is still missing. In the next section, we will solve the problem completely use the Bethe ansatz method. However, we would like to first discuss some interesting numerical results to get a feeling of what the solution looks like. 
 
+\subsection{Some numerical results}
+\label{sub:numerical_results}
 
-\subsection{Brief introduction of ASEP}
-\label{sub:brief_introduction_of_asep}
-
-ASEP model is said to be a minimal non-equilibrium model similar to the Ising model in equilibrium statistical physics \cite{Derrida1998, Mallick2011b}. Interestingly, it is first proposed for the study of a biological problem. In 1968, MacDonald et al. proposed a mathematical model for the kinetics of protein synthesis by ribosomes, which is essentially the ASEP model \cite{Macdonald1968}. However, the name of ASEP is introduced later in 1970 by Spitzer with the aim of rigorously derive macroscopic hydrodynamic behavior from a microscopic model \cite{Spitzer1970}. The task is done by Varadhan et al. on this specific simple model \cite{hsu1999}. ASEP model has a lot of applications besides those mentioned above. Other examples ranging from the motion of motor molecules along the micro-tubes to the traffic systems \cite{Bressloff2013, schadschneider2010}. 
-
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=1.0\linewidth]{asepSchematic}
-    \caption{Schematics of ASEP model. (a) ASEP with periodic condition. (b) ASEP with open boundary condition.}
-    \label{fig:asepSchematic}
-\end{figure}
-
-The simplest ASEP model is ASEP with periodic boundaries \cite{Mallick2011b}. See a schematic in Fig. \ref{fig:asepSchematic} (a). The stationary measure is simply a uniform distribution no matter the hopping rates have a bias or not. If there is a bias on the hopping rate, then a steady current will be induced in the stationary measure. This is one of the simplest example that detailed balance is not satisfied in the stationary state. The full dynamics of this case can be solved by the Bethe-ansatz method \cite{Batchelor2007}, we will discuss more about it later. 
-
-People are also interested in the case of ASEP on a infinite line from theoretical point of view \cite{Levitt1973,Barkai2010a,Chou2011}. For example, one can derive rigorously the diffusion of a tagged particle for the special case of equal hopping rate to both side.
-\begin{equation}
-    \label{eq:diffusionInfASEP}
-    \left< x^2 \right> = 2 \frac{1-\rho}{\rho}\sqrt{\frac{t}{\pi}},
-\end{equation}
-where $\rho$ is the density of particles. So we can see it is a sub-diffusion process as long as $\rho\neq 0$. This phenomenon is observed in the experiments \cite{Chou2011}.
-
-ASEP with open boundaries is consider as the minimal microscopic model of transport \cite{Crampe2014b, Mallick2011b}. See in Fig. \ref{fig:asepSchematic} (b). In this model, the two ends of the lattice is connected to two different reservoirs. So the rate of insertion and removal are different at the two ends. For instance, in the simplest case, particles can only be inserted at one end and removed at the other end. So a current can be induced by the bias hopping rates. In 1991, Krug et al. studied the ASEP with open boundaries and discovered the phase transitions in the model. Depending on the insertion or removal rates at the ends, the stationary state of the system can be in high density, low density or maximum current phase. And the phase transition can occur by adjusting those boundary conditions \cite{Krug1991}. 
-
-In order to solve the stationary state of the open ASEP, Derrida et al. proposed an approach which is now called Matrix Product Ansatz. It is a brilliant method far more useful than it though to be at the beginning. Interested readers can refer to the excellent review paper for more details \cite{Derrida1998}. There is a booming of researches on the topic of ASEP after the work of Derrida and his co-workers. A lot of people make significant contributions to the field. For example, in 1994, Sch\"{u}tz et al. investigate the reflecting ASEP use the $U_q(SU(2))$ quantum group \cite{Sandow1994}. The exact stationary solution was found but not the dynamics. De Gier found the exact solution of open ASEP with certain special constraints in 2005 \cite{DeGier2005}. Spohn et al. constructed an exact solution of the KPZ equation using the ASEP in 2010 \cite{Sasamoto2010}. 
-
-Despite the simplicity of the ASEP model, the way to find the solution of general open ASEP system is still an open question \cite{Crampe2014b, Mallick2011b}. There are a lot of efforts working in this direction. Although the Matrix Product Ansatz is widely used in the study of the stationary state ASEP. The Bethe-ansatz method is more powerful when it comes to the dynamics. We will discuss more about it because we are going to use a generated version of this method to solve the reflecting ASEP in our problem. However, before go into the detailed calculations, let us first discuss some interesting numerical results, which also works as the hints for the searching of the exact solution.
-
-\subsection{Numerical results of the dynamics}
-\label{sub:numerical_results_of_the_dynamics}
-
-We have already solve the equilibrium statistics of the 1D particle-lattice model in previous chapter. Thus the equilibrium statistics of the ASEP model is known. To solve the dynamics, we first use several numerical techniques to get some hints about what are the features of the non-stationary dynamics. Since the 1D reflecting ASEP is a well defined model, we can forget about the mapping to polymer system, do any kind of simulation as we want. We will discuss some of the details here. 
+We have already solve the equilibrium statistics of the 1D particle-lattice model in previous chapter. Thus the equilibrium statistics of the ASEP model is known. To solve the dynamics, we first use several numerical techniques to get some hints about what are the features of the non-stationary dynamics. Since the 1D reflecting ASEP is a well defined model, we can forget about the mapping to polymer system and concentrate on the ASEP model. We will discuss some of the details here. 
 
 For the dynamics of the system, our main interest is the relaxation time. Relaxation time characterizes how long the system returns to the stationary state when subjected to a perturbation. In the reflecting ASEP system, we measure the trajectory of a tagged particle, then calculate the auto-correlation function. Usually, we choose the particle in the middle. Denote the position of this particle as $x_{\frac{N}{2}}$, $N$ is total number of particles in the system, the autocorrelation function can be written as 
 \begin{equation}
@@ -302,62 +275,65 @@ For the dynamics of the system, our main interest is the relaxation time. Relaxa
     \left< x_{\frac{N}{2}}(t) x_{\frac{N}{2}}(0) \right> 
     \sim \sum_{k}\exp\left(-\frac{t}{\tau_k}\right).
 \end{equation}
-In the long time regime, the largest $\tau_k$ dominates the relaxation. So the relaxation time is actually a short name of the longest relaxation time. By fitting the autocorrelation function in the long time regime, we can obtain the relaxation time numerically. 
+In the long time regime, the largest $\tau_k$, which we denote by $\tau$ for simplicity, dominates the relaxation. So the relaxation time is actually a short name of the longest relaxation time. By fitting the autocorrelation function in the long time regime, we can obtain the relaxation time numerically. 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.7\linewidth]{diffnPar}
-    \caption{The relaxation time of 1D reflecting ASEP system obtained from the Kinetic Monte Carlo simulation. Total number of lattice site is $L=100$, different makers denote different total number of particles on the lattice. See more explanation in the main context.}
+    \includegraphics[width=0.6\linewidth]{diffnPar}
+    \caption{The relaxation time of 1D reflecting ASEP system varies with hopping bias. Total number of lattice site is $L=100$, and $\alpha+\beta=2$. Different makers denote different total number of particles on the lattice. }
     \label{fig:diffnPar}
 \end{figure}
 
-In our simulation of 1D reflecting ASEP, we use the Kinetic Monte Carlo algorithm to simulate the particle hopping process. Details of this algorithm is shown in appendix \ref{}. Then the autocorrelation function Eq. \eqref{eq:autocorrelation} is measured and fitted to extract the longest relaxation time. 
-In Fig. \ref{fig:diffnPar}, we show the relaxation time of a 1D reflecting ASEP model varies with the dimensionless temperature. Since the total hopping rate $\alpha + \beta$ is fixed and dimensionless temperature is defined as 
+In our simulation of 1D reflecting ASEP, we use the Kinetic Monte Carlo algorithm to simulate the particle hopping process. Details of this algorithm is shown in Appendix~\ref{append:mc1D}. Then the autocorrelation function Eq.~\eqref{eq:autocorrelation} is measured and fitted to extract the longest relaxation time. 
+In Fig.~\ref{fig:diffnPar}, we show the relaxation time of a 1D reflecting ASEP model varies with a dimensionless parameter $q$, which is defined as 
 \begin{equation}
-    \label{eq:biasT}
-    \tilde{T} = \frac{k_B T} {\Delta E} = - \frac{1}{\ln \frac{\alpha}{\beta}}.
+    \label{eq:hoppingBias}
+    q:= \ln\left(\frac{\beta}{\alpha}\right)\in\left[0,1\right].
 \end{equation}
-Eq. \eqref{eq:detailedBalance} is utilized in the above equation. So the dimensionless temperature $\tilde{T}$ can be interpreted as the degree of bias in the hopping model. Basically, a small $\tilde{T}$ (which can be caused by a large external force of a low temperature) means a strong hopping bias and vice versa.
+When there is no hopping bias, i.e. $\alpha=\beta$, we have $q=0$. And $q=1$ means $\beta/\alpha = \infty$.
+Since the total hopping rate $\alpha + \beta$ is fixed, $q$ is the essential parameter we interested in.
+% \begin{equation}
+%     \label{eq:biasT}
+%     \exp\left(-\frac{1}{\tilde{T}}\right) = \frac{\alpha}{\beta} = \exp\left(-\frac{\Delta E}{k_B T}\right).
+% \end{equation}
+% Eq. \eqref{eq:detailedBalance} is utilized in the above equation. So the dimensionless temperature $\tilde{T}$ can be interpreted as the degree of bias in the hopping model. Basically, a small $\tilde{T}$ (which can be caused by a large external force of a low temperature) means a strong hopping bias and vice versa.
 
-We show in Fig. \ref{fig:diffnPar} the simulation results of a system with total lattice sites $L=100$ but different number of particles $N$ on the lattice. A crucial point is hinted by the simulation results. That is the relaxation time of the system seems to be irrelevant with the number of total particles on the lattice (as long as it is neither all empty nor all occupied). This is something one would not expect. We can imagine the relaxation time of a system with $N$ particles and $L-N$ particles should be the same because of the particle-hole symmetry. However, our simulation results suggest it is more than that. This observation will be explained later.
+We show in Fig. \ref{fig:diffnPar} the simulation results of a system with total lattice sites $L=100$ but different number of particles $N$ on the lattice. We can read from Fig.~\ref{fig:diffnPar} that the three curves of $\tau(q)$ overlap. The crucial point hinted by the simulation results is that the relaxation time of the system seems to be independent of the total particle number on the lattice (as long as it is neither all empty nor all occupied). This is something one would not expect. We can imagine the relaxation time of a system with $N$ particles and $L-N$ particles should be the same because of the particle-hole symmetry. However, our simulation results suggest it is more than that. This observation will be explained later.
 
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=1.0\linewidth]{eigenvalues}
-    \caption{Eigenvalues of a small 1D reflecting ASEP system with different number of particles on the lattice. $L=10$ and the number of particle $N\in\{1,2,\cdots,9\}$. (a) All eigenvalues, the eigenvalue is marked by bars. (b) Zoom in view for the shaded regime in (a), eigenvalues is marked by asters, the back line denotes the zero line and the red line shows that the largest non-zero eigenvalues are all the same. Parameters are set as $\alpha=1$, $\beta=2$.}
+    \caption{Eigenvalues of a small 1D reflecting ASEP system with different number of particles on the lattice. $L=10$ and the number of particle $N\in\{1,2,\cdots,9\}$. (a) All eigenvalues, the eigenvalue is marked by bars. (b) Zoom in view for the shaded regime in (a), eigenvalues is marked by asters, the back line denotes the zero line and the red line shows that the second largest eigenvalues are all the same. Parameters are set as $\alpha=1$, $\beta=2$.}
     \label{fig:eigenvalues}
 \end{figure}
-For a discrete model such as ASEP, the dynamical information is encoded in the Markovian matrix of the master equation. By diagonalizing the matrix, we can obtain the full dynamical information in terms of eigenvalues and eigenvectors. For example, the stationary state corresponds to the eigenvector with eigenvalue equals to zero. And the longest relaxation time of the system is related to the largest non-zero eigenvalue. Because for a stochastic system with stationary state, the eigenvalues of the Markovian matrix are always non-positive. And the longest relaxation time can be calculated as 
+For a discrete model such as ASEP, the dynamical information is encoded in the Markovian matrix. By diagonalizing the matrix, we can obtain the full dynamical information in terms of eigenvalues and eigenvectors. For example, the stationary state corresponds to the eigenvector with eigenvalue equals to zero. And the longest relaxation time of the system is related to the second largest eigenvalue. Because for a stochastic system with stationary state, the eigenvalues of the Markovian matrix are always non-positive. And the longest relaxation time can be calculated as 
 \begin{equation}
     \label{eq:eigenvalue2relaxation}
     \tau = - \frac{1}{\Lambda_1},
 \end{equation}
-where $\Lambda_1$ is the largest non-zero eigenvalue.
+where $\Lambda_1$ is the second largest eigenvalue.
 
-In Fig. \ref{fig:eigenvalues}, we use the brute force algorithm to diagonalize a small size system with $L=10$ lattice sites and different number of total particles. There are several key remarks on these results.
+In Fig. \ref{fig:eigenvalues}, we use the brute force algorithm to diagonalize a small size system with $L=10$ lattice sites and different number of particles. Several remarks on the results are given in the following:
 
 $\bullet$ All eigenvalues are non-positive as expected. 
 
 $\bullet$ The eigenvalues satisfy the particle-hole symmetry, i.e. the eigenvalues for case of $N$ particle and $L-N$ particles are exactly the same. This is well illustrated in Fig. \ref{fig:eigenvalues} (a). 
 
-$\bullet$ By carefully examining Fig. \ref{fig:eigenvalues} (a), we can find that the set of eigenvalue for case of $N=1$ is a subset of the case $N=2$. And in general, the set of eigenvalue for case $N$ is contained in the set of eigenvalue of case $N+$ as long as $N<L/2$. This is also another interesting key feature of the reflecting ASEP system.
+$\bullet$ By carefully examining Fig. \ref{fig:eigenvalues} (a), we can find that the set of eigenvalue for case of $N=1$ is a subset of the case $N=2$. And in general, the set of eigenvalue for case $N$ is contained in the set of eigenvalue of case $N+1$ as long as $N<L/2$. This is also another interesting key feature of the reflecting ASEP system.
 
-$\bullet$ As indicated by the red line in the zoom in Fig. \ref{fig:eigenvalues} (b), we can see that the largest non-zero eigenvalue for all the cases are the same. This explains the observation shown in Fig. \ref{fig:diffnPar} in this special case. For the general case, we will explain after finding the exact solution in next section.
+$\bullet$ As indicated by the red line in the zoom in Fig. \ref{fig:eigenvalues} (b), we can see that the second largest eigenvalue for all the cases are the same. This explains the observation shown in Fig. \ref{fig:diffnPar} in this special case. For the general case, we will explain after finding the exact solution in next section.
 
-In this section, we introduce the mapping from polymer dynamics to the ASEP model with reflecting boundaries. Moreover, the history of ASEP model is introduced briefly. Furthermore, we discuss some interesting simulation results of the reflecting ASEP model. However, we just list some key inspiring simulation results here, and more will be discussed later together with the theoretical results. 
-In next section, we will use the generalized Bethe-ansatz method to solve the reflecting ASEP model. With the exact solution, we map it back to understand the polymer dynamics. To the best of knowledge, the exact solution we will present is new and the way of generalization the Bethe-ansatz is novel. We will show it in details. 
+In this section, we introduce the mapping from polymer dynamics to the ASEP model with reflecting boundaries. Moreover, we discuss some interesting simulation results of the reflecting ASEP model. However, we just list some key inspiring simulation results here, and more will be discussed later together with the theoretical results. 
+In next section, we will use the generalized Bethe ansatz method to solve the reflecting ASEP model. With the exact solution, we map it back to understand the polymer dynamics. To the best of knowledge, the exact solution we will present is new and the way of generalization the Bethe ansatz is novel. We will show it in details. 
 
 
 
 %********************************** % Third Section  *************************************
-\section{The Bethe-ansatz Solution of ASEP}
+\section{The Bethe ansatz solution of ASEP}
 \label{sec:the_bethe_ansatz_solution_of_asep}
-In this section, we will use the generalized Bethe-ansatz method to solve the dynamics of the ASEP model with reflecting boundaries. 
 
-Bethe-ansatz is a method proposed by Hans Bethe in 1931 in order to solve the Heisenberg spin chain model with periodic condition \cite{Bethe1931}. At that time, he did not realize his great work opened a new branch of physics which is now called the integrability theory \cite{Batchelor2007}. In 1963, Lieb-Liniger use the Bethe-ansatz method solved the Bose gas with $\delta$ interaction potential \cite{Lieb1963a,Lieb1963}. 
-Another important application of Bethe-ansatz is the six vertex model which is also solved by Lieb. The next big step was the discovery of the Yang-Baxter equation, which is introduced independently by C.N. Yang and Rodney Baxter \cite{Yang1967,Baxter1972}. The Yang-Baxter equation provides a criteria to find out whether a model is integrable model or not \cite{Batchelor2007}. The investigation of the Yang-Baxter equation led to the introduction of quantum group theory and the theory of topological knot invariants etc. 
-During 1970s and 1980s, advanced Bethe-ansatz methods like functional Bethe-ansatz  and algebraic Bethe-ansatz were developed \cite{Mallick2011b}. After the introduction of the ASEP model, these Bethe-ansatz methods were quickly adopted to solve it because of the intrinsic connection from ASEP to a spin chain system. For example, the solution of periodic ASEP is almost identical to the Heisenberg spin chain with periodic condition \cite{Mallick2011b}. The study of ASEP and Bethe-ansatz is still a very active field. There are a lot of references one can refer to \cite{Derrida1998,Liggett1999,Schutz2001,Golinelli2006,Mallick2011b}. 
+As introduced in Section~\ref{sec:asep_and_bethe_ansatz}, the Behte ansatz method is a powerful method used to seeking for complete solutions of the ASEP system. For instance, the standard Bethe ansatz solution which is composed by plane wave functions works perfectly on the ASEP with periodic boundaries. However, the standard Bethe ansatz does not work in the case of reflecting boundaries.
 
-The traditional Bethe-ansatz utilize the superposition of plane wave function as the trial solution. In our generalised method, we will show that the solution can be constructed by the combination of single particle eigenfunctions. And the single particle eigenfunction, which takes into account the boundary condition, can be more complex than the simple plane wave functions. So in order to construct the solution, let us first discuss the single particle solution.
+In this section, we will show that a generalized Bethe ansatz method can be used to solve the dynamics of the ASEP model with reflecting boundaries. Unlike the standard Bethe ansatz, the generalised Bethe ansatz is constructed by more complex building functions. Moreover, we find the single particle eigenfunctions, which take into account the boundary conditions, can be worked as our building functions. In order to construct the solution, let us first discuss the single particle solution of reflecting ASEP system.
 
 \subsection{Solution of single particle}
 \label{sub:solution_of_single_particle}
@@ -520,7 +496,7 @@ Before delve into the Bethe Ansatz solution, let us release the fixed coefficien
     \psi_{ns}(x) & =  \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}} \left(A_+ e^{ipx} +  A_-e^{-ipx}\right),
 \end{align}
 \end{subequations}
-where $\psi_s$ and $\psi_{ns}$ represent stationary eigenfunction and non-stationary eigenfunctions respectively, $A,~A_+,~A_-$ are amplitude coefficients, $p$ is the wave vector of excited eigenmodes. In case of single particle case above, these coefficients can be fixed by applying the boundary conditions Eq. \eqref{eq:boundaries-single-particle}. Here however, we will leave them free now and use the general form to construct the Bethe-ansatz solution. Boundary conditions will be imposed afterwards and all unfixed coefficients can be solved by then. 
+where $\psi_s$ and $\psi_{ns}$ represent stationary eigenfunction and non-stationary eigenfunctions respectively, $A,~A_+,~A_-$ are amplitude coefficients, $p$ is the wave vector of excited eigenmodes. In case of single particle case above, these coefficients can be fixed by applying the boundary conditions Eq. \eqref{eq:boundaries-single-particle}. Here however, we will leave them free now and use the general form to construct the Bethe ansatz solution. Boundary conditions will be imposed afterwards and all unfixed coefficients can be solved by then. 
 
 The idea to construct the $N$ particle solution is inspired by the standard Coordinate Bethe Ansatz (CBA). However, instead of using the plain plane wave function as building blocks, we use the general form of single particle eigenfunctions with unfixed coefficients. The example of ansatz for $\Psi(x_1, x_2)$ reads
 \begin{equation}
@@ -672,12 +648,12 @@ Unfortunately, it might not possible to solve the Bethe equation analytically.  
 
 To summarize, the complete solution of two particle hopping system with reflecting boundaries was found. The solution is shown in the form of eigenfunction expansion, i.e. Eq. \eqref{eq:eigenModesTwo}. The stationary eigenfunction with eigenvalue $\Lambda_0=0$ is listed as Eq.  \eqref{eq:stationaryTwo}, while the two types of non-stationary eigenvalues and corresponding eigenfunctions are listed in Eq. \eqref{eq:eigenvaluesTwoMixed}, \eqref{eq:eigenvaluesTwoBoth} and Eq.  \eqref{eq:nonstationaryTwoMixed}, \eqref{eq:nonstationaryTwoBoth}, respectively. They can be fully determined by  solving the Bethe Equation Eq. \eqref{eq:betheEqTwoMixed} and Eq. \eqref{eq:betheEqTwoBoth}. Part of them are analytically shown in Eq. \eqref{eq:eigenTwoMixed}.
 
-Finally, there are several remarks we want to make here.  Firstly, as one can see from Eq.  \eqref{eq:eigenTwoMixed} that the eigenvalues of two particle system always contain the eigenvalues of single partile system. We will show later this can be generalised that the eigenvalues of $N+1$ particle system always contain the eigenvalues of $N$ particle system for $N<L/2$. Secondly, the relaxation time of the system is realted to the largest non-zero eigenvalue $\Lambda_1$. Eq.  \eqref{eq:eigenTwoMixed} hints $\Lambda_1=-(\alpha+\beta)+2\sqrt{\alpha\beta} \cos\left(\frac{\pi}{L}\right)$.  However, since there is no analytical solution for eigenvalues of the second kind, it will be difficult to rigously prove that. Nummerical evidences will be provided to verify this is indeed true.
+Finally, there are several remarks we want to make here.  Firstly, as one can see from Eq.  \eqref{eq:eigenTwoMixed} that the eigenvalues of two particle system always contain the eigenvalues of single partile system. We will show later this can be generalised that the eigenvalues of $N+1$ particle system always contain the eigenvalues of $N$ particle system for $N<L/2$. Secondly, the relaxation time of the system is realted to the second largest eigenvalue $\Lambda_1$. Eq.  \eqref{eq:eigenTwoMixed} hints $\Lambda_1=-(\alpha+\beta)+2\sqrt{\alpha\beta} \cos\left(\frac{\pi}{L}\right)$.  However, since there is no analytical solution for eigenvalues of the second kind, it will be difficult to rigously prove that. Nummerical evidences will be provided to verify this is indeed true.
 
 In next subsection, we will generalise the solution to the $N$ particles system. It is actually quite straight forward after we have done the two particles case. 
 
 
-\subsection{Solution of General $N$ particles}
+\subsection{Solution of general $N$ particles}
 \label{sub:solution_of_general_n_particles}
 
 Now we consider the system with $N$ particles. Notice that, $N=L/2$ has to be set considering the mapping to polymer loop. However, our method of finding solution works for arbitrary $N$. As before, we first write down the master equation of a $N$ particles system. 
@@ -788,13 +764,13 @@ By solving Eq. \eqref{eq:betheEqN} we get all the $p_n$ and then one can plug ba
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\linewidth]{spectrum}
-    \caption{The left panel: the embedding structure of eigenvalues illustrated by a system of $L=10$ with one, two and three particles. $\alpha=2,\beta=1$. The right panel: eigenvalue obtained from brute force digitalization of Markovian matrix and from the Bethe equations. $\alpha=2,\beta=1,L=10,N=2$.}
+    \caption{The left panel: the embedding structure of eigenvalues illustrated by a system of $L=10$ with one, two and three particles. The right panel: eigenvalue obtained from brute force digitalization of Markovian matrix and from the Bethe equations. $\alpha=2,~\beta=1,~L=10$ for both panel and $N=2$ for the right panel.}
     \label{fig:spectrum}
 \end{figure}
-Now let us discuss the case that $0<N_s<N$. The calculation of the two particles system is a good illustration. We can easily find out there is nothing different except we will have only $N-N_s$ wave vectors and $2N-N_s$ amplitude coefficients. So one just have to use the relation similar to Eq.  \eqref{eq:scatterFactorExclusive} together with Eq.  \eqref{eq:scatterFactorBoundaryN} to build the Bethe Equation. 
-Moreover, Eq.  \eqref{eq:betheEqTwoMixed} tells us that the Bethe Equations we can obtain will be exact the same as the Bethe Equations of the second type $N-N_s$ particles system. So according to Eq. \eqref{eq:eigenvaluesN} for the eigenvalues, we can conclude that the eigenvalues of $N-N_s$ particles system are always contained in the eigenvalue set of $N$ particle system. 
+Now let us discuss the case that $0<N_s<N$. The calculation of the two particles system is a good illustration. We can easily find out there is nothing different except we will have only $N-N_s$ wave vectors and $2N-N_s$ amplitude coefficients. So one just have to use the relation similar to Eq.  \eqref{eq:scatterFactorExclusive} together with Eq.  \eqref{eq:scatterFactorBoundaryN} to build the Bethe Equations. 
+Moreover, Eq.  \eqref{eq:betheEqTwoMixed} tells us that the obtained Bethe Equations are exact the same as the Bethe Equations of $N-N_s$ particles system of the second type. So according to Eq. \eqref{eq:eigenvaluesN} for the eigenvalues, we can conclude that the eigenvalues of $N-N_s$ particles system are always contained in the eigenvalue set of $N$ particle system. 
 Notice that this is only true for $N<L/2$. For $N>L/2$, one can easily use the particle-hole duality which shows that the eigenvalue of $N$ particles system should be the same as $L-N$ particles system.
-This important structure of the solution explains our simulation results stated in section \ref{sub:numerical_results_of_the_dynamics}.
+This important structure of the solution explains our simulation results stated in Section~\ref{sub:numerical_results}.
 
 This kind of embedding structure is verified by our simulations.  In Fig. \ref{fig:spectrum}, we show in the left panel that eigenvalues of case $N=1$ are contained in the set of eigenvalues $N=2$, and all eigenvalues of case $N=2$ are contained in the set of $N=3$.  In the right panel, the eigenvalues obtained from the brute force diagonalize of Markovian matrix and from the solution of the Bethe equations Eq. \eqref{eq:betheEqN} are compared. We can see that they are identical to each other. 
 
@@ -809,17 +785,22 @@ Finally, we remark that the Bethe Equations have to be solved numerically in mos
     \end{align}
 \end{subequations}
 Notice that the set of eigenvalue is exactly the single particle spectrum, and again $\phi_k(x)$ is exactly the single particle eigenfunction.
-Fortunately, the numerical evidence shows that the most interesting eigenmode, i.e. the slowest relaxation mode, is contained in this set.  We will discuss it in next section. 
+Fortunately, the numerical evidence shows that the most interesting eigenmode, i.e. the slowest relaxation mode, is contained in this set.  We will discuss it in the following subsection. 
 
 \subsection{Relaxation time}
 \label{sub:relaxation_time}
+With the complete Bethe solution of the reflecting ASEP system, the relaxation time can be discussed in details.
+We will first discuss the relaxation time of the ASEP system and then map it back to discuss the relaxation of the polymer system. 
 
-The largest non-zero eigenvalue we found and verified by numerical results is 
+\subsubsection{Relaxation time of reflecting ASEP}
+\label{ssub:Relaxation time of reflecting ASEP}
+The relaxation time of the ASEP system is determined by the second largest eigenvalue of Markovian matrix. The second largest eigenvalue we found and verified by numerical results is 
 \begin{equation}
     \label{eq:largestEigenvalue}
     \Lambda_1 = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{\pi}{L})
 \end{equation}
-Let us assume $L \gg 1$, then we can expand the cosine term, obtain 
+In principle, one has to solve all the Bethe equations to obtain the second largest eigenvalue. However, it is a very difficult task to solve them all analytically except the single excitation mode listed in Eq.~\eqref{eq:eigenN}. For single particle case, we can immediately find Eq.~\eqref{eq:largestEigenvalue} is the second largest eigenvalues. Furthermore, for the continues limit of ASEP with particle density $N/L$, which is the single file diffusion, we can also prove Eq.~\eqref{eq:largestEigenvalue} is true. As Eq.~\eqref{eq:largestEigenvalue} is valid in the two limits, we assume it is also true in between. And this statement is indeed verified by the numerical results.
+If we assume $L \gg 1$, Eq.~\eqref{eq:largestEigenvalue} can be expanded as
 \begin{equation}
     \label{eq:largestEigenvalueExpanded}
     \Lambda_1 = -(\sqrt{\beta}-\sqrt{\alpha})^2 -
@@ -829,26 +810,36 @@ And the relaxation time can be calculated as $\tau = -\frac{1}{\Lambda_1}$.
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.8\linewidth]{relaxation1D}
-    \caption{Relaxation time of 1D model varies with the dimensionless temperature $\tilde{T}:=k_B T/\Delta E$. The $y$ axis is normalized with the Rouse relaxation time. The ACF curves for several typical cases are shown in the inset. The corresponding relaxation time is fitted and show with dashed black lines, which are also marked with the same color in the simulation dots. }
+    \includegraphics[width=0.7\linewidth]{relaxation1D}
+    \caption{Relaxation time of 1D reflecting ASEP varies with the hopping bias defined in Eq.~\eqref{eq:hoppingBias}. The relaxation time is normalized with the Rouse relaxation time. The ACF curves for several typical cases are shown in the inset. The corresponding relaxation time is fitted and show with dashed black lines, which are also marked with cycle of the same color in the simulation dots. }
     \label{fig:relaxation1D}
 \end{figure}
-There are several information we can read form Eq.  \eqref{eq:largestEigenvalueExpanded}. Let us discuss the strong and weak external force regime separately. 
-In the strong external force regime, the bias of hopping rate is large. Without loss of generality, we can assume $\beta \gg \alpha$. Then $\Lambda_1 \rightarrow -\beta$ and the relaxation time $\tau \rightarrow 1/\beta$. So the relaxation time of the system tends to be a constant which is independent of the system size. Moreover, the relaxation time $\tau\rightarrow 0 $ as $\beta\rightarrow\infty$.
-In the weak external force regime, we have $\alpha \approx \beta$. Thus we obtain $\tau \approx \frac{L^2}{\sqrt{\alpha\beta}\pi^2}$. We can see the scaling $\tau \sim L^2$, which means the dynamical exponent of the system is $2$. 
 
-Now, we can re-map the ASEP model back to the picture of polymer dynamics to discuss to the relaxation time of 1D polymer model. Utilize Eq. \eqref{eq:hoppingRate} and Eq. \eqref{eq:timeScale} and plug them into Eq. \eqref{eq:largestEigenvalue}, the relaxation time can be calculated analytically. Moreover, in the weak external force limit, we have
+There are several information one can read form Eq.  \eqref{eq:largestEigenvalueExpanded}. Let us discuss the strong and weak hopping bias regime separately. 
+For strong bias $\beta \gg \alpha$, then $\Lambda_1 \rightarrow -\beta$ and the relaxation time $\tau \rightarrow 1/\beta$. So the relaxation time of the system tends to be a constant which is independent of the system size. Moreover, the relaxation time $\tau\rightarrow 0 $ as $\beta\rightarrow\infty$.
+In the weak bias $\alpha \approx \beta$, we can obtain $\tau \approx \frac{L^2}{\sqrt{\alpha\beta}\pi^2}$. We can see the scaling $\tau \sim L^2$, which means the dynamical exponent of the system is $2$. 
+The result of relaxation time against hopping bias is shown in Fig.~\ref{fig:relaxation1D}. The Kinetic Monte-Carlo results are compared with the theory and we can find them matches to each other. The asymptotic behaviors of strong and weak bias are illustrated and consistent to our analysis. The autocorrelation function (ACF) used for extracting relaxation time is shown in the inset for several typical case of hopping bias.
+
+\subsubsection{Map back to 1D polymer}
+\label{ssub:Map back to 1D polymer}
+
+Now, we can re-map the ASEP model back to the picture of polymer dynamics to discuss to the relaxation time of 1D polymer model. Utilize Eq.~\eqref{eq:hoppingRate} and plug it into Eq.~\eqref{eq:largestEigenvalue}, the relaxation time can be calculated explicitly. 
+\begin{equation}
+    \label{eq:relaxationTime1D}
+    \tau = \frac{\xi a^2 L^2}{\pi^2 k_{B} T} - \frac{\xi L^4 a^2 \left(e^{\frac{F a}{k_{B} T}} - 1\right)^2} {\pi^2 k_{B} T \left(L^2 \left(e^{\frac{F a}{k_{B}T}} - 1\right)^2 + \pi^2 \left(e^{\frac{F a}{k_{B}T}} + 1\right)^2\right)}.
+\end{equation}
+Here, $F$ is the strength of the external force field and $T$ is the effective temperature that characterize the noise level of the system. We purposely write it in two terms to highlight the first term is one dimensional Rouse time and the second term is the factor caused by external force field. This can be seen by taking the zero external force limit of Eq.~\eqref{eq:relaxationTime1D}, we have
 \begin{equation}
     \label{eq:relaxationTime1DnoForce}
     \tau = \frac{\xi a^2 L^2}{\pi^2 k_B T}.
 \end{equation}
-The result above can be compared with the prediction of one dimensional Rouse theory. According to our calculation in section \ref{sec:rouse_theory_of_the_pinned_bead_spring_loop}, the one dimensional relaxation time of a pinned polymer loop is $3$ times of the three dimensional model. We found it is exactly the same with our results here, even the pre-factor is the same. Also notice that the Rouse scaling with exponent $2$ is recovered. 
+The result above can be compared with the prediction of one dimensional Rouse theory. According to our calculation in Section~\ref{sec:rouse_theory_of_the_pinned_bead_spring_loop}, the one dimensional relaxation time of a pinned polymer loop is $3$ times of the three dimensional model. We found it is exactly the same with our results here, even the pre-factor is the same. Also notice that the Rouse scaling with exponent $L^2$ is recovered. 
 
-In Rouse theory, the relaxation time does not depend on external force. In contract, we have here an obvious force dependence of the relaxation time. This point highlight the fundamental difference between the infinite extensible bead spring model and the rigid bead rod model which is of course finite extensible. 
-In Fig. \ref{fig:relaxation1D}, we show how the relaxation time varies with the dimensionless temperature, which is defined as $\tilde{T} = \frac{k_B T}{2Fa}$. Notice $\tilde{T} \propto \frac{1}{F}$ when other parameters are fixed. As we can see from the figure, the relaxation time tends to zero in the strong force limit (left side) and approaches to the Rouse relaxation time in the weak force limit (right side). The theory matches with the simulation results perfectly. Moreover, the ACF of several cases are shown in the inset. 
+In Rouse theory, the relaxation time does not depend on external force. In contract, we have here an obvious force dependence of the relaxation time here. This point highlight the fundamental difference between the infinite extensible bead-spring model and the finite extensible bead-rod model.
 
+Unfortunately, we can not do the BD simulation for one dimensional bead-rod model. So the relaxation behavior postulated by Eq.~\eqref{eq:relaxationTime1D} can not further verified except for the Kinetic Monte-Carlo results shown in Fig.~\ref{fig:relaxation1D}. However, we will come back to discuss the comparison of BD simulations and the theory in 3D.
 
-In this section, we use the generalized Bethe Ansatz methods solve the ASEP model with reflecting boundaries exactly.  The stationary distribution obtained here is compared with our previous results. And the analytical relaxation time, which is verified by the simulation results, is analyzed in different cases. We also re-map it back to the polymer system to analyze the polymer dynamics in 1D. However, the 1D polymer is of course a idealized model only exists in our imagination. In next section, we will try to use the results obtained here to further analyze the real three dimensional polymer system.
+In this section, we use the generalized Bethe Ansatz methods solve the ASEP model with reflecting boundaries exactly.  The stationary distribution obtained here is compared with our previous results. And the explicit form of relaxation time is analyzed in different cases. We also re-map it back to the polymer system to discuss the relaxation time of pinned polymer loop in 1D. However, the 1D polymer model is a idealized model that on which the BD simulation is impossible. In next section, we will try to use the results obtained here to further analyze the real three dimensional polymer system.
 
 
 
@@ -856,42 +847,94 @@ In this section, we use the generalized Bethe Ansatz methods solve the ASEP mode
 \section{Dynamics of 3D bead-rod polymer loop}
 \label{sec:dynamics_of_3d_bead_rod_polymer_loop}
 
-Unlike the 1D model discussed in previous section, the 3D bead-rod model can be studied precisely by the BD simulations. So we will discuss the BD simulation results in this section and apply the theory obtained in 1D ASEP to quantitatively rationalize our observations. Moreover, we will compare our results with previous study on the pinned polymer model. Specifically, the blob theory from Pincus and Brochard-Wyart \cite{Brochard-Wyart1995} will be discussed.
+Unlike the 1D model discussed in previous section, the 3D bead-rod model can be studied precisely by the BD simulations. So we will discuss the BD simulation results in this section and apply the theory obtained in 1D ASEP to explain our observations.
 
-\subsection{Relaxation time of 3D pinned Bead-rod Loop}
+\subsection{Relaxation time of 3D pinned bead-rod loop}
 \label{sub:relaxation_time_of_3d_pinned_bead_rod_loop}
 
-Similar to the 1D model, our main interest of the polymer dynamics is the relaxation time. To measure the relaxation time of 3D pinned bead-rod polymer loop, we perform the BD simulation for different external force. The autocorrelation function of diameter vector, which is defined as $\mathbf{r}_d = \mathbf{r}_{\frac{L}{2}} - \mathbf{r}_0$ is measured to extract the relaxation time. 
+Similar to the 1D model, our main interest of the polymer dynamics is the relaxation time. To measure the relaxation time of 3D pinned bead-rod polymer loop, we perform the BD simulation for different external force. The trajectory of diameter vector, which is defined as $\mathbf{r}_d = \mathbf{r}_{\frac{L}{2}} - \mathbf{r}_0$ is monitored. And the autocorrelation function is calculated to extract the relaxation time. 
+As $\mathbf{r}_d$ is a three dimensional vector, we measure both the relaxation time along the external force direction and the relaxation time perpendicular to the external force direction, denote as $\tau_{\parallel}$ and $\tau_{\perp}$, respectively.
 
-In fig. \ref{fig:acf3D} we show some examples of the autocorrelation functions (ACF). We can see clearly in the figure, the slop of ACF is steeper as the external force increased, which results a smaller relaxation time. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.6\linewidth]{acf3D}
+    \caption{Illustration of the autocorrelation function along the external force direction under several cases of different external force. The dashed black lines are the fittings for extraction of relaxation time.}
+    \label{fig:acf3D}
+\end{figure}
+In fig. \ref{fig:acf3D} we show some examples of extracting relaxation time $\tau_{\parallel}$ from the autocorrelation functions (ACF). We can see clearly in the figure, the slop of ACF become steeper as the increasing of external force, which results a faster relaxation time. 
 
-Notice that $\mathbf{r}_d$ is a three dimensional vector, thus we can obtain the ACF in three directions. By symmetric reason, the two directions perpendicular to the force direction will be the same. So in Fig. \ref{fig:relaxation3D} we measure the relaxation time of of the system varies with the dimensionless temperature, in both parallel and perpendicular directions of the external force field. We immediately find that the curve of $\tau_{\parallel}(\tilde{T}$ looks very similar to the 1D relaxation behavior. This is easy to understand as the 3D model projected to the force direction is somehow like a 1D model. So we try to use our 1D theory to fit the relaxation behavior of $\tau_{\parallel}$.
+On the other hand, we hope our theory from reflecting ASEP can be applied to get some insights of the relaxation time for 3D pinned polymer loop model. For example, the way of how $\tau_{\parallel}$ varies with the external force field is assumed to be the same as the case in 1D. So let us first discuss how to map the theory from ASEP to the polymer system in order to calculate $\tau_{\parallel}$.
 
-In order to match the theory to the simulations, let us first discuss the case without external force field. In this case, the relaxation time is correctly predicted by the Rouse theory, we have
+Let us first discuss the case without external force field. In this case, the relaxation time of the 3D pinned polymer loop is correctly predicted by the Rouse theory, we have
 \begin{equation}
     \label{eq:rouseTime3D}
     \tau_{Rouse} = \frac{\xi a^2 L^2}{3\pi^2 k_B T}
 \end{equation}
-Moreover, the symmetry holds in all direction in this case. So we have both $\tau_{\parallel} = \tau_{\perp} = \tau_{Rouse}$ in this case. This is verified by the simulations as shown in Fig. \ref{fig:relaxation3D}. Compare Eq. \eqref{eq:rouseTime3D} with Eq. \eqref{eq:relaxationTime1DnoForce} we can find that the only difference is the factor $3$ in the denominator, which is easy to understand because the dimensionality of the system. 
+Moreover, for symmetric reasons we have $\tau_{\parallel} = \tau_{\perp} = \tau_{Rouse}$ in this case. This prediction is verified by the BD simulations as shown in Fig. \ref{fig:relaxation3D}. Compare Eq.~\eqref{eq:rouseTime3D} with Eq.~\eqref{eq:relaxationTime1DnoForce} we can find that the only difference is the factor $3$ in the denominator, which is easy to understand because the dimensionality of the system.  
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{relaxation3D}
+    \caption{Relaxation time along external force direction of pinned 3D bead-rod model varies with the external force. Inset is the relaxation time perpendicular to the external force direction compared with the same theory. $L=100$ and $T=1$.}
+    \label{fig:relaxation3D}
+\end{figure}
 
-Now let us discuss the relaxation time varies with the external force. In the simulation, recall that the dimensionless temperature $\tilde{T} = \frac{k_B T}{Fa}  \propto \frac{1}{F}$ when other parameters are fixed. It is reasonable to calibrate the relaxation from the Eq. \eqref{eq:largestEigenvalue} with the 3D Rouse time and then we can obtain
+Now let us discuss the relaxation time varies with the external force. As we assume $\tau_{\parallel}$ varies with external force the same way as 1D, we can simply divide Eq.~\eqref{eq:largestEigenvalue} by a factor of $3$, obtaining:
 \begin{equation}
     \label{eq:relaxationTime3D}
-    \tau = \frac{\xi a^2 L^2}{3 \pi^2 k_{B} T} - \frac{\xi L^4 a^2 \left(e^{\frac{F a}{k_{B} T}} - 1\right)^2} {3 \pi^2 k_{B} T \left(L^2 \left(e^{\frac{F a}{k_{B}T}} - 1\right)^2 + \pi^2 \left(e^{\frac{F a}{k_{B}T}} + 1\right)^2\right)}.
+    \tau_{\parallel} = \frac{\xi a^2 L^2}{3 \pi^2 k_{B} T} - \frac{\xi L^4 a^2 \left(e^{\frac{F a}{k_{B} T}} - 1\right)^2} {3 \pi^2 k_{B} T \left(L^2 \left(e^{\frac{F a}{k_{B}T}} - 1\right)^2 + \pi^2 \left(e^{\frac{F a}{k_{B}T}} + 1\right)^2\right)}.
 \end{equation}
-We write it this form so that we can see a factor of Rouse time in it. Eq. \eqref{eq:relaxationTime3D} is compared with the simulation results in Fig. \ref{fig:relaxation3D}, we can see the excellent agreement with $\tau_{\parallel}$. However, $\tau_{\perp}$ is not well described by the theory as we can see in the inset of Fig. \ref{fig:relaxation3D}. This is also easy to understand given that it is the relaxation perpendicular to the force field direction. 
+Again, the first term is corresponding to the Rouse time and the second time is the factor of external force field. Eq.~\eqref{eq:relaxationTime3D} is compared with the simulation results in Fig.~\ref{fig:relaxation3D}, we can see the excellent agreement with $\tau_{\parallel}$. However, $\tau_{\perp}$ is not well described by the theory as we can see in the inset of Fig. \ref{fig:relaxation3D}. This is also easy to understand given that it is the relaxation perpendicular to the force field direction. 
 
-To further test our theory, we also do the simulation by changing other parameters such as the temperature $T$ and the system size $L$. Let us discuss this two cases separately.  
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{tauNoise}
+    \caption{Relaxation time of 3D pinned polymer loop varies with the level of noise. Dots are simulation results while solid lines are the theory. $L=100$.}
+    \label{fig:tauNoise}
+\end{figure}
+To further test our theory, we also do the simulation by changing other parameters such as the effective temperature $T$. Interestingly, according to the prediction of Eq.~\eqref{eq:relaxationTime3D}, the non-monotonic curve of $\tau_{\parallel}(T)$ can be obtained in a strong external force field. Physically, it means that the relaxation of a bead-rod system will be slower if we increase the noise level of the system under certain force field.  It is a counter-intuitive result as one usually expects faster relaxation for more fluctuating system. However, the results of from the BD simulation verifies this prediction, show in Fig.~\ref{fig:tauNoise}. On the other hand, we can also see in the figure, the non-monotonic behavior is neglectable when the external force is weak enough.
 
-Interestingly, according to the prediction of Eq. \eqref{eq:relaxationTime3D}, if we fixed other parameters except the temperature $T$ under certain external force field, we will get a non-monotonic curve of $\tau(T)$, see in Fig. \ref{fig:relaxationTimeTemperature}. Physically, it means that the relaxation of a bead-rod system will be slower if we increase the level of noise under certain force field.  It is a counter-intuitive result. However, the results of from the BD simulation verifies this prediction, show in Fig. \ref{fig:relaxationTimeTemperature}. 
+\subsection{Stretch coil relaxation}
+\label{sub:stretch_coil_relaxation}
 
-The relaxation time varies with the system size is show in Fig. \ref{fig:relaxationTimeSize}. The simulation results are again correctly predicted by the theory. We will discuss more about this size scaling in next subsection when compare with the previous blob theory. 
+Now, let us discuss the relaxation behavior of two different processes. The first one is the polymer loop relaxes from a stretched configuration to a coiled configuration when the external force field is stopped at some point. The second one is the pinned polymer loop relaxes from a coiled configuration to a stretched configuration when the external force field is exerted at certain point. 
+Experimentally, the measurement of ACF function if more tricky when the fluctuation is relatively small. However, the stretch-coil transition is easer to manipulate using optical tweezer~\cite{Perkins1994a,Perkins1994}.
 
-\subsection{Comparison to the blob theory}
-\label{sub:comparison_to_the_blob_theory}
+From theoretical point of view, these two transitions are not the same. Because one process is under external force field while the other is not. To get some insights into that, let us discuss them one by one. 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{stretchCoil}
+    \caption{The stretch-coil transition of a pinned polymer loop. The relaxation of the middle bead position is monitored for different initial stretched cases. Inset shows the short time relaxation of the polymer initially stretched by external force $F=1$, dashed black line is a linear fit. $L=100, ~T=1$.}
+    \label{fig:stretchCoil}
+\end{figure}
+In Fig.~\ref{fig:stretchCoil}, we show how the free end of a pinned polymer loop, i.e. the middle bead, relaxes to the coiled position. We can see from the figure that the decay is exponential except the initial part. Moreover, the same slope in the figure indicates the relaxation time scale are the same, although the initial states are different. We verified that the time scale here is the same as the Rouse time. However, certain distinctions are also observed, mainly in the short time regime. As we show in the inset, the initial relaxation of a stretched polymer is linear. Namely, the bead moves ballistically with certain velocity. On the other hand, we do not see this regime when the polymer is relaxed from a coiled configuration, see the blue line in Fig.~\ref{fig:stretchCoil}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{coilStretch}
+    \caption{The coil-stretch transition of a pinned polymer loop. Here, the polymer is stretched by different force fields. Inset shows the fitted parallel velocity of the middle bead against different external forces. $L=100,~T=1$.}
+    \label{fig:coilStretch}
+\end{figure}
+In Fig.~\ref{fig:coilStretch}, we show the coil-stretch transition of the pinned polymer. The transition can also divided into two parts. The first part is a ballistic shooting as indicated by the initial linearity of the curves. The second part is again an exponential relaxation to the equilibrium position. However, we can see from the figure, the ballistic regime is dominate for a strong stretching force. In the inset of the figure, we fit the velocity of the ballistic part. As expected, we find it linearly depends on the external force. 
+
+In this section, we discussed the relaxation behavior of 3D pinned polymer loops in an external force field. By 3D BD simulations, we are able to extract the relaxation time of the polymer. We then applied our theory obtained from the reflecting ASEP model to match the relaxation time of the 3D polymer along the force direction. We found them matches very good. Moreover, we also discussed the stretch-coil relaxation of the pinned polymer. One linear and one exponential regimes are identified for both stretch-coil and coil-stretch transitions.
+
+
+
+
+
+
+
+
 
 
 
 %********************************** % Fifth Section  *************************************
 \section{Summary}
 \label{sec:summary}
+
+To summary, in this chapter, we discuss the dynamical properties of pinned polymer loop in an constant external force field. More specifically, the relaxation time is discussed in details. 
+
+We firstly try to solve the relaxation problem of the polymer using the Rouse theory, which turns out only work for the pinned bead-rod without external force field. Then we utilize the mapping from 1D bead-rod to the particle lattice system. So the dynamics of polymer is mapped to the ASEP on a reflecting lattice. Kinetic Monte-Carlo results were done and interesting results show that the relaxation time of the system is independent of total particle numbers sitting on the lattice. Moreover, an interesting embedding structure of eigenvalues is observed. Next, we use the powerful Bethe ansatz method to solve exactly the reflecting ASEP system and remap the analytical results to the polymer system to discuss the relaxation behavior of the pinned polymer loop. Extensive BD simulations were done and the results matches quite well with our theory. Finally, we discussed the stretch coil transition in the 3D polymer model.
+
+We want to remark here that the generalised Bethe ansatz method we used here is novel, and could be applied to broader systems as long as the total number of particles is conserved. Moreover, since reflecting boundary is one of the typical boundary conditions, we think it is important to solve it exactly on the important ASEP model from theoretical point of view. On the other hand, the mapping from polymer dynamics to the ASEP system opens a new way to study the polymer systems. We discussed here only the biologically relevant pinned polymer loop system. The extension to other polymer systems is also quite easy. We will discuss more in our next final chapter.  

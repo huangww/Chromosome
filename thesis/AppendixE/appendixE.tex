@@ -1,38 +1,29 @@
 
-% ******************************* Thesis Appendix D ********************************
-\chapter{Derivation of the Exclusion Condition}
-To derivate the exclusion condition, which is a little bit confusing at a first sight, we use the two particles example and then generalise to $N$ particle case.
-First, let us rewrite the master equation of this two particle system:
-\begin{equation}
-    \begin{aligned}
-        \label{eq:masterEqTwoGeneral}
-    \frac{d P(x_1, x_2; t)}{dt} = & \alpha P(x_1-1,x_2;t) + \beta P(x_1+1,x_2;t) \\ 
-    & + \alpha P(x_1, x_2-1; t) + \beta P(x_1, x_2+1; t)  \\ 
-    & - 2(\alpha+\beta)P(x_1, x_2; t)
-    \end{aligned}
-\end{equation}
-We assume the above equation is valid for the whole space. However, this is actually not true when the two particles are sitting on the neighboring sites. Let us now consider this special case separately, remember that $x_2 = x_1 + 1$. The master equation of this special case can be written as
-\begin{equation}
-    \begin{aligned}
-        \label{eq:masterEqTwoNeighbor}
-        \frac{d P(x_1, x_2; t)}{dt} = 
-        & \alpha P(x_1-1,x_2;t) + \beta P(x_1, x_2+1; t)  \\ 
-    & - (\alpha+\beta)P(x_1, x_2; t)
-    \end{aligned}
-\end{equation}
-Now, let us do a subtraction, i.e. \eqref{eq:masterEqTwoGeneral} $-$ \eqref{eq:masterEqTwoNeighbor}, obtain
-\begin{equation}
-    \alpha P(x_1, x_2-1; t) + \beta P(x_1 + 1, x_2; t) = (\alpha + \beta)P(x_1, x_2; t)
-\end{equation}
-Let us then denote $x:=x_1$ and plug in $x_2 = x_1+1 = x+1$ in the above equation. We finally arrive at
-\begin{equation}
-    \label{eq:exclusionConditionTwo}
-    \alpha P(x, x; t) + \beta P(x+1, x+1; t) = (\alpha + \beta)P(x, x+1; t)
-\end{equation}
+% ******************************* Thesis Appendix E ********************************
+\chapter{Bethe equations of the periodic ASEP}
+\label{append:bethe_equation_periodic_asep}
 
-In summary, the sole master equation Eq. \eqref{eq:masterEqTwoGeneral} does not take into account the exclusion cases. In order to represent the exclusive setting, we assume Eq. \eqref{eq:masterEqTwoGeneral} is valid for the whole space, and then apply an additional condition on this equation like Eq. \eqref{eq:exclusionConditionTwo}. This condition is similar to the partial derivative of the PDF is the same at the collision boundary $x_1 = x_2$ in the continuous space case. 
+The ASEP model with periodic boundaries is the most simplest model that was solved long ago~\cite{Bethe1931,Mallick2011b}. The governing equation and exclusion condition are the same as the case of reflecting boundaries, shown in Eq.~\eqref{eq:masterEqN} and Eq.~\eqref{eq:exclusionConditionN}. The periodic boundary conditions can be written as
+\begin{equation}
+    \label{eq:periodicBoundaries}
+    \Psi(x_1, x_2,\cdots,x_{N-1} x_N) = \Psi(x_2, x_3, \cdots, x_N, x_1 + L).
+\end{equation}
+The Bethe ansatz of periodic ASEP is constructed by the standard plane waves, which can be written as 
+\begin{equation}
+    \label{eq:betheAnsatzPeriodic}
+    \Psi(x_1, x_2,\cdots, x_N) = \sum_{\sigma\in{S}_N} A_{\sigma} \prod_{n=1}^N \exp\left[ip_n x_{\sigma(n)}\right],
+\end{equation}
+where ${S}_N$ is the group of $N$-permutation, and $A_{\sigma}$ is the amplitude of the waves. $p_n$ is the wave vectors and $x_{\sigma(n)}$ is the position of the $\sigma(n)^{\rm{th}}$ particle.
 
-Finally, in the similar way we can derive the exclusion condition for the cases $N>2$. However, it is not difficult to check that in cases of more than two particles, the three body collision or four body collision cases do not give out new conditions, just the linear combination of the two body collision conditions like Eq. \eqref{eq:exclusionConditionTwo}. This is fundamentally a result of Yang-Baxter Equation is satisfied for the ASEP model.
+By applying the exclusion condition Eq.~\eqref{eq:exclusionConditionN} and the periodic boundary condition Eq.~\eqref{eq:periodicBoundaries}, we can derive the following set of Bethe equations
+\begin{equation}
+    \label{eq:betheEqsPeriodic}
+    e^{ip_n L} = (-1)^{N-1} \prod_{m\neq n}^N \frac{a(p_n, p_m)}{a(p_m, p_n)},
+\end{equation}
+where $a(p, p^{\prime}) = \sqrt{\alpha\beta}e^{i(p+p^{\prime})} - (\alpha+\beta) e^{ip} + \sqrt{\alpha\beta}$. 
 
-
+By solving the Bethe equations, the wave vectors $p_n$ can be obtained. Then the eigenvalues of the system can be calculated as 
+\begin{equation}
+    \Lambda = \sum_{n=1}^N \left[-(\alpha+\beta) +2\sqrt{\alpha\beta}\cos(p_n)\right].
+\end{equation}
 

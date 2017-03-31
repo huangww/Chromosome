@@ -1,4 +1,63 @@
 
 % ******************************* Thesis Appendix C ********************************
-\chapter{The Bethe-ansatz Solution of Periodic ASEP}
+\chapter{The Toeplitz matrix}
+\label{append:teoplitz_matrix}
+
+Toeplitz matrices are a special type of matrices that all elements along each diagonal parallel to the main diagonal are the same. Here, we focus on the tridiagonal Toeplitz matrix shown in Eq.~\eqref{eq:connectMatrix}.
+
+To calculate the eigenvalues of matrix Eq.~\eqref{eq:connectMatrix}, we have to solve the equation 
+\begin{equation}
+    (\mathbf{A} - \lambda \mathbf{I}) \mathbf{x} = \mathbf{0}.
+\end{equation}
+Then we can obtain $L-1$ a set of linear difference equations such that
+\begin{equation}
+    \label{eq:differenceEqs}
+    x_{j-1} - (2-\lambda)x_j + x_{j+1} = 0,~j=1,\cdots, L-1.
+\end{equation}
+And $x_0 = x_L = 0$ is set. The characteristic equation for the linear difference equation is
+\begin{equation}
+    \label{eq:characteristicEq}
+    r^2 - (2-\lambda) r + 1 = 0.
+\end{equation}
+Let us denote the two roots of Eq.~\eqref{eq:characteristicEq} as $r_1,~r_2$. Then the solution of Eq.~\eqref{eq:differenceEqs} can be written as
+\begin{equation}
+    x_j = \left\{
+    \begin{array}{ll}
+        \alpha r_1^j + \beta r_2^j & \text{if  } r_1 \neq r_2,\\
+        \alpha \rho^j + \beta j\rho^j & \text{if  } r_1 = r_2 = \rho,
+  \end{array} 
+  \right.
+\end{equation}
+where $\alpha$ and $\beta$ are arbitrary constants. The case of $r_1 = r_2$ can be eliminated because the resulting solution $x_0 = x_2 = \cdots = x_L = 0$ is trivial. Hence we have $x_j = \alpha r_1^j + \beta r_2^j$. Plug it into the boundary condition $x_0 = x_L = 0$ we obtain
+\begin{subequations}
+    \begin{align}
+        \alpha + \beta & = 0, \\
+        \alpha r_1^L + \beta r_2^L & = 0.
+    \end{align}
+\end{subequations}
+From the above equations we can obtain $r_1 = r_2 \exp(i 2\pi k /L)$ for some $k = 1, 2, \cdots, L-1$. On the other hand, we can obtain from the Eq.~\eqref{eq:characteristicEq} that
+\begin{subequations}
+    \begin{align}
+        r_1 r_2 & = 1, \\
+        r_1 + r_2  & = 2-\lambda.
+    \end{align}
+\end{subequations}
+Therefore, we can solve $r_1 = \exp(i \pi k /L)$ and $r_2 = \exp(-i \pi k/L)$. And the eigenvalues of $\mathbf{A}$ can be written as
+\begin{equation}
+   \lambda_k = 4\sin(\frac{k\pi}{2L}),~k=1, 2,\cdots, L-1.
+\end{equation}
+And the corresponding normalized eigenvectors are
+\begin{equation}
+    \mathbf{x}_k = 
+        \begin{pmatrix}
+            \sqrt{\frac{2}{L}}\sin\left(\frac{k\pi}{L}\right) \\
+            \sqrt{\frac{2}{L}}\sin\left(\frac{2k\pi}{L}\right) \\
+            \sqrt{\frac{2}{L}}\sin\left(\frac{3k\pi}{L}\right) \\
+            \vdots\\
+            \sqrt{\frac{2}{L}}\sin\left(\frac{(L-1)k\pi}{L}\right) \\
+            
+        \end{pmatrix}.
+\end{equation}
+
+
 

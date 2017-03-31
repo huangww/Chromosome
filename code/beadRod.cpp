@@ -39,21 +39,24 @@ void BeadRod::setup(Input *input)
     std::stringstream fname;
     fname << "data/" << input->projectName 
         << "_r_N" << input->parameter["nBead"]
-        << "_T" << input->parameter["tempEff"]
+        << "_F" << input->parameter["fExternal"]
+        << "_T" << input->parameter["temperature"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[0].open(fname.str());
     fname.str("");
     fname << "data/" << input->projectName 
         << "_rg_N" << input->parameter["nBead"]
-        << "_T" << input->parameter["tempEff"]
+        << "_F" << input->parameter["fExternal"]
+        << "_T" << input->parameter["temperature"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[1].open(fname.str());
     fname.str("");
     fname << "data/" << input->projectName 
         << "_rd_N" << input->parameter["nBead"]
-        << "_T" << input->parameter["tempEff"]
+        << "_F" << input->parameter["fExternal"]
+        << "_T" << input->parameter["temperature"]
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[2].open(fname.str());
@@ -81,11 +84,11 @@ void BeadRod::run()
         }
 
         // Monte-Carlo Move
-        bead->montecarloUpdate();
+        // bead->montecarloUpdate();
 
         // MD Move
-        // bead->predict();
-        // bead->correct();
+        bead->predict();
+        bead->correct();
         
         t += bead->dt;
     }

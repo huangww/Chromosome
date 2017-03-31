@@ -17,8 +17,8 @@ public:
     double** repulsive(double** r, double** f);
     double* brownian(double* f);
     double** brownian(double** f);
-    double* constant(double* f);
-    double** constant(double** f);
+    double* external(double* f);
+    double** external(double** f);
     double* periodic(double* f);
     double** periodic(double** f);
     double* boundary(double* x, double* f);
@@ -28,8 +28,9 @@ private:
     int nPar;
     int nSite;
     unsigned long seed;
-    double tempEff;
+    double temperature;
     double dt;
+    double fExternal;
 
     /* data */
 };
