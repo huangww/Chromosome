@@ -475,8 +475,8 @@ double** Rod::constraint(double** f)
     b = linkVectorB();
     double tension[nLink+DIM];
     std::fill(&tension[0], &tension[0] + nLink + DIM, 0);
-    // solverPicard(tension);
-    solverPicardUnpinned(tension);
+    solverPicard(tension);
+    // solverPicardUnpinned(tension);
     // solverNewton(tension);
     // solverHydrj(tension);
 
@@ -619,16 +619,17 @@ double **Rod::pseudoRing(double **f)
 
     u = linkVectorU();
     double coeff[nLink];
-    coeff[0] = -Dot(&u[0][0], &u[nLink-1][0], 3);
+    coeff[0] = -Dot(&u[0][0], &u[nLink-1][0], DIM);
     double prodCoeff = coeff[0];
     for (int i = 1; i < nLink; i++) {
-        coeff[i] = -Dot(&u[i][0], &u[i-1][0], 3);
+        coeff[i] = -Dot(&u[i][0], &u[i-1][0], DIM);
         prodCoeff *= coeff[i];  
     }
     double det1 = detBandMetric(nLink-2, &coeff[2]);
     double det2 = detBandMetric(nLink-2, &coeff[1]);
     double det3 = detBandMetric(nLink-1, &coeff[1]);
     int sign = 1 - 2*(nLink%2);
+    // expand detG by the last line of the matrix
     double detG = -coeff[0]*coeff[0]*det1 
         - coeff[nLink-1]*coeff[nLink-1]*det2
         + 2*det3 - 2*sign*prodCoeff; // check

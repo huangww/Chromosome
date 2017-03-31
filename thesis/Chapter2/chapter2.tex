@@ -2,7 +2,7 @@
 %****************************** Second Chapter *********************************
 %*******************************************************************************
 
-\chapter{Model and Simulation Methods}
+\chapter{Theoretical Model and Numerical Simulation Methods}
 \graphicspath{{Chapter2/Figs/}}
 
 To model the chromosome movements during nuclear osculation in fission yeast, let us start from a single chromosome modeled by a single polymer loop. 
@@ -10,8 +10,8 @@ In this chapter, we will introduce the details of the polymer model for the chro
 
 
 %********************************** %First Section  **************************************
-\section{Pulled polymer loop model}
-\label{sec:pulled_polymer_loop_model}
+\section{Stochastic models of polymer loops}
+\label{sec:stochastic_models_of_polymer_loops}
 
 As mentioned in the previous chapter, there are three pairs of chromosomes in fission yeast. During nuclear oscillation, these three pairs of chromosomes bound to one point, i.e. the Spindle Pole Body (SPB). Now let us start with the simplest case and neglect the interactions between chromosomes, think about a single chromosome. It is a polymer with the ring structure, and an external force is exerted on the SPB. We have two choices to model this chromosome, i.e. the bead-rod model or the bead-spring model. We will use both models in this thesis but more discussions are focused on the bead-rod. Both models have their own benefits and shortcomings. Computationally, it is easier to manipulate the bead-spring model than the bead-rod. However, the bead-rod has the intrinsic property of finite extensible without resorting to some complex nonlinear spring potentials. This benefit we think is important because the chromosomes are highly condensed and are definitely finite extensible. In fact, we will show that the finite extensibility takes an important role for the polymer dynamics, see in the later chapters. And the simplicity of bead-rod model offers us the possibility to find analytical solutions. 
 
@@ -191,8 +191,8 @@ In this section, we specify the dynamics and interaction details of our model fo
 
 %********************************** %Second Section  *************************************
 
-\section{Brownian Dynamics simulation method}
-\label{sec:brownian_dynamics_simulation_method}
+\section{Brownian Dynamics simulations}
+\label{sec:brownian_dynamics_simulations}
 After introducing the model, in this section, we will illustrate how to simulation the model numerically. Since we plan to do most of the theoretical analysis in the later chapters where the simulation results are used for the benchmark, it is convenient that we show the methods of simulation before that. 
 
 Brownian Dynamics (BD) simulation is a kind of Molecule Dynamics (MD) simulation technique. The governing equation of each monomer or particle is integrated to get the trajectories. And physical quantities are measured by ensemble average over trajectories of thousands of monomers. In our situation, the governing equations are Eq. \eqref{eq:beadrodEq} or Eq. \eqref{eq:beadspringEq}. Our interested quantities are something like the average space distance between two beads, the typical size of the polymer and the characteristic time scale of the system dynamics. These are all tractable by BD simulations. 

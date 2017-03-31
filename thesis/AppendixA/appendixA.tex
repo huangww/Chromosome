@@ -1,5 +1,44 @@
 
 % ******************************* Thesis Appendix A ****************************
 \chapter{An efficient algorithm to compute \emph{pseudo} force of bead-rod loop} 
+\label{append:algorithm_bead_rod}
 
+We have mentioned that the calculation of \emph{pseudo} force in the simulation is time consuming. In fact, the plain algorithm without optimization takes about $80\%$ of the simulation time. Thus we develop a efficient algorithm to calculate the \emph{pseudo} force. Recall that
+\begin{equation}
+    \label{eq:pseudoForceRecall}
+    \mathbf{F}_i^{pseudo} = -\frac{1}{2} k_B T \sum_{\alpha, \beta} G_{\beta, \alpha}^{-1} \frac{\partial G_{\alpha\beta}}{\partial \mathbf{r}_i}.
+\end{equation}
+And $G$ is the metric matrix shown in Eq.~\eqref{eq:metricMatrix}. Notice that $G$ is a symmetric matrix with constant diagonal elements. 
+The summation in Eq.~\eqref{eq:pseudoForceRecall} can be reduced to the summation of terms with $c_1, c_2, \cdots, c_L$ where $c_j = -\mathbf{u}_j \cdot \mathbf{u}_{j-1}$. Thus we can rewrite Eq.~\eqref{eq:pseudoForceRecall} as
+\begin{equation}
+    \label{eq:pseudoForceRewrite}
+    \mathbf{F}_i^{pseudo} =  k_B T \sum_{j=1}^L G_{j-1,j}^{-1} \frac{\partial \mathbf{u}_{j}\cdot\mathbf{u}_{j-1}}{\partial \mathbf{r}_i}.
+\end{equation}
+Again, the periodic indexing is applied for $G_{j-1,j}^{-1}$. The derivative in the sum term of Eq.~\eqref{eq:pseudoForceRewrite} can be evaluated as 
+\begin{equation}
+    \frac{\partial \mathbf{u}_j }{\partial \mathbf{r}_i} = \frac{1}{a} (\delta_{i,j} - \delta_{i,j-1})(\mathbf{I} - \mathbf{u}_j\mathbf{u}_j),
+\end{equation}
+where $\mathbf{I}$ is the unit tensor. According to Cramer's rule, we can write
+\begin{equation}
+    G_{j-1,j}^{-1} = \frac{\text{cof}~G_{j,j-1}}{\det G},
+\end{equation}
+and $\text{cof}~G_{j,j-1}$ is the cofactor of $G_{j, j-1}$, which is the minus determinant of a $L-1\times L-1$ sub-matrix. So now we reduce the problem to the calculation of the determinant of a matrix. 
 
+To calculate $\det\mathbf{G}$, let us first expand matrix $\mathbf{G}$ by the last line, obtain
+\begin{equation}
+    \label{eq:detGexpand}
+    \det G = -c_L^2 \det\mathbf{S}_1 - c_{L-1}^2 \det\mathbf{S}_2 - 2(-1)^L\prod_{j=1}^L c_j + 2\det \mathbf{S}_3,
+\end{equation}
+where $\mathbf{S}_1,~\mathbf{S}_2,~\mathbf{S}_3$ are symmetric tridiagonal sub-matrices of $\mathbf{G}$. $\mathbf{S}_1$ is a $L-2\times L-2$ sub-matrix started with off-diagonal element $c_2$, $\mathbf{S}_2$ is a $L-2\times L-2$ sub-matrix started with $c_1$ and $\mathbf{S}_3$ is a $L-1 \times L-1$ sub-matrix started with $c_1$.
+
+For a symmetric tridiagonal matrix, an efficient algorithm can be employed to calculate the determinant~\cite{Pasquali2002}. Let $\mathbf{S}$ be a $N\times N$ symmetric tridiagonal matrix with diagonal elements $d_1, d_2, \cdots, d_N$ and off-diagonal elements $s_1,s_2, \cdots, s_{N-1}$. Denote $\mathbf{T}^j$ the top left sub-matrix of $\mathbf{S}$ with $j$ rows and $j$ columns and $\mathbf{B}^j$ the bottom right sub-matrix of $\mathbf{S}$ with $N-j$ rows and $N-j$ columns. Then we have
+\begin{subequations}
+    \begin{align}
+        \det \mathbf{T}^{j+1} & = d_{j+1} \det \mathbf{T}^j - s_{j}^2 \det \mathbf{T}^{j-1},\\
+        \det \mathbf{B}^{j-1} & = d_{j-1} \det \mathbf{B}^j - s_{j-1}^2 \det \mathbf{B}^{j+1}.
+    \end{align}
+\end{subequations}
+Notice that $\mathbf{T}^0 = \mathbf{B}^{N+1} = \mathbf{I}$ and $\mathbf{S} = \mathbf{T}^N = \mathbf{B}^0$. Use this algorithm and Eq.~\eqref{eq:detGexpand}, $\det\mathbf{G}$ can be calculate efficiently. 
+
+Finally, the cofactor $\text{cof} G_{j,j-1}$, which is essentially a determinant, can be calculated as the same way as $\det\mathbf{G}$.
+Use the algorithm above, the computation time of \emph{pseudo} can be reduced to $15\%$ of the total simulation time.

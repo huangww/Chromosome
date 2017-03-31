@@ -1,4 +1,40 @@
 
 % ******************************* Thesis Appendix D ********************************
-\chapter{The Toeplitz Matrix}
-The Toeplitz M
+\chapter{Derivation of the exclusion condition}
+\label{append:exclusion_condition}
+
+To derivate the exclusion condition, which is a little bit confusing at a first sight, we use the two particles example and then generalise to $N$ particle case.
+First, let us rewrite the master equation of this two particle system:
+\begin{equation}
+    \begin{aligned}
+        \label{eq:masterEqTwoGeneral}
+    \frac{d P(x_1, x_2; t)}{dt} = & \alpha P(x_1-1,x_2;t) + \beta P(x_1+1,x_2;t) \\ 
+    & + \alpha P(x_1, x_2-1; t) + \beta P(x_1, x_2+1; t)  \\ 
+    & - 2(\alpha+\beta)P(x_1, x_2; t)
+    \end{aligned}
+\end{equation}
+We assume the above equation is valid for the whole space. However, this is actually not true when the two particles are sitting on the neighboring sites. Let us now consider this special case separately, remember that $x_2 = x_1 + 1$. The master equation of this special case can be written as
+\begin{equation}
+    \begin{aligned}
+        \label{eq:masterEqTwoNeighbor}
+        \frac{d P(x_1, x_2; t)}{dt} = 
+        & \alpha P(x_1-1,x_2;t) + \beta P(x_1, x_2+1; t)  \\ 
+    & - (\alpha+\beta)P(x_1, x_2; t)
+    \end{aligned}
+\end{equation}
+Now, let us do a subtraction, i.e. \eqref{eq:masterEqTwoGeneral} $-$ \eqref{eq:masterEqTwoNeighbor}, obtain
+\begin{equation}
+    \alpha P(x_1, x_2-1; t) + \beta P(x_1 + 1, x_2; t) = (\alpha + \beta)P(x_1, x_2; t)
+\end{equation}
+Let us then denote $x:=x_1$ and plug in $x_2 = x_1+1 = x+1$ in the above equation. We finally arrive at
+\begin{equation}
+    \label{eq:exclusionConditionTwo}
+    \alpha P(x, x; t) + \beta P(x+1, x+1; t) = (\alpha + \beta)P(x, x+1; t)
+\end{equation}
+
+In summary, the sole master equation Eq. \eqref{eq:masterEqTwoGeneral} does not take into account the exclusion cases. In order to represent the exclusive setting, we assume Eq. \eqref{eq:masterEqTwoGeneral} is valid for the whole space, and then apply an additional condition on this equation like Eq. \eqref{eq:exclusionConditionTwo}. This condition is similar to the partial derivative of the PDF is the same at the collision boundary $x_1 = x_2$ in the continuous space case. 
+
+Finally, in the similar way we can derive the exclusion condition for the cases $N>2$. However, it is not difficult to check that in cases of more than two particles, the three body collision or four body collision cases do not give out new conditions, just the linear combination of the two body collision conditions like Eq. \eqref{eq:exclusionConditionTwo}. This is fundamentally a result of Yang-Baxter Equation is satisfied for the ASEP model.
+
+
+

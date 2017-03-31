@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # encoding: utf-8
+'''
+docstrings
+'''
 import numpy as np
 
+# Theory for the 1D pinned polymer loop
 def mean_n_1D(i, N, T):
     Teff = float(T)/2
     mu = (N-1)/2.0
-    mean_n_1D = 1.0/(1+np.exp((i-mu)/Teff))
-    return mean_n_1D
+    return 1.0/(1+np.exp((i-mu)/Teff))
 
 def var_n_1D(i, N, T):
     p = mean_n_1D(i, N, T)
-    var_n_1D = p * (1 - p)
-    return var_n_1D
+    return p * (1 - p)
 
 def mean_zi_1D(i, N, T):
     Teff = float(T)
@@ -60,6 +62,7 @@ def var_z_1D(N, T):
             np.cosh((N-2*index)/(2*Teff))**2)
     return var_z_1D
 
+# Theory for the 3D pinned polymer loop
 def mean_e_z(i, N, T):
     mu = (N-1)/2.0
     x = (mu - i)/float(T)
@@ -189,6 +192,31 @@ def var_z_cm(cm, N, T):
             var_z_cm[i] = 2*v0s*vst/v0t
     return var_z_cm
 
+# Particle density function
+def particle_density_z(z, N, T):
+    zmean = mean_z(N, T)
+    zvar = var_z(N, T)
+    pz = np.zeros([len(zmean),len(z)])
+    import matplotlib.mlab as mlab
+    for i in range(len(zmean)):
+        pz[i] = mlab.normpdf(z, zmean[i], np.sqrt(zvar[i]))
+    pdf = np.nanmean(pz, axis=0)
+    return pdf
+    
+
+def particle_density_x(x, N, T):
+    xvar = var_xy(N, T)/2.
+    px = np.zeros([len(xvar),len(x)])
+    import matplotlib.mlab as mlab
+    for i in range(len(xvar)):
+        px[i] = mlab.normpdf(x, 0, np.sqrt(xvar[i]))
+    pdf = np.nanmean(px, axis=0)
+    return pdf
+
+def particle_density_xz(x, z, N, T):
+    return
+    
+# Theory for the Rouse model
 def rouse_mean(N, T):
     f = 1./float(T)
     k_H = 3
@@ -219,7 +247,7 @@ def rouse_var(N, T):
     return rvar
 
 def rouse_var2(N, T):
-    f = 1./float(T)
+    # f = 1./float(T)
     k_H = 3
     z_var = np.zeros(N)
     lam = 4*k_H*np.sin(np.arange(N)*np.pi/(2*N))**2
@@ -231,4 +259,16 @@ def rouse_var2(N, T):
         for m in range(1, N):
             z_var[i] += 3*omega[i,m]*omega[i,m]/lam[m]
     return z_var
-      
+
+def relaxation_time_3d(force, temperature, n_site):
+    """ Theory for the relaxation time of 3d pinned polymer loop in the parallel direction of external force field
+    :returns: TODO
+
+    """
+    tau_rouse = n_site**2 / (3 * np.pi**2 * temperature)
+    factor = force / temperature
+    tau_force_numerator = n_site**4 * (np.exp(factor) - 1)**2
+    tau_force_denominator = 3 * np.pi**2 * (n_site**2 * (np.exp(factor)-1)**2 \
+            + np.pi**2 * (np.exp(factor)+1)**2)
+    tau = tau_rouse - tau_force_numerator / tau_force_denominator
+    return tau

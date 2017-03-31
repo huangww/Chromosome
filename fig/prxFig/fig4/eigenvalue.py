@@ -55,7 +55,7 @@ def EigenValues():
         for x in ev:
             ax.scatter(i, x,marker='_')
     ax.set_xlabel('Number of particles')
-    ax.set_ylabel('Eigenvlues')
+    ax.set_ylabel('Eigenvalues')
     # ax.set_ylim([-5,2])
     plt.show()
 
@@ -135,7 +135,7 @@ def Demo():
             ax1.scatter(3, x, marker='_', color='g')
     ax1.set_xlabel('Number of particles')
     ax1.set_xticks([1, 2, 3])
-    ax1.set_ylabel('Eigenvlues')
+    ax1.set_ylabel('Eigenvalues')
     ax1.set_ylim(ymax=1)
 
     ax2 = plt.subplot2grid((1,3), (0, 1), colspan=2)

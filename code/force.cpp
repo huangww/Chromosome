@@ -16,9 +16,10 @@ void Force::setParameter(Input *input)
 {
     nSite = int(input->parameter["nSite"]);
     nPar = int(input->parameter["nPar"]);
-
     nBead = int(input->parameter["nBead"]);
-    tempEff = input->parameter["tempEff"];
+
+    temperature = input->parameter["temperature"];
+    fExternal= input->parameter["fExternal"];
     dt = input->parameter["dt"];
     if (input->parameter.count("seed") == 0) {
         std::random_device rd;
@@ -105,7 +106,7 @@ double** Force::repulsive(double** r, double** f)
 
 double* Force::brownian(double* f)
 {
-    double temp = 1.0;
+    double temp = temperature;
     for (int i = 0; i < nPar; i++) {
         f[i] = sqrt(2.0*temp/dt) * GaussRan(seed);
     }
@@ -114,7 +115,7 @@ double* Force::brownian(double* f)
 
 double** Force::brownian(double** f)
 {
-    double temp = 1.0;
+    double temp = temperature;
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
             f[i][j] = sqrt(2.0*temp/dt) * GaussRan(seed);
@@ -124,22 +125,23 @@ double** Force::brownian(double** f)
 }
 
 
-double* Force::constant(double* f)
+double* Force::external(double* f)
 {
     for (int i = 0; i < nPar; ++i) {
-        f[i] = - 1.0 / tempEff;
+        // f[i] = - 1.0 / tempEff;
+        f[i] = fExternal;
     }
 
     return f;
 }
 
-double** Force::constant(double** f)
+double** Force::external(double** f)
 {
     std::fill(&f[0][0], &f[0][0] + nBead * DIM, 0);
 
     for (int i = 0; i < nBead; ++i) {
         // f[i][0] = 1.0 / tempEff;
-        f[i][0] = 1.0;
+        f[i][0] = fExternal;
     }
     return f;
 }
@@ -147,7 +149,7 @@ double** Force::constant(double** f)
 double* Force::periodic(double* f)
 {
     for (int i = 0; i < nPar; ++i) {
-        f[i] = - 1.0 / tempEff;
+        f[i] =  fExternal;
     }
 
     return f;
@@ -159,7 +161,7 @@ double** Force::periodic(double** f)
 
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
-            f[i][0] = 1.0 / tempEff;
+            f[i][0] = fExternal;
         }
     }
     return f;

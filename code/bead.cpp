@@ -165,9 +165,9 @@ void Bead::predict()
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
     // addForce(rod->pseudo(f));
     // addForce(rod->pseudoSparse(f));
-    // addForce(rod->pseudoRing(f));
+    addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
-    // addForce(force->constant(f));
+    addForce(force->external(f));
     // addForce(force->repulsive(r, f));
     
     // predict the next step position as rs
@@ -201,7 +201,7 @@ void Bead::eulerUpdate()
     // addForce(spring->fene(r, f));
     // addForce(spring->bending(r, f));
     // addForce(force->repulsive(r, f));
-    addForce(force->constant(f));
+    addForce(force->external(f));
     addForce(force->brownian(f));
     
     // predict the next step position
@@ -258,7 +258,7 @@ void Bead::output(std::ofstream* outFile)
     }
     outputPos(outFile[0]);
     // outputRg(outFile[1]);
-    // outputRd(outFile[2]);
+    outputRd(outFile[2]);
 }
 
 void Bead::outputPos(std::ofstream& outFile) 

@@ -47,7 +47,7 @@ def EigenValues():
     font = {'family' : 'sans-serif',
             'serif'  : 'Helvetica',
             'weight' : 'normal',
-            'size'   : 20 }
+            'size'   : 16}
     plt.rc('lines', lw=2)
     plt.rc('font', **font)
     fig.subplots_adjust(left=0.1, right =0.95,\
@@ -69,18 +69,18 @@ def EigenValues():
     y = [v[1] for v in eigenvals] 
     ax.plot(x, y, 'b_')
     ax.set_xlabel('Number of particles')
-    ax.set_ylabel('Eigenvlues')
+    ax.set_ylabel('Eigenvalues')
     ax.set_xlim([0,10])
     ax.set_ylim([-20,2])
-    ax.fill_between([0,10],-5,1,alpha=0.1)
+    ax.fill_between([0,10],-1.5,0.5,alpha=0.1)
     ax = fig.add_subplot(122)
-    ax.plot(x, y, 'b*')
+    ax.axhline(y=-(a+b)+2*np.sqrt(a*b)*np.cos(np.pi/L), color='r',lw=1)
+    ax.axhline(y=0, color='k',lw=1)
+    ax.plot(x, y, 'b*',markersize=5)
     ax.set_xlabel('Number of particles')
-    ax.set_ylabel('Eigenvlues')
-    ax.set_ylim([-5,1])
+    ax.set_ylabel('Eigenvalues')
+    ax.set_ylim([-1.5,0.5])
     ax.set_xlim([0,10])
-    ax.axhline(y=-(a+b)+2*np.sqrt(a*b)*np.cos(np.pi/L), color='r')
-    ax.axhline(y=0, color='k')
     plt.show()
 
 
@@ -122,11 +122,21 @@ def MinimalExample():
 
 
 def Demo():            
-    L = 10 
-    a = 1
-    b = 2
-    fig, (ax1, ax2) = plt.subplots(1,2, gridspec_kw = 
-            {'width_ratios':[1, 3]})
+    fig = plt.figure(0,figsize=(6, 4))
+    plt.rc('text', usetex=True)
+    font = {'family' : 'sans-serif',
+            'serif'  : 'Helvetica',
+            'weight' : 'normal',
+            'size'   : 15 }
+    plt.rc('lines', lw=2)
+    plt.rc('font', **font)
+    # fig, (ax1, ax2) = plt.subplots(1,2, gridspec_kw = 
+    #         {'width_ratios':[1, 3]})
+    fig.subplots_adjust(left=0.13, right =0.95,\
+            bottom=0.13, top =0.95, wspace=0.15)
+
+    ax1 = plt.subplot2grid((1, 3), (0, 0))
+    a, b, L = (1, 2, 10)
     M = TransitionMartrix(a, b, 1, L)
     ev1 = eigvals(M)
     for x in ev1:
@@ -134,39 +144,43 @@ def Demo():
     M = TransitionMartrix(a, b, 2, L)
     ev2 = eigvals(M)
     for x in ev2:
-        if np.isclose(ev1, x).any():
+        if np.isclose(ev1, x, rtol=1e-3).any():
             ax1.scatter(2, x, marker='_', color='r')
         else:
             ax1.scatter(2, x, marker='_', color='b')
     M = TransitionMartrix(a, b, 3, L)
     ev3 = eigvals(M)
     for x in ev3:
-        if np.isclose(ev1, x).any():
+        if np.isclose(ev1, x, rtol=1e-3).any():
             ax1.scatter(3, x, marker='_', color='r')
-        elif np.isclose(ev2, x).any():
+        elif np.isclose(ev2, x, rtol=1e-3).any():
             ax1.scatter(3, x, marker='_', color='b')
         else:
             ax1.scatter(3, x, marker='_', color='g')
     ax1.set_xlabel('Number of particles')
     ax1.set_xticks([1, 2, 3])
-    ax1.set_ylabel('Eigenvlues')
+    ax1.set_ylabel('Eigenvalues')
     ax1.set_ylim(ymax=1)
 
+    ax2 = plt.subplot2grid((1,3), (0, 1), colspan=2)
     ev2 = np.sort(ev2)[::-1]
     for i,x in zip(range(len(ev2)), ev2):
-        ax2.scatter(i, x, marker='o', color='b')
-        ax2.scatter(i, x, marker='*', color='r')
+        ax2.scatter(i, x, s=30, marker='s', color='b')
+        ax2.scatter(i, x, s=20, marker='*', color='r')
     ax2.set_xlabel(r'$k$')
     # ax2.set_ylabel('Eigenvalues')
-    ax2.legend(['Matrix Diagonalize', 'Bethe Ansatz'], loc='lower left')
+    ax2.legend(['Matrix diagonalization', 'Bethe ansatz solution'], loc='lower left', fontsize=14)
+    ax2.set_ylim(ax1.get_ylim())
+    ax2.set_xlim([0, 50])
+    ax2.set_yticklabels([])
     
     plt.show()
 
 def main():
-    EigenValues()
+    # EigenValues()
     # ExtraEigenVector()
     # MinimalExample()
-    # Demo()
+    Demo()
 
 
 

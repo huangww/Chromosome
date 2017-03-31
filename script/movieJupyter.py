@@ -17,8 +17,8 @@ Teff = int(Tstr[0])
 
 # set up the scene or movie
 bg = vector(1., 1., 1.)
-scene = canvas(width=800, height=480, background=bg)
-factor = 0.1
+scene = canvas(width=1200, height=680, background=bg)
+factor = 0.12
 scale = 0.5
 
 # faxis = frame()
@@ -50,7 +50,7 @@ link = np.loadtxt(dataDir + 'topo.dat', dtype = 'int')
 # rod = [helix(pos=bead[l[0]].pos, 
 rod = [cylinder(pos=bead[l[0]].pos, 
     axis = bead[l[1]].pos - bead[l[0]].pos,
-    radius = 0.5 * factor, 
+    radius = 0.6 * factor, 
     color = bead[max(l[0], l[1])].color)
     # color = color.yellow,
     # thickness = 0.1*factor,
@@ -59,7 +59,7 @@ rod = [cylinder(pos=bead[l[0]].pos,
     for l in link]
 
 # calculate the center position of the scene
-center = vec((np.max(pos[:,:,0]) + np.min(pos[:,:,0]))/2.,\
+center = vec((np.max(pos[:,:,0]) + np.min(pos[:,:,0]))/2. + 0.6,\
 	  (np.max(pos[:,:,1]) + np.min(pos[:,:,1]))/2.,\
 	  (np.max(pos[:,:,2]) + np.min(pos[:,:,2]))/2.)
 scene.center = center

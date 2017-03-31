@@ -1,11 +1,12 @@
+"""
+Fitting the auto correlation functions and find fitting range
+"""
+import glob
+import itertools as it
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.tsa.stattools as ss
 from scipy.signal import savgol_filter
-import itertools as it
-import os 
-import glob
-import sys
 
 
 dataDir = 'data/'

@@ -139,7 +139,7 @@ void Particle::setParameter(Input* input)
         std::fill(&ftotal[0], &ftotal[0] + nPar, 0);
         addForce(force->brownian(f));
         addForce(force->repulsive(x, f));
-        addForce(force->constant(f));
+        addForce(force->external(f));
         if (x[0] < 1.0 || x[nPar-1] > nSite-1.0) {
             addForce(force->boundary(x, f));
         }
@@ -154,7 +154,7 @@ void Particle::setParameter(Input* input)
         std::fill(&ftotal[0], &ftotal[0] + nPar, 0);
         addForce(force->brownian(f));
         addForce(force->repulsive(x, f));
-        // addForce(force->constant(f));
+        // addForce(force->external(f));
         if (x[0] < 1.0 || x[nPar-1] > nSite-1.0) {
             addForce(force->boundary(x, f));
         }
