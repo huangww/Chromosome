@@ -39,7 +39,7 @@ sphere {
 
 
  union{  
- 	sphere{<4.2382688749478120E-003,-4.9855054240550783E-002,0>,0.3 texture{pigment{color Red}} finish{phong 1}}
+ 	sphere{<4.2382688749478120E-003,-4.9855054240550783E-002,0>,0.3 texture{finish{phong 1}}
 	union{	
 		sphere{<0.839759, -0.669981, 0.283580>,	0.2}
 		sphere{<1.776648, -0.856919, 0.579033>,	0.2 }

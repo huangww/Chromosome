@@ -40,10 +40,12 @@ private:
     void matrixA(double *A);
     void vectorB(double *x, double *B);
     void solverPicard(double *x);
+    void unpinnedMatrixA(double *A);
+    void unpinnedVectorB(double *x, double *B);
+    void solverPicardUnpinned(double *x);
     void jacobian(double *x, double *A, double *B);
     void inverse(double *A, int N);
     void solverNewton(double *x);
-    void solverHydrj(double *x);
     double detBandMetric(int n, double *coeff);
 
     // parameters

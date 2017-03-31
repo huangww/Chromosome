@@ -41,7 +41,7 @@ void Asep::setup(Input *input)
     // Open files for output
     std::ostringstream fname;
     fname << "data/" << input->projectName <<
-        "_par_N" << input->parameter["nSite"] 
+        "_pos_N" << input->parameter["nSite"] 
         << "_T" << input->parameter["tempEff"] 
         << "_" << input->parameter["taskID"] << ".dat";
     outFile[0].open(fname.str());
@@ -53,8 +53,8 @@ void Asep::setup(Input *input)
         << "_" << input->parameter["taskID"] << ".dat";
     std::cout << fname.str() << std::endl;
     outFile[1].open(fname.str());
-    outFile[1] << "# " << "t\t" << "Rg\t" 
-        << "r[1]\t" << "r[N/2]" << std::endl;
+    outFile[1] << "#\t" << "t\t\t" << "Rg\t\t" 
+        << "r[N/2]" << std::endl;
 }
 
 void Asep::run() 

@@ -21,10 +21,13 @@ void Montecarlo::setParameter(Input *input)
     } else {
         seed = long(input->parameter["seed"]);
     }
-    if (input->parameter.count("tempEff") == 0) {
-        throw "Parameter \"tempEff\" is not specified!";
+    if (input->parameter.count("fExternal") == 0) {
+        throw "Parameter \"fExternal\" is not specified!";
     }
-    tempEff = input->parameter["tempEff"];
+    if (input->parameter.count("temperature") == 0) {
+        throw "Parameter \"temperature\" is not specified!";
+    }
+    tempEff = input->parameter["temperature"]/input->parameter["fExternal"];
     nBead = int(input->parameter["nBead"]);
     topoType = int(input->parameter["topoType"]);
 }

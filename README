@@ -1,1 +1,6 @@
 This is a project for modeling chromosome movement during cell division in Fission yeast.
+
+The simulation code in folder "code" is written in cpp;
+The visualization code in folder "script" is written in python. 
+
+

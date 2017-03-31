@@ -1,0 +1,27 @@
+
+% ******************************* Thesis Appendix B ********************************
+\chapter{Monte-Carlo simulation of 1D particle-lattice model}
+\label{append:mc1D}
+
+
+The Monte-Carlo simulation technique is widely used to study the particle-lattice model. In equilibrium, the standard simple Monte-Carlo algorithm can be applied to sample the stationary measure. However, what we discuss here is the Kinetic Monte-Carlo algorithm~\cite{Gillespie1976}. This algorithm allows us to go beyond equilibrium to the dynamics. We list in the following the main steps of the algorithm.
+
+$\bullet$ Step 1: set the initial time $t=0$ and choose a initial state of the system. The initial state can be $N$ particle randomly distributed over $L$ lattice sites or other specified configurations. For the continence of later discussion, we denote the initial state as state $k$.
+
+$\bullet$ Step 2: find all the possible hopping events and the corresponding hopping rates of the system. Let us denote the total number of hopping events as $N_k$ and the transition rate to a new state $i$ as $r_{ki}$. For example, if both sides of the $j^{\rm{th}}$ particle are empty sites, then two possible events are this particle hops to right or left. And the corresponding hopping rates are $\alpha$ or $\beta$, respectively. Notice that, the reflecting boundaries are specified here in the simulation. If the first particle is already sitting on first lattice site, then the hopping rate for it to the left is zero. And similar setting applies for the $N^{\rm{th}}$ particle. 
+
+$\bullet$ Step 3: order the possible hopping events in a list and calculate the cumulative hopping rate $R_{ki} = \sum_{j=1}^i r_{ki}$ for $i=1, \cdots, N_k$. The total hopping rate is $Q_k := R_{kN_k}$.
+
+$\bullet$ Step 4: draw a uniform random number $u\in(0,1]$. And find out the corresponding event $i$ that $R_{k,i-1} < uQ_k \leqslant R_{ki}$.
+
+$\bullet$ Step 5: update the system from state $k$ to state $i$. 
+
+$\bullet$ Step 6: update the system with $t = t + \Delta t$. Here, $\Delta t$ is drawn from the Poisson distribution, which can be calculated as 
+\begin{equation}
+    \Delta t = \frac{1}{Q_k} \ln\left(\frac{1}{u^{\prime}}\right),
+\end{equation}
+where $u^{\prime}$ is new uniform random number $u^{\prime}\in(0,1]$ that different from $u$. 
+
+$\bullet$ Step 7: return to step 2 and do the iteration.
+
+One have to wait for the system to reach equilibrium if the equilibrium statistics are the main interests. Usually the simulation runs quite fast. For a system of $1000$ lattice sites and $500$ particles, $10^6$ update steps take less than $10$ minutes.

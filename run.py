@@ -1,45 +1,110 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+This is the script for chaning parameter and run job in the cluster
+"""
 
-import numpy as np
+import subprocess
+import shlex
 import fileinput
-import os 
-import itertools as it
+import os
 import time
+import numpy as np
 
-# Teff = np.linspace(0.1, 9.9, 99)
-Teff = np.concatenate([np.linspace(1, 9.5, 18), np.linspace(10, 95, 18), np.linspace(100, 1000, 19)])
-# Teff = [2000] 
-Nbead = [100]
-# Nbead = [10, 20, 30, 50, 70, 100, 200, 300, 500]
-# Teff = [0] 
-fname = 'input.in'
+def ready_to_submit():
+    """ Inquire the queing system to determine the submit is ready or not
+    :returns: Ture of False
+    """
+    inquire_process = subprocess.Popen(['qstat'], stdout=subprocess.PIPE)
+    command = shlex.split("grep -w t")
+    status = subprocess.Popen(command, stdin=inquire_process.stdout).communicate()
+    return bool(status[0] is None)
 
-def ChangeInput(N, T):
-    for line in fileinput.input(fname, inplace=True):
-    # for line in open(fname):
+
+def change_input(para, para_val, infile='input.in'):
+    """ Change the input parameter
+
+    :para: string, the parameter name to be changed
+    :para_val: the parameter value to be set
+    :infile: name of input file, default value is 'input.in'
+
+    """
+    for line in fileinput.input(infile, inplace=True):
         words = line.split()
-        if len(words) == 3 and words[0] == "nSite":
-            line = line.replace(words[2], str(N))
-        if len(words) == 3 and words[0] == "nPar":
-            line = line.replace(words[2], str(N/2))
-        if len(words) == 3 and words[0] == "tempEff":
-            line = line.replace(words[2], str(T))
-        if len(words) == 3 and words[0] == "dt":
-            dt = min(T/10., 100)
-            # dt = min(N/100., 100)
-            # line = line.replace(words[2], str(T/2))
-            line = line.replace(words[2], str(dt))
-        if len(words) == 3 and words[0] == "tEnd":
-            # line = line.replace(words[2], str(T*1e6))
-            line = line.replace(words[2], str(dt*1e6))
+        if len(words) == 3 and words[0] == para:
+            line = line.replace(words[2], str(para_val))
         print line,
+    return
+
+
+def job_submit(command):
+    """ Sumit job to the queuing system
+
+    :command: the command used to submit job, "qsub"
+
+    """
+    subprocess.call(shlex.split(command))
+    return
+
+
+def change_dt(dt_val, infile):
+    """ Change the value of dt in the input file,
+    also change other parameters correspondingly like tEnd
+
+    :dt_val: the value to be set, string
+    :infile: the name of input file, string
+
+    """
+    for line in fileinput.input(infile, inplace=True):
+        words = line.split()
+        if len(words) == 3 and words[0] == "dt":
+            line = line.replace(words[2], str(dt_val))
+        if len(words) == 3 and words[0] == "outputStep":
+            line = line.replace(words[2], str(1e5))
+        if len(words) == 3 and words[0] == "tEnd":
+            line = line.replace(words[2], str(dt_val*1e4))
+        print line,
+    return
+
+
+def find_dt(infile='input.in'):
+    """ Find proper 'dt' to do the simulation
+
+    :infile: input file name, string
+    :returns: the value of dt, string
+
+    """
+    dt_upper = 1e-3
+    dt_lower = 1e-6
+    dt_val = dt_upper
+    null_file = open(os.devnull, 'w')
+    while dt_upper - dt_lower > 1e-6:
+        change_dt(dt_val, infile)
+        command = shlex.split("make run")
+        exit_status = subprocess.call(command, stdout=null_file, stderr=subprocess.STDOUT)
+        if exit_status == 0:
+            dt_lower = dt_val
+        else:
+            dt_upper = dt_val
+        dt_val = (dt_upper + dt_lower) / 2.
+    dt_string = ("%.1e" % dt_val).split('.')
+    dt_val = dt_string[0] + dt_string[1][1:]
+    return dt_val
+
+
+def main():
+    """ The main function
+
+    """
+    start_time = time.time()
+    para = "fExternal"
+    para_range = np.linspace(0.1, 1, 10)
+    for para_val in para_range:
+        change_input(para, para_val)
+        subprocess.call(["make", "run"])
+        # print para_val, find_dt('input.br.in')
+    # print ready_to_submit()
+    end_time = time.time()
+    print "Total Running Time: ", end_time - start_time
+
 
 if __name__ == "__main__":
-    startTime = time.time()
-    for (N,T) in it.product(Nbead, Teff):
-        # print N, T
-        ChangeInput(N, T)
-        os.system('make run')
-    endTime = time.time()
-    print "Total Running Time: ", endTime - startTime
+    main()

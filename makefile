@@ -1,9 +1,11 @@
-LIBS = -llapack -lm -lblas
 CC = clang++
-CFLAGS = -Wall -std=c++11 -o3
 SRCDIR = code
 BUILDDIR = build
 TARGET = $(BUILDDIR)/a.out
+CXXFLAGS += -Wall -std=c++11 -O3
+CXXFLAGS += -I/usr/local/include
+LDFLAGS += -L/usr/local/lib
+LDLIBS = -llapack -lm -lgsl -lgslcblas 
 
 VPATH = code
 
@@ -11,7 +13,7 @@ VPATH = code
 
 default: $(TARGET)
 all: default
-debug: CFLAGS += -g
+debug: CXXFLAGS += -g
 debug: default
 
 SRC = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.cpp))
@@ -19,12 +21,12 @@ HEADERS = $(foreach sdir, $(SRCDIR),  $(wildcard $(sdir)/*.hpp))
 OBJECTS = $(patsubst %.cpp, $(BUILDDIR)/%.o, $(notdir $(SRC)))
 
 $(BUILDDIR)/%.o: %.cpp $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) $(CFLAGS) $(LIBS) -o $@
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ $(LDLIBS)
 
 run:
 	./$(TARGET) input.br.in
@@ -38,4 +40,3 @@ movie:
 
 plot:
 	python script/plotfig.py
-

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <cmath>
 
 
 Bead::Bead()
@@ -162,12 +163,12 @@ void Bead::addForce(double **f)
 void Bead::predict()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
-    addForce(rod->pseudo(f));
+    // addForce(rod->pseudo(f));
     // addForce(rod->pseudoSparse(f));
-    // addForce(rod->pseudoRing(f));
+    addForce(rod->pseudoRing(f));
     addForce(force->brownian(f));
-    addForce(force->constant(f));
-    addForce(force->repulsive(r, f));
+    addForce(force->external(f));
+    // addForce(force->repulsive(r, f));
     
     // predict the next step position as rs
     for (int i = 0; i < nBead; ++i) {
@@ -195,12 +196,12 @@ void Bead::eulerUpdate()
 {
     std::fill(&ftotal[0][0], &ftotal[0][0] + nBead * DIM, 0);
 
-    addForce(spring->fene(r, f));
+    pinSPB();
+    addForce(spring->harmonic(r, f));
+    // addForce(spring->fene(r, f));
     // addForce(spring->bending(r, f));
     // addForce(force->repulsive(r, f));
-    // addDrivenSPB();
-    addForce(force->constant(f));
-    pinSPB();
+    addForce(force->external(f));
     addForce(force->brownian(f));
     
     // predict the next step position
@@ -257,17 +258,17 @@ void Bead::output(std::ofstream* outFile)
     }
     outputPos(outFile[0]);
     // outputRg(outFile[1]);
-    // outputRd(outFile[2]);
+    outputRd(outFile[2]);
 }
 
 void Bead::outputPos(std::ofstream& outFile) 
 {
-    outFile << "# t = " << t << std::endl;
+    outFile << "# t = " << t << '\n';
     for (int i = 0; i < nBead; ++i) {
         for (int j = 0; j < DIM; ++j) {
             outFile << std::setw(9) << r[i][j] << '\t';
         }
-        outFile << std::endl;
+        outFile << '\n';
     } 
 }
 
@@ -275,13 +276,15 @@ void Bead::outputRg(std::ofstream& outFile)
 {
     double rg = compute->gyrationRadius(nBead, r);
     outFile << std::setw(9) << t << '\t'
-        << std::setw(9) << rg << std::endl;
+        << std::setw(9) << rg << '\n';
 }
 
 void Bead::outputRd(std::ofstream& outFile)
 {
+    outFile << std::setw(9) << t << '\t';
     for (int i = 0; i < DIM; ++i) {
-        outFile << std::setw(9) << r[nBead/2][i] - r[0][i] << '\t';
+        outFile << std::setw(9) << 
+            r[nBead/2][i] - r[0][i] << '\t';
     }
-    outFile << std::endl;
+    outFile << '\n';
 }

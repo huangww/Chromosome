@@ -1,0 +1,175 @@
+
+% ******************************* Thesis Appendix F ********************************
+\chapter{Single-file diffusion with reflecting boundaries}
+\label{append:single_file}
+
+
+Single file diffusion is the continuous limit of the discrete ASEP model. The connection from ASEP can be shown by transfer the hopping rate $\alpha,~\beta$ to the diffusivity of particle $D$ and drifting velocity $\mu$. See in following:  
+\begin{subequations}
+    \label{eq:diffusivity_drift}
+        \begin{align}
+            D  & =  \frac{1}{2}(\alpha + \beta), \\
+            \mu &= \beta - \alpha.
+        \end{align}
+\end{subequations}
+The dynamical equation of the single-file particle system can be describe by Fokker-Planck Equation 
+\begin{equation}
+\begin{aligned}
+    \label{eq:fp}
+    \frac{\partial p(\mathbf{x}, t | \mathbf{x}_0)}{\partial t} = & D \left( \frac{\partial^2}{\partial x_1^2} + \frac{\partial^2}{\partial x_2^2} + \cdots+\frac{\partial^2}{\partial x_N^2}\right)p(\mathbf{x},t|\mathbf{x}_0), \\ 
+    & - \mu\left(\frac{\partial}{\partial x_1} + \frac{\partial}{\partial x_2} + \cdots + \frac{\partial}{\partial x_N} \right) p(\mathbf{x}, t | \mathbf{x}_0),
+\end{aligned}
+\end{equation}
+where $\mathbf{x}=(x_1, x_2, \cdots, x_N)^T$ is the vector denotes the position of each particle and $\mathbf{x_0}$ denotes the initial position of particles.
+The reflecting boundary conditions of the ASEP system can be written as
+\begin{subequations}
+    \label{eq:reflecting_boundary}
+    \begin{align}
+        \left(D\frac{\partial}{\partial x_1}p(\mathbf{x},t|\mathbf{x}_0) -\mu p(\mathbf{x},t|\mathbf{x}_0)\right) \Bigg|_{x_1=0} & = 0, \\
+        \left(D\frac{\partial}{\partial x_N}p(\mathbf{x},t|\mathbf{x}_0) -\mu p(\mathbf{x},t|\mathbf{x}_0)\right) \Bigg|_{x_N=L} & = 0,
+    \end{align}
+\end{subequations}
+where $L=2N$ in our case. Furthermore, notice the exclusive condition which means particle can not overtake each other. This can be formulated as follow
+\begin{equation}
+    \label{eq:exclusive_condition}
+    \left(\frac{\partial}{\partial x_{i+1}}p(\mathbf{x},t|\mathbf{x}_0) - \frac{\partial}{\partial x_{i}} p(\mathbf{x},t|\mathbf{x}_0) \right)\Bigg|_{x_{i}=x_{i+1}} = 0.
+\end{equation}
+Finally, the initial condition we assume is
+\begin{equation}
+    \label{eq:initial_condition}
+    p(\mathbf{x}, 0 | \mathbf{x}_0) = \delta(x_1-x_{1,0})\delta(x_2-x_{2,0})\cdots\delta(x_N-x_{N,0}).
+\end{equation}
+
+The solution of Eq. \eqref{eq:fp} together with Eq.  \eqref{eq:reflecting_boundary},\eqref{eq:exclusive_condition},\eqref{eq:initial_condition} can be found by the continuous version of generalised coordinate Bethe Ansatz.  We assume the solution of $p(\mathbf{x}, t | \mathbf{x}_0)$ can be written in the following form
+\begin{equation}
+    \label{eq:pdf_solution}
+    p(\mathbf{x}, t | \mathbf{x}_0) = \sum_{\sigma\in S_{N}}{\psi(x_1, x_{\sigma(1)};t)\psi(x_2, x_{\sigma(2)};t)\cdots\psi(x_N, x_{\sigma(N)};t)},
+\end{equation}
+where $\sigma$ is a $N$-permutation of $x_{i,0}$. This means the expanded form of Eq. \eqref{eq:pdf_solution} reads
+\begin{equation}
+    \begin{aligned}
+    \label{eq:pdf_solution_expanded}
+    p(\mathbf{x}, t | \mathbf{x}_0) = &
+    {\psi(x_1, x_{1,0};t)\psi(x_2, x_{2,0};t)\cdots\psi(x_N,x_{N,0};t)} + \\
+    & {\psi(x_1, x_{2,0};t)\psi(x_2, x_{1,0};t)\cdots\psi(x_N,x_{N,0};t)} + \\
+    & \text{ all other permutations of } \{x_{1,0}, x_{2,0}, \cdots, x_{N,0}\}.
+    \end{aligned}
+\end{equation}
+Now, it is important to find out the correct $\psi(x_i, x_{\sigma(i)};t)$.  We will show here that $\psi(x_i, x_{\sigma(i)};t)$ is simply the form of one single Brownian particle with drifting in the reflecting box, as indicated by the reflecting ASEP model. 
+However, before dive into the derivation, let us explain a little bit about the intuition why this method works. The reason might be rooting from the reflecting boundaries of the system. Because of the reflecting boundaries, the response of particles in the middle or in the periphery will be exactly the same, i.e. reflecting. This leads to a factorized form of the $N$-particle PDF, i.e. Eq.~\eqref{eq:pdf_solution}. So one connection is that Eq.~\eqref{eq:pdf_solution} is the solution of the 1D $N$-particle system as long as the boundary is reflecting, even through the external field could be much more complex than simply constant. We will give a proof that can easily extend to more general cases in the following text.
+
+In the following, we will show the proof that Eq. \eqref{eq:pdf_solution} is indeed the solution. It is actually quite simple and straight forward. Notice that $\psi(x_i, x_{j,0};t)$ is the solution of single particle drifting in the box so that
+
+\begin{subequations}
+\label{eq:single_particle}
+\begin{equation}
+    \label{eq:single_particle_1}
+    \frac{\partial \psi(x_i, x_{j,0};t)}{\partial t} =
+    D \frac{\partial^2}{\partial x_i^2} \psi(x_i, x_{j,0};t) - \mu\frac{\partial}{\partial x_i}\psi(x_i, x_{j,0};t);
+\end{equation}
+\begin{equation}
+    \label{eq:single_particle_2}
+    \left(D\frac{\partial}{\partial x_i}\psi(x_i, x_{j,0};t) - \mu\psi(x_i, x_{j,0};t)\right) \Bigg|_{x_i=0} = 0;
+\end{equation}
+\begin{equation}
+    \label{eq:single_particle_3}
+    \left(D\frac{\partial}{\partial x_i}\psi(x_i, x_{j,0};t) - \mu\psi(x_i, x_{j,0};t)\right) \Bigg|_{x_i=L} = 0;
+\end{equation}
+\begin{equation}
+    \label{eq:single_particle_4}
+    \psi(x_i, x_{j,0};0) = \delta(x_i-x_{j,0}).
+\end{equation}
+\end{subequations}
+
+Let us first check that Eq.~\eqref{eq:pdf_solution} satisfies the Fokker-Planck equation. Substitute Eq.~\eqref{eq:pdf_solution} into Eq.~\eqref{eq:fp} we obtain
+\begin{align*}
+    \text{lhs} & = \sum_{\sigma\in S_N}\sum_{i=1}^N\frac{\partial\psi(x_i,x_{\sigma(i)};t)} {\partial t}\prod_{j\neq i}\psi(x_j, x_{\sigma(j)};t),\\
+    \text{rhs} & = \sum_{\sigma\in S_N}\sum_{i=1}^N\left(D\frac{\partial^2\psi(x_i, x_{\sigma(i)};t)}{\partial x_i^2} - \mu\frac{\partial\psi(x_i, x_{\sigma(i)};t)}{\partial x_i}\right)\prod_{j\neq i} \psi(x_j, x_{\sigma(j)};t).
+\end{align*}
+It is obvious that $\emph{lhs} = \emph{rhs}$ because of Eq.~\eqref{eq:single_particle_1}. And other permutation terms of Eq.~\eqref{sec:solution} can be proved in the same way.
+
+Next, we show that the reflecting boundary conditions is satisfied, again just plug Eq.~\eqref{eq:pdf_solution} into Eq.~\eqref{eq:reflecting_boundary}, obtain
+\begin{align*}
+        & \left(D\frac{\partial}{\partial x_1}p(\mathbf{x},t|\mathbf{x}_0) - \mu p(\mathbf{x},t|\mathbf{x}_0) \right)\Bigg|_{x_1=0} \\
+        & = \sum_{\sigma\in S_N}\left(D\frac{\partial\psi(x_1, x_{\sigma(1)};t)} {\partial x_1} - \mu \psi(x_1, x_{\sigma(1)};t) \right)\prod_{j\neq 1}\psi(x_j, x_{\sigma(j)};t) \Bigg|_{x_1 = 0} \\
+        & = 0.
+\end{align*}
+Eq.~\eqref{eq:single_particle_2} is utilized in the last step. Similarly, the boundary condition at $x_N = L$ is also satisfied because of Eq.~\eqref{eq:single_particle_3}.
+
+We then show that the exclusive condition Eq.~\eqref{eq:exclusive_condition} is also true. Take a pair of permutation terms that we can always find in the solution of Eq.~\eqref{eq:pdf_solution}, 
+\begin{align*}
+    \phi = & \psi(x_i, x_{m,0};t)\psi(x_{i+1}, x_{n,0};t) \prod_{j\neq i,i+1} \psi(x_j, x_{\sigma(j)};t)  \\
+    & + \psi(x_i, x_{n,0};t)\psi(x_{i+1}, x_{m,0};t)\prod_{j\neq i,i+1} \psi(x_j, x_{\sigma(j)};t).
+\end{align*}
+It is easy to verify that
+\begin{align*}
+    % \label{eq:proof_exclusive}
+    \left(\frac{\partial \phi}{\partial x_{i+1}} - \frac{\partial \phi}{\partial x_{i}}\right)\Bigg|_{x_i = x_{i+1}} & =  \left(\frac{\partial\psi(x_{i+1}, x_{m,0};t)}{\partial x_{i+1}}\psi(x_{i}, x_{n,0};t) + \frac{\partial\psi(x_{i+1}, x_{n,0};t)}{\partial x_{i+1}}\psi(x_{i}, x_{m,0};t)\right. \\ 
+    &\left. - \frac{\partial\psi(x_i, x_{m,0};t)}{\partial x_i}\psi(x_{i+1}, x_{n,0};t) - \frac{\partial\psi(x_i, x_{n,0};t)}{\partial x_i}\psi(x_{i+1}, x_{m,0};t)\right) \\ 
+    & \times\prod_{j\neq i,i+1}\psi(x_j, x_{\sigma(j)};t)\Bigg|_{x_i = x_{i+1}} \\
+    & = 0.
+\end{align*}
+And because $p(\mathbf{x}, t | \mathbf{x_0})$ can be written as the summation of $\phi$, so the exclusive condition Eq.~\eqref{eq:exclusive_condition} is proved.
+
+Last, we come to the initial condition. Simply plug Eq.~
+\eqref{eq:single_particle_4} into the solution Eq.~\eqref{eq:pdf_solution} we get
+\begin{align*}
+    p(\mathbf{x}, 0 | \mathbf{x}_0) = & 
+    \delta(x_1-x_{1,0})\delta(x_2-x_{2,0})\cdots\delta(x_N-x_{N,0}) \\
+    & + \delta(x_1-x_{2,0})\delta(x_2-x_{1,0})\cdots\delta(x_N-x_{N,0}) \\
+    & \text{ all other permutations of } \{x_{1,0}, x_{2,0}, \cdots, x_{N,0}\}.
+\end{align*}
+All the other terms vanish except the first in the above equation because by definition we have $x_{1}<x_{2}<\cdots<x_{N}$ and $x_{1,0}<x_{2,0}<\cdots<x_{N,0}$.  We thus prove the initial condition Eq.~\eqref{eq:initial_condition}. And now we finally proved that Eq.~\eqref{eq:pdf_solution} with $\psi(x_i, x_{j,0};t)$ satisfies Eq.~\eqref{eq:single_particle} is the solution of our problem.  Notice that this procedure of proof is still valid in the case that external field is more complex than just constant.
+
+Now let us come back to the solution Eq.~\eqref{eq:pdf_solution}. So if we know the exact form of $\psi(x_i,x_{j,0};t)$ then we have a close form solution of our problem. Luckily, $\psi(x_i,x_{j,0};t)$ is known thanks to the recent works~\cite{Linetsky2005}. In our notation, $\psi(x_i,x_{j,0};t)$ can be written as
+\begin{equation}
+    \label{eq:single_particle_solution}
+    \psi(x_i,x_{j,0};t) = \psi_0(x_{i}) + \sum_{n=1}^\infty\exp(-\lambda_n t)\varphi_n(x_{i}, x_{j,0}),
+\end{equation}
+where $\psi_0(x_{i})$ is stationary state PDF that irrelevant with time and initial condition. $\lambda_n$ is the eigenvalue related to $n^{th}$ relaxation mode, $\varphi_n(x_i, x_{j,0})$ is the function relates to initial condition. These terms can be written as following
+\begin{subequations}
+    \label{eq:single_particle_solution_terms}
+    \begin{equation}
+        \psi_0(x_i) = \left\{
+            \begin{array}{ccl} 
+                \frac{1}{L} & \mbox{for} & \mu=0, \\
+                \frac{\mu}{D}\frac{\exp(\frac{\mu x_i}{D})}{\exp(\frac{\mu L}{D})-1} & \mbox{for} & \mu\neq 0.
+            \end{array}\right.
+    \end{equation}
+    \begin{equation}
+        \lambda_n = \frac{\mu^2}{4D} + \frac{Dn^2\pi^2}{L^2};
+    \end{equation}
+    \begin{equation}
+        \varphi_n(x_i, x_{j,0}) =
+        \frac{D\pi^2\exp(\frac{\mu}{2D}(x_i-x_{j,0}))}{2\lambda_n L}X_n(x_i) X_n(x_{j,0});
+    \end{equation}
+    \begin{equation}
+        X_n(x) = \frac{2n}{L}\cos(\frac{n\pi x}{L}) + \frac{\mu}{D\pi}\sin(\frac{n\pi x}{L}).
+    \end{equation}
+\end{subequations}
+Plug Eq.~\eqref{eq:single_particle_solution} and \eqref{eq:single_particle_solution_terms} into Eq.~\eqref{eq:pdf_solution} we get the close form $N$-particle PDF.
+However, it is so lengthy that not clean enough for us to understand the physics. Notice what we usually interested in are the stationary state and the longest relaxation time. So we keep only these two terms after the substitution, obtain
+
+\begin{equation}
+    \label{eq:p0_p1}
+    p(\mathbf{x}, t | \mathbf{x}_0) = p_0(\mathbf{x}) + p_1(\mathbf{x}, t| \mathbf{x}_0) + p_H(\mathbf{x}, t|\mathbf{x}_0).
+\end{equation}
+where $p_H$ is the summation of all higher mode terms $n>1$, $p_0$ and $p_1$ are stationary mode and longest relaxation mode, respectively, which reads
+\begin{subequations}
+    \begin{equation}
+        \label{eq:pdf_terms_p0}
+        p_0(\mathbf{x}) = N!\,\psi_0(x_1)\prod_{i=1}^{N-1}\psi_0(x_{i+1})\Theta(x_{i+1}-x_{i});
+    \end{equation}
+    \begin{equation}
+        \label{eq:pdf_terms_p1}
+        p_1(\mathbf{x}, t| \mathbf{x}_0) = A_1(\mathbf{x}, \mathbf{x}_0)\exp(-\lambda_1 t);
+    \end{equation}
+    \begin{equation}
+        \label{eq:pdf_terms_A1}
+        A_1(\mathbf{x}, \mathbf{x}_0) = 
+        (N-1)!\,\sum_{i=1}^N\psi_0(x_i)\sum_{j\neq i}^N 
+        \sum_{k=1}^N\varphi_1(x_j,x_{k,0}).
+    \end{equation}
+\end{subequations}
+Here, $\Theta(x)$ is the Heaviside step function and $A_1$ is the amplitude of the longest relaxation mode which relates only the position of particles.
+We can clear see from here the second largest eigenvalue is $\lambda_1$, which is the second largest eigenvalue of one particle system. 

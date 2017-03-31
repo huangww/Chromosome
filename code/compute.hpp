@@ -10,7 +10,7 @@ public:
 
     double gyrationRadius(int N, double **r);
     double gyrationRadius(int N, double* r);
-
+    double theta(double *r1, double *r2);
 };
 
 

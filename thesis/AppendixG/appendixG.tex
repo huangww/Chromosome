@@ -1,0 +1,62 @@
+
+% ******************************* Thesis Appendix G ********************************
+\chapter{The blob theory of pinned polymer loop}
+\label{append:blob_theory}
+
+We will discuss here the blob theory of our model of pinned polymer loop. Notice that our polymer model is an ideal chain model, which means the typical size of the polymer $R$ scales with the number of monomers $L$ like $R\sim L^{1/2}$. Moreover, the blob theory assumes the hydrodynamical interaction, which is missing in our simple model. Nevertheless, we will assume here the hydrodynamical interaction exists and calculate the three critical dimensionless temperatures (flow velocity) in order to compare our results to the previous studies.
+
+The blob theory claims the pulled polymer is composed by a succession of independent blobs with the size of the blob
+\begin{equation}
+    \label{eq:blobSize}
+    R_{blob} = \frac{k_B T}{f}, 
+\end{equation}
+where $f$ is the magnitude of the \emph{local} pulling force, and $R_{blob}$ is the typical size of the blob can be measured by end to end distance or the gyration radius. We emphasize here that all constant pre-factors are ignored in this argument. Then the number of monomers in one blob can be estimated as
+\begin{equation}
+    \label{eq:monomersInBlob}
+    L_{blob} = \left(\frac{k_B T}{f a}\right)^2,
+\end{equation}
+where $a$ is size of one monomer. The total extension of the polymer chain along the force direction can be written as
+\begin{equation}
+    \label{eq:totalExtension}
+    z = \frac{L}{L_{blob}} R_{blob} = \frac{fa}{k_B T} La.
+\end{equation}
+From the above equation, we obtain the local deformation $dx/dn$ can be written as
+\begin{equation}
+    \label{eq:localDeformation}
+    \frac{dz}{dl} = \frac{fa}{k_B T} a.
+\end{equation}
+Notice that for a pulled polymer chain or pinned chain in an external force field, the local force $f$ is accumulated by the tension from the free end. Namely, we have $f \sim F z / a $, where $F$ is the strength of the external force field. Thus we arrive at
+\begin{equation}
+    \label{eq:extensionLength}
+    z(l) = a \left(\frac{k_B T}{Fa}\right)^{\frac{1}{2}}\exp\left(\frac{Fa}{k_B T} l\right) = a \tilde{T}^{\frac{1}{2}} \exp\left(\frac{l}{\tilde{T}}\right).
+\end{equation}
+We purposely write it in this form which makes the comparison to our theory easier. 
+
+Now let us discuss the different regimes of steady state. The first regime is unperturbed regime when the external force field is weak, and the configuration of the polymer is nearly coiled. The boundary of regime can be estimated by 
+\begin{equation}
+    \label{eq:unperturbedBoundary}
+    k_B T = f R_0 = \frac{R_0}{a} F R_0 = F L a.
+\end{equation}
+From the Eq. \eqref{eq:unperturbedBoundary}, we can obtain the critical dimensionless temperature $\tilde{T}_{c1} = L$. The second regime is characterized a series of blobs with increasing size, which is called the trumpet regime.
+The smallest blob is the one right next to the pinned point. And the smallest size before it become a stem-like structure is $a$. So we have
+\begin{equation}
+    \label{eq:trumpetBoundary}
+    k_B T = f a = F L_z,
+\end{equation}
+where $L_z = z(L)$ can be calculated by Eq. \eqref{eq:extensionLength}. By solving the above equation, we can obtain the boundary of the trumpet regime as $ \sqrt{\tilde{T}} = \exp{\frac{L}{\tilde{T}}}$. Thus we have $\tilde{T}_{c2} = \frac{2L}{\text{LambertW}(2L)}$. Here $\text{LambertW}(x)$ is a special function denotes the inverse function of $f(x) = x \exp(x)$. In the case of $L\in[100, 1000]$, we have $\tilde{T}_{c2} \approx L / 3$. 
+The next regime is called the stem-flower regime, where the part of polymer near to the pinned point is almost stretched and the part near to the free end is still composed by blobs. Let us denote the extension of the ``flower'' part as $z_f$ and number of monomers in the ``flower'' as $l_f$, then we have
+\begin{equation}
+    k_B T = f a = F z_f.
+\end{equation}
+Again, we can calculate $z_f$ by Eq. \eqref{eq:extensionLength}. Thus we have 
+\begin{subequations}
+    \label{eq:flowerSize}
+    \begin{align}
+        z_f  & = \frac{\tilde{T}}{\tilde{T}_{c2}} L_z = \sqrt{\tilde{T}}\exp\left(\frac{l_f}{\tilde{T}}\right) a; \\
+        l_f  & = \tilde{T}\left(\frac{L}{\tilde{T}_{c2}} + \frac{1}{2} \ln\tilde{T} - \frac{1}{2}\ln\tilde{T}_{c2}\right).
+    \end{align}
+\end{subequations}
+If we further increase the external force field, then finally we will arrive the fully stretched regime where the whole polymer is stretched. We can calculate the critical $\tilde{T}_{c3}$ by set $l_f = 1$. Interestingly, we can obtain $\tilde{T}_{c3} = \frac{2}{\text{LamberW}(2)} \approx 2.35$ which is independent of the system size. 
+
+Finally, let us discuss about the impact of the looping structure. In the ideal chain model, there is no excluded volume effect. So the pinned polymer loop is the same as the pinned polymer chain except a factor of $1/2$ on $L$. In the scaling discussion above, this pre-factor is neglectable. 
+

@@ -1,11 +1,12 @@
+"""
+Fitting the auto correlation functions and find fitting range
+"""
+import glob
+import itertools as it
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.tsa.stattools as ss
 from scipy.signal import savgol_filter
-import itertools as it
-import os 
-import glob
-import sys
 
 
 dataDir = 'data/'
@@ -16,7 +17,7 @@ def ACF(x):
             len(x)-1)
     return acf[:end]
 
-def GetACF(fname):
+def MergeACF(fname):
     # fname = dataDir + 'rg_N100_T'+str(T)+ \
     #         '_'+str(i)+'.dat'
     fileList = glob.glob(fname)
@@ -70,7 +71,7 @@ def FitTau(t, acf):
     print 'tau =', tau
     return tau
 
-def PlotFig(t, acf, figName='fig/acfFit.pdf'):
+def PlotFig(t, acf, save=False, figName='fig/acfFit.pdf'):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(t, acf,'-')
@@ -94,15 +95,23 @@ def PlotFig(t, acf, figName='fig/acfFit.pdf'):
     ax.set_ylim(1e-3, 1)
     ax.set_xlim(0, min(3*t[len(tFit)*3]/2, t[-1]))
     ax.axvline(t[len(tFit)*3])
-    fig.savefig(figName)
+    if save: fig.savefig(figName)
+    plt.show()
     plt.close(fig)
 
-def GetTau(t, x, fig=False, figName='fig/acfFit.pdf'):
+def GetTau(t, x, saveFig=False, figName='fig/acfFit.pdf'):
     acf = ACF(x)
     t = t[:len(acf)]
     tau = FitTau(t, acf)
-    if fig: PlotFig(t, acf, figName)
+    if saveFig: PlotFig(t, acf, saveFig, figName)
     return tau
+
+def ShowDataACF(data):
+    t = data[:,0]
+    x = data[:,1]
+    acf = ACF(x)
+    t = t[:len(acf)]
+    PlotFig(t, acf)
 
 def Demo():
     plt.close('all')
@@ -188,10 +197,10 @@ def main():
     # Narr, Tarr = GetParaList()
     for (N, T) in it.product(Narr, Tarr):
         # fname = dataDir+'rg1D_N%g_T%g_*.dat'%(N,T)
-        # t, acf = GetACF(fname)
+        # t, acf = MergeACF(fname)
         fname = dataDir+'rg1D_N%g_T%g.dat'%(N,T)
         data = np.loadtxt(fname)
-        t, acf = GetACF(data)
+        t, acf = MergeACF(data)
         # fname = 'data/acf1D_N100_T'+str(T)+'_c'+str(c)+'.dat'
         # np.savetxt(fname, (t, acf))
         # t, acf = np.loadtxt(fname)

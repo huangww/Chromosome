@@ -4,7 +4,7 @@ import mpmath as mp
 
 
 def FermiDrac(T, N):
-    mu = (N+1)/2.
+    mu = (N-1)/2.
     x = np.arange(N)
     p = 1. / (1. + np.exp((x-mu)/T))
     x = 2.*x/N

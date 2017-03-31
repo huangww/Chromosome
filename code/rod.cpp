@@ -12,7 +12,10 @@
 #include <iomanip>
 #include "Eigen/Sparse"
 #include "Eigen/SparseLU"
-
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_multiroots.h>
+#include <cstdlib>
+#include <cstdio>
 
 Rod::Rod(Bead *beadPointer)
 {
@@ -55,6 +58,9 @@ void Rod::setParameter(Input *input)
     u = create2DArray<double>(nLink+DIM, DIM);
     b = create2DArray<double>(nLink+DIM, DIM);
     // init();
+    
+    // printMetric();
+    // std::cin.get();
 }
 
 void Rod::init() 
@@ -142,6 +148,7 @@ void Rod::matrixA(double *A)
                     Dot(&b[i][0],&u[nLink+j][0], DIM);
             }
         } 
+
         // the one for pinned bead Fc[1]*b[k]
         // for a ring, A[N+i, N] = u[N] . b[N+i]
         if (link[i][1]==0) {
@@ -249,6 +256,85 @@ void Rod::solverPicard(double *x)
     throw "MaxStep exceeded in Picard!";
 }
 
+void Rod::unpinnedMatrixA(double *A) 
+{
+    std::fill(&A[0], &A[0] + nLink * nLink, 0);
+
+    for (int i = 0; i < nLink; i++) {
+        // normal A entities 
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                // Indices transfer: A[j*nLink+i] = A[i][j]
+                A[j*nLink+i] = g[i][j]*Dot(&b[i][0],&u[j][0], DIM);
+            }
+        }
+    }
+
+}
+
+void Rod::unpinnedVectorB(double *x, double *B)
+{
+    // B =  (1 - b^2[i] - nonlinear term)/(2dt)
+    // nonlinear term = ((Fc[i+1]-Fc[i])*dt)^2
+    for (int i = 0; i < nLink; i++) {
+        double tmp[DIM];
+        std::fill(&tmp[0], &tmp[0] + DIM, 0);
+        for (int j = 0; j < nLink; j++) {
+            if (g[i][j] != 0) {
+                for (int k = 0; k < DIM; k++) {
+                    tmp[k] += g[i][j]*x[j]*u[j][k];
+                }
+            }
+        }
+
+        double dotBiBi = 0.0;
+        double dotTiTi = 0.0;
+        for (int k = 0; k < DIM; k++) {
+            dotBiBi += b[i][k]*b[i][k];
+            dotTiTi += tmp[k]*tmp[k];
+        }
+        B[i] = (1.0 - dotBiBi)/(2.0*dt) -
+            dt * dotTiTi/2.0;
+    }
+
+}
+
+void Rod::solverPicardUnpinned(double *x) 
+{
+    double A[nLink*nLink];
+    unpinnedMatrixA(A);
+
+    int n = nLink;
+    int lda = nLink;
+    int iPIv[nLink];
+    int info;
+    dgetrf_(&n, &n, A, &lda, iPIv, &info);
+
+    double xold[nLink];
+    for (int step = 0; step < 1000; step++)
+    {
+        std::copy(&x[0], &x[0] + nLink, &xold[0]);
+        double B[nLink];
+        unpinnedVectorB(x, B);
+
+        char s = 'N';
+        int nrhs = 1;
+        dgetrs_(&s, &n, &nrhs, A, &n, iPIv, B, &n, &info);
+
+        std::copy(&B[0], &B[0] + nLink, &x[0]);
+        double maxDiff = fabs(xold[0] - x[0]);
+        for (int i = 1; i < nLink; i++) {
+            if (fabs(xold[i] - x[i]) > maxDiff) {
+                maxDiff = fabs(xold[i] - x[i]);
+            }
+        }
+        if (maxDiff < 1e-6) return;
+    }
+
+    // bead->print();
+    throw "MaxStep exceeded in Picard!";
+}
+
 void Rod::jacobian(double *x, double *A, double *B)
 {
     // F[i] = \sum_j g[i,j] * b[i] . u[j] * x[j]
@@ -282,7 +368,7 @@ void Rod::jacobian(double *x, double *A, double *B)
                 tmp[nLink+j] += A[i*(nLink+DIM)+nLink+j]*x[i];
                 A[(nLink+j)*(nLink+DIM)+i] = 
                     Dot(&b[i][0],&u[nLink+j][0], DIM);
-                tmp[i] += A[i*(nLink+DIM)+nLink+j]*x[nLink+j];
+                tmp[i] += A[(nLink+j)*(nLink+DIM)+i]*x[nLink+j];
             }
         } 
         // the one for pinned bead Fc[1]*b[k]
@@ -389,8 +475,10 @@ double** Rod::constraint(double** f)
     b = linkVectorB();
     double tension[nLink+DIM];
     std::fill(&tension[0], &tension[0] + nLink + DIM, 0);
-    // solverPicard(tension);
-    solverNewton(tension);
+    solverPicard(tension);
+    // solverPicardUnpinned(tension);
+    // solverNewton(tension);
+    // solverHydrj(tension);
 
     for (int i = 0; i < nBead; i++) {
         for (int j = 0; j < nLink; j++) {
@@ -407,6 +495,7 @@ double** Rod::constraint(double** f)
         }
     }
 
+    // To pinned the first bead
     for (int k = 0; k < DIM; ++k) {
         f[0][k] = f[0][k] + tension[nLink+k]*u[nLink+k][k];
     }
@@ -430,7 +519,7 @@ double** Rod::pseudo(double **f)
 
     // calculate the inverse of the metric matrix
     int n = nLink;
-    int iPIv[nLink];
+    int iPIv[nLink+1];
     int info;
     double work[nLink];
     dgetrf_(&n, &n, metric, &n, iPIv, &info);
@@ -530,16 +619,17 @@ double **Rod::pseudoRing(double **f)
 
     u = linkVectorU();
     double coeff[nLink];
-    coeff[0] = -Dot(&u[0][0], &u[nLink-1][0], 3);
+    coeff[0] = -Dot(&u[0][0], &u[nLink-1][0], DIM);
     double prodCoeff = coeff[0];
     for (int i = 1; i < nLink; i++) {
-        coeff[i] = -Dot(&u[i][0], &u[i-1][0], 3);
+        coeff[i] = -Dot(&u[i][0], &u[i-1][0], DIM);
         prodCoeff *= coeff[i];  
     }
     double det1 = detBandMetric(nLink-2, &coeff[2]);
     double det2 = detBandMetric(nLink-2, &coeff[1]);
     double det3 = detBandMetric(nLink-1, &coeff[1]);
     int sign = 1 - 2*(nLink%2);
+    // expand detG by the last line of the matrix
     double detG = -coeff[0]*coeff[0]*det1 
         - coeff[nLink-1]*coeff[nLink-1]*det2
         + 2*det3 - 2*sign*prodCoeff; // check

@@ -1,0 +1,83 @@
+\chapter{Discussions and Outlook}  
+\graphicspath{{Chapter5/Figs/}}
+
+In preceding chapters, we discussed the equilibrium statistics and relaxation dynamics of pinned polymer loop in the way of mathematical modeling and numerical simulations. In this chapter, we will come back to the biology system of fission yeast to discuss the insights we can infer from our study. Moreover, we will compare some of our results to the previous works, which are either obtained by experiments or by different methods. In the last section, we will show some outlooks of this thesis. 
+
+%********************************** %First Section  **************************************
+\section{Discussions}
+\label{sec:Discussions}
+
+In this section, our discussion is divided into two parts. The first part is about the biological system of fission yeast, while the second part is devoted to the comparison of our theory to previous results on the pulled polymer system. For the first part, most insights are based on our calculations of the equilibrium statistics as the chromosome pairing is in a time window that the system can be assumed to be equilibrated. The second part is more related to the dynamics. Let us elaborate them one by one. 
+
+\subsection{Chromosome paring and alignment}
+\label{sub:chromosome_paring_and_alignment}
+
+In the prophase I of fission yeast, dramatic chromosome movements are observed before the cell divided into two. The pair of chromosomes are supposed to align in space before separating into different cells, which means the distance between the corresponding loci should be below a certain threshold. This process is called chromosome paring, which is a necessary condition for the correct segregation later.
+
+In the mean time of chromosome pairing, the nucleus of fission yeast is oscillating. As we discussed in the second chapter, the oscillation can be divided into two pieces of steady motion, which can be further transferred to the scenario of pinned polymer loop in an external force field. One can intuitively imagine that the chromosomes will be more stretched when subjecting to an stronger external force field. So the statistical distance between two corresponding loci will be shorten. Biologically, if the statistical distance is smaller than $400$ nm, then it is said been paired. It is interesting to ask how does the pulling facilitate the paring of homologous. 
+We will now apply our theory to get insights of the paring problem of chromosomes. 
+
+In order to fit our theory to the real biological problem, let us first discuss some related parameters which are listed in table~\ref{tab:parameters} (Chapter 1). During cell division, chromosomes are highly condensed. As a consequence, the Kuhn length is large to be $\sim 200$ nm. With the length of chromosomes in base pair and the compact ratio listed in the same table, we can estimate that the total number of monomers in the longest chromosome is about $300$. We will discuss the paring problem of the longest pair of chromosomes because the paring of shorter ones is easier comparing to the former. 
+
+In Section~\ref{sub:polymer_loop_and_pulled_polymer_model}, we calculated the distance between two corresponding beads of the polymer pair, as illustrated in Fig.~\ref{fig:pairLoops}. These two beads correspond to the same loci of homologous. The paring process is supposed to bring them together with a statistical distance less then $400$ nm. 
+
+The theoretical and numerical results of how the distance varies with the dimensionless temperature $\tilde{T}$ was shown in Fig.~\ref{fig:pairing}. Recall that the $\tilde{T} = k_B T/F a$, and the effective temperature $T$ barely changes in vivo, $\tilde{T}$ can be consider as the inverse measure of pulling force $F$ in the fission yeast setting. So we can clearly see from Fig.~\ref{fig:pairing} that the strong external pulling force (small $\tilde{T}$ significantly decreases the distance between beads. In other words, the model shows that pulling facilitates the chromosome pairing.
+
+Our next question is what is the magnitude of actual pulling force in vivo fission yeast, is it sufficient for the successful pairing of the whole chromosome. 
+
+To answer this question, let us estimate the value of dimensionless temperature from the experimental facts. Using the Stokes relation $F = 6\pi\eta R v$, the strength of external force field can be evaluated. $\eta$ is the viscosity of nucleoplasm which is estimated by the experimentalist as $1000$ times of water. $R$ is the bead radius can be estimated as half of the Kuhn length $R \approx 100$ nm. The moving velocity $v \approx 2.5\mu$m/min is measured from the experiment. As a result, we can obtain $F \approx 7\times10^{-14}$ N. Using the temperature $T=300$ K and Kuhn length $a=200$ nm, we can finally obtain $\tilde{T} \approx 0.3$. This is a parameter locates at the lower left strong force regime in Fig.~\ref{fig:pairing}. As we can see from the figure, the distance between corresponding beads is smaller and mostly below the paring threshold, which is indicated by the shaded regime in Fig.~\ref{fig:pairing}. So the conclusion is the pulling motion of chromosomes in fission yeast supplies an sufficient force for the paring. 
+
+As mentioned in the first chapter, redistribution of dynein motors is the mechanism drives the nuclear oscillation.  We now ask the question whether the number of involving motor molecules sufficient for the motion. 
+
+To answer this question, let us first estimate the total force needed for the pulling motion. According the genomic length of each chromosome together with a compaction ratio of $100$ bp/nm and a Kuhn length of $200$ nm, the total number of monomers in fission yeast is $\sim 1260$. So the total pulling force is $F_{total} \approx 100$ pN. The stall force of dynein motors has been reported within the range of $1-7$ pN \cite{Toba2006,Gennerich2007}. This corresponds to $14-100$ dynein motors pulling together. Previous measurements shows that there are $50-100$ dynein motors engaged in pulling of the SPB \cite{Ananthanarayanan2013}. Thus the experimentally observed number of dynein motors is sufficient to generate a force for the alignment of the chromosomes.  
+
+\subsection{The blob theory of pulled polymer}
+\label{sub:the_blob_theory_of_pulled_polymer}
+
+Coming from a problem of modeling fission yeast chromosomes during nuclear oscillation, we discussed in this thesis mostly about the pinned polymer loop model. Our study is unique because the polymers not only retain a loop structure, but also pulled by an external force at some point. To the best of our knowledge, there is no previous study treats this specific case till now.
+However, the pulled polymer chain model was well studied by F. Brochard-Wyart et al. in 1995~\cite{Brochard-Wyart1995}. They developed the blob theory of pinned polymer chains under flows. They found three steay-state regimes, i.e. the unperturbed state, the trumpet regime and the stem-flower regime. Before delve into the comparison between our theory and the blob theory, we want to highlight several differences between the setting of these two models.
+
+$\bullet$ Obviously, the looping structure of fission yeast chromosome is a very special case and different from the chain model. 
+
+$\bullet$ In our model, we ignore all the complex interactions including the volume excluded effect and hydrodynamic perturbations. However, these facts were taken in to account in Brochard-Wyart's study. 
+
+$\bullet$ The ideal polymer model with the size scaling $R\sim L^{\frac{1}{2}} a$ is used in our model instead of the Flory scaling $R \sim L^{\frac{3}{5}} a$. Here $L$ is the number of monomers in the polymer and $a$ is the size of one monomer. The ideal behavior has been claimed in the experiments for DNA under $20$ microns~\cite{Cluzel1996}. Notice that, the fission yeast chromosomes are exactly in this ideal regime since the size of fission yeast is only $10$ microns. 
+
+With these notes in mind, let us go ahead to discuss the results from our model and compare it with the blob theory. In order to do that, let us first apply the blob theory on the ideal chain model used in our model. 
+
+The blob theory states that the configuration of the pinned polymer in a flow is composed by a sequence of blobs with increasing size along the flow direction. In a certain regime of external flow, the blobs near to the pinned end vanished to a ``stem'' structure, while the free end forms a ``flower'' structure. See in Fig.~\ref{fig:stemFlower}. However, these pictures are the equilibrium configurations. The equilibrium blob theory of pinned polymer loop is discussed in Appendix~\ref{append:blob_theory}. Here, we focus on the relaxation behaviors. The main result of the blob theory for the dynamics is about the stretch-coil transition. For a initially stretched pinned polymer chain, the ``flower'' starts to grow from the free end when the external flow is stopped at some point. The growth rate scales with time as $z_0 - z \sim t^{1/2}$, where $z_0$ is the initial extension of the polymer. 
+
+In comparison, we did not observed the $t^{1/2}$ scaling for stretch-coil transition in our model, see in Section~\ref{sec:dynamics_of_3d_bead_rod_polymer_loop}. In our model, the relaxation from stretched configuration to coiled one is characterized by an initial ballistic shooting followed by a long exponential decay, see in Fig.~\ref{fig:stretchCoil}. 
+
+To explain the distinctions, recall that our model is the simplest model without excluded volume effect and hydrodynamical interactions. Physically, the results of these interactions slow down the response of the system. So a power law scaling is obtained instead of the exponential decay. On the other hand, our study of the simple analytically tractable model also stresses the importance of hydrodynamic interactions in modeling chromosomes. Experimentally, the scaling of $t^{1/2}$ were observed on the $\lambda$-DNA~\cite{Perkins1994,Perkins1994a,Manneville1996}.
+
+In this section, we use our results to discuss the insights we can obtained to the biological problem of chromosome movements in fission yeast. And a comparison for the dynamics of our model to the blob theory is discussed. The distinctions between them highlight the importance of hydrodynamic interactions and excluded volume effect in the modeling of polymer dynamics. In next section, we will summarize the whole thesis and give an outlook for the future directions.
+
+
+
+
+%********************************** %Second Section  *************************************
+
+\section{Summary and outlook}
+\label{sec:summary_and_outlook}
+
+To summarize, we investigated the pinned polymer loops in an external force field in order to modeling the chromosome movements in fission yeast during nuclear oscillation. More specifically, we studied the equilibrium and non-equilibrium properties of the pinned polymer loops. The equilibrium statistics are solved analytically by applying the Brownian bridge condition. The non-equilibrium dynamics are solved by using by mapping from polymer to particle-lattice system. The reflecting ASEP is solved exactly and then remapped back to the polymer system for the relaxation dynamics. Extensive BD simulations and MC simulations are performed to verify our theory as well as study more complex cases.
+
+Many results and techniques developed in this thesis are new. And we believe they are very useful in the discussion of a large range of problems. For example, the Brownian bridge technique is useful to discuss any system with looping structures. And the generalised Bethe ansatz method can be applied to any system with conversed total particle number. On the other hand, the exact solution of the reflecting ASEP system we found complements the knowing results of this important non-equilibrium model. And the neat mapping from polymer to particle system is also an interesting way to solve both polymer problems and particle problems.
+
+Despite the work we have discussed in this thesis, there are still a lot of exciting problems waiting for exploration. We will list a few here.
+
+
+$\bullet$ In Section~\ref{sec:pinned_polymer_loop_in_1d}, we solve the 1D pinned polymer loop exact by using the canonical ensemble and number partition theory. 
+However, the exact solution for 3D is still missing. Although we have shown in Section~\ref{sec:equilibrium_statistics_in_3d} that the results obtained using grand canonical ensemble and Brownian bridge condition are good when $\tilde{T}$ is not too small, it is still interesting to extend our exact calculation from 1D to 3D from theoretical point of view. 
+
+$\bullet$ We have shown in Chapter 4 that the reflecting ASEP can be mapped to the dynamics of pinned polymer loop. And the relaxation time can be solved by solving the ASEP system. In fact, the ASEP system with different boundaries can be mapped to different polymer system. For example, the ASEP with periodic boundaries and exactly half filled lattice sites can be mapped to a free polymer loop system. And the ASEP with open boundaries can be mapped to free polymer chain. We have not discuss all these cases in this thesis, but it is exciting to explore all these mappings. 
+
+$\bullet$ The discussions of polymer maps to particle system are restricted to 1D lattice system in this thesis. However, the generalization of this mapping from 1D to more than 1D is also an exciting issue. In 1D, the two states of rod orientation can be mapped to the two states of lattice site occupation. In 2D lattice model of polymers, there are four states. One of the possible solution is to map it to a multi-species particle system. However, one has to go much deeper to check the whether the idea works or not. It is an exciting problem to work on.
+
+$\bullet$ We have discussed in this thesis most about one single pinned polymer loop system. But, as we known, there are three pairs of chromosomes in fission yeast. Although the multiple loops effect should be weak because we ignore the excluded volume in our simple model, it becomes important when we consider more complex models. So it is interesting to study the multiple polymer interactions and the impact of crowded environment in the future work.
+
+$\bullet$ In this thesis, the nuclear oscillation is divided into two parts of chromosomes moving in opposite directions. We thus model only the polymer moving with steady speed, as indicated by the experimental data. However, it is not possible to discuss the turning process of the nuclear oscillation in our model. So we think it is important to model the oscillation behavior as a whole in the future work.
+
+$\bullet$ We have discussed a lot of theoretical insights into the meiotic chromosome movements in fission yeast. However, we would like to know whether the real biological system agree with our predictions or not. So we think it would be great if we can perform some relevant experiments to test our theory in the future. 
+

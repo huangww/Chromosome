@@ -1,13 +1,13 @@
 projectName = BeadSpring
 
-topoType = 4
+topoType = 0
 # nBead = 1257
-nBead = 125
-tempEff = 10
+nBead = 100
+tempEff = 100
 
-dt = 1e-4
-tEnd = 1e2
-outputStep = 1e3
+dt = 1e-3
+tEnd = 1.1e5
+outputStep = 5e3
 
 # seed = rd()
 seed = 5489

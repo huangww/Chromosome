@@ -1,0 +1,940 @@
+\chapter{Relaxation Dynamics of the Forced Pinned Polymer Loop}
+\graphicspath{{Chapter4/Figs/}}
+
+In previous chapter, the equilibrium statistics of pinned polymer loops in an external force field are discussed in details. However, we have to assume the relaxation time of the system is much smaller than the oscillation period to make our discussion reasonable. The assumption need to be justified. On the other hand, it is interesting to know the dynamical properties of pinned polymers in an external field from theoretical point of view. To the best of our knowledge, the way to calculate the relaxation time of a pinned bead-rod model in an external force field is still missing. 
+
+In this chapter, we will study the dynamical properties of pinned polymer loop model representing the chromosomes in fission yeast. We will verify our assumption of short relaxation time used in previous chapter. Using the Rouse theory, we first study the pinned bead-spring polymer loop in an external force field. Then using the mapping from bead-rod polymer to the particle-lattice picture, we calculate the full dynamics of the 1D system. The Bethe ansatz method is utilized to solve the dynamics. Excellent results is obtained and compared to the projection of 3D polymer results from BD simulations. 
+
+In the first section, we illustrate how to apply the Rouse theory on our pinned polymer loop model in an external filed. In the second section, we introduce the mapping from 1D polymer dynamics to the ASEP (Asymmetric Simple Exclusion Process) and show some interesting results from the Kinetic Monte-Carlo simulations. In the third section, we use the Bethe ansatz method to solve the ASEP problem exactly and calculate the relaxation time analytically. In the forth section, we try to apply our calculation to the 3D bead-rod model. Finally, a summary is given in the last section. 
+
+
+
+%********************************** %First Section  **************************************
+\section{Rouse theory of the pinned bead-spring loop}
+\label{sec:rouse_theory_of_the_pinned_bead_spring_loop}
+Rouse theory is a theoretical framework to calculate the dynamics of a polymer. Comparing to other theory like the Zimm theory, it is simple and gives the full information of dynamics. In most cases, Rouse theory can apply only to the bead-spring model. This is one of the reason that the bead-spring model is more popular than the bead-rod model. 
+
+In the case of modeling chromosomes in fission yeast, we intend to use the bead-rod model instead of the bead-spring. This is mainly because the finite extensibility, which is important for condensed meiotic chromosomes, can be described easily by the bead-rod model. However, the study of Rouse theory is still useful because of several reasons. On one hand, we will see later that Rouse theory can correctly represent the zero external force limit of the bead-rod model. On the other hand, in realistic simulation that take into account many complex factors, it is not so important whether the bead-rod or bead-spring model is utilized. In this case, the simple rouse theory offers an theoretical calibration line for us to analyze the polymer system.
+
+Despite the simplicity of the Rouse theory, we have not seen a calculation of the Rouse theory on the pinned polymer loop model. So what we present here is new. Let us start by writing down the dynamical equations of the model.  
+
+\subsection{Dynamical equations}
+\label{sub:dynamical_equations}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{beadspring}
+    \caption{The sketch of pinned bead-spring loop with notations. }
+    \label{fig:beadspringNotation}
+\end{figure}
+
+Consider a pinned polymer loop modeled by beads and connecting springs, see in the sketch Fig. \ref{fig:beadspringNotation}. As in our previous discussion of the bead-rod model, the bead labeled by $0$ is assumed be pinned at the origin and there are $L$ beads in total in the loop. Again the periodic indexing is used. We can write the pinned condition as $\mathbf{r}_0 = \mathbf{r}_L = \mathbf{0}$.
+
+The dynamical equation for a single bead in the loop is Eq. \eqref{eq:beadspringEq}. However, we rewrite it as following after considering the connecting structure:  
+\begin{equation}
+    \label{eq:beadspringConnect}
+    \xi \frac{d \mathbf{r}_i}{dt} = - k_H \sum_{k} A_{ik} \mathbf{r}_k + \mathbf{f}_i^e + \mathbf{f}_i^b,
+\end{equation}
+where $\xi$ is the friction coefficient of bead in solution, $\mathbf{r}_i$ is the bead position of the $i$th bead, $k_H$ is the spring constant with a linear Hookean spring assumed. $\mathbf{f}_i^e$ is the external force exerted on beads, $\mathbf{f}_i^b$ is typical Brownian force satisfying Eq. \eqref{eq:brownianforce}.
+$\mathbf A$ is the connecting matrix. It is not difficult to find that in the case of the setting above, i.e. pinned loop, $\mathbf{A}$ is a $(L-1)\times (L-1)$ matrix and has the following form
+\begin{equation}
+    \label{eq:connectMatrix}
+    \mathbf{A} = \begin{bmatrix}
+        2 & -1 & 0   & \cdots   \\
+        -1 & 2 & -1  &  \cdots  \\
+        \vdots & \ddots &\ddots&\vdots\\
+        \cdots & -1 &2 & -1 \\
+        \cdots & 0 &-1 &2
+    \end{bmatrix}.
+\end{equation}
+
+Notice that we do not take into account any complex terms of interaction such as bending stiffness and exclusive effect in this simple model. This is because analytical results are tractable in such a simple Rouse setting. The impact of these complex interaction terms will be studied numerically by BD simulation in next chapter. 
+
+\subsection{The normal modes}
+\label{sub:the_normal_modes}
+For convenience, we use the vector notation and rewrite Eq. \eqref{eq:beadspringConnect} as:
+\begin{equation}
+    \label{eq:beadspringVector}
+    \xi \frac{d }{dt} \mathbf{R} = - k_H \mathbf{A} \mathbf{R} + \mathbf{F}^e + \mathbf{F}^b,
+\end{equation}
+where $\mathbf{R} = \left[\mathbf r_1, \mathbf r_2, \cdots, \mathbf r_{L-1}\right]^T$, and similar vector notation is also applied for $\mathbf{F}^e$, $\mathbf{F}^b$. In order to solve this set of dynamical equations, we first notice that the connecting matrix $\mathbf{A}$ is a very special type of matrix called tridiagonal Toeplitz matrix \cite{meyer2000}. Fortunately, it can be diagonalized exactly. To do this, let us introduce a similarity transfer that
+\begin{equation}
+    \label{eq:similarityTransfer}
+    \left[\Omega^{-1} \mathbf{A} \Omega\right]_{jk} = \mathbf{D}_{jk} = \lambda_k\delta_{jk},
+\end{equation}
+here $\Omega$ is normalized to be a unitary matrix, and $\lambda_k$ is the eigenvalue of matrix $\mathbf A$. We skip the calculation details here and just give out the results as following
+\begin{subequations}
+    \begin{align}
+    \lambda_k  & =  4\sin^2\left(\frac{k\pi}{2 L}\right), k = 1, 2, \cdots, L-1; \\
+    \Omega_{jk} & =  \Omega_{kj} = [\Omega^{-1}]_{jk} = [\Omega^{-1}]_{kj} = \sqrt{\frac{2}{L}}\sin\left(\frac{jk\pi}{L}\right).
+    \end{align}
+\end{subequations}
+Then we can multiply both sides of Eq. \eqref{eq:beadspringVector} by $\Omega^{-1}$ arrive at
+\begin{equation}
+    \label{eq:beadVectorTransfer}
+    \xi\frac{d(\Omega^{-1}\mathbf{R})}{dt} = 
+    -k_{H}\Omega^{-1} \mathbf{A}\Omega\Omega^{-1} \mathbf{R} + \Omega^{-1}\mathbf{F}^e + \Omega^{-1}\mathbf{F}^b.
+\end{equation}
+Notice that $\Omega^{-1}\mathbf{A}\Omega = \mathbf{D}$ and use the notation such that $\tilde{\mathbf{R}} = \Omega^{-1} \mathbf{R}$, we get the set of decoupled dynamical equations
+\begin{equation}
+    \label{eq:decoupledBead}
+    \xi\frac{d\tilde{\mathbf{r}}_j}{dt} = -k_{H} \lambda_j \tilde{\mathbf{r}}_j + \tilde{\mathbf{f}}^e_j + \tilde{\mathbf{f}}^b_j.
+\end{equation}
+Eq. \eqref{eq:decoupledBead} can be solved easily by standard methods. The general solution can be written as following
+\begin{equation}
+    \label{eq:solutionTransformed}
+    \tilde{\mathbf{r}}_j(t) = \tilde{\mathbf{r}}_j(0) e^{-\frac{k_H \lambda_j}{\xi} t} + \frac{1}{\xi}
+    \left(\int^t_0{\tilde{\mathbf{f}}^e_j e^{-\frac{k_H \lambda_j}{\xi} (t -t^\prime)}} dt^{\prime} + \int^t_0{\tilde{\mathbf{f}}^b_j e^{-\frac{k_H \lambda_j}{\xi} (t -t^\prime)} }dt^{\prime} \right).
+\end{equation}
+Here the transformed Brownian force also fulfills 
+\begin{subequations}
+    \begin{align}
+    \label{eq:brownianTransformed}
+    \left<\tilde{\mathbf{f}}_j^b\right> & = \mathbf 0; \\
+    \left<\tilde{f}_{i\alpha}^b(t)\tilde{f}_{j\beta}^b(t^\prime)\right> & = 2\xi k_B T \delta_{ij} \delta_{\alpha\beta}\delta(t-t^\prime).
+    \end{align}
+\end{subequations}
+Given the solution of Eq. \eqref{eq:solutionTransformed}, the position of each bead can be obtain by the inverse transformation $\mathbf{R} = \Omega\tilde{\mathbf{R}}$. In the simple case of constant external force field, $\mathbf{f}_j^e = f^e \mathbf{e}_z$, Eq. \eqref{eq:solutionTransformed} can be rewritten as
+\begin{equation}
+    \label{eq:solutionTransformedConstant}
+    \tilde{\mathbf{r}}_j(t) = \tilde{\mathbf{r}}_j(0) e^{-\frac{k_H \lambda_j}{\xi} t} + \frac{\tilde{f}^e\mathbf{e}_z}{k_H \lambda_j}\left(1-e^{-\frac{k_H \lambda_j}{\xi} t} \right) +\frac{1}{\xi} \int^t_0{\tilde{\mathbf{f}}^b_j e^{-\frac{k_H \lambda_j}{\xi} (t -t^\prime)} }dt^{\prime}
+\end{equation}
+Finally, the bead position can be obtained by the inverse transformation:
+\begin{equation}
+    \label{eq:beadPosRouse}
+    \mathbf{r}_i (t) = \sum_j \Omega_{ij} \tilde{\mathbf{r}}_j(t)
+\end{equation}
+
+Now the equilibrium statistics of the polymer, such as the mean and variance of the each bead position can be calculated easily. Plug Eq.  \eqref{eq:solutionTransformedConstant} in Eq.  \eqref{eq:beadPosRouse} and let $t\rightarrow\infty$, we get 
+\begin{equation}
+    \label{eq:equilibriumBeadPosRaw}
+    \left<\mathbf{r}_i^\infty\right> = \sum_j \Omega_{ij}
+    \frac{\tilde{f}^e\mathbf{e}_z}{k_H \lambda_j} =
+    \frac{f^e\mathbf{e}_z}{2 L k_H}\sum_{k,j}
+    \frac{\sin\left(\frac{ij\pi}{L}\right)\sin\left(\frac{jk\pi}{L}\right)}
+    {\sin^2\left(\frac{j\pi}{2L}\right)}.
+\end{equation}
+If $L\gg 1$, the summation of $j$ can be approximated by the integral so we get
+\begin{equation}
+    \label{eq:equilibriumBeadPos}
+    \left<\mathbf{r}_i^\infty\right> = 
+    \frac{f^e\mathbf{e}_z}{k_H} \sum_{k=1}^{\frac{L+1}{2}}\frac{\sin\left(\frac{i(2k-1)\pi}{L}\right)} {(2k-1)\pi\sin^2\left(\frac{(2k-1)\pi}{2L}\right)}.
+\end{equation}
+One can clearly see from Eq. \eqref{eq:equilibriumBeadPos} that $\left<\mathbf{r}_i\right> = \left<\mathbf{r}_{L-i}\right>$ as we expected. And the components of mean position perpendicular to the force field direction are vanished. 
+
+In order to calculate the variance of bead position, it is nontrivial to firstly calculate the two time correlation of normal coordinate position, as following
+\begin{equation}
+    \begin{aligned}
+    \label{eq:correlationTransformedPos}
+    \left<\tilde{\mathbf{r}}_m(t)\tilde{\mathbf{r}}_n(t^{\prime})\right> = &
+    \left<\tilde{\mathbf{r}}_m(0)\tilde{\mathbf{r}}_n(0)\right>
+    e^{-\frac{k_h\lambda_m}{\xi}t-\frac{k_h\lambda_m}{\xi}t^{\prime}}  \\
+    & + \frac{(\tilde{f}^e)^2}{k_H^2\lambda_m\lambda_n}
+    \left(1 - e^{-\frac{k_H\lambda_m}{\xi} t} \right)
+    \left(1 - e^{-\frac{k_H\lambda_n}{\xi} t^{\prime}} \right) \\
+    & + \frac{3k_B T}{k_H\lambda_m}e^{-\frac{k_H\lambda_m}{\xi}t}\delta_{mn}.
+    \end{aligned}
+\end{equation}
+Then the second moment of bead position can be calculated as:
+\begin{equation}
+    \label{eq:secondMoment}
+    \left<\mathbf{r}_i^2(t)\right> = \sum_{m,n}\Omega_{im}\Omega_{in}
+    \left<\tilde{\mathbf{r}}_m(t)\tilde{\mathbf{r}}_n(t)\right>.
+\end{equation}
+Finally, let $t\rightarrow\infty$, we get the equilibrium variance of bead position
+\begin{equation}
+    \label{eq:beadVariance}
+    \text{var}\left[\mathbf{r}_i^{\infty}\right] =
+    \left<(\mathbf{r}_i^{\infty})^2\right> - \left<(\mathbf{r}_i^{\infty})\right>^2 
+    = \frac{3k_B T}{2 L k_H}\sum_{k=1}^{L-1}\left[ \frac{\sin\left(\frac{ik\pi}{L}\right)}
+        {\sin\left(\frac{k\pi}{2L}\right)} \right]^2
+    = \frac{3k_B T}{k_H L} i(L-i).
+\end{equation}
+Notice that we also have the symmetry that $\text{var}\left[\mathbf{r}_i^{\infty}\right] = \text{var}\left[\mathbf{r}_{L-i}^{\infty}\right]$. Moreover, it is important to point out the variance does not depend on the external force. So the statistical distance between two beads will not change no matter the external force filed is strong or weak. This is essentially because infinite extensible Hookean springs are employed in this simple model. 
+
+
+\subsection{Relaxation time}
+\label{sub:relaxation_time}
+Besides the equilibrium statistics, dynamical properties are also tractable.  Our my interested quantity is the relaxation time of the pinned polymer. In order to do that, let us calculate the autocorrelation function of diameter vector, defined as $\mathbf{r}_d = \mathbf{r}_{\frac{L}{2}} - \mathbf{r}_0 = \mathbf{r}_{\frac{L}{2}}$. We can obtain 
+\begin{equation}
+    \label{eq:diameterVectorCorrelation}
+    \left<\mathbf{r}_d(t)\mathbf{r}_d(0)\right> = 
+    \sum_{m,n}\Omega_{\frac{L}{2}m}\Omega_{\frac{L}{2}}
+    \left<\tilde{\mathbf{r}}_m(t)\tilde{\mathbf{r}}_n(0)\right>.
+\end{equation}
+From Eq. \eqref{eq:correlationTransformedPos} we can readily get the relaxation time 
+\begin{equation}
+    \label{eq:relaxationTimeRouse}
+    \tau = \frac{\xi}{k_H\lambda_1} = \frac{\xi}{4k_H\sin(\pi/2L)},
+\end{equation}
+when $L$ is large we can expand the sin term arriving at $\tau = \frac{\xi L^2}{k_H \pi^2}$, which coincides as the unpinned polymer chain. Like the variance of bead position, the relaxation time does not depend on the external force too. 
+
+\subsection{Compare to the bead-rod model}
+\label{sub:compare_to_the_bead_rod_model}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{meanVarRouse}
+    \caption{The equilibrium mean and variance of bead position for the bead-spring model, compared with the bead-rod model. (a) Mean bead position of $z$ component. (b) The variance of bead position. Dots are BD simulation results, solid lines are the Rouse theory for the bead-spring polymer loop, dash lines are the theory of the bead-rod model. Different color denotes different dimensionless temperature $\tilde{T}$ which is indicated in the legend. The black dash line in both (a) and (b) shows the force free limit. }
+    \label{fig:meanVarRouse}
+\end{figure}
+We would like to fit the Rouse theory to the bead-rod model if possible. To do this, we take the spring in the bead-spring model as entropic spring and then relate the spring constant to the length of the rod. If the spring in the polymer is the three dimensional entropic spring, then the spring constant can be evaluated by the equipartition theorem as
+\begin{equation}
+    \label{eq:entropicSpringConstant}
+    \frac{1}{2} k_H a^2 = \frac{3}{2} k_B T,
+\end{equation}
+where $a$ can be interpreted as the equilibrium length of the spring and is set to the length of rod for the comparison. $k_B$ is the Boltzmann constant. So we obtain $k_H = \frac{3k_B T}{a^2}$. Now we can plug it into Eq. \eqref{eq:equilibriumBeadPos} and Eq. \eqref{eq:beadVariance} we arrive at
+\begin{subequations}
+    \label{eq:beadspringMeanVar}
+    \begin{align}
+    \left<\mathbf{r}_i^\infty\right> & = 
+    \frac{1}{3\tilde{T}}a\mathbf{e}_z \sum_{k=1}^{\frac{L+1}{2}}\frac{\sin\left(\frac{i(2k-1)\pi}{L}\right)} {(2k-1)\pi\sin^2\left(\frac{(2k-1)\pi}{2L}\right)}; \\
+    \text{var}\left[\mathbf{r}_i^{\infty}\right] & = a^2\frac{i(L-i)}{L}.
+    \end{align}
+\end{subequations}
+Recalled that $\tilde{T} = k_B T / \Delta E = k_B T / f^e a$. We can now compare the results with the equilibrium results obtained in previous chapter. See in Fig. \ref{fig:meanVarRouse}. Notice that unlike the bead-rod model, the variance of bead position does not depend on the external force field. This is a fundamental difference between the bead-rod and bead-spring model.
+
+For the relaxation time, plug Eq. \eqref{eq:entropicSpringConstant} into the Eq. \eqref{eq:relaxationTimeRouse} and let $L\gg 1$, we obtain
+\begin{equation}
+    \label{eq:relaxationTimeRouseRod}
+    \tau = \frac{\xi a^2 L^2}{3 \pi^2 k_B T}. 
+\end{equation}
+Interestingly, it is coincide with the relaxation time of a free bead-spring polymer chain with $L$ monomers. And again, it does not depend on the external force field. We want to remark here in case of 1D, $k_H = k_B T / a^2$, which results a factor of $3$ for the relaxation time. The result will used in our later discussion. 
+
+In this section, we discussed the Rouse theory for pinned polymer loop in an external force field. Use the theory we calculate the equilibrium mean and variance of bead position and the relaxation time. The equilibrium results are compared to the results from the bead-rod model. We found the relaxation time of the bead-spring model does not depend on the external force field. Physically, it is caused by the infinite extensibility of the springs and not realistic. To explore to role of finite extensibility, in following sections, we will try to solve the relaxation time of the rigid bead-rod model. In next section, we will first introduce the mapping from the dynamics of pinned polymer loop to ASEP in 1D. 
+
+
+%********************************** %Second Section  *************************************
+\section{1D pinned bead-rod loop can be mapped to ASEP}
+\label{sec:1d_pinned_bead_rod_loop_maps_to_asep}
+Like the same strategy used when we study the equilibrium statistics, we also begin with the simplest 1D model for the discussion of dynamics for the pinned bead-rod model. We have illustrated the mapping from one dimensional polymer loop to particles on lattice sites in previous chapter. Here, we will show that the same mapping can also used to study the polymer dynamics. The dynamics of the bead-rod polymer can be mapped to the hopping process of the exclusive particles, which is called ASEP (Asymmetric Simple Exclusion Process). And then, some simulation results are shown to guile us to the solution of reflecting ASEP.
+
+\subsection{The mapping to ASEP}
+\label{sub:the_mapping_to_asep}
+Recall that in the mapping from 1D bead-rod polymer to particle-lattice system, right oriented rods are interpreted as sites occupied by one particle, left oriented rods are interpreted as empty sites. $L$ rods map to exactly $L$ lattice sites, and reflecting boundaries are pertained. The number of particles must be exactly $L/2$ because of the looping condition. 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{asep}
+    \caption{The schematic of ASEP and the mapping of dynamics. (a) Illustration of ASEP, orange beads represent particle and reflecting boundary is indicated. (b) Illustration of one step particle hopping process maps to the flipping of two neighboring rods in the polymer picture. }
+    \label{fig:asep}
+\end{figure}
+
+Now, let us consider dynamics problem in the picture of particle-lattice. It is intuitive to imagine the particle can hop to the empty neighboring sites. Multiple occupation is forbidden because the phase space is restricted to be binary. This kind of one dimensional particle hopping process is called Asymmetric Simple Exclusion Process (ASEP). Asymmetric means the hopping rate to left and right is not equal. And the reflecting boundaries can be imposed representing ASEP with reflecting boundary conditions. See in Fig. \ref{fig:asep} (a) for a schematic of the ASEP. Now the question is what is the corresponding process in the polymer picture. 
+
+To answer this question, let us consider just one particle with its neighboring sites and take the example of the particle hops to the left site. The particle hops to the left affects the states of two neighboring sites and thus the states of two neighboring rods in the polymer picture. Correspondingly, the two rods orientation change from left-right to right-left. So one step of particle hopping corresponds to a flip of two neighboring rods in the polymer picture. The same analyse can be applied to the case of particle hops to right. See in the schematic Fig. \ref{fig:asep} (b). And then our next question is how to determine the hopping rate to left and right. 
+
+Let us denote the rate of particle hopping to the right and to the left with $\alpha$ and $\beta$ respectively. Then the detailed balance condition indicates
+\begin{equation}
+    \label{eq:detailedBalance}
+    \frac{\alpha}{\beta} = \frac{P_{l+1}}{P_{l}} = \exp\left(-\frac{\Delta E}{k_B T}\right),
+\end{equation}
+where $P_l,P_{l+1}$ is the probability of the configurations before and after the hopping, which also represents the probability of corresponding polymer configuration before and after change of rods orientation. $\Delta E$ is the energy required for the change of the rods orientation. 
+On the other hand, the external force field only affects the bias of the hopping rate. The total hopping rate of a particle is determined by the effective temperature of the system, which is a constant independent of the external force. Basically, we should have $\alpha + \beta \propto k_{B}T$. However, to fully determine $\alpha$ and $\beta$, we need an exact expression of the total hopping rate. So let us now discuss how to estimate the total hopping rate.
+
+We need to think the problem in the polymer picture. Since the total hopping rate is independent of external force field, let us consider the case of no external force field.  
+Conceptually, the total hopping rate of a particle should equal to the rate of flipping of two neighboring rods. Let us denote the time of flipping two neighboring rods as $\tau_0$, then we have
+\begin{equation}
+    \label{eq:alphaPlusBeta}
+    \alpha + \beta = r_{\text{total}} = \frac{1}{\tau_0}.
+\end{equation}
+To estimate $\tau_0$, we assume it is the time for the shared bead of the two neighboring rods diffuse over a distance changes the rods orientation.  It is straightforward to find this distance is $2a$ for a one dimensional discrete polymer loop model, where $a$ is the length of the rod. However, we want to argue that the distance is $a$ rather than $2a$ for a continuous mode. By continuous model we mean the 1D bead-spring model or the 3D polymer model where the projected bead position varies smoothly along the force direction. It is reasonable because the orientation of rods are already changed when the bead diffuse over $a$ on average. Correspondingly, the energy difference over the diffusion is $\Delta E = Fa$.
+We mention this because we want to compare our results with the BD simulation results later on. And the BD simulations can only be done for the continuous models.
+With the above arguments, $\tau_0$ can be calculated as
+\begin{equation}
+    \label{eq:timeScale}
+    \tau_0 = \frac{a^2}{2 D} = \frac{\xi a^2}{2k_{B}T},
+ \end{equation}
+where the diffusion constant $D = k_B T / \xi$ is used according to the Einstein relation. And $\xi$ is the friction coefficient of the bead monomer. 
+    
+Combining Eq.~\eqref{eq:detailedBalance}, Eq.~\eqref{eq:alphaPlusBeta} and Eq.~\eqref{eq:timeScale}, we can obtain
+\begin{subequations}
+    \label{eq:hoppingRate}
+    \begin{align}
+        \alpha  = \frac{2k_B T}{\xi a^2}\frac{\exp{(- Fa/k_B T)}}{1+\exp{(- Fa / k_B T)}}, \\
+        \beta  =  \frac{2k_B T}{\xi a^2}\frac{1}{1+\exp{(- Fa / k_B T)}}.
+    \end{align}
+\end{subequations}
+With Eq. \eqref{eq:hoppingRate}, we now have a well defined reflecting ASEP model maps to the polymer dynamics. There are several things we want to remark here: 
+
+$\bullet$ There are only two parameters in the reflecting ASEP model, $\alpha,~\beta$. And we assume here $\alpha,~\beta$ are the same for different lattice sites, i.e. an homogeneous hopping system. 
+
+$\bullet$ The mapping represented by Eq.~\eqref{eq:hoppingRate} is a mapping from 1D particle hopping system to a 1D bead-rod polymer loop. If we want to discuss the 3D polymer system, a factor of $3$ should be multiplied to the total hopping rate. We will discuss more about this later. 
+
+$\bullet$ Our goal is to solve the dynamics of the bead-rod polymer in an external force field. However, it is a difficult task as we have shown in previous section that the commonly used Rouse theory does not work. So we use the map from polymer to particle-lattice and define a corresponding ASEP model. The thing is ASEP is one of the fundamental models of non-equilibrium statistical physics with a wealth of tools to analyze it. For example, the Bethe ansatz method is widely used to solve the model exactly. So our strategy is again to map our essential problem to a well known model and then solve the model and map it back to our original problem. 
+
+Although ASEP is a well studied non-equilibrium model, there are not so many works dealing with the particular case of reflecting boundary conditions. To the best of our knowledge, the exact solution of the full dynamics is still missing. In the next section, we will solve the problem completely use the Bethe ansatz method. However, we would like to first discuss some interesting numerical results to get a feeling of what the solution looks like. 
+
+\subsection{Some numerical results}
+\label{sub:numerical_results}
+
+We have already solve the equilibrium statistics of the 1D particle-lattice model in previous chapter. Thus the equilibrium statistics of the ASEP model is known. To solve the dynamics, we first use several numerical techniques to get some hints about what are the features of the non-stationary dynamics. Since the 1D reflecting ASEP is a well defined model, we can forget about the mapping to polymer system and concentrate on the ASEP model. We will discuss some of the details here. 
+
+For the dynamics of the system, our main interest is the relaxation time. Relaxation time characterizes how long the system returns to the stationary state when subjected to a perturbation. In the reflecting ASEP system, we measure the trajectory of a tagged particle, then calculate the auto-correlation function. Usually, we choose the particle in the middle. Denote the position of this particle as $x_{\frac{N}{2}}$, $N$ is total number of particles in the system, the autocorrelation function can be written as 
+\begin{equation}
+    \label{eq:autocorrelation}
+    \left< x_{\frac{N}{2}}(t) x_{\frac{N}{2}}(0) \right> 
+    \sim \sum_{k}\exp\left(-\frac{t}{\tau_k}\right).
+\end{equation}
+In the long time regime, the largest $\tau_k$, which we denote by $\tau$ for simplicity, dominates the relaxation. So the relaxation time is actually a short name of the longest relaxation time. By fitting the autocorrelation function in the long time regime, we can obtain the relaxation time numerically. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.6\linewidth]{diffnPar}
+    \caption{The relaxation time of 1D reflecting ASEP system varies with hopping bias. Total number of lattice site is $L=100$, and $\alpha+\beta=2$. Different makers denote different total number of particles on the lattice. }
+    \label{fig:diffnPar}
+\end{figure}
+
+In our simulation of 1D reflecting ASEP, we use the Kinetic Monte Carlo algorithm to simulate the particle hopping process. Details of this algorithm is shown in Appendix~\ref{append:mc1D}. Then the autocorrelation function Eq.~\eqref{eq:autocorrelation} is measured and fitted to extract the longest relaxation time. 
+In Fig.~\ref{fig:diffnPar}, we show the relaxation time of a 1D reflecting ASEP model varies with a dimensionless parameter $q$, which is defined as 
+\begin{equation}
+    \label{eq:hoppingBias}
+    q:= \ln\left(\frac{\beta}{\alpha}\right)\in\left[0,1\right].
+\end{equation}
+When there is no hopping bias, i.e. $\alpha=\beta$, we have $q=0$. And $q=1$ means $\beta/\alpha = \infty$.
+Since the total hopping rate $\alpha + \beta$ is fixed, $q$ is the essential parameter we interested in.
+% \begin{equation}
+%     \label{eq:biasT}
+%     \exp\left(-\frac{1}{\tilde{T}}\right) = \frac{\alpha}{\beta} = \exp\left(-\frac{\Delta E}{k_B T}\right).
+% \end{equation}
+% Eq. \eqref{eq:detailedBalance} is utilized in the above equation. So the dimensionless temperature $\tilde{T}$ can be interpreted as the degree of bias in the hopping model. Basically, a small $\tilde{T}$ (which can be caused by a large external force of a low temperature) means a strong hopping bias and vice versa.
+
+We show in Fig. \ref{fig:diffnPar} the simulation results of a system with total lattice sites $L=100$ but different number of particles $N$ on the lattice. We can read from Fig.~\ref{fig:diffnPar} that the three curves of $\tau(q)$ overlap. The crucial point hinted by the simulation results is that the relaxation time of the system seems to be independent of the total particle number on the lattice (as long as it is neither all empty nor all occupied). This is something one would not expect. We can imagine the relaxation time of a system with $N$ particles and $L-N$ particles should be the same because of the particle-hole symmetry. However, our simulation results suggest it is more than that. This observation will be explained later.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{eigenvalues}
+    \caption{Eigenvalues of a small 1D reflecting ASEP system with different number of particles on the lattice. $L=10$ and the number of particle $N\in\{1,2,\cdots,9\}$. (a) All eigenvalues, the eigenvalue is marked by bars. (b) Zoom in view for the shaded regime in (a), eigenvalues is marked by asters, the back line denotes the zero line and the red line shows that the second largest eigenvalues are all the same. Parameters are set as $\alpha=1$, $\beta=2$.}
+    \label{fig:eigenvalues}
+\end{figure}
+For a discrete model such as ASEP, the dynamical information is encoded in the Markovian matrix. By diagonalizing the matrix, we can obtain the full dynamical information in terms of eigenvalues and eigenvectors. For example, the stationary state corresponds to the eigenvector with eigenvalue equals to zero. And the longest relaxation time of the system is related to the second largest eigenvalue. Because for a stochastic system with stationary state, the eigenvalues of the Markovian matrix are always non-positive. And the longest relaxation time can be calculated as 
+\begin{equation}
+    \label{eq:eigenvalue2relaxation}
+    \tau = - \frac{1}{\Lambda_1},
+\end{equation}
+where $\Lambda_1$ is the second largest eigenvalue.
+
+In Fig. \ref{fig:eigenvalues}, we use the brute force algorithm to diagonalize a small size system with $L=10$ lattice sites and different number of particles. Several remarks on the results are given in the following:
+
+$\bullet$ All eigenvalues are non-positive as expected. 
+
+$\bullet$ The eigenvalues satisfy the particle-hole symmetry, i.e. the eigenvalues for case of $N$ particle and $L-N$ particles are exactly the same. This is well illustrated in Fig. \ref{fig:eigenvalues} (a). 
+
+$\bullet$ By carefully examining Fig. \ref{fig:eigenvalues} (a), we can find that the set of eigenvalue for case of $N=1$ is a subset of the case $N=2$. And in general, the set of eigenvalue for case $N$ is contained in the set of eigenvalue of case $N+1$ as long as $N<L/2$. This is also another interesting key feature of the reflecting ASEP system.
+
+$\bullet$ As indicated by the red line in the zoom in Fig. \ref{fig:eigenvalues} (b), we can see that the second largest eigenvalue for all the cases are the same. This explains the observation shown in Fig. \ref{fig:diffnPar} in this special case. For the general case, we will explain after finding the exact solution in next section.
+
+In this section, we introduce the mapping from polymer dynamics to the ASEP model with reflecting boundaries. Moreover, we discuss some interesting simulation results of the reflecting ASEP model. However, we just list some key inspiring simulation results here, and more will be discussed later together with the theoretical results. 
+In next section, we will use the generalized Bethe ansatz method to solve the reflecting ASEP model. With the exact solution, we map it back to understand the polymer dynamics. To the best of knowledge, the exact solution we will present is new and the way of generalization the Bethe ansatz is novel. We will show it in details. 
+
+
+
+%********************************** % Third Section  *************************************
+\section{The Bethe ansatz solution of ASEP}
+\label{sec:the_bethe_ansatz_solution_of_asep}
+
+As introduced in Section~\ref{sec:asep_and_bethe_ansatz}, the Behte ansatz method is a powerful method used to seeking for complete solutions of the ASEP system. For instance, the standard Bethe ansatz solution which is composed by plane wave functions works perfectly on the ASEP with periodic boundaries. However, the standard Bethe ansatz does not work in the case of reflecting boundaries.
+
+In this section, we will show that a generalized Bethe ansatz method can be used to solve the dynamics of the ASEP model with reflecting boundaries. Unlike the standard Bethe ansatz, the generalised Bethe ansatz is constructed by more complex building functions. Moreover, we find the single particle eigenfunctions, which take into account the boundary conditions, can be worked as our building functions. In order to construct the solution, let us first discuss the single particle solution of reflecting ASEP system.
+
+\subsection{Solution of single particle}
+\label{sub:solution_of_single_particle}
+The master equation of a single particle on a closed lattice with $L$ sites can be written as:
+\begin{subequations}
+    \begin{align}
+    \label{eq:single-particle-a}
+    \frac{d}{dt} P(x,t) & =  \alpha P(x-1,t) + \beta P(x+1,t) - (\alpha + \beta)P(x,t), \\
+    \label{eq:single-particle-b}
+    \frac{d}{dt} P(1,t) & =  \beta P(2,t) - \alpha P(1,t),\\
+    \label{eq:single-particle-c}
+    \frac{d}{dt} P(L,t) & =  \alpha P(L-1,t) - \beta P(L,t),
+    \end{align}
+\end{subequations}
+where $\alpha$ and $\beta$ is hopping rate of particle to left and right, respectively. See in the schematic Fig. \ref{fig:asep} (a). $P(x,t)$ is the probability of a particle sitting on site $x$ at time $t$, and $x$ is confined to be the integer in the range of $x\in\{1,2,\cdots,L\}$. Eq.  \eqref{eq:single-particle-b} and \eqref{eq:single-particle-c} are actually the special cases of master equation at the boundaries.  It is much more convenient to rewrite Eq. \eqref{eq:single-particle-b} and \eqref{eq:single-particle-c} as the following boundary conditions:
+\begin{subequations}
+    \label{eq:boundaries-single-particle}
+    \begin{align}
+        \label{eq:boundaries-single-particle-a}
+        \alpha P(0,t) = \beta P(1,t),\\
+        \label{eq:boundaries-single-particle-b}
+        \alpha P(L,t) = \beta P(L+1,t).
+    \end{align}
+\end{subequations}
+The notation above might look confusing. Because $x=0,L+1$ are sites out of the domain and one would expect the corresponding $P(x,t)=0$. However, this notation actually employs a technique called ``ghost coordinate'', which is often used in the analysis of stochastic processes. To clarify the concept, we remark several points here:
+
+$\bullet$ By writing down Eq. \eqref{eq:boundaries-single-particle}, we actually introduced an auxiliary space with infinite lattice sites where only the master equation Eq. \eqref{eq:single-particle-a} is satisfied. So in the auxiliary space, $P(0,t)$ and $P(L+1,t)$ are not necessary vanished.
+
+$\bullet$ Based on the auxiliary space, we then impose additional constraints. Eq. \eqref{eq:boundaries-single-particle-a} can be interpreted as the flux from site $0$ going right to site $1$ equals to the flux from site $1$ going left to site $0$. Similarly, the same interpretation can also be applied to Eq. \eqref{eq:boundaries-single-particle-b}. So the boundary condition simply means the net flux at the boundaries are vanished. Namely, the reflecting boundary condition is imposed. 
+
+$\bullet$ Physically, the real PDF $P(x,t)$ is normalized in the domain $x\in\{1, 2, \cdots, L\}$, and the probability outside the domain is zero.
+
+$\bullet$ Mathematically, Eq. \eqref{eq:boundaries-single-particle} can be derived simplicity by assuming Eq. \eqref{eq:single-particle-a} is valid in the whole space and do a subtraction of Eq. \eqref{eq:single-particle-a} to Eq. \eqref{eq:single-particle-b} and Eq. \eqref{eq:single-particle-a} to Eq. \eqref{eq:single-particle-c}, respectively.  
+
+Now, our governing equations are the master equation Eq. \eqref{eq:single-particle-a} and boundary conditions Eq. \eqref{eq:boundaries-single-particle}. To solve these equations, let us take the ansatz of separation of variables $P(x,t) = \phi(x)e^{\lambda t}$ and plug into the master equation, obtaining 
+\begin{equation}
+    \label{eq:eigen}
+    \beta\phi(x+1) -(\alpha+\beta+\lambda)\phi(x) + \alpha\phi(x-1) = 0.
+\end{equation}
+Given that $x$ is an integer number, Eq. \eqref{eq:eigen} is essentially a set of liner difference equations. Substituting the ansatz of $P_x(t)$ into boundaries of Eq. \eqref{eq:boundaries-single-particle}, we obtain
+\begin{subequations}
+    \label{eq:boundaries-phi}
+    \begin{align}
+        \alpha\phi(0) &= \beta\phi(1), \\
+        \alpha \phi(L) &= \beta \phi(L+1).
+    \end{align}
+\end{subequations}
+The standard method to find the solution is to take an ansatz $\phi(x) = Az^x$, where $z$ is an arbitrary complex number. We arrive at the characteristic quadratic equation:
+\begin{equation}
+    \label{eq:characteristic}
+    \beta z^2 - (\alpha + \beta + \lambda ) z + \alpha = 0.
+\end{equation}
+The two roots fulfill $z_+z_- = \frac{\alpha}{\beta}$. And the solution of \eqref{eq:eigen} can be written as 
+\begin{equation}
+    \label{eq:eigen-solution}
+    \phi(x) = A_+ z_+^{x} + A_- z_-^{x}
+\end{equation}
+By applying the boundaries Eq. \eqref{eq:boundaries-phi} to Eq. \eqref{eq:eigen-solution} we can find all the eigenvalues and corresponding eigenvectors. The results are summarised as following. The stationary eigenmode with zero eigenvalue is
+\begin{subequations}
+    \label{eq:single-particle-stationary}
+    \begin{align}
+        \phi_s(x) & = const. \left(\frac{\alpha}{\beta}\right)^{x}, \\
+        \lambda_s & = 0. 
+    \end{align}
+\end{subequations}
+There are $L-1$ non-stationary eigenmodes and corresponding eigenvalues, which can be written as
+\begin{subequations}
+    \label{eq:single-particle-eigenmodes}
+    \begin{align}
+        \phi_k(x) & = const. \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}} \left[\sin\left(\frac{k\pi}{L}x\right) - \sqrt{\frac{\beta}{\alpha}}\sin\left(\frac{k\pi}{L}(x-1)\right)\right],\\
+        \lambda_k & = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L}); ~k=1,2,\dots, L-1.
+    \end{align}
+\end{subequations}
+
+The eigenvalue $\lambda_s = 0$ and corresponding eigenvector represent the stationary mode $\phi_s(x)$. Define a scalar product between any two functions by 
+\begin{equation}
+    \label{eq:scalarPoduct} (\phi, \psi) =
+    % \int\frac{\phi(x)\phi(x)}{\phi_{0}(x)}dx 
+    \sum_{x}\frac{\phi(x)\psi(x)}{\phi_{s}(x)}
+\end{equation}
+Notice that definition Eq. \eqref{eq:scalarPoduct} makes $\phi_s(x)$ identical to the stationary distribution $P^e(x)$, and remember here $x$ is an integer. By properly choose the constant and when $L\rightarrow\infty$, one can check the orthogonality and completeness of the eigenfunctions.
+\begin{subequations}
+    \begin{align}
+        \label{eq:orthogonality}
+        \sum_{x=1}^L \phi_k(x)\phi_l(x) & = \delta_{k,l}, \\
+        \label{eq:completeness}
+        \sum_{k=1}^L \phi_k(x)\phi_k(y) & = \delta_{x,y}.
+    \end{align}
+\end{subequations}
+So for an arbitrary initial distribution of $P(x, 0)$, we can always decompose it as 
+\begin{equation}
+    \label{eq:decompose-intial-single}
+    P(x,0) = \sum_k{c_k \phi_k(x)},
+\end{equation}
+where $c_k$ can be calculated by 
+\begin{equation}
+    \label{eq:coeff-k}
+    c_k = \sum_x{\phi_k(x) P(x,0)}.
+\end{equation}
+Finally, the solution of single particle on reflecting lattice can be written as
+\begin{equation}
+    \label{eq:solution-single}
+    P(x,t) = \sum_k{\phi_k(x)e^{\lambda_k t}}\sum_{x^\prime}{\phi_k(x^\prime)P(x^\prime,0)}.
+\end{equation}
+For the special case that $P(x,0) = \delta_{x,y}$, solution \eqref{eq:solution-single} can be simplified to
+\begin{equation}
+    \label{eq:solution-single-simplified}
+    P(x,t) = \sum_k{\phi_k(x)\phi_k(y)e^{\lambda_k t}}
+\end{equation}
+
+With the complete solution of single particle, we can go further to systems of more than one particle. The idea is that the single particle solution works as building blocks for the $N$ particle solutions. To start with that, we first illustrate the case $N=2$ and the position of particles are denotes by $x_1, x_2$ with the constraint $x_1<x_2$.
+
+\subsection{Solution of two particles}
+\label{sub:solution_of_two_particles}
+Denote $P(x_1,x_2;t)$ the probability of the two particles sitting at $x_1$ and $x_2$ respectively at time $t$. Firstly, we shall write down the master equation, which looks as following
+\begin{equation}
+    \begin{aligned}
+    \label{eq:masterEqTwo}
+    \frac{d P(x_1, x_2; t)}{dt} = & \alpha P(x_1-1,x_2;t) + \beta P(x_1+1,x_2;t) \\ 
+    & + \alpha P(x_1, x_2-1; t) + \beta P(x_1, x_2+1; t)  \\ 
+    & - 2(\alpha+\beta)P(x_1, x_2; t)
+    \end{aligned}
+\end{equation}
+We take the same eigenfunction expansion as for the single particle case:
+\begin{equation}
+    \label{eq:solutionTwo}
+    P(x_1, x_2, t) = \sum_{k} \Psi_{k}(x_1, x_2) e^{\Lambda_k t}
+\end{equation}
+Plug it into the master equation Eq. \eqref{eq:masterEqTwo} we have
+\begin{equation}
+    \begin{aligned}
+    \label{eq:eigenModesTwo}
+    \Lambda \Psi(x_1, x_2) = & \alpha \Psi(x_1-1, x_2) + \beta \Psi(x_1+1, x_2)
+    \\ &+ \alpha \Psi(x_1, x_2-1) + \beta \Psi(x_1, x_2+1) \\ 
+    &- 2(\alpha+\beta)\Psi(x_1, x_2)
+    \end{aligned}
+\end{equation}
+And the reflecting boundaries write as
+\begin{subequations}
+    \label{eq:boundaries-two-particles}
+    \begin{align}
+        \alpha \Psi(0,x_2) = \beta \Psi(1, x_2) \\
+        \alpha \Psi(x_1, L) = \beta \Psi(x_1, L+1)
+    \end{align}
+\end{subequations}
+For the case of more than one particle, we need to take into account the exclusion effect, i.e., one site can be occupied by at most one particle. This can be also written as a boundary condition as 
+\begin{equation}
+    \label{eq:exclusionCondition}
+    \alpha \Psi(x, x) + \beta \Psi(x+1, x+1) = (\alpha + \beta) \Psi(x, x+1)
+\end{equation}
+Notice that the exclusive condition must hold for any $x$. The notation of $\Psi(x, x)$ may looks a little bit weird, but keep in mind that it is a boundary condition that denotes the limiting situation $x_1=x_2$. And we can understand it in the same way of understanding the ``ghost coordinate'' in the single particle case. See in appendix \ref{} for a detailed derivation of Eq. \eqref{eq:exclusionCondition}. 
+
+Before delve into the Bethe Ansatz solution, let us release the fixed coefficients of eigenfunctions in Eq. \eqref{eq:single-particle-stationary} and Eq. \eqref{eq:single-particle-eigenmodes}, rewrite them as the following general form:
+\begin{subequations}
+    \label{eq:eigenModes}
+\begin{align}
+    \label{eq:stationaryEigenMode}
+    \psi_s(x)  & =  A\left(\frac{\alpha}{\beta}\right)^x, \\
+    \label{eq:nonstationaryEigenModes}
+    \psi_{ns}(x) & =  \left(\frac{\alpha}{\beta}\right)^{\frac{x}{2}} \left(A_+ e^{ipx} +  A_-e^{-ipx}\right),
+\end{align}
+\end{subequations}
+where $\psi_s$ and $\psi_{ns}$ represent stationary eigenfunction and non-stationary eigenfunctions respectively, $A,~A_+,~A_-$ are amplitude coefficients, $p$ is the wave vector of excited eigenmodes. In case of single particle case above, these coefficients can be fixed by applying the boundary conditions Eq. \eqref{eq:boundaries-single-particle}. Here however, we will leave them free now and use the general form to construct the Bethe ansatz solution. Boundary conditions will be imposed afterwards and all unfixed coefficients can be solved by then. 
+
+The idea to construct the $N$ particle solution is inspired by the standard Coordinate Bethe Ansatz (CBA). However, instead of using the plain plane wave function as building blocks, we use the general form of single particle eigenfunctions with unfixed coefficients. The example of ansatz for $\Psi(x_1, x_2)$ reads
+\begin{equation}
+    \label{eq:ansatzTwo}
+    \Psi(x_1, x_2) = \psi_1(x_1)\psi_2(x_2) + \tilde{\psi}_2(x_1)\tilde{\psi}_1(x_2).
+\end{equation}
+Here $\psi_n(x)$ and $\tilde{\psi}_n(x)$ are functions draw from of Eq. \eqref{eq:eigenModes}, either stationary Eq. \eqref{eq:stationaryEigenMode} or non-stationary Eq.\eqref{eq:nonstationaryEigenModes}. There are two particles in the system thus we have the index $n$ in the range of $n=1,2$. 
+We classify $\psi_1, ~\tilde{\psi}_1$ as one class and $\psi_2,~\tilde{\psi}_2$ as the other class. Functions in the same class (e.g. $\psi_1$ and $\tilde{\psi}_1$) share the same wave vector ($p_1=\tilde{p}_1$), but different amplitude coefficients ($A_{1\pm}\neq \tilde{A}_{1\pm}$). If this class is draw from the stationary mode Eq. \eqref{eq:stationaryEigenMode}, then simply the functions in the class ($\psi_1$ and $\tilde{\psi}_1$) are only differentiated by amplitude coefficient ($A_1\neq\tilde{A}_1$). 
+It is important that $\psi_n$ and $\tilde{\psi}_n$ have different amplitude coefficients. The main idea is to tune these amplitude coefficients so that $\Psi(x_1, x_2)$ satisfies the reflecting boundaries Eq. \eqref{eq:boundaries-two-particles} and exclusive condition Eq. \eqref{eq:exclusionCondition}.  
+
+With the constructed ansatz Eq. \eqref{eq:ansatzTwo}, our remaining task is to impose the constraints Eq. \eqref{eq:boundaries-two-particles} and Eq. \eqref{eq:exclusionConditionTwo} and fix those amplitude coefficients as well as the wave vectors. There are three types of $\Psi(x_1,x_2)$ depending on the combination of the two constructed classes: both stationary, both non-stationary and the mixed type with one stationary and the other non-stationary. In the following subsections, we will discuss these cases separately.  
+
+\subsubsection{Both stationary}
+\label{ssub:Both stationary}
+
+Let us first check the case that $\Psi(x_1, x_2)$ are constructed all by stationary eigenmodes. 
+Namely $ \psi_1(x) = A_1\left(\frac{\alpha}{\beta}\right)^x, ~\psi_2(x) = A_2\left(\frac{\alpha}{\beta}\right)^x, ~\tilde{\psi}_1(x) = \tilde{A}_1\left(\frac{\alpha}{\beta}\right)^x, ~\tilde{\psi}_2(x) = \tilde{A}_2\left(\frac{\alpha}{\beta}\right)^x$. 
+Plug in to \eqref{eq:ansatzTwo} we obtain
+\begin{equation}
+    \label{eq:stationaryTwo}
+    P^e(x_1, x_2) = \Psi(x_1, x_2) = 
+    A \left(\frac{\alpha}{\beta}\right)^{x_1+x_2},
+\end{equation}
+where $A=A_1\tilde{A}_1+A_2\tilde{A}_2$. One can readily check that Eq. \eqref{eq:stationaryTwo} is exactly the stationary eigenfunction of the two particle system as expected. First, we can easily obtain the corresponding eigenvalue is $\Lambda_s=0$ by simply plug it in to Eq. \eqref{eq:eigenModesTwo}.  And then one can check the reflecting boundaries Eq.  \eqref{eq:boundaries-two-particles} and the exclusive condition Eq.  \eqref{eq:exclusionCondition} are both fulfilled. 
+
+The prefactor $A$ can be fixed by normalization. However, it is not a trivial work because of the constraint $x_1 < x_2$. We will discuss in detail in the general case of $N$ particles later. 
+
+
+\subsubsection{Mixed non-stationary}
+\label{ssub:Mixed non-stationary}
+
+The mixed type is a non-stationary eigenmode. Without loss of generality, we choose $\{\psi_1(x), \tilde{\psi}_1(x)\}$ to be the stationary class characterized by Eq.  \eqref{eq:stationaryEigenMode}, then $\Psi(x_1, x_2)$ can be written as
+\begin{equation}
+    \begin{aligned}
+        \label{eq:nonstationaryTwoMixed}
+        \Psi(x_1, x_2) = & A_{1}\left(\frac{\alpha}{\beta}\right)^{x_1} \left(\frac{\alpha}{\beta}\right)^{\frac{x_2}{2}} \left( A_{2+} e^{ip_2 x_2} + A_{2-} e^{-ip_2 x_2}\right) \\
+        & + \tilde{A}_{1}\left(\frac{\alpha}{\beta}\right)^{x_2} \left( \frac{\alpha}{\beta}\right)^{\frac{x_1}{2}} \left( \tilde{A}_{2+} e^{ip_2 x_1} + \tilde{A}_{2-} e^{-ip_2 x_1}\right).
+    \end{aligned}
+\end{equation}
+Plug Eq. \eqref{eq:nonstationaryTwoMixed} in to the master equation, we will find the corresponding eigenvalue. Plug it in to the reflecting boundaries and exclusive condition, $A_{1},~\tilde{A}_{1},~A_{2\pm}$ and $\tilde{A}_{2\pm}$ can be tuned to fulfill these conditions. Consistency condition will give us the Bethe equation about wave vector $p_2$, we will show the details of this procedure in the following text.
+
+We first insert the solution to the master equation Eq. \eqref{eq:eigenModesTwo}, obtaining the corresponding eigenvalue:
+\begin{equation}
+    \label{eq:eigenvaluesTwoMixed}
+    \Lambda = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(p_2), 
+\end{equation} 
+$p_2$ is the wave vector that will be determined later. Accordingly, the reflecting condition Eq. \eqref{eq:boundaries-two-particles} gives us
+\begin{subequations}
+    \label{eq:scatterFactorBoundary}
+    \begin{align}
+        \frac{A_{2+}}{A_{2-}} & =  -\frac{\left(\alpha-\sqrt{\alpha\beta} e^{-ip_2}\right) e^{-ip_2L}}{\left(\alpha-\sqrt{\alpha\beta} e^{ip_2}\right) e^{ip_2L}}, \\
+        \frac{\tilde{A}_{2+}}{\tilde{A}_{2-}} & =  -\frac{\alpha - \sqrt{\alpha\beta} e^{-ip_2}}{\alpha-\sqrt{\alpha\beta} e^{ip_2}}.
+    \end{align}
+\end{subequations}
+We now check the exclusive condition Eq. \eqref{eq:exclusionCondition}. Simply substitute Eq.  \eqref{eq:nonstationaryTwoMixed} into the condition. In order to fulfill the exclusive condition, we find that 
+\begin{subequations}
+    \label{eq:scatterFactorExclusive}
+    \begin{align}
+        \frac{A_{1}A_{2+}}{\tilde{A}_{1}\tilde{A}_{2+}} & =  -\frac{\alpha e^{ip_2}-(\alpha+\beta) \sqrt{\frac{\alpha}{\beta}} + \sqrt{\alpha\beta} }{\alpha e^{ip_2} -(\alpha+\beta)e^{ip_2} + \sqrt{\alpha\beta} },\\
+        \frac{A_{1}A_{2-}}{\tilde{A}_{1}\tilde{A}_{2-}} & =  -\frac{\alpha e^{-ip_2}-(\alpha+\beta) \sqrt{\frac{\alpha}{\beta}} + \sqrt{\alpha\beta} }{\alpha e^{-ip_2} -(\alpha+\beta)e^{-ip_2} + \sqrt{\alpha\beta} }.
+    \end{align}
+\end{subequations}
+Finally, use the consistency condition that
+\begin{equation}
+    \label{eq:consistencyConditionTwo}
+    \frac{\tilde{A}_{2+}}{\tilde{A}_{2-}}\frac{A_{2-}}{A_{2+}} = \frac{\tilde{A}_{1}\tilde{A}_{2+}}{A_{1}A_{2+}} \frac{A_{1}A_{2-}}{\tilde{A}_{1}\tilde{A}_{2-}}.
+\end{equation}
+We obtain the Bethe equation 
+\begin{equation}
+    \label{eq:betheEqTwoMixed}
+    e^{i2p_2L} = 1.
+\end{equation}
+Solve the equation we get $p_2=\frac{k\pi}{L}$. Notice that it is exactly the same as the spectrum of single particle case. With the solution of $p_2$ we can re-substitute it into Eq. \eqref{eq:scatterFactorBoundary} and Eq.  \eqref{eq:scatterFactorExclusive} to get the corresponding eigenfunctions. The results of this type of non-stationary eigenvalues and corresponding eigenfunctions are summarized as following 
+\begin{subequations}
+    \label{eq:eigenTwoMixed}
+    \begin{align}
+        \Lambda_k & = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L}), ~k=1,2,\dots, L-1;  \\
+        \Psi_k(x_1, x_2) & =  A\left[ \frac{\alpha}{\beta} \left(\frac{\alpha}{\beta} \right)^{x_1}\phi_k(x_2)+\left(\frac{\alpha}{\beta}\right)^{x_2} \phi_k(x_1) \right].
+    \end{align}
+\end{subequations}
+Here $\phi_k(x)$ is exactly single particle non-stationary eigenfunction and $A$ is a constant normalization coefficient.
+
+
+\subsubsection{Both non-stationary}
+\label{ssub:Both non-stationary}
+We now turn to non-stationary eigenmodes constructed by both non-stationary class of single particle modes. Notice that, the number of remaining unknown eigenfunctions and eigenvalues is in principle $L(L-1)/2 - L$. We will show that there are all contained in this class. Let us first write down the Ansatz:
+\begin{equation}
+    \label{eq:nonstationaryTwoBoth}
+    \begin{aligned}
+        \Psi(x_1, x_2) = &  \left(\frac{\alpha}{\beta}\right)^{\frac{x_1+x_2}{2}} \left[\left( A_{1+} e^{ip_1 x_1} + A_{1-} e^{-ip_1 x_1}\right)  \left( A_{2+} e^{ip_2 x_2} + A_{2-} e^{-ip_2 x_2}\right) \right.\\
+        & \left. + \left( \tilde{A}_{1+} e^{ip_1 x_2} + \tilde{A}_{1-} e^{-ip_1 x_2}\right)  \left( \tilde{A}_{2+} e^{ip_1 x_1} + \tilde{A}_{2-} e^{-ip_2 x_1}\right) \right].
+    \end{aligned}
+\end{equation}
+Plug it in to the master equation, we get the corresponding eigenvalues
+\begin{equation}
+    \label{eq:eigenvaluesTwoBoth}
+    \Lambda = \sum_{n=1}^2\left[-(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(p_n)\right].
+\end{equation} 
+And plug it in to the reflecting boundaries, we obtain
+\begin{subequations}
+    \label{eq:scatterFactorBoundary2}
+    \begin{align}
+        \frac{A_{1+}}{A_{1-}} & =  -\frac{\alpha-\sqrt{\alpha\beta} e^{-ip_1}}{\alpha-\sqrt{\alpha\beta} e^{ip_1}};  \\
+        \frac{\tilde{A}_{1+}}{\tilde{A}_{1-}} & =  -\frac{\left(\alpha-\sqrt{\alpha\beta} e^{-ip_1}\right) e^{-ip_1L}} {\left(\alpha-\sqrt{\alpha\beta} e^{ip_1}\right) e^{ip_1L}}; \\
+        \frac{\tilde{A}_{2+}}{\tilde{A}_{2-}} & =  -\frac{\alpha - \sqrt{\alpha\beta} e^{-ip_2}}{\alpha-\sqrt{\alpha\beta} e^{ip_2}};\\
+        \frac{A_{2+}}{A_{2-}} & =  -\frac{\left(\alpha-\sqrt{\alpha\beta} e^{-ip_2}\right) e^{-ip_2L}}{\left(\alpha-\sqrt{\alpha\beta} e^{ip_2}\right) e^{ip_2L}}.
+    \end{align}
+\end{subequations}
+To ease the notation, let us define the function $a(p, p^\prime) = \sqrt{\alpha\beta}e^{i(p+p^\prime)}-(\alpha+\beta)e^{ip}+\sqrt{\alpha\beta}$. Then the exclusive condition gives 
+\begin{subequations}
+    \label{eq:scatterFactorExclusive2}
+    \begin{align}
+        \frac{A_{1+}A_{2+}}{\tilde{A}_{1+}\tilde{A}_{2+}} & =  -\frac{a(p_1, p_2)}{a(p_2, p_1)};\\
+        \frac{A_{1+}A_{2-}}{\tilde{A}_{1+}\tilde{A}_{2-}} & =  -\frac{a(p_1, -p_2)}{a(-p_2, p_1)};\\
+        \frac{A_{1-}A_{2+}}{\tilde{A}_{1-}\tilde{A}_{2+}} & =  -\frac{a(-p_1, p_2)}{a(p_2, -p_1)};\\
+        \frac{A_{1-}A_{2-}}{\tilde{A}_{1-}\tilde{A}_{2-}} & =  -\frac{a(-p_1, -p_2)}{a(-p_2, -p_1)}.
+    \end{align}
+\end{subequations}
+The similar consistency condition of Eq. \eqref{eq:consistencyConditionTwo} gives the following Bethe equation:
+\begin{subequations}
+    \label{eq:betheEqTwoBoth}
+    \begin{align}
+        e^{i2p_1L} & =  \frac{a(p_1, p_2)}{a(p_2, p_1)} \frac{a(p_2, -p_1)}{a(-p_1, p_2)};\\
+        e^{i2p_2L} & =  \frac{a(p_2, p_1)}{a(p_1, p_2)} \frac{a(p_1, -p_2)}{a(-p_2, p_1)}.
+    \end{align}
+\end{subequations}
+
+Now it would be interesting to interpret the Bethe Equation and compare with the well know Bethe Equation of periodic boundary case. And we will show later this interpretation is useful to derive $N$ particles Bethe Equation. 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{betheEq}
+    \caption{The interpretation for the Bethe Equations of the reflecting ASEP as if it is a periodic ASEP system. }
+    \label{fig:betheEq}
+\end{figure}
+We can consider Eq.  \eqref{eq:scatterFactorBoundary} as a reflector that reflects the particle and change the direction of wave vector, i.e., $p_n\leftrightarrow-p_n$.  On the other hand, Eq. \eqref{eq:scatterFactorExclusive} can be interpreted as a permutator that permutes two neighboring particles $n\leftrightarrow (n+1)$.  
+Let us say particle $1$ starts from the left side of the lattice and then permutes with all the particle at right side until reaches the right boundary (of course in case of two particles, there are only one particle at the right side), and then reflects by the boundary, become a particle traveling in the opposite direction, and then permutes with all the left side particles until reaches the left side boundary, and then reflects again, which recovers the initial state. 
+A schematic of this process is shown in Fig. \ref{fig:betheEq}. In this sense, the particle works as if it is on a lattice with periodic boundary. Use this interpretation and the well know result of periodic Bethe Equation, one can easily recover exactly Eq. \eqref{eq:betheEqTwoBoth}. 
+
+% \begin{figure}[htpb]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{betheEq}
+%     \caption{Intepretation of Bethe Equation.}
+%     \label{fig:betheEq}
+% \end{figure}
+By solving the Bethe equation, one can get $p_1$ and $p_2$ and thus all amplitude coefficients up to a constant normalization factor. Then Eq.  \eqref{eq:eigenvaluesTwoBoth} gives the eigenvalues and Eq.  \eqref{eq:nonstationaryTwoBoth} gives the eigenfunctions.
+
+Unfortunately, it might not possible to solve the Bethe equation analytically.  So we resort to numerical solutions. We have verified the resulting eigenvalues and eigenfunctions by benchmark with the results from brute force diagonalizing of the transition matrix for small system size $L\le10$. Notice that those roots that $p_n=0$ or $p_n=\pi$ have to be filtered out because they correspond to the first type of non-stationary eigenmodes which is not compatible by Eq. \eqref{eq:nonstationaryTwoBoth}
+
+
+To summarize, the complete solution of two particle hopping system with reflecting boundaries was found. The solution is shown in the form of eigenfunction expansion, i.e. Eq. \eqref{eq:eigenModesTwo}. The stationary eigenfunction with eigenvalue $\Lambda_0=0$ is listed as Eq.  \eqref{eq:stationaryTwo}, while the two types of non-stationary eigenvalues and corresponding eigenfunctions are listed in Eq. \eqref{eq:eigenvaluesTwoMixed}, \eqref{eq:eigenvaluesTwoBoth} and Eq.  \eqref{eq:nonstationaryTwoMixed}, \eqref{eq:nonstationaryTwoBoth}, respectively. They can be fully determined by  solving the Bethe Equation Eq. \eqref{eq:betheEqTwoMixed} and Eq. \eqref{eq:betheEqTwoBoth}. Part of them are analytically shown in Eq. \eqref{eq:eigenTwoMixed}.
+
+Finally, there are several remarks we want to make here.  Firstly, as one can see from Eq.  \eqref{eq:eigenTwoMixed} that the eigenvalues of two particle system always contain the eigenvalues of single partile system. We will show later this can be generalised that the eigenvalues of $N+1$ particle system always contain the eigenvalues of $N$ particle system for $N<L/2$. Secondly, the relaxation time of the system is realted to the second largest eigenvalue $\Lambda_1$. Eq.  \eqref{eq:eigenTwoMixed} hints $\Lambda_1=-(\alpha+\beta)+2\sqrt{\alpha\beta} \cos\left(\frac{\pi}{L}\right)$.  However, since there is no analytical solution for eigenvalues of the second kind, it will be difficult to rigously prove that. Nummerical evidences will be provided to verify this is indeed true.
+
+In next subsection, we will generalise the solution to the $N$ particles system. It is actually quite straight forward after we have done the two particles case. 
+
+
+\subsection{Solution of general $N$ particles}
+\label{sub:solution_of_general_n_particles}
+
+Now we consider the system with $N$ particles. Notice that, $N=L/2$ has to be set considering the mapping to polymer loop. However, our method of finding solution works for arbitrary $N$. As before, we first write down the master equation of a $N$ particles system. 
+\begin{equation}
+    \begin{aligned}
+        \label{eq:masterEqN} \frac{d P(x_1, \cdots, x_N; t)}{dt} = & \sum_{j=1}^N \left[\alpha P(\cdots,x_j-1,\cdots;t) + \beta P(\cdots, x_j+1, \cdots;t)\right. \\ 
+        & \left.- (\alpha+\beta)P(\cdots, x_j, \cdots; t)\right]
+    \end{aligned}
+\end{equation}
+Similarly, after the eigenfunction expansion the reflecting boundaries write as
+\begin{subequations}
+    \label{eq:boundaries-N-particles}
+    \begin{align}
+        \alpha \Psi(0,x_2,\cdots,x_N) = \beta \Psi(1, x_2,\cdots, x_N) \\
+        \alpha \Psi(x_1,\cdots, x_{N-1}, L) = \beta \Psi(x_1,\cdots, x_{N-1}, L+1)
+    \end{align}
+\end{subequations}
+The exclusive condition for $N$ particles case is more tricky. In principle, one has to consider to the case of three body collision and four body collision and so on. Luckily, in the simple model of ASEP, one can prove that these more than two body exclusive conditions are not new but just linear recombination of two body exclusive condition. So we can write the exclusive condition of a $N$ particles system as 
+\begin{equation}
+    \label{eq:exclusionConditionN}
+    \alpha \Psi(\cdots,x, x,\cdots) + \beta \Psi(\cdots, x+1, x+1, \cdots) = (\alpha + \beta) \Psi(\cdots, x, x+1, \cdots)
+\end{equation}
+The reason that the exclusive condition can be written in such a simple way is rooting from the Yang-Baxter Equation, which encodes the integrability of the ASEP system.
+
+\subsubsection{Stationary mode}
+\label{ssub:Stationary mode}
+Intuitively, we construct the $N$ particles stationary solution as
+\begin{equation}
+    \label{eq:stationaryN}
+    P^e(x_1, x_2, \cdots, x_N) = \Psi(x_1, x_2, \cdots, x_N) =  A \prod_{j=1}^N\left(\frac{\alpha}{\beta}\right)^{x_j}.
+\end{equation}
+One can plug in the master equation check that the corresponding eigenvalue $\Lambda_s= 0$, and also verify the exclusive condition as well as the reflecting boundaries are fulfilled by insert the solution in to Eq.  \eqref{eq:exclusionConditionN} and Eq. \eqref{eq:boundaries-N-particles} separately.
+
+We now try to fix the parameter $A$ by normalization. Let us denote $q:=\frac{\alpha}{\beta}$, then we can write $A$ as following
+\begin{equation}
+    \label{eq:stationaryPrefactor}
+    A^{-1} = \sum_{\Omega} q^{\sum_j{x_j}} = 
+    \sum_{x_1 < x_2 < \cdots < x_N} q^{\sum_j{x_j}}.
+\end{equation}
+Let us do a variable change so that 
+\begin{align*}
+    E = \sum_j{x_j} - E_0,
+\end{align*}
+where $E_0 = 1 + 2 + \cdots + N = N(N+1)/2$. It is easy to see that $E$ is a integer in the range of $0, 1, \cdots, N(L-N)$. So Eq. \eqref{eq:stationaryPrefactor} can be rewrite as 
+\begin{equation}
+    \label{eq:prefactorRewrite}
+    A^{-1} = q^{E_0}\sum_{E=0}^{N(L-N)}g(E)q^E,
+\end{equation}
+where $g(E)$ is the number of partitions of positive integer $E$ to $N$ parts with each of size at most $L-N$. From the number partition theory, we identify
+\begin{equation}
+    \label{eq:degeneratcy}
+    \sum_{E=0}^{N(L-N)}g(E)q^E = \binom{L}{N}_q =
+    \frac{[L]_q!}{[L-N]_q![N]_q!},
+\end{equation}
+where $[N]_q = 1 + q + q^2 + \cdots + q^{N-1}$ is called a $q$ number, and Eq.  \eqref{eq:degeneratcy} is called the $q$ binomial coefficient \cite{Andrews1998}. So we finally arrive at 
+\begin{equation}
+    \label{eq:stationarySolutionN}
+    P^e(x_1, x_2, \cdots, x_N) = q^{-\frac{N(N+1)}{2}}
+    \binom{L}{N}_q^{-1}\prod_{j=1}^N{q^{x_j}}.
+\end{equation}
+The above equation is exactly the same as the Eq. \eqref{eq:equilibriumDistrPos} in previous chapter, where a different approach is used to reach it. Also, in \cite{Sandow1994}, G. M. Sch\"{u}tz use a quantum group formalism obtained the same result with a different notation. We emphasize here that our method is much more easily to understand and no prerequisite knowledge of quantum mechanics and group theory is needed.
+
+\subsubsection{Non-stationary modes}
+\label{ssub:Non-stationary modes}
+
+Inspired by the calculation of two particles case, we try to find the Bethe solution of the $N$ particles system by taking the following Ansatz: 
+\begin{equation}
+    \label{eq:nonstationaryModesN}
+    \begin{aligned}
+        \Psi(x_1, x_2, \cdots, x_N) = \sum_{\sigma\in {S}_N} \prod_{n=1}^N \psi_n^{\sigma}(x_{\sigma(n)}),
+    \end{aligned}
+\end{equation}
+where ${S}_N$ is the group of permutations of $N$ elements and $\psi_n^{\sigma}$ is the building block function draw from  Eq. \eqref{eq:eigenModes}, either stationary or non-stationary. 
+The subscript $n$ denotes the index of class in which all functions share the same wave vector $p_n$. For example, in the notation of our previous two particle case, $\{\psi_1,\tilde{\psi}_1\}$ is the class with index $n=1$. Notice that $n\in\{1,2,\cdots, N\}$ and $N$ is the total number of particles in the system. 
+The superscript $\sigma$ is the $N$-element index arrangement used to distinguish different functions in one class. These functions are different by the amplitude coefficients $A_n^{\sigma}$ or $A_{n\pm}^{\sigma}$ depending on whether it is a stationary or a non-stationary class. For example, in the two particle case, the class $n=1$ contains two functions with coefficients $\{A_1^{12},A_1^{21}\}$ or $\{A_{1\pm}^{12},A_{1\pm}^{21}\}$. However, for simplicity, we just use the tilde symbol to denote the functions in our previous calculation.
+
+Now, let us assume Eq. \eqref{eq:nonstationaryModesN} is constructed by $N_s$ stationary classes of $\psi$ and $N-N_s$ non-stationary classes of $\psi$. Notice that $N_s=0$ corresponds to the both non-stationary type in our previous discussion of the two particle system. And $1<N_s<N$ corresponds to the mixed non-stationary type in the previous discussion. We will also discuss them separately here.
+
+Firstly, let us insert the solution in to the master equation Eq. \eqref{eq:masterEqN}, notice that the amplitude coefficients are irrelevant with the eigenvalues. So we obtain the simple form of corresponding eigenvalue 
+\begin{equation}
+    \label{eq:eigenvaluesN}
+    \Lambda = \sum_{n=1}^{N-N_s} \lambda_n,
+\end{equation}
+where $\lambda_n = -(\alpha+\beta)+2\sqrt{\alpha\beta}\cos(p_n)$.  Notice that, as in the two particles example, the Bethe Equations stated later will give the value of $p_n$ and determine the eigenvalues. In general, they are more than one solution because Bethe Equations are nonlinear, and different solution can lead to different eigenvalues.
+Now we can discuss the Bethe equations of the two types of non-stationary eigenmodes. 
+
+For the case of $N_s=0$, plug Eq. \eqref{eq:nonstationaryModesN} in to the reflecting boundaries Eq.  \eqref{eq:boundaries-N-particles} we can obtain 
+\begin{subequations}
+    \label{eq:scatterFactorBoundaryN}
+    \begin{align}
+        \frac{A_{n+}^{\sigma|\sigma(1)=n}}{A_{n-}^{\sigma|\sigma(1)=n}} & = -\frac{\alpha-\sqrt{\alpha\beta} e^{-ip_{n}}}{\alpha-\sqrt{\alpha\beta} e^{ip_{n}}},\\
+        \frac{A_{n+}^{\sigma|\sigma(N)=n}}{A_{n-}^{\sigma|\sigma(N)=n}} & = -\frac{\left(\alpha-\sqrt{\alpha\beta} e^{-ip_{n}}\right) e^{-ip_{n}L}}{\left(\alpha-\sqrt{\alpha\beta} e^{ip_{n}}\right) e^{ip_{n}L}}.
+    \end{align}
+\end{subequations}
+And substitute the Ansatz in to the Exclusive condition Eq.  \eqref{eq:exclusionConditionN} we get
+\begin{equation}
+    \label{eq:scatterFactorExclusiveN}
+        \frac{A_{n\pm}^{\sigma}A_{(n+1)\pm}^{\sigma}}{A_{n\pm}^{\sigma| n\leftrightarrow n+1}A_{(n+1)\pm}^{\sigma|n\leftrightarrow n+1}}  =  -\frac{a(\pm p_{n},\pm p_{n+1})}{a(\pm p_{n+1}, \pm p_{n})},
+\end{equation}
+with $a(p, p^{\prime}) =  \sqrt{\alpha\beta}e^{i(p+p^{\prime})} - (\alpha + \beta) e^{i p} + \sqrt{\alpha\beta}$. 
+Then one can either use the consistency condition or the interpretation we discussed in the two particles case and the well know periodic Bethe Equation, easily find the following set of Bethe Equations for the $N$ particles system:
+\begin{equation}
+    \label{eq:betheEqN}
+    e^{i2p_nL}  =  \prod_{m\neq n}^N\frac{a(p_n, p_m)}{a(p_m, p_n)} \frac{a(p_m, -p_n)}{a(-p_n, p_m)}.
+\end{equation}
+By solving Eq. \eqref{eq:betheEqN} we get all the $p_n$ and then one can plug back in Eq. \eqref{eq:eigenvaluesN} and Eq. \eqref{eq:nonstationaryModesN} for the corresponding eigenvalues and eigenfunctions. 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{spectrum}
+    \caption{The left panel: the embedding structure of eigenvalues illustrated by a system of $L=10$ with one, two and three particles. The right panel: eigenvalue obtained from brute force digitalization of Markovian matrix and from the Bethe equations. $\alpha=2,~\beta=1,~L=10$ for both panel and $N=2$ for the right panel.}
+    \label{fig:spectrum}
+\end{figure}
+Now let us discuss the case that $0<N_s<N$. The calculation of the two particles system is a good illustration. We can easily find out there is nothing different except we will have only $N-N_s$ wave vectors and $2N-N_s$ amplitude coefficients. So one just have to use the relation similar to Eq.  \eqref{eq:scatterFactorExclusive} together with Eq.  \eqref{eq:scatterFactorBoundaryN} to build the Bethe Equations. 
+Moreover, Eq.  \eqref{eq:betheEqTwoMixed} tells us that the obtained Bethe Equations are exact the same as the Bethe Equations of $N-N_s$ particles system of the second type. So according to Eq. \eqref{eq:eigenvaluesN} for the eigenvalues, we can conclude that the eigenvalues of $N-N_s$ particles system are always contained in the eigenvalue set of $N$ particle system. 
+Notice that this is only true for $N<L/2$. For $N>L/2$, one can easily use the particle-hole duality which shows that the eigenvalue of $N$ particles system should be the same as $L-N$ particles system.
+This important structure of the solution explains our simulation results stated in Section~\ref{sub:numerical_results}.
+
+This kind of embedding structure is verified by our simulations.  In Fig. \ref{fig:spectrum}, we show in the left panel that eigenvalues of case $N=1$ are contained in the set of eigenvalues $N=2$, and all eigenvalues of case $N=2$ are contained in the set of $N=3$.  In the right panel, the eigenvalues obtained from the brute force diagonalize of Markovian matrix and from the solution of the Bethe equations Eq. \eqref{eq:betheEqN} are compared. We can see that they are identical to each other. 
+
+Finally, we remark that the Bethe Equations have to be solved numerically in most cases. However, there is a small set of non-stationary eigenvalue and eigenvectors we can obtain analytically, which correspond to the case with just one excitation mode. The results are summarized as following:  
+\begin{subequations}
+    \label{eq:eigenN}
+    \begin{align}
+        \label{eq:partEigenvaluesN}
+        \Lambda_k  = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{k\pi}{L}), ~k=1,2,\dots, L-1; \\
+        \label{eq:eigenvectorsN}
+        \Psi_k(x_1, x_2, \cdots, x_N)  =  A \sum_{n=1}^N \left(\frac{\alpha}{\beta}\right)^{n-1} \phi_k(x_n)\prod_{m\neq n} \left(\frac{\alpha}{\beta}\right)^{x_m}.
+    \end{align}
+\end{subequations}
+Notice that the set of eigenvalue is exactly the single particle spectrum, and again $\phi_k(x)$ is exactly the single particle eigenfunction.
+Fortunately, the numerical evidence shows that the most interesting eigenmode, i.e. the slowest relaxation mode, is contained in this set.  We will discuss it in the following subsection. 
+
+\subsection{Relaxation time}
+\label{sub:relaxation_time}
+With the complete Bethe solution of the reflecting ASEP system, the relaxation time can be discussed in details.
+We will first discuss the relaxation time of the ASEP system and then map it back to discuss the relaxation of the polymer system. 
+
+\subsubsection{Relaxation time of reflecting ASEP}
+\label{ssub:Relaxation time of reflecting ASEP}
+The relaxation time of the ASEP system is determined by the second largest eigenvalue of Markovian matrix. The second largest eigenvalue we found and verified by numerical results is 
+\begin{equation}
+    \label{eq:largestEigenvalue}
+    \Lambda_1 = -(\alpha+\beta) + 2\sqrt{\alpha\beta}\cos(\frac{\pi}{L})
+\end{equation}
+In principle, one has to solve all the Bethe equations to obtain the second largest eigenvalue. However, it is a very difficult task to solve them all analytically except the single excitation mode listed in Eq.~\eqref{eq:eigenN}. For single particle case, we can immediately find Eq.~\eqref{eq:largestEigenvalue} is the second largest eigenvalues. Furthermore, for the continues limit of ASEP with particle density $N/L$, which is the single file diffusion, we can also prove Eq.~\eqref{eq:largestEigenvalue} is true. As Eq.~\eqref{eq:largestEigenvalue} is valid in the two limits, we assume it is also true in between. And this statement is indeed verified by the numerical results.
+If we assume $L \gg 1$, Eq.~\eqref{eq:largestEigenvalue} can be expanded as
+\begin{equation}
+    \label{eq:largestEigenvalueExpanded}
+    \Lambda_1 = -(\sqrt{\beta}-\sqrt{\alpha})^2 -
+    \frac{\sqrt{\alpha\beta}\pi^2}{L^2}
+\end{equation}
+And the relaxation time can be calculated as $\tau = -\frac{1}{\Lambda_1}$.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{relaxation1D}
+    \caption{Relaxation time of 1D reflecting ASEP varies with the hopping bias defined in Eq.~\eqref{eq:hoppingBias}. The relaxation time is normalized with the Rouse relaxation time. The ACF curves for several typical cases are shown in the inset. The corresponding relaxation time is fitted and show with dashed black lines, which are also marked with cycle of the same color in the simulation dots. }
+    \label{fig:relaxation1D}
+\end{figure}
+
+There are several information one can read form Eq.  \eqref{eq:largestEigenvalueExpanded}. Let us discuss the strong and weak hopping bias regime separately. 
+For strong bias $\beta \gg \alpha$, then $\Lambda_1 \rightarrow -\beta$ and the relaxation time $\tau \rightarrow 1/\beta$. So the relaxation time of the system tends to be a constant which is independent of the system size. Moreover, the relaxation time $\tau\rightarrow 0 $ as $\beta\rightarrow\infty$.
+In the weak bias $\alpha \approx \beta$, we can obtain $\tau \approx \frac{L^2}{\sqrt{\alpha\beta}\pi^2}$. We can see the scaling $\tau \sim L^2$, which means the dynamical exponent of the system is $2$. 
+The result of relaxation time against hopping bias is shown in Fig.~\ref{fig:relaxation1D}. The Kinetic Monte-Carlo results are compared with the theory and we can find them matches to each other. The asymptotic behaviors of strong and weak bias are illustrated and consistent to our analysis. The autocorrelation function (ACF) used for extracting relaxation time is shown in the inset for several typical case of hopping bias.
+
+\subsubsection{Map back to 1D polymer}
+\label{ssub:Map back to 1D polymer}
+
+Now, we can re-map the ASEP model back to the picture of polymer dynamics to discuss to the relaxation time of 1D polymer model. Utilize Eq.~\eqref{eq:hoppingRate} and plug it into Eq.~\eqref{eq:largestEigenvalue}, the relaxation time can be calculated explicitly. 
+\begin{equation}
+    \label{eq:relaxationTime1D}
+    \tau = \frac{\xi a^2 L^2}{\pi^2 k_{B} T} - \frac{\xi L^4 a^2 \left(e^{\frac{F a}{k_{B} T}} - 1\right)^2} {\pi^2 k_{B} T \left(L^2 \left(e^{\frac{F a}{k_{B}T}} - 1\right)^2 + \pi^2 \left(e^{\frac{F a}{k_{B}T}} + 1\right)^2\right)}.
+\end{equation}
+Here, $F$ is the strength of the external force field and $T$ is the effective temperature that characterize the noise level of the system. We purposely write it in two terms to highlight the first term is one dimensional Rouse time and the second term is the factor caused by external force field. This can be seen by taking the zero external force limit of Eq.~\eqref{eq:relaxationTime1D}, we have
+\begin{equation}
+    \label{eq:relaxationTime1DnoForce}
+    \tau = \frac{\xi a^2 L^2}{\pi^2 k_B T}.
+\end{equation}
+The result above can be compared with the prediction of one dimensional Rouse theory. According to our calculation in Section~\ref{sec:rouse_theory_of_the_pinned_bead_spring_loop}, the one dimensional relaxation time of a pinned polymer loop is $3$ times of the three dimensional model. We found it is exactly the same with our results here, even the pre-factor is the same. Also notice that the Rouse scaling with exponent $L^2$ is recovered. 
+
+In Rouse theory, the relaxation time does not depend on external force. In contract, we have here an obvious force dependence of the relaxation time here. This point highlight the fundamental difference between the infinite extensible bead-spring model and the finite extensible bead-rod model.
+
+Unfortunately, we can not do the BD simulation for one dimensional bead-rod model. So the relaxation behavior postulated by Eq.~\eqref{eq:relaxationTime1D} can not further verified except for the Kinetic Monte-Carlo results shown in Fig.~\ref{fig:relaxation1D}. However, we will come back to discuss the comparison of BD simulations and the theory in 3D.
+
+In this section, we use the generalized Bethe Ansatz methods solve the ASEP model with reflecting boundaries exactly.  The stationary distribution obtained here is compared with our previous results. And the explicit form of relaxation time is analyzed in different cases. We also re-map it back to the polymer system to discuss the relaxation time of pinned polymer loop in 1D. However, the 1D polymer model is a idealized model that on which the BD simulation is impossible. In next section, we will try to use the results obtained here to further analyze the real three dimensional polymer system.
+
+
+
+%********************************** % Fourth Section  *************************************
+\section{Dynamics of 3D bead-rod polymer loop}
+\label{sec:dynamics_of_3d_bead_rod_polymer_loop}
+
+Unlike the 1D model discussed in previous section, the 3D bead-rod model can be studied precisely by the BD simulations. So we will discuss the BD simulation results in this section and apply the theory obtained in 1D ASEP to explain our observations.
+
+\subsection{Relaxation time of 3D pinned bead-rod loop}
+\label{sub:relaxation_time_of_3d_pinned_bead_rod_loop}
+
+Similar to the 1D model, our main interest of the polymer dynamics is the relaxation time. To measure the relaxation time of 3D pinned bead-rod polymer loop, we perform the BD simulation for different external force. The trajectory of diameter vector, which is defined as $\mathbf{r}_d = \mathbf{r}_{\frac{L}{2}} - \mathbf{r}_0$ is monitored. And the autocorrelation function is calculated to extract the relaxation time. 
+As $\mathbf{r}_d$ is a three dimensional vector, we measure both the relaxation time along the external force direction and the relaxation time perpendicular to the external force direction, denote as $\tau_{\parallel}$ and $\tau_{\perp}$, respectively.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.6\linewidth]{acf3D}
+    \caption{Illustration of the autocorrelation function along the external force direction under several cases of different external force. The dashed black lines are the fittings for extraction of relaxation time.}
+    \label{fig:acf3D}
+\end{figure}
+In fig. \ref{fig:acf3D} we show some examples of extracting relaxation time $\tau_{\parallel}$ from the autocorrelation functions (ACF). We can see clearly in the figure, the slop of ACF become steeper as the increasing of external force, which results a faster relaxation time. 
+
+On the other hand, we hope our theory from reflecting ASEP can be applied to get some insights of the relaxation time for 3D pinned polymer loop model. For example, the way of how $\tau_{\parallel}$ varies with the external force field is assumed to be the same as the case in 1D. So let us first discuss how to map the theory from ASEP to the polymer system in order to calculate $\tau_{\parallel}$.
+
+Let us first discuss the case without external force field. In this case, the relaxation time of the 3D pinned polymer loop is correctly predicted by the Rouse theory, we have
+\begin{equation}
+    \label{eq:rouseTime3D}
+    \tau_{Rouse} = \frac{\xi a^2 L^2}{3\pi^2 k_B T}
+\end{equation}
+Moreover, for symmetric reasons we have $\tau_{\parallel} = \tau_{\perp} = \tau_{Rouse}$ in this case. This prediction is verified by the BD simulations as shown in Fig. \ref{fig:relaxation3D}. Compare Eq.~\eqref{eq:rouseTime3D} with Eq.~\eqref{eq:relaxationTime1DnoForce} we can find that the only difference is the factor $3$ in the denominator, which is easy to understand because the dimensionality of the system.  
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{relaxation3D}
+    \caption{Relaxation time along external force direction of pinned 3D bead-rod model varies with the external force. Inset is the relaxation time perpendicular to the external force direction compared with the same theory. $L=100$ and $T=1$.}
+    \label{fig:relaxation3D}
+\end{figure}
+
+Now let us discuss the relaxation time varies with the external force. As we assume $\tau_{\parallel}$ varies with external force the same way as 1D, we can simply divide Eq.~\eqref{eq:largestEigenvalue} by a factor of $3$, obtaining:
+\begin{equation}
+    \label{eq:relaxationTime3D}
+    \tau_{\parallel} = \frac{\xi a^2 L^2}{3 \pi^2 k_{B} T} - \frac{\xi L^4 a^2 \left(e^{\frac{F a}{k_{B} T}} - 1\right)^2} {3 \pi^2 k_{B} T \left(L^2 \left(e^{\frac{F a}{k_{B}T}} - 1\right)^2 + \pi^2 \left(e^{\frac{F a}{k_{B}T}} + 1\right)^2\right)}.
+\end{equation}
+Again, the first term is corresponding to the Rouse time and the second time is the factor of external force field. Eq.~\eqref{eq:relaxationTime3D} is compared with the simulation results in Fig.~\ref{fig:relaxation3D}, we can see the excellent agreement with $\tau_{\parallel}$. However, $\tau_{\perp}$ is not well described by the theory as we can see in the inset of Fig. \ref{fig:relaxation3D}. This is also easy to understand given that it is the relaxation perpendicular to the force field direction. 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{tauNoise}
+    \caption{Relaxation time of 3D pinned polymer loop varies with the level of noise. Dots are simulation results while solid lines are the theory. $L=100$.}
+    \label{fig:tauNoise}
+\end{figure}
+To further test our theory, we also do the simulation by changing other parameters such as the effective temperature $T$. Interestingly, according to the prediction of Eq.~\eqref{eq:relaxationTime3D}, the non-monotonic curve of $\tau_{\parallel}(T)$ can be obtained in a strong external force field. Physically, it means that the relaxation of a bead-rod system will be slower if we increase the noise level of the system under certain force field.  It is a counter-intuitive result as one usually expects faster relaxation for more fluctuating system. However, the results of from the BD simulation verifies this prediction, show in Fig.~\ref{fig:tauNoise}. On the other hand, we can also see in the figure, the non-monotonic behavior is neglectable when the external force is weak enough.
+
+\subsection{Stretch coil relaxation}
+\label{sub:stretch_coil_relaxation}
+
+Now, let us discuss the relaxation behavior of two different processes. The first one is the polymer loop relaxes from a stretched configuration to a coiled configuration when the external force field is stopped at some point. The second one is the pinned polymer loop relaxes from a coiled configuration to a stretched configuration when the external force field is exerted at certain point. 
+Experimentally, the measurement of ACF function if more tricky when the fluctuation is relatively small. However, the stretch-coil transition is easer to manipulate using optical tweezer~\cite{Perkins1994a,Perkins1994}.
+
+From theoretical point of view, these two transitions are not the same. Because one process is under external force field while the other is not. To get some insights into that, let us discuss them one by one. 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{stretchCoil}
+    \caption{The stretch-coil transition of a pinned polymer loop. The relaxation of the middle bead position is monitored for different initial stretched cases. Inset shows the short time relaxation of the polymer initially stretched by external force $F=1$, dashed black line is a linear fit. $L=100, ~T=1$.}
+    \label{fig:stretchCoil}
+\end{figure}
+In Fig.~\ref{fig:stretchCoil}, we show how the free end of a pinned polymer loop, i.e. the middle bead, relaxes to the coiled position. We can see from the figure that the decay is exponential except the initial part. Moreover, the same slope in the figure indicates the relaxation time scale are the same, although the initial states are different. We verified that the time scale here is the same as the Rouse time. However, certain distinctions are also observed, mainly in the short time regime. As we show in the inset, the initial relaxation of a stretched polymer is linear. Namely, the bead moves ballistically with certain velocity. On the other hand, we do not see this regime when the polymer is relaxed from a coiled configuration, see the blue line in Fig.~\ref{fig:stretchCoil}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\linewidth]{coilStretch}
+    \caption{The coil-stretch transition of a pinned polymer loop. Here, the polymer is stretched by different force fields. Inset shows the fitted parallel velocity of the middle bead against different external forces. $L=100,~T=1$.}
+    \label{fig:coilStretch}
+\end{figure}
+In Fig.~\ref{fig:coilStretch}, we show the coil-stretch transition of the pinned polymer. The transition can also divided into two parts. The first part is a ballistic shooting as indicated by the initial linearity of the curves. The second part is again an exponential relaxation to the equilibrium position. However, we can see from the figure, the ballistic regime is dominate for a strong stretching force. In the inset of the figure, we fit the velocity of the ballistic part. As expected, we find it linearly depends on the external force. 
+
+In this section, we discussed the relaxation behavior of 3D pinned polymer loops in an external force field. By 3D BD simulations, we are able to extract the relaxation time of the polymer. We then applied our theory obtained from the reflecting ASEP model to match the relaxation time of the 3D polymer along the force direction. We found them matches very good. Moreover, we also discussed the stretch-coil relaxation of the pinned polymer. One linear and one exponential regimes are identified for both stretch-coil and coil-stretch transitions.
+
+
+
+
+
+
+
+
+
+
+
+%********************************** % Fifth Section  *************************************
+\section{Summary}
+\label{sec:summary}
+
+To summary, in this chapter, we discuss the dynamical properties of pinned polymer loop in an constant external force field. More specifically, the relaxation time is discussed in details. 
+
+We firstly try to solve the relaxation problem of the polymer using the Rouse theory, which turns out only work for the pinned bead-rod without external force field. Then we utilize the mapping from 1D bead-rod to the particle lattice system. So the dynamics of polymer is mapped to the ASEP on a reflecting lattice. Kinetic Monte-Carlo results were done and interesting results show that the relaxation time of the system is independent of total particle numbers sitting on the lattice. Moreover, an interesting embedding structure of eigenvalues is observed. Next, we use the powerful Bethe ansatz method to solve exactly the reflecting ASEP system and remap the analytical results to the polymer system to discuss the relaxation behavior of the pinned polymer loop. Extensive BD simulations were done and the results matches quite well with our theory. Finally, we discussed the stretch coil transition in the 3D polymer model.
+
+We want to remark here that the generalised Bethe ansatz method we used here is novel, and could be applied to broader systems as long as the total number of particles is conserved. Moreover, since reflecting boundary is one of the typical boundary conditions, we think it is important to solve it exactly on the important ASEP model from theoretical point of view. On the other hand, the mapping from polymer dynamics to the ASEP system opens a new way to study the polymer systems. We discussed here only the biologically relevant pinned polymer loop system. The extension to other polymer systems is also quite easy. We will discuss more in our next final chapter.  

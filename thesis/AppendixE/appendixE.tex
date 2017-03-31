@@ -1,0 +1,29 @@
+
+% ******************************* Thesis Appendix E ********************************
+\chapter{Bethe equations of the periodic ASEP}
+\label{append:bethe_equation_periodic_asep}
+
+The ASEP model with periodic boundaries is the most simplest model that was solved long ago~\cite{Bethe1931,Mallick2011b}. The governing equation and exclusion condition are the same as the case of reflecting boundaries, shown in Eq.~\eqref{eq:masterEqN} and Eq.~\eqref{eq:exclusionConditionN}. The periodic boundary conditions can be written as
+\begin{equation}
+    \label{eq:periodicBoundaries}
+    \Psi(x_1, x_2,\cdots,x_{N-1} x_N) = \Psi(x_2, x_3, \cdots, x_N, x_1 + L).
+\end{equation}
+The Bethe ansatz of periodic ASEP is constructed by the standard plane waves, which can be written as 
+\begin{equation}
+    \label{eq:betheAnsatzPeriodic}
+    \Psi(x_1, x_2,\cdots, x_N) = \sum_{\sigma\in{S}_N} A_{\sigma} \prod_{n=1}^N \exp\left[ip_n x_{\sigma(n)}\right],
+\end{equation}
+where ${S}_N$ is the group of $N$-permutation, and $A_{\sigma}$ is the amplitude of the waves. $p_n$ is the wave vectors and $x_{\sigma(n)}$ is the position of the $\sigma(n)^{\rm{th}}$ particle.
+
+By applying the exclusion condition Eq.~\eqref{eq:exclusionConditionN} and the periodic boundary condition Eq.~\eqref{eq:periodicBoundaries}, we can derive the following set of Bethe equations
+\begin{equation}
+    \label{eq:betheEqsPeriodic}
+    e^{ip_n L} = (-1)^{N-1} \prod_{m\neq n}^N \frac{a(p_n, p_m)}{a(p_m, p_n)},
+\end{equation}
+where $a(p, p^{\prime}) = \sqrt{\alpha\beta}e^{i(p+p^{\prime})} - (\alpha+\beta) e^{ip} + \sqrt{\alpha\beta}$. 
+
+By solving the Bethe equations, the wave vectors $p_n$ can be obtained. Then the eigenvalues of the system can be calculated as 
+\begin{equation}
+    \Lambda = \sum_{n=1}^N \left[-(\alpha+\beta) +2\sqrt{\alpha\beta}\cos(p_n)\right].
+\end{equation}
+
