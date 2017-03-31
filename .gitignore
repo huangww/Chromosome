@@ -15,4 +15,6 @@ test/data
 build/
 data/**/*
 data/*
+.ipynb_*/
 Untitled*
+.tags
